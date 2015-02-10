@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string name="app_name">Colorifornia</string>
+    <string name="action_settings">Settings</string>
+    <string name="drawer_open">Drawer opened</string>
+    <string name="drawer_close">Drawer closed</string>
+    <!-- Preferences -->
+    <string name="pref_key_user_learned_drawer">user_learned_drawer</string>
+    <string name="not_first_time">notFirstTimeAppStarts</string>
+
+    <string name="color">color</string>
+    <string name="btn_back">\u21a9</string>
+
+</resources>
