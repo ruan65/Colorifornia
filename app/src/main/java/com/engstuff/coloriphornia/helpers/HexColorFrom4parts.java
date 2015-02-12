@@ -1,4 +1,4 @@
-package com.engstuff.coloriphornia.activities;
+package com.engstuff.coloriphornia.helpers;
 
 public class HexColorFrom4parts {
 

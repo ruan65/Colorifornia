@@ -5,13 +5,11 @@ import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.KeyEvent;
-import android.view.Menu;
-import android.view.MenuItem;
 import android.view.View;
 
 import com.engstuff.coloriphornia.R;
 import com.engstuff.coloriphornia.fragments.FragmentNavDrawer;
-import com.engstuff.coloriphornia.helpers.AppHelper;
+import com.engstuff.coloriphornia.helpers.PrefsHelper;
 
 
 public abstract class BaseActivity extends ActionBarActivity {
@@ -43,32 +41,16 @@ public abstract class BaseActivity extends ActionBarActivity {
 
         String keyNotFirstTime = getString(R.string.not_first_time);
 
-        if (!AppHelper.readFromPrefsBoolean(this, keyNotFirstTime)) {
+        if (!PrefsHelper.readFromPrefsBoolean(this, keyNotFirstTime)) {
             mDrawerLayout.openDrawer(mDrawerView);
-            AppHelper.writeToPrefs(this, keyNotFirstTime, true);
+            PrefsHelper.writeToPrefsDefault(this, keyNotFirstTime, true);
         }
     }
 
     protected abstract int getLayoutResource();
 
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        getMenuInflater().inflate(R.menu.menu_main, menu);
-        return true;
-    }
-
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        int id = item.getItemId();
-
-        if (id == R.id.action_settings) {
-            return true;
-        }
-        return super.onOptionsItemSelected(item);
-    }
-
     /**
-     * This is for preventing app crash after pressing hardware Back button
+     * This is for preventing app crash after pressing hardware Menu button
      * And now more - open/close drawer after pressing it
      */
     @Override

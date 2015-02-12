@@ -11,5 +11,12 @@
 
     <string name="color">color</string>
     <string name="btn_back">\u21a9</string>
+    <string name="save">Save color</string>
+    <string name="saved">Saved colors</string>
+    <string name="erase">Clear saved colors</string>
+    <string name="ok">OK</string>
+    <string name="no">Cancel</string>
+    <string name="share">Share color</string>
+
 
 </resources>

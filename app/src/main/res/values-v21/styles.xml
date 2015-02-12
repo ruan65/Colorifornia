@@ -9,4 +9,6 @@
         <item name="android:windowSharedElementExitTransition">@android:transition/move</item>
 
     </style>
+
+    <style name="DialogStyle" parent="android:Theme.Material.Light.Dialog.Alert" />
 </resources>

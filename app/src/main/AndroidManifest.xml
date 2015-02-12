@@ -2,6 +2,9 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.engstuff.coloriphornia">
 
+    <uses-permission android:name="android.permission.SEND_RESPOND_VIA_MESSAGE" />
+    <uses-permission android:name="android.permission.INTERNET" />
+
     <application
         android:name=".activities.MyApplication"
         android:allowBackup="true"

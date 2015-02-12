@@ -13,6 +13,7 @@
         <item name="android:textColorPrimary">@color/appBarTextColor</item>
         <!-- app bar buttons color -->
         <item name="android:textColorSecondary">@color/appBarTextColor</item>
+
     </style>
 
     <style name="seek_bar_style">
