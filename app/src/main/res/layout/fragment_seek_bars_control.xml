@@ -1,0 +1,42 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context="com.engstuff.coloriphornia.fragments.FragmentSeekBarsControl">
+
+    <SeekBar
+        android:id="@+id/sbAlfa"
+        style="@style/seek_bar_style"
+        android:layout_weight="1"
+        android:progress="@integer/sbMax"
+        android:thumb="@drawable/scrubber_black"
+        android:progressDrawable="@drawable/progress" />
+
+    <SeekBar
+        android:id="@+id/sbRed"
+        style="@style/seek_bar_style"
+        android:layout_weight="2"
+        android:thumb="@drawable/scrubber_red"
+        android:progress="@integer/sbProgress"
+        android:progressDrawable="@drawable/progress_red" />
+
+
+    <SeekBar
+        android:id="@+id/sbGreen"
+        android:thumb="@drawable/scrubber_green"
+        style="@style/seek_bar_style"
+        android:layout_weight="2"
+        android:progress="@integer/sbProgress"
+        android:progressDrawable="@drawable/progress_green" />
+
+    <SeekBar
+        android:id="@+id/sbBlue"
+        android:thumb="@drawable/scrubber_blue"
+        style="@style/seek_bar_style"
+        android:layout_weight="2"
+        android:progress="@integer/sbProgress"
+        android:progressDrawable="@drawable/progress_blue" />
+
+
+</LinearLayout>

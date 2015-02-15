@@ -17,10 +17,10 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.ImageView;
-import android.widget.SeekBar;
 import android.widget.Toast;
 
 import com.engstuff.coloriphornia.R;
+import com.engstuff.coloriphornia.fragments.FragmentSeekBarsControl;
 import com.engstuff.coloriphornia.helpers.HexColorFrom4parts;
 
 import java.util.Map;
@@ -31,7 +31,7 @@ import static com.engstuff.coloriphornia.helpers.PrefsHelper.readFromPrefsInt;
 import static com.engstuff.coloriphornia.helpers.PrefsHelper.writeToPrefs;
 
 public class ColorC extends BaseActivity
-        implements SeekBar.OnSeekBarChangeListener, View.OnClickListener {
+        implements FragmentSeekBarsControl.OnColorControlChangeListener, View.OnClickListener {
 
 
     private final Context ctx = this;
@@ -39,10 +39,8 @@ public class ColorC extends BaseActivity
     private Canvas mCanvas;
     private ImageView iv;
 
-    private SeekBar sbAlfa, sbRed, sbGreen, sbBlue;
+    int colorHex;
 
-    private int alpha, r, g, b; // alpha, red, green, blue
-    private int colorHex;
     private Paint tp;
 
     public final static String EXTRA_MESSAGE_COLOR = "color_parameters";
@@ -55,6 +53,7 @@ public class ColorC extends BaseActivity
     private String hexColorParams;
     private boolean white = true;
 
+    private FragmentSeekBarsControl colorControlFragment;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -63,18 +62,12 @@ public class ColorC extends BaseActivity
         iv = (ImageView) findViewById(R.id.colorView);
         iv.setOnClickListener(this);
 
-        sbAlfa = (SeekBar) findViewById(R.id.sbAlfa);
-        sbRed = (SeekBar) findViewById(R.id.sbRed);
-        sbGreen = (SeekBar) findViewById(R.id.sbGreen);
-        sbBlue = (SeekBar) findViewById(R.id.sbBlue);
+        colorControlFragment = new FragmentSeekBarsControl();
 
-        sbAlfa.setOnSeekBarChangeListener(this);
-        sbRed.setOnSeekBarChangeListener(this);
-        sbGreen.setOnSeekBarChangeListener(this);
-        sbBlue.setOnSeekBarChangeListener(this);
-
-        alpha = getResources().getInteger(R.integer.sbMax);
-        r = g = b = getResources().getInteger(R.integer.sbProgress);
+        getFragmentManager()
+                .beginTransaction()
+                .add(R.id.color_control_container, colorControlFragment)
+                .commit();
     }
 
     @Override
@@ -98,6 +91,14 @@ public class ColorC extends BaseActivity
 
     @SuppressWarnings("deprecation")
     private void changeColor() {
+
+        int alpha, r, g, b; // alpha, red, green, blue
+
+
+        alpha = colorControlFragment.getAlpha();
+        r = colorControlFragment.getR();
+        g = colorControlFragment.getG();
+        b = colorControlFragment.getB();
 
         colorHex = HexColorFrom4parts.composeHex(alpha, r, g, b);
 
@@ -145,35 +146,8 @@ public class ColorC extends BaseActivity
     }
 
     @Override
-    public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
-
-        switch (seekBar.getId()) {
-            case R.id.sbAlfa:
-                alpha = progress;
-                break;
-            case R.id.sbRed:
-                r = progress;
-                break;
-            case R.id.sbGreen:
-                g = progress;
-                break;
-            case R.id.sbBlue:
-                b = progress;
-                break;
-            default:
-                break;
-        }
+    public void onColorControlChange() {
         changeColor();
-    }
-
-    @Override
-    public void onStartTrackingTouch(SeekBar seekBar) {
-        // ignore
-    }
-
-    @Override
-    public void onStopTrackingTouch(SeekBar seekBar) {
-        // ignore
     }
 
     @Override
@@ -182,7 +156,6 @@ public class ColorC extends BaseActivity
 
         return super.onCreateOptionsMenu(menu);
     }
-
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
@@ -294,4 +267,6 @@ public class ColorC extends BaseActivity
         }
         return super.onOptionsItemSelected(item);
     }
+
+
 }

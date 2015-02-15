@@ -1,61 +1,33 @@
 <android.support.v4.widget.DrawerLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:android1="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/drawer_layout"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
     <LinearLayout
-        android1:id="@+id/LinLay"
+        android:id="@+id/LinLay"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android1:orientation="vertical"
-        android:background="@color/appBarTextColor">
+        android:background="@color/appBarTextColor"
+        android:orientation="vertical">
 
         <include
             android:id="@+id/app_bar"
             layout="@layout/app_bar" />
 
-        <SeekBar
-            android1:id="@+id/sbAlfa"
-            style="@style/seek_bar_style"
-            android1:layout_weight="1"
-            android:progress="@integer/sbMax"
-            android:thumb="@drawable/scrubber_black"
-            android:progressDrawable="@drawable/progress" />
-
-        <SeekBar
-            android1:id="@+id/sbRed"
-            style="@style/seek_bar_style"
-            android1:layout_weight="2"
-            android:thumb="@drawable/scrubber_red"
-            android:progress="@integer/sbProgress"
-            android:progressDrawable="@drawable/progress_red" />
-
-
-        <SeekBar
-            android1:id="@+id/sbGreen"
-            android:thumb="@drawable/scrubber_green"
-            style="@style/seek_bar_style"
-            android1:layout_weight="2"
-            android:progress="@integer/sbProgress"
-            android:progressDrawable="@drawable/progress_green" />
-
-        <SeekBar
-            android1:id="@+id/sbBlue"
-            android:thumb="@drawable/scrubber_blue"
-            style="@style/seek_bar_style"
-            android1:layout_weight="2"
-            android:progress="@integer/sbProgress"
-            android:progressDrawable="@drawable/progress_blue" />
+        <FrameLayout
+            android:id="@+id/color_control_container"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="6" />
 
         <ImageView
-            android1:id="@+id/colorView"
-            android1:layout_width="match_parent"
-            android1:layout_height="0dp"
-            android1:layout_weight="6"
-            android1:contentDescription="@string/color"
-            android:clickable="true" />
+            android:id="@+id/colorView"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="6"
+            android:clickable="true"
+            android:contentDescription="@string/color" />
 
     </LinearLayout>
 

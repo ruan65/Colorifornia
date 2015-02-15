@@ -5,7 +5,7 @@ import android.view.ViewConfiguration;
 
 import java.lang.reflect.Field;
 
-public class MyApplication extends Application {
+public class ThisApplication extends Application {
 
     @Override
     public void onCreate() {
