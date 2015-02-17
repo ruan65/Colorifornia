@@ -21,7 +21,7 @@ public class FragmentSeekBarsControl extends Fragment implements SeekBar.OnSeekB
 
     private ColorControlChangeListener colorChangeListener;
 
-    private SeekBar sbAlfa, sbRed, sbGreen, sbBlue;
+    private SeekBar sbAlpha, sbRed, sbGreen, sbBlue;
     private int alpha, r, g, b; // alpha, red, green, blue
 
     @Override
@@ -29,18 +29,18 @@ public class FragmentSeekBarsControl extends Fragment implements SeekBar.OnSeekB
                              Bundle savedInstanceState) {
         View rootView = inflater.inflate(R.layout.fragment_seek_bars_control, container, false);
 
-        sbAlfa = (SeekBar) rootView.findViewById(R.id.sbAlfa);
+        sbAlpha = (SeekBar) rootView.findViewById(R.id.sbAlpha);
         sbRed = (SeekBar) rootView.findViewById(R.id.sbRed);
         sbGreen = (SeekBar) rootView.findViewById(R.id.sbGreen);
         sbBlue = (SeekBar) rootView.findViewById(R.id.sbBlue);
 
-        sbAlfa.setOnSeekBarChangeListener(this);
+        sbAlpha.setOnSeekBarChangeListener(this);
         sbRed.setOnSeekBarChangeListener(this);
         sbGreen.setOnSeekBarChangeListener(this);
         sbBlue.setOnSeekBarChangeListener(this);
 
-        alpha = getResources().getInteger(R.integer.sbMax);
-        r = g = b = getResources().getInteger(R.integer.sbProgress);
+        alpha = sbAlpha.getProgress();
+        r = sbRed.getProgress(); g = sbGreen.getProgress(); b = sbBlue.getProgress();
 
         return rootView;
     }
@@ -66,7 +66,7 @@ public class FragmentSeekBarsControl extends Fragment implements SeekBar.OnSeekB
     public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
 
         switch (seekBar.getId()) {
-            case R.id.sbAlfa:
+            case R.id.sbAlpha:
                 alpha = progress;
                 break;
             case R.id.sbRed:
@@ -82,6 +82,13 @@ public class FragmentSeekBarsControl extends Fragment implements SeekBar.OnSeekB
                 break;
         }
         colorChangeListener.onColorControlChange();
+    }
+
+    public void setControls(int a, int r, int g, int b) {
+        sbAlpha.setProgress(a);
+        sbRed.setProgress(r);
+        sbGreen.setProgress(g);
+        sbBlue.setProgress(b);
     }
 
     @Override

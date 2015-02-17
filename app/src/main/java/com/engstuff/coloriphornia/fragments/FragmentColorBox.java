@@ -17,13 +17,15 @@ import com.engstuff.coloriphornia.R;
 import com.engstuff.coloriphornia.activities.ColorC;
 import com.engstuff.coloriphornia.helpers.HexColorFrom4parts;
 
-public class FragmentColorBox extends Fragment implements View.OnClickListener {
+public class FragmentColorBox extends Fragment {
 
-    public interface ColorClickedListener {
-        void onColorClicked();
+    public interface ColorBoxEventListener {
+
+        void onColorClicked(FragmentColorBox colorBox);
+        void onColorLongClicked(FragmentColorBox colorBox);
     }
 
-    ColorClickedListener colorClickedListener;
+    ColorBoxEventListener colorBoxEventListener;
 
     private ImageView iv;
 
@@ -31,6 +33,7 @@ public class FragmentColorBox extends Fragment implements View.OnClickListener {
     private String hexColorParams;
 
     int colorHex;
+    int alpha, r, g, b; // alpha, red, green, blue
 
     private boolean whiteText = true;
 
@@ -40,11 +43,25 @@ public class FragmentColorBox extends Fragment implements View.OnClickListener {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        View rootView = inflater.inflate(R.layout.fragment_fragment_color_box, container, false);
+
+        View rootView = inflater.inflate(R.layout.fragment_color_box, container, false);
 
         iv = (ImageView) rootView.findViewById(R.id.colorView);
-        iv.setOnClickListener(this);
 
+        iv.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                colorBoxEventListener.onColorClicked(FragmentColorBox.this);
+            }
+        });
+
+        iv.setOnLongClickListener(new View.OnLongClickListener() {
+            @Override
+            public boolean onLongClick(View v) {
+                colorBoxEventListener.onColorLongClicked(FragmentColorBox.this);
+                return true;
+            }
+        });
         return rootView;
     }
 
@@ -52,7 +69,7 @@ public class FragmentColorBox extends Fragment implements View.OnClickListener {
     public void onAttach(Activity activity) {
         super.onAttach(activity);
         try {
-            colorClickedListener = (ColorClickedListener) activity;
+            colorBoxEventListener = (ColorBoxEventListener) activity;
         } catch (ClassCastException e) {
             throw new ClassCastException(activity.toString()
                     + " must implement ColorClickedListener");
@@ -62,12 +79,7 @@ public class FragmentColorBox extends Fragment implements View.OnClickListener {
     @Override
     public void onDetach() {
         super.onDetach();
-        colorClickedListener = null;
-    }
-
-    @Override
-    public void onClick(View v) {
-        colorClickedListener.onColorClicked();
+        colorBoxEventListener = null;
     }
 
     @Override
@@ -86,7 +98,7 @@ public class FragmentColorBox extends Fragment implements View.OnClickListener {
 
     public void changeColor() {
 
-        int alpha, r, g, b; // alpha, red, green, blue
+
 
         int w = iv.getWidth();
         int h = iv.getHeight();
@@ -154,5 +166,21 @@ public class FragmentColorBox extends Fragment implements View.OnClickListener {
 
     public int getColorHex() {
         return colorHex;
+    }
+
+    public int getAlpha() {
+        return alpha;
+    }
+
+    public int getR() {
+        return r;
+    }
+
+    public int getG() {
+        return g;
+    }
+
+    public int getB() {
+        return b;
     }
 }

@@ -6,7 +6,7 @@
     tools:context="com.engstuff.coloriphornia.fragments.FragmentSeekBarsControl">
 
     <SeekBar
-        android:id="@+id/sbAlfa"
+        android:id="@+id/sbAlpha"
         style="@style/seek_bar_style"
         android:layout_weight="1"
         android:progress="@integer/sbMax"
@@ -18,7 +18,7 @@
         style="@style/seek_bar_style"
         android:layout_weight="2"
         android:thumb="@drawable/scrubber_red"
-        android:progress="@integer/sbProgress"
+        android:progress="@integer/sbProgressR"
         android:progressDrawable="@drawable/progress_red" />
 
 
@@ -27,7 +27,7 @@
         android:thumb="@drawable/scrubber_green"
         style="@style/seek_bar_style"
         android:layout_weight="2"
-        android:progress="@integer/sbProgress"
+        android:progress="@integer/sbProgressG"
         android:progressDrawable="@drawable/progress_green" />
 
     <SeekBar
@@ -35,7 +35,7 @@
         android:thumb="@drawable/scrubber_blue"
         style="@style/seek_bar_style"
         android:layout_weight="2"
-        android:progress="@integer/sbProgress"
+        android:progress="@integer/sbProgressB"
         android:progressDrawable="@drawable/progress_blue" />
 
 

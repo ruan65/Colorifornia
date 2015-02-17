@@ -1,5 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <integer name="sbMax">0xff</integer>
-    <integer name="sbProgress">0x80</integer>
+    <integer name="sbProgressR">0xE9</integer>
+    <integer name="sbProgressG">0x1E</integer>
+    <integer name="sbProgressB">0x63</integer>
+
 </resources>

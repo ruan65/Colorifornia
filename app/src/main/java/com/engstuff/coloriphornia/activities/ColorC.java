@@ -28,16 +28,16 @@ import static com.engstuff.coloriphornia.helpers.PrefsHelper.writeToPrefs;
 
 public class ColorC extends BaseActivity
         implements FragmentSeekBarsControl.ColorControlChangeListener,
-                   FragmentColorBox.ColorClickedListener {
+        FragmentColorBox.ColorBoxEventListener {
 
     public final static String EXTRA_MESSAGE_COLOR = "color_parameters";
     public final static String EXTRA_MESSAGE_TEXT_COLOR = "text_color_parameters";
     public final static String SAVED_COLORS = "user_saved_colors";
     public final static String SAVED_EMAILS = "user_saved_emails";
 
-    private final Context ctx = this;
-    private FragmentSeekBarsControl fragmentControl;
-    private FragmentColorBox fragmentColorBox;
+    protected final Context ctx = this;
+    protected FragmentSeekBarsControl fragmentControl;
+    protected FragmentColorBox fragmentColorBox;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -66,10 +66,19 @@ public class ColorC extends BaseActivity
 
 
     @Override
-    public void onColorClicked() {
+    public void onColorClicked(FragmentColorBox color) {
+
+        fragmentColorBox = color;
+        fragmentControl.setControls(
+                color.getAlpha(), color.getR(), color.getG(), color.getB());
+    }
+
+    @Override
+    public void onColorLongClicked(FragmentColorBox color) {
+
         String[] colorParams = {
-                fragmentColorBox.getRgbColorParams(),
-                fragmentColorBox.getHexColorParams()
+                color.getRgbColorParams(),
+                color.getHexColorParams()
         };
 
         Intent i = new Intent(this, FullScreenColor.class);
@@ -199,7 +208,8 @@ public class ColorC extends BaseActivity
                 emailIntent.putExtra(Intent.EXTRA_TEXT, Html.fromHtml(
                         new StringBuilder()
                                 .append("<h3>Color chosen via Colorifornia: </h3><h2>")
-                                .append(hexColorParams + "</h2>")
+                                .append(hexColorParams)
+                                .append("</h2>")
                                 .toString()
                 ));
 

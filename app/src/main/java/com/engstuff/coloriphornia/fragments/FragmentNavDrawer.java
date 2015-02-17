@@ -13,6 +13,7 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.engstuff.coloriphornia.R;
+import com.engstuff.coloriphornia.activities.ColorC;
 import com.engstuff.coloriphornia.activities.ColorCC;
 
 import butterknife.ButterKnife;
@@ -83,6 +84,13 @@ public class FragmentNavDrawer extends Fragment {
     public void goTo2ColorsActivity() {
 
         startActivity(new Intent(activity, ColorCC.class));
+        activity.finish();
+    }
+
+    @OnClick(R.id.btn_one_color)
+    public void goTo1ColorsActivity() {
+
+        startActivity(new Intent(activity, ColorC.class));
         activity.finish();
     }
 }
