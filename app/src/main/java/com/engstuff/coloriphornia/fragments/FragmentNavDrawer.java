@@ -2,6 +2,7 @@ package com.engstuff.coloriphornia.fragments;
 
 
 import android.app.Activity;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.widget.DrawerLayout;
@@ -12,14 +13,18 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.engstuff.coloriphornia.R;
+import com.engstuff.coloriphornia.activities.ColorCC;
+
+import butterknife.ButterKnife;
+import butterknife.OnClick;
 
 public class FragmentNavDrawer extends Fragment {
 
     private Activity activity;
-    private DrawerLayout mDrawerLayout;
     private ActionBarDrawerToggle mDrawerToggle;
 
-    public FragmentNavDrawer() {}
+    public FragmentNavDrawer() {
+    }
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -30,12 +35,19 @@ public class FragmentNavDrawer extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        return inflater.inflate(R.layout.fragment_nav_drawer_layout, container, false);
+        View view = inflater.inflate(R.layout.fragment_nav_drawer_layout, container, false);
+        ButterKnife.inject(this, view);
+        return view;
+    }
+
+    @Override
+    public void onDestroyView() {
+        super.onDestroyView();
+        ButterKnife.reset(this);
     }
 
     public void setUp(DrawerLayout layout, Toolbar toolbar) {
 
-        mDrawerLayout = layout;
         mDrawerToggle = new ActionBarDrawerToggle(
                 activity, layout, toolbar, R.string.drawer_open, R.string.drawer_close) {
 
@@ -52,14 +64,25 @@ public class FragmentNavDrawer extends Fragment {
             }
         };
 
-        mDrawerLayout.setDrawerListener(mDrawerToggle);
+        layout.setDrawerListener(mDrawerToggle);
 
         // very nice effect sandwich/rotate/arrow
-        mDrawerLayout.post(new Runnable() {
+        layout.post(new Runnable() {
             @Override
             public void run() {
                 mDrawerToggle.syncState();
             }
         });
+    }
+
+    /**
+     * Buttons
+     */
+
+    @OnClick(R.id.btn_two_colors)
+    public void goTo2ColorsActivity() {
+
+        startActivity(new Intent(activity, ColorCC.class));
+        activity.finish();
     }
 }

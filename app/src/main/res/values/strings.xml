@@ -17,5 +17,8 @@
     <string name="no">Cancel</string>
     <string name="share">Share color</string>
     <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="title_activity_color_cc">ColorCC</string>
+
+    <string name="hello_world">Hello world!</string>
 
 </resources>

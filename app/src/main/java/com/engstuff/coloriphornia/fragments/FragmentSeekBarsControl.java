@@ -1,7 +1,6 @@
 package com.engstuff.coloriphornia.fragments;
 
 import android.app.Activity;
-import android.net.Uri;
 import android.os.Bundle;
 import android.app.Fragment;
 import android.view.LayoutInflater;
@@ -13,19 +12,17 @@ import com.engstuff.coloriphornia.R;
 
 public class FragmentSeekBarsControl extends Fragment implements SeekBar.OnSeekBarChangeListener {
 
-    public interface OnColorControlChangeListener {
+    public interface ColorControlChangeListener {
 
         public void onColorControlChange();
     }
 
-    private OnColorControlChangeListener colorChangeListener;
+    public FragmentSeekBarsControl() {}
+
+    private ColorControlChangeListener colorChangeListener;
 
     private SeekBar sbAlfa, sbRed, sbGreen, sbBlue;
     private int alpha, r, g, b; // alpha, red, green, blue
-
-
-
-    public FragmentSeekBarsControl() {}
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -52,7 +49,7 @@ public class FragmentSeekBarsControl extends Fragment implements SeekBar.OnSeekB
     public void onAttach(Activity activity) {
         super.onAttach(activity);
         try {
-            colorChangeListener = (OnColorControlChangeListener) activity;
+            colorChangeListener = (ColorControlChangeListener) activity;
         } catch (ClassCastException e) {
             throw new ClassCastException(activity.toString()
                     + " must implement OnColorControlChangeListener");

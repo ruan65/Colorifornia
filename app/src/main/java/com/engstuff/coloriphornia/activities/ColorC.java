@@ -1,27 +1,23 @@
 package com.engstuff.coloriphornia.activities;
 
 import android.app.AlertDialog;
+import android.app.FragmentTransaction;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
-import android.graphics.Bitmap;
-import android.graphics.Canvas;
 import android.graphics.Color;
-import android.graphics.Paint;
 import android.os.Bundle;
 import android.text.Html;
 import android.text.InputType;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.view.View;
 import android.widget.EditText;
-import android.widget.ImageView;
 import android.widget.Toast;
 
 import com.engstuff.coloriphornia.R;
+import com.engstuff.coloriphornia.fragments.FragmentColorBox;
 import com.engstuff.coloriphornia.fragments.FragmentSeekBarsControl;
-import com.engstuff.coloriphornia.helpers.HexColorFrom4parts;
 
 import java.util.Map;
 
@@ -31,123 +27,62 @@ import static com.engstuff.coloriphornia.helpers.PrefsHelper.readFromPrefsInt;
 import static com.engstuff.coloriphornia.helpers.PrefsHelper.writeToPrefs;
 
 public class ColorC extends BaseActivity
-        implements FragmentSeekBarsControl.OnColorControlChangeListener, View.OnClickListener {
-
-
-    private final Context ctx = this;
-    private Bitmap mBitmap;
-    private Canvas mCanvas;
-    private ImageView iv;
-
-    int colorHex;
-
-    private Paint tp;
+        implements FragmentSeekBarsControl.ColorControlChangeListener,
+                   FragmentColorBox.ColorClickedListener {
 
     public final static String EXTRA_MESSAGE_COLOR = "color_parameters";
     public final static String EXTRA_MESSAGE_TEXT_COLOR = "text_color_parameters";
     public final static String SAVED_COLORS = "user_saved_colors";
     public final static String SAVED_EMAILS = "user_saved_emails";
 
-
-    private String rgbColorParams;
-    private String hexColorParams;
-    private boolean white = true;
-
-    private FragmentSeekBarsControl colorControlFragment;
+    private final Context ctx = this;
+    private FragmentSeekBarsControl fragmentControl;
+    private FragmentColorBox fragmentColorBox;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        iv = (ImageView) findViewById(R.id.colorView);
-        iv.setOnClickListener(this);
 
-        colorControlFragment = new FragmentSeekBarsControl();
+        fragmentControl = new FragmentSeekBarsControl();
 
-        getFragmentManager()
-                .beginTransaction()
-                .add(R.id.color_control_container, colorControlFragment)
+        FragmentTransaction transaction = getFragmentManager().beginTransaction();
+
+        transaction
+                .add(R.id.color_control_container, fragmentControl);
+
+        fragmentColorBox = new FragmentColorBox();
+
+        transaction
+                .add(R.id.color_box_container, fragmentColorBox)
                 .commit();
     }
+
 
     @Override
     protected int getLayoutResource() {
         return R.layout.color_c;
     }
 
-    @Override
-    public void onWindowFocusChanged(boolean hasFocus) {
-
-        super.onWindowFocusChanged(hasFocus);
-        int w = iv.getWidth();
-        int h = iv.getHeight();
-
-        mBitmap = Bitmap.createBitmap(w, h, Bitmap.Config.ARGB_8888);
-        mCanvas = new Canvas(mBitmap);
-        tp = new Paint();
-
-        changeColor();
-    }
-
-    @SuppressWarnings("deprecation")
-    private void changeColor() {
-
-        int alpha, r, g, b; // alpha, red, green, blue
-
-
-        alpha = colorControlFragment.getAlpha();
-        r = colorControlFragment.getR();
-        g = colorControlFragment.getG();
-        b = colorControlFragment.getB();
-
-        colorHex = HexColorFrom4parts.composeHex(alpha, r, g, b);
-
-        mCanvas.drawRGB(r, g, b);
-
-        if (r + g + b > 480 || g > 200) {
-
-            tp.setColor(Color.BLACK);
-            white = false;
-
-        } else {
-
-            tp.setColor(Color.WHITE);
-            white = true;
-        }
-
-        tp.setTextSize(30);
-
-        rgbColorParams = "\u03b1: " + alpha + " r:" + r + " g:" + g + " b:" + b;
-        hexColorParams = "#" + Integer.toHexString(colorHex);
-
-        mCanvas.drawText(rgbColorParams, 10, 40, tp);
-        mCanvas.drawText(hexColorParams, 10, 80, tp);
-        mCanvas.drawText("Full screen \u21aa", 10, 180, tp);
-
-        iv.setImageBitmap(mBitmap);
-        iv.setAlpha(alpha);
-
-    }
 
     @Override
-    public void onClick(View v) {
-
+    public void onColorClicked() {
         String[] colorParams = {
-                rgbColorParams,
-                hexColorParams
+                fragmentColorBox.getRgbColorParams(),
+                fragmentColorBox.getHexColorParams()
         };
 
         Intent i = new Intent(this, FullScreenColor.class);
 
         i.putExtra(EXTRA_MESSAGE_COLOR, colorParams);
-        i.putExtra(EXTRA_MESSAGE_TEXT_COLOR, white);
+        i.putExtra(EXTRA_MESSAGE_TEXT_COLOR, fragmentColorBox.isWhiteText());
 
         startActivity(i);
     }
 
     @Override
     public void onColorControlChange() {
-        changeColor();
+        fragmentColorBox.changeColor();
     }
 
     @Override
@@ -160,10 +95,14 @@ public class ColorC extends BaseActivity
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
 
+        String hexColorParams = fragmentColorBox.getHexColorParams();
+        int colorHex = fragmentColorBox.getColorHex();
 
         switch (item.getItemId()) {
 
             case R.id.save_to_prefs:
+
+
 
                 writeToPrefs(this, SAVED_COLORS, hexColorParams, colorHex);
 
@@ -179,9 +118,9 @@ public class ColorC extends BaseActivity
                 Map<String, Integer> savedColors =
                         (Map<String, Integer>) readFromPrefsAll(this, SAVED_COLORS);
 
-                for (String colorHex : savedColors.keySet()) {
+                for (String colorHexadecimal : savedColors.keySet()) {
 
-                    Log.d("ml", "hex: " + colorHex + ", int: " + savedColors.get(colorHex));
+                    Log.d("ml", "hex: " + colorHexadecimal + ", int: " + savedColors.get(colorHexadecimal));
                 }
                 break;
 
@@ -251,10 +190,14 @@ public class ColorC extends BaseActivity
                 Intent emailIntent = new Intent(Intent.ACTION_SEND);
 
                 emailIntent.setType("message/rfc822");
+
                 emailIntent.putExtra(Intent.EXTRA_EMAIL,
                         emailMap.keySet().toArray(new String[emailMap.size()]));
+
                 emailIntent.putExtra(Intent.EXTRA_SUBJECT, "Color parameters from Colorifornia");
-                emailIntent.putExtra(Intent.EXTRA_TEXT, Html.fromHtml(new StringBuilder()
+
+                emailIntent.putExtra(Intent.EXTRA_TEXT, Html.fromHtml(
+                        new StringBuilder()
                                 .append("<h3>Color chosen via Colorifornia: </h3><h2>")
                                 .append(hexColorParams + "</h2>")
                                 .toString()
@@ -268,5 +211,7 @@ public class ColorC extends BaseActivity
         return super.onOptionsItemSelected(item);
     }
 
-
+    public FragmentSeekBarsControl getFragmentControl() {
+        return fragmentControl;
+    }
 }
