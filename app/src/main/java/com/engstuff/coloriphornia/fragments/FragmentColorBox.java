@@ -8,6 +8,7 @@ import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Paint;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -25,7 +26,9 @@ public class FragmentColorBox extends Fragment {
         void onColorLongClicked(FragmentColorBox colorBox);
     }
 
-    ColorBoxEventListener colorBoxEventListener;
+    private ColorBoxEventListener colorBoxEventListener;
+
+    private FragmentSeekBarsControl fragmentControl;
 
     private ImageView iv;
 
@@ -35,6 +38,12 @@ public class FragmentColorBox extends Fragment {
     int colorHex;
     int alpha, r, g, b; // alpha, red, green, blue
 
+    private Bitmap currentBitmap;
+    private Canvas mCanvas;
+
+    int width;
+    int height;
+
     private boolean whiteText = true;
 
     public FragmentColorBox() {}
@@ -43,6 +52,8 @@ public class FragmentColorBox extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
+
+        fragmentControl = ((ColorC) getActivity()).getFragmentControl();
 
         View rootView = inflater.inflate(R.layout.fragment_color_box, container, false);
 
@@ -90,29 +101,25 @@ public class FragmentColorBox extends Fragment {
         view.post(new Runnable() {
             @Override
             public void run() {
-                changeColor();
+
+                width = iv.getWidth();
+                height = iv.getHeight();
+
+                currentBitmap = Bitmap
+                        .createBitmap(width, height, Bitmap.Config.ARGB_8888);
+
+                mCanvas = new Canvas(currentBitmap);
+                if (((ViewGroup) getView().getParent()).getId() == R.id.color_box_container2) {
+                    setColorParams(255, 255, 0, 0).changeColor();
+                } else {
+                    setColorParams().changeColor();
+                }
             }
         });
     }
 
 
     public void changeColor() {
-
-
-
-        int w = iv.getWidth();
-        int h = iv.getHeight();
-
-        Bitmap mBitmap = Bitmap.createBitmap(w, h, Bitmap.Config.ARGB_8888);
-        Canvas mCanvas = new Canvas(mBitmap);
-
-
-        FragmentSeekBarsControl fragmentControl = ((ColorC) getActivity()).getFragmentControl();
-
-        alpha = fragmentControl.getAlpha();
-        r = fragmentControl.getR();
-        g = fragmentControl.getG();
-        b = fragmentControl.getB();
 
         colorHex = HexColorFrom4parts.composeHex(alpha, r, g, b);
 
@@ -127,9 +134,22 @@ public class FragmentColorBox extends Fragment {
         mCanvas.drawText(hexColorParams, 10, 80, textPainter);
         mCanvas.drawText("Full screen \u21aa", 10, 180, textPainter);
 
-        iv.setImageBitmap(mBitmap);
+        iv.setImageBitmap(currentBitmap);
         //noinspection deprecation
         iv.setAlpha(alpha);
+    }
+
+    public FragmentColorBox setColorParams() {
+        alpha = fragmentControl.getAlpha();
+        r = fragmentControl.getR();
+        g = fragmentControl.getG();
+        b = fragmentControl.getB();
+        return this;
+    }
+
+    public FragmentColorBox setColorParams(int a, int r, int g, int b) {
+        alpha = a; this.r = r; this.g = g; this.b = b;
+        return this;
     }
 
     private Paint prepareTextPainter(int r, int g, int b) {
@@ -147,7 +167,7 @@ public class FragmentColorBox extends Fragment {
             whiteText = true;
         }
 
-        tp.setTextSize(30);
+        tp.setTextSize(20);
 
         return tp;
     }

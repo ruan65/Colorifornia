@@ -5,6 +5,8 @@ import android.os.Bundle;
 import com.engstuff.coloriphornia.R;
 import com.engstuff.coloriphornia.fragments.FragmentColorBox;
 
+import java.util.concurrent.TimeUnit;
+
 public class ColorCC extends ColorC {
 
     FragmentColorBox fragmentColorBox2;

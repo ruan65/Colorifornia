@@ -91,7 +91,9 @@ public class ColorC extends BaseActivity
 
     @Override
     public void onColorControlChange() {
-        fragmentColorBox.changeColor();
+        fragmentColorBox
+                .setColorParams()
+                .changeColor();
     }
 
     @Override
