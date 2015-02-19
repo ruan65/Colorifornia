@@ -12,7 +12,7 @@ import android.widget.TextView;
 import com.engstuff.coloriphornia.R;
 
 
-public class FullScreenColor extends Activity {
+public class FullScreenColorC extends Activity {
 
     private TextView tv;
     private RelativeLayout rl;
@@ -21,13 +21,13 @@ public class FullScreenColor extends Activity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_full_screen_color);
+        setContentView(R.layout.activity_full_screen_color_c);
 
         rl = (RelativeLayout) findViewById(R.id.layout_full_screen_color);
 
         Intent intent = getIntent();
 
-        String[] colorMessage = intent.getStringArrayExtra(ColorC.EXTRA_MESSAGE_COLOR);
+        String[] colorMessage = intent.getStringArrayExtra(ColorC.EXTRA_MESSAGE_COLOR_1);
 
         int backColor = (int) Long.parseLong(colorMessage[1].substring(1), 16);
 
@@ -35,7 +35,7 @@ public class FullScreenColor extends Activity {
 
         tv = (TextView) findViewById(R.id.tv_color_params);
 
-        int textColor = intent.getBooleanExtra(ColorC.EXTRA_MESSAGE_TEXT_COLOR, false)
+        int textColor = intent.getBooleanExtra(ColorC.EXTRA_MESSAGE_TEXT_COLOR_1, false)
                 ? Color.WHITE
                 : Color.BLACK;
 

@@ -110,7 +110,7 @@ public class FragmentColorBox extends Fragment {
 
                 mCanvas = new Canvas(currentBitmap);
                 if (((ViewGroup) getView().getParent()).getId() == R.id.color_box_container2) {
-                    setColorParams(255, 255, 0, 0).changeColor();
+                    setColorParams(255, 60, 130,200).changeColor();
                 } else {
                     setColorParams().changeColor();
                 }
@@ -122,7 +122,6 @@ public class FragmentColorBox extends Fragment {
     public void changeColor() {
 
         colorHex = HexColorFrom4parts.composeHex(alpha, r, g, b);
-
         mCanvas.drawRGB(r, g, b);
 
         Paint textPainter = prepareTextPainter(r, g, b);
@@ -132,7 +131,8 @@ public class FragmentColorBox extends Fragment {
 
         mCanvas.drawText(rgbColorParams, 10, 40, textPainter);
         mCanvas.drawText(hexColorParams, 10, 80, textPainter);
-        mCanvas.drawText("Full screen \u21aa", 10, 180, textPainter);
+        mCanvas.drawText("Hold to go full screen", 10, 180, textPainter);
+
 
         iv.setImageBitmap(currentBitmap);
         //noinspection deprecation

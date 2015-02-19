@@ -30,14 +30,17 @@ public class ColorC extends BaseActivity
         implements FragmentSeekBarsControl.ColorControlChangeListener,
         FragmentColorBox.ColorBoxEventListener {
 
-    public final static String EXTRA_MESSAGE_COLOR = "color_parameters";
-    public final static String EXTRA_MESSAGE_TEXT_COLOR = "text_color_parameters";
+    public final static String EXTRA_MESSAGE_COLOR_1 = "color_parameters_1";
+    public final static String EXTRA_MESSAGE_TEXT_COLOR_1 = "text_color_parameters_1";
+    public final static String EXTRA_MESSAGE_COLOR_2 = "color_parameters_2";
+    public final static String EXTRA_MESSAGE_TEXT_COLOR_2 = "text_color_parameters_2";
     public final static String SAVED_COLORS = "user_saved_colors";
     public final static String SAVED_EMAILS = "user_saved_emails";
 
     protected final Context ctx = this;
     protected FragmentSeekBarsControl fragmentControl;
     protected FragmentColorBox fragmentColorBox;
+    protected FragmentColorBox currentColorBox;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -51,7 +54,7 @@ public class ColorC extends BaseActivity
         transaction
                 .add(R.id.color_control_container, fragmentControl);
 
-        fragmentColorBox = new FragmentColorBox();
+        fragmentColorBox = currentColorBox = new FragmentColorBox();
 
         transaction
                 .add(R.id.color_box_container, fragmentColorBox)
@@ -68,7 +71,11 @@ public class ColorC extends BaseActivity
     @Override
     public void onColorClicked(FragmentColorBox color) {
 
-        fragmentColorBox = color;
+        changeFragment(color);
+    }
+
+    protected void changeFragment(FragmentColorBox color) {
+        currentColorBox = color;
         fragmentControl.setControls(
                 color.getAlpha(), color.getR(), color.getG(), color.getB());
     }
@@ -76,22 +83,24 @@ public class ColorC extends BaseActivity
     @Override
     public void onColorLongClicked(FragmentColorBox color) {
 
+        changeFragment(color);
+
         String[] colorParams = {
                 color.getRgbColorParams(),
                 color.getHexColorParams()
         };
 
-        Intent i = new Intent(this, FullScreenColor.class);
+        Intent i = new Intent(this, FullScreenColorC.class);
 
-        i.putExtra(EXTRA_MESSAGE_COLOR, colorParams);
-        i.putExtra(EXTRA_MESSAGE_TEXT_COLOR, fragmentColorBox.isWhiteText());
+        i.putExtra(EXTRA_MESSAGE_COLOR_1, colorParams);
+        i.putExtra(EXTRA_MESSAGE_TEXT_COLOR_1, fragmentColorBox.isWhiteText());
 
         startActivity(i);
     }
 
     @Override
     public void onColorControlChange() {
-        fragmentColorBox
+        currentColorBox
                 .setColorParams()
                 .changeColor();
     }
@@ -106,8 +115,8 @@ public class ColorC extends BaseActivity
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
 
-        String hexColorParams = fragmentColorBox.getHexColorParams();
-        int colorHex = fragmentColorBox.getColorHex();
+        String hexColorParams = currentColorBox.getHexColorParams();
+        int colorHex = currentColorBox.getColorHex();
 
         switch (item.getItemId()) {
 
