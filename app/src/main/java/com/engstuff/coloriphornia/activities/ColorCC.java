@@ -26,15 +26,28 @@ public class ColorCC extends ColorC {
 
         changeFragment(color);
 
+        Intent i = new Intent(this, FullScreenColorCC.class);
+
         String[] colorParams = {
                 color.getRgbColorParams(),
                 color.getHexColorParams()
         };
 
-        Intent i = new Intent(this, FullScreenColorCC.class);
-
         i.putExtra(EXTRA_MESSAGE_COLOR_1, colorParams);
-        i.putExtra(EXTRA_MESSAGE_TEXT_COLOR_1, fragmentColorBox.isWhiteText());
+        i.putExtra(EXTRA_MESSAGE_TEXT_COLOR_1, color.isWhiteText());
+
+        int fragmentId = color.getId() == R.id.color_box_container
+                ? R.id.color_box_container2 : R.id.color_box_container;
+
+        color = (FragmentColorBox) getFragmentManager().findFragmentById(fragmentId);
+
+        String[] colorParams2 = {
+                color.getRgbColorParams(),
+                color.getHexColorParams()
+        };
+
+        i.putExtra(EXTRA_MESSAGE_COLOR_2, colorParams2);
+        i.putExtra(EXTRA_MESSAGE_TEXT_COLOR_2, color.isWhiteText());
 
         startActivity(i);
     }

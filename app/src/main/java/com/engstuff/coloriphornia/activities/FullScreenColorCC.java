@@ -11,42 +11,59 @@ import android.widget.TextView;
 
 import com.engstuff.coloriphornia.R;
 
+import butterknife.ButterKnife;
+import butterknife.InjectView;
+
 
 public class FullScreenColorCC extends Activity {
 
-    private TextView tv1;
-    private RelativeLayout rl1, rl2;
-    private Button btnBack1, btnBack2;
+    @InjectView(R.id.tv_color_params_1) TextView tv1;
+    @InjectView(R.id.tv_color_params_2) TextView tv2;
+
+    @InjectView(R.id.layout_full_screen_color_1) RelativeLayout rl1;
+    @InjectView(R.id.layout_full_screen_color_2) RelativeLayout rl2;
+
+    @InjectView(R.id.btnBack1) Button btnBack1;
+    @InjectView(R.id.btnBack2) Button btnBack2;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_full_screen_color_cc);
 
-        rl1 = (RelativeLayout) findViewById(R.id.layout_full_screen_color_1);
-        rl2 = (RelativeLayout) findViewById(R.id.layout_full_screen_color_2);
+        ButterKnife.inject(this);
 
         Intent intent = getIntent();
 
-        String[] colorMessage = intent.getStringArrayExtra(ColorC.EXTRA_MESSAGE_COLOR_1);
+        // set color 1
+        setColor(intent,
+                ColorC.EXTRA_MESSAGE_COLOR_1, ColorC.EXTRA_MESSAGE_TEXT_COLOR_1,
+                rl1, tv1, btnBack1);
+
+        // set color 2
+        setColor(intent,
+                ColorC.EXTRA_MESSAGE_COLOR_2, ColorC.EXTRA_MESSAGE_TEXT_COLOR_2,
+                rl2, tv2, btnBack2);
+    }
+
+    private void setColor(Intent intent, String extra1, String extra2,
+                          RelativeLayout rl, TextView tv, Button btn) {
+
+        String[] colorMessage = intent.getStringArrayExtra(extra1);
 
         int backColor = (int) Long.parseLong(colorMessage[1].substring(1), 16);
 
-        rl1.setBackgroundColor(backColor);
+        rl.setBackgroundColor(backColor);
 
-        tv1 = (TextView) findViewById(R.id.tv_color_params_1);
-
-        int textColor1 = intent.getBooleanExtra(ColorC.EXTRA_MESSAGE_TEXT_COLOR_1, false)
+        int textColor1 = intent.getBooleanExtra(extra2, false)
                 ? Color.WHITE
                 : Color.BLACK;
 
-        tv1.setTextColor(textColor1);
-        tv1.setText(colorMessage[0] + "\n" + colorMessage[1]);
+        tv.setTextColor(textColor1);
+        tv.setText(colorMessage[0] + "\n" + colorMessage[1]);
 
-        btnBack1 = (Button) findViewById(R.id.btnBack1);
-        btnBack1.setBackgroundColor(backColor);
-        btnBack1.setTextColor(textColor1);
-
+        btn.setBackgroundColor(backColor);
+        btn.setTextColor(textColor1);
     }
 
     public void backClick(View v) {
