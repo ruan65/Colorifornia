@@ -1,6 +1,7 @@
 package com.engstuff.coloriphornia.activities;
 
 import android.app.AlertDialog;
+import android.app.Fragment;
 import android.app.FragmentTransaction;
 import android.content.Context;
 import android.content.DialogInterface;
@@ -19,6 +20,9 @@ import com.engstuff.coloriphornia.R;
 import com.engstuff.coloriphornia.fragments.FragmentColorBox;
 import com.engstuff.coloriphornia.fragments.FragmentSeekBarsControl;
 
+import java.lang.ref.WeakReference;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Map;
 
 import static com.engstuff.coloriphornia.helpers.PrefsHelper.erasePrefs;
@@ -42,6 +46,8 @@ public class ColorC extends BaseActivity
     protected FragmentColorBox fragmentColorBox;
     protected FragmentColorBox currentColorBox;
 
+    List<WeakReference<Fragment>> allAttachedFragments = new ArrayList<>();
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -61,6 +67,10 @@ public class ColorC extends BaseActivity
                 .commit();
     }
 
+    @Override
+    public void onAttachFragment(Fragment fragment) {
+        allAttachedFragments.add(new WeakReference<>(fragment));
+    }
 
     @Override
     protected int getLayoutResource() {
@@ -121,8 +131,6 @@ public class ColorC extends BaseActivity
         switch (item.getItemId()) {
 
             case R.id.save_to_prefs:
-
-
 
                 writeToPrefs(this, SAVED_COLORS, hexColorParams, colorHex);
 
@@ -216,13 +224,7 @@ public class ColorC extends BaseActivity
 
                 emailIntent.putExtra(Intent.EXTRA_SUBJECT, "Color parameters from Colorifornia");
 
-                emailIntent.putExtra(Intent.EXTRA_TEXT, Html.fromHtml(
-                        new StringBuilder()
-                                .append("<h3>Color chosen via Colorifornia: </h3><h2>")
-                                .append(hexColorParams)
-                                .append("</h2>")
-                                .toString()
-                ));
+                emailIntent.putExtra(Intent.EXTRA_TEXT, Html.fromHtml(composeEmailBody()));
 
                 startActivity(Intent.createChooser(emailIntent, "Send current color parameters..."));
                 break;
@@ -230,6 +232,20 @@ public class ColorC extends BaseActivity
                 break;
         }
         return super.onOptionsItemSelected(item);
+    }
+
+    private String composeEmailBody() {
+        StringBuilder result = new StringBuilder()
+                .append("<h3>Colors chosen via Colorifornia: </h3>");
+
+        for (WeakReference<Fragment> ref : allAttachedFragments) {
+            Fragment f = ref.get();
+            if (f.getClass().equals(FragmentColorBox.class)) {
+                result.append("<p>" + ((FragmentColorBox) f).getHexColorParams() + "</p>");
+            }
+        }
+
+        return result.toString();
     }
 
     public FragmentSeekBarsControl getFragmentControl() {

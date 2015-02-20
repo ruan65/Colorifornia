@@ -55,7 +55,8 @@ public class FullScreenColorCC extends Activity {
 
         rl.setBackgroundColor(backColor);
 
-        int textColor1 = intent.getBooleanExtra(extra2, false)
+        int textColor1 =
+                intent.getBooleanExtra(extra2, false)
                 ? Color.WHITE
                 : Color.BLACK;
 
