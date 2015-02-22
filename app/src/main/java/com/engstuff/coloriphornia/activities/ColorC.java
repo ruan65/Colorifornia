@@ -17,6 +17,7 @@ import android.widget.EditText;
 import android.widget.Toast;
 
 import com.engstuff.coloriphornia.R;
+import com.engstuff.coloriphornia.fragments.DialogFragmentSavedEmails;
 import com.engstuff.coloriphornia.fragments.FragmentColorBox;
 import com.engstuff.coloriphornia.fragments.FragmentSeekBarsControl;
 
@@ -27,6 +28,7 @@ import java.util.Map;
 
 import static com.engstuff.coloriphornia.helpers.PrefsHelper.erasePrefs;
 import static com.engstuff.coloriphornia.helpers.PrefsHelper.readFromPrefsAll;
+import static com.engstuff.coloriphornia.helpers.PrefsHelper.readFromPrefsAllToArray;
 import static com.engstuff.coloriphornia.helpers.PrefsHelper.readFromPrefsInt;
 import static com.engstuff.coloriphornia.helpers.PrefsHelper.writeToPrefs;
 
@@ -143,13 +145,15 @@ public class ColorC extends BaseActivity
 
             case R.id.get_saved:
 
-                Map<String, Integer> savedColors =
-                        (Map<String, Integer>) readFromPrefsAll(this, SAVED_COLORS);
+                for (String colorHexadecimal : readFromPrefsAllToArray(this, SAVED_COLORS)) {
 
-                for (String colorHexadecimal : savedColors.keySet()) {
-
-                    Log.d("ml", "hex: " + colorHexadecimal + ", int: " + savedColors.get(colorHexadecimal));
+                    Log.d("ml", "hex: " + colorHexadecimal);
                 }
+                break;
+
+            case R.id.saved_emails:
+
+                new DialogFragmentSavedEmails().show(getFragmentManager(), null);
                 break;
 
             case R.id.erase:
@@ -212,15 +216,12 @@ public class ColorC extends BaseActivity
 
             case R.id.menu_item_share:
 
-                Map<String, String> emailMap =
-                        (Map<String, String>) readFromPrefsAll(this, SAVED_EMAILS);
-
                 Intent emailIntent = new Intent(Intent.ACTION_SEND);
 
                 emailIntent.setType("message/rfc822");
 
                 emailIntent.putExtra(Intent.EXTRA_EMAIL,
-                        emailMap.keySet().toArray(new String[emailMap.size()]));
+                        readFromPrefsAllToArray(this, SAVED_EMAILS));
 
                 emailIntent.putExtra(Intent.EXTRA_SUBJECT, "Color parameters from Colorifornia");
 

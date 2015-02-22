@@ -90,6 +90,14 @@ public class PrefsHelper {
                     .getAll();
     }
 
+    public static String[] readFromPrefsAllToArray(Context ctx, String name) {
+
+        Map<String, ?> map= ctx.getSharedPreferences(name, ctx.MODE_PRIVATE)
+                .getAll();
+
+        return map.keySet().toArray(new String[map.size()]);
+    }
+
     /**
      * Erasing Preferences
      */
