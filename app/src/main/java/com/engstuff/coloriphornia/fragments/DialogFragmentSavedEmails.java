@@ -5,8 +5,11 @@ import android.app.AlertDialog;
 import android.app.Dialog;
 import android.app.DialogFragment;
 import android.content.DialogInterface;
+import android.graphics.Color;
 import android.os.Bundle;
-import android.util.Log;
+import android.text.InputType;
+import android.widget.EditText;
+import android.widget.Toast;
 
 import com.engstuff.coloriphornia.R;
 import com.engstuff.coloriphornia.activities.ColorC;
@@ -16,26 +19,23 @@ import java.util.List;
 
 import static com.engstuff.coloriphornia.helpers.PrefsHelper.erasePrefs;
 import static com.engstuff.coloriphornia.helpers.PrefsHelper.readFromPrefsAllToArray;
+import static com.engstuff.coloriphornia.helpers.PrefsHelper.writeToPrefs;
 
 public class DialogFragmentSavedEmails extends DialogFragment {
-
-
-
-    final List<String> emailsToDelete = new ArrayList<>();
-
-
 
     @Override
     public Dialog onCreateDialog(Bundle savedInstanceState) {
 
         final Activity activity = getActivity();
 
+        final List<String> emailsToDelete = new ArrayList<>();
+
         AlertDialog.Builder builder = new AlertDialog.Builder(activity);
 
         final String[] emails = readFromPrefsAllToArray(activity, ColorC.SAVED_EMAILS);
 
         builder
-                .setTitle("Saved Emails")
+                .setTitle(R.string.prefs_emails)
                 .setMultiChoiceItems(
                         emails,
                         null,
@@ -48,14 +48,42 @@ public class DialogFragmentSavedEmails extends DialogFragment {
                                 } else {
                                     emailsToDelete.remove(emails[which]);
                                 }
-
                             }
                         })
-                .setNegativeButton("Cancel", null)
+                .setNegativeButton(R.string.btn_ok, null)
                 .setPositiveButton("Add new", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
 
+                        final EditText inputEmail = new EditText(activity);
+
+                        inputEmail.setTextColor(Color.BLACK);
+
+                        inputEmail.setInputType(InputType.TYPE_CLASS_TEXT
+                                | InputType.TYPE_TEXT_VARIATION_EMAIL_ADDRESS);
+
+                        new AlertDialog.Builder(activity, AlertDialog.THEME_HOLO_LIGHT)
+                                .setTitle("Add email for color sharing")
+                                .setView(inputEmail)
+
+                                .setPositiveButton("Save", new DialogInterface.OnClickListener() {
+                                    @Override
+                                    public void onClick(DialogInterface dialog, int which) {
+
+                                        String newEmail = inputEmail.getText().toString();
+
+                                        writeToPrefs(activity, ColorC.SAVED_EMAILS, newEmail, null);
+
+                                        Toast.makeText(activity, "email: " + newEmail +
+                                                " has been saved", Toast.LENGTH_SHORT).show();
+                                    }
+                                })
+                                .setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
+                                    @Override
+                                    public void onClick(DialogInterface dialog, int which) {
+                                        // ignore
+                                    }
+                                }).show();
                     }
                 })
                 .setNeutralButton("Delete selected", new DialogInterface.OnClickListener() {
@@ -88,22 +116,11 @@ public class DialogFragmentSavedEmails extends DialogFragment {
                                         }
                                     }
                                 })
-                                .setNegativeButton(R.string.no, new DialogInterface.OnClickListener() {
-                                    @Override
-                                    public void onClick(DialogInterface dialog, int which) {
-                                        // ignore
-                                    }
-                                })
+                                .setNegativeButton(R.string.no, null)
                                 .show();
                     }
                 });
 
         return builder.create();
-    }
-
-    @Override
-    public void onDismiss(DialogInterface dialog) {
-        super.onDismiss(dialog);
-        Log.d("ml", "Emails to delete: " + emailsToDelete);
     }
 }

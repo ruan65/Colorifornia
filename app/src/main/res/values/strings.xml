@@ -19,5 +19,7 @@
     <string name="hello_blank_fragment">Hello blank fragment</string>
 
     <string name="hello_world">Hello world!</string>
+    <string name="prefs_emails">Emails for sharing</string>
+    <string name="btn_ok">OK</string>
 
 </resources>

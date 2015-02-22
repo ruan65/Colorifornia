@@ -27,20 +27,8 @@
         app:showAsAction="never" />
 
     <item
-        android:id="@+id/add_email"
-        android:orderInCategory="30"
-        android:title="Add email"
-        app:showAsAction="never" />
-
-    <item
-        android:id="@+id/clear_emails"
-        android:orderInCategory="25"
-        android:title="Clear emails"
-        app:showAsAction="never" />
-
-    <item
         android:id="@+id/saved_emails"
         android:orderInCategory="20"
-        android:title="Saved Emails"
+        android:title="@string/prefs_emails"
         app:showAsAction="never" />
 </menu>

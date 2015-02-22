@@ -175,44 +175,6 @@ public class ColorC extends BaseActivity
                         .show();
                 break;
 
-            case R.id.add_email:
-
-                final EditText inputEmail = new EditText(this);
-
-                inputEmail.setTextColor(Color.BLACK);
-
-                inputEmail.setInputType(InputType.TYPE_CLASS_TEXT
-                        | InputType.TYPE_TEXT_VARIATION_EMAIL_ADDRESS);
-
-                new AlertDialog.Builder(this, AlertDialog.THEME_HOLO_LIGHT)
-                        .setTitle("Add email for color sharing")
-                        .setView(inputEmail)
-
-                        .setPositiveButton("Save", new DialogInterface.OnClickListener() {
-                            @Override
-                            public void onClick(DialogInterface dialog, int which) {
-
-                                String newEmail = inputEmail.getText().toString();
-
-                                writeToPrefs(ctx, SAVED_EMAILS, newEmail, null);
-
-                                Toast.makeText(ctx, "email: " + newEmail +
-                                        " has been saved", Toast.LENGTH_SHORT).show();
-                            }
-                        })
-                        .setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
-                            @Override
-                            public void onClick(DialogInterface dialog, int which) {
-                                // ignore
-                            }
-                        }).show();
-                break;
-
-            case R.id.clear_emails:
-                eraseAllPrefs(this, SAVED_EMAILS);
-                Toast.makeText(ctx, "Email list has been cleaned...", Toast.LENGTH_SHORT).show();
-                break;
-
             case R.id.menu_item_share:
 
                 Intent emailIntent = new Intent(Intent.ACTION_SEND);
