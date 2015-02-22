@@ -24,9 +24,8 @@ import com.engstuff.coloriphornia.fragments.FragmentSeekBarsControl;
 import java.lang.ref.WeakReference;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Map;
 
-import static com.engstuff.coloriphornia.helpers.PrefsHelper.erasePrefs;
+import static com.engstuff.coloriphornia.helpers.PrefsHelper.eraseAllPrefs;
 import static com.engstuff.coloriphornia.helpers.PrefsHelper.readFromPrefsAll;
 import static com.engstuff.coloriphornia.helpers.PrefsHelper.readFromPrefsAllToArray;
 import static com.engstuff.coloriphornia.helpers.PrefsHelper.readFromPrefsInt;
@@ -164,7 +163,7 @@ public class ColorC extends BaseActivity
                         .setPositiveButton(R.string.ok, new DialogInterface.OnClickListener() {
                             @Override
                             public void onClick(DialogInterface dialog, int which) {
-                                erasePrefs(ctx, SAVED_COLORS);
+                                eraseAllPrefs(ctx, SAVED_COLORS);
                             }
                         })
                         .setNegativeButton(R.string.no, new DialogInterface.OnClickListener() {
@@ -210,7 +209,7 @@ public class ColorC extends BaseActivity
                 break;
 
             case R.id.clear_emails:
-                erasePrefs(this, SAVED_EMAILS);
+                eraseAllPrefs(this, SAVED_EMAILS);
                 Toast.makeText(ctx, "Email list has been cleaned...", Toast.LENGTH_SHORT).show();
                 break;
 

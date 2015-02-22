@@ -102,7 +102,16 @@ public class PrefsHelper {
      * Erasing Preferences
      */
 
-    public static void erasePrefs(Context ctx, String name) {
+    public static void erasePrefs(Context ctx, String name, String key) {
+
+        ctx
+                .getSharedPreferences(name, ctx.MODE_PRIVATE)
+                .edit()
+                .remove(key)
+                .apply();
+    }
+
+    public static void eraseAllPrefs(Context ctx, String name) {
 
         ctx
                 .getSharedPreferences(name, ctx.MODE_PRIVATE)
