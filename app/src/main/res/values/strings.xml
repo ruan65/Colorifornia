@@ -18,8 +18,21 @@
     <string name="share">Share color</string>
     <string name="hello_blank_fragment">Hello blank fragment</string>
 
-    <string name="hello_world">Hello world!</string>
     <string name="prefs_emails">Emails for sharing</string>
     <string name="btn_ok">OK</string>
+    <string name="btn_del_selected">Delete selected</string>
+    <string name="btn_add_new">Add new</string>
+
+    <string name="dial_title_add_email">Add email for color sharing</string>
+    <string name="btn_save">Save</string>
+    <string name="btn_cancel">Cancel</string>
+    <string name="sb_emails">Email(s):\n</string>
+    <string name="sb_no_emails">\nNo emails to delete...</string>
+    <string name="sb_wb_deleted">\n\nwill be deleted</string>
+    <string name="dial_title_del_emails">Deleting emails</string>
+    <string name="new_line">\n</string>
+    <string name="toast_email">"email: "</string>
+    <string name="toast_hb_saved">" has been saved"</string>
+
 
 </resources>

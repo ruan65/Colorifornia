@@ -23,10 +23,12 @@ import static com.engstuff.coloriphornia.helpers.PrefsHelper.writeToPrefs;
 
 public class DialogFragmentSavedEmails extends DialogFragment {
 
+    private Activity activity;
+
     @Override
     public Dialog onCreateDialog(Bundle savedInstanceState) {
 
-        final Activity activity = getActivity();
+        activity = getActivity();
 
         final List<String> emailsToDelete = new ArrayList<>();
 
@@ -51,7 +53,7 @@ public class DialogFragmentSavedEmails extends DialogFragment {
                             }
                         })
                 .setNegativeButton(R.string.btn_ok, null)
-                .setPositiveButton("Add new", new DialogInterface.OnClickListener() {
+                .setPositiveButton(R.string.btn_add_new, new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
 
@@ -63,10 +65,10 @@ public class DialogFragmentSavedEmails extends DialogFragment {
                                 | InputType.TYPE_TEXT_VARIATION_EMAIL_ADDRESS);
 
                         new AlertDialog.Builder(activity, AlertDialog.THEME_HOLO_LIGHT)
-                                .setTitle("Add email for color sharing")
+                                .setTitle(R.string.dial_title_add_email)
                                 .setView(inputEmail)
 
-                                .setPositiveButton("Save", new DialogInterface.OnClickListener() {
+                                .setPositiveButton(R.string.btn_save, new DialogInterface.OnClickListener() {
                                     @Override
                                     public void onClick(DialogInterface dialog, int which) {
 
@@ -74,37 +76,34 @@ public class DialogFragmentSavedEmails extends DialogFragment {
 
                                         writeToPrefs(activity, ColorC.SAVED_EMAILS, newEmail, null);
 
-                                        Toast.makeText(activity, "email: " + newEmail +
-                                                " has been saved", Toast.LENGTH_SHORT).show();
+                                        Toast.makeText(activity, text(R.string.toast_email) + newEmail +
+                                                text(R.string.toast_hb_saved), Toast.LENGTH_SHORT).show();
                                     }
                                 })
-                                .setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
-                                    @Override
-                                    public void onClick(DialogInterface dialog, int which) {
-                                        // ignore
-                                    }
-                                }).show();
+                                .setNegativeButton(R.string.btn_cancel, null).show();
                     }
                 })
-                .setNeutralButton("Delete selected", new DialogInterface.OnClickListener() {
+                .setNeutralButton(R.string.btn_del_selected, new DialogInterface.OnClickListener() {
 
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
 
-                        StringBuilder sb = new StringBuilder("Email(s):\n");
+                        StringBuilder sb = new StringBuilder();
+
+                        sb.append(text(R.string.sb_emails));
 
                         if (emailsToDelete.size() == 0) {
-                            sb.append("\nNo emails to delete...");
+                            sb.append(text(R.string.sb_wb_deleted));
                         } else {
                             for (String e : emailsToDelete) {
-                                sb.append("\n" + e);
+                                sb.append(text(R.string.new_line) + e);
                             }
                         }
 
-                        sb.append("\n\nwill be deleted");
+                        sb.append(text(R.string.sb_wb_deleted));
 
                         new AlertDialog.Builder(activity, AlertDialog.THEME_HOLO_LIGHT)
-                                .setTitle("Deleting emails")
+                                .setTitle(R.string.dial_title_del_emails)
                                 .setMessage(sb.toString())
                                 .setPositiveButton(R.string.ok, new DialogInterface.OnClickListener() {
 
@@ -122,5 +121,9 @@ public class DialogFragmentSavedEmails extends DialogFragment {
                 });
 
         return builder.create();
+    }
+
+    private String text(int id) {
+        return activity.getResources().getString(id);
     }
 }
