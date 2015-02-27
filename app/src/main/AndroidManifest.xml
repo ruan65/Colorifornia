@@ -4,6 +4,12 @@
 
     <uses-permission android:name="android.permission.SEND_RESPOND_VIA_MESSAGE" />
     <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.CAMERA" />
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+
+    <uses-feature
+        android:name="android.hardware.camera"
+        android:required="false" />
 
     <application
         android:name=".activities.ThisApplication"
@@ -21,13 +27,11 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-
         <activity
             android:name=".activities.ColorCC"
             android:label="@string/app_name"
-            android:screenOrientation="portrait">
+            android:screenOrientation="portrait" >
         </activity>
-
         <activity
             android:name=".activities.FullScreenColorC"
             android:parentActivityName=".activities.ColorC" >
@@ -35,7 +39,6 @@
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value=".activities.ColorC" />
         </activity>
-
         <activity
             android:name=".activities.FullScreenColorCC"
             android:parentActivityName=".activities.ColorCC" >
@@ -43,7 +46,11 @@
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value=".activities.ColorCC" />
         </activity>
-
+        <activity
+            android:name=".activities.ColorFromImage"
+            android:label="@string/app_name"
+            android:screenOrientation="portrait" >
+        </activity>
     </application>
 
 </manifest>

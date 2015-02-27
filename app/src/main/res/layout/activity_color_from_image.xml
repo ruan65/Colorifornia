@@ -15,29 +15,17 @@
             layout="@layout/app_bar" />
 
         <FrameLayout
-            android:id="@+id/color_control_container"
+            android:id="@+id/img_container"
             android:layout_width="match_parent"
             android:layout_height="0dp"
             android:layout_weight="38" />
 
-        <LinearLayout
+        <FrameLayout
+            android:id="@+id/color_box_container_color_from_image"
             android:layout_width="match_parent"
             android:layout_height="0dp"
-            android:layout_weight="62">
+            android:layout_weight="62" />
 
-            <FrameLayout
-                android:id="@+id/color_box_container"
-                android:layout_width="0dp"
-                android:layout_height="match_parent"
-                android:layout_weight="10" />
-
-            <FrameLayout
-                android:id="@+id/color_box_container2"
-                android:layout_width="0dp"
-                android:layout_height="match_parent"
-                android:layout_weight="10" />
-
-        </LinearLayout>
 
 
     </LinearLayout>

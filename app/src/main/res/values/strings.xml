@@ -33,6 +33,9 @@
     <string name="new_line">\n</string>
     <string name="toast_email">"email: "</string>
     <string name="toast_hb_saved">" has been saved"</string>
+    <string name="title_activity_color_from_image">ColorFromImage</string>
+
+    <string name="hello_world">Hello world!</string>
 
 
 </resources>

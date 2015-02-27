@@ -28,7 +28,7 @@ public class FragmentColorBox extends Fragment {
 
     private ColorBoxEventListener colorBoxEventListener;
 
-    private FragmentSeekBarsControl fragmentControl;
+
 
     private ImageView iv;
 
@@ -53,7 +53,7 @@ public class FragmentColorBox extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
 
-        fragmentControl = ((ColorC) getActivity()).getFragmentControl();
+
 
         View rootView = inflater.inflate(R.layout.fragment_color_box, container, false);
 
@@ -109,9 +109,10 @@ public class FragmentColorBox extends Fragment {
                         .createBitmap(width, height, Bitmap.Config.ARGB_8888);
 
                 mCanvas = new Canvas(currentBitmap);
+
                 if (((ViewGroup) getView().getParent()).getId() == R.id.color_box_container2) {
                     setColorParams(255, 60, 130,200).changeColor();
-                } else {
+                } else if (((ViewGroup) getView().getParent()).getId() == R.id.color_box_container){
                     setColorParams().changeColor();
                 }
             }
@@ -140,6 +141,8 @@ public class FragmentColorBox extends Fragment {
     }
 
     public FragmentColorBox setColorParams() {
+
+        FragmentSeekBarsControl fragmentControl = ((ColorC) getActivity()).getFragmentControl();
         alpha = fragmentControl.getAlpha();
         r = fragmentControl.getR();
         g = fragmentControl.getG();
@@ -149,6 +152,11 @@ public class FragmentColorBox extends Fragment {
 
     public FragmentColorBox setColorParams(int a, int r, int g, int b) {
         alpha = a; this.r = r; this.g = g; this.b = b;
+        return this;
+    }
+
+    public FragmentColorBox setColorParams(int r, int g, int b) {
+        alpha = 255; this.r = r; this.g = g; this.b = b;
         return this;
     }
 

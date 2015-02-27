@@ -55,15 +55,12 @@ public class ColorC extends BaseActivity
 
 
         fragmentControl = new FragmentSeekBarsControl();
+        fragmentColorBox = currentColorBox = new FragmentColorBox();
 
         FragmentTransaction transaction = getFragmentManager().beginTransaction();
 
         transaction
-                .add(R.id.color_control_container, fragmentControl);
-
-        fragmentColorBox = currentColorBox = new FragmentColorBox();
-
-        transaction
+                .add(R.id.color_control_container, fragmentControl)
                 .add(R.id.color_box_container, fragmentColorBox)
                 .commit();
     }
@@ -188,7 +185,7 @@ public class ColorC extends BaseActivity
 
                 emailIntent.putExtra(Intent.EXTRA_TEXT, Html.fromHtml(composeEmailBody()));
 
-                startActivity(Intent.createChooser(emailIntent, "Send current color parameters..."));
+                startActivity(Intent.createChooser(emailIntent, "Send color(s) parameters..."));
                 break;
             default:
                 break;

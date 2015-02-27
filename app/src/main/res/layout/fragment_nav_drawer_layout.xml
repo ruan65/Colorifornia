@@ -30,4 +30,14 @@
         android:layout_centerHorizontal="true"
         android:layout_above="@id/btn_two_colors" />
 
+    <at.markushi.ui.CircleButton
+        android:layout_width="72dp"
+        android:layout_height="72dp"
+        android:src="@drawable/ic_perm_media_white_24dp"
+        app:cb_color="@color/primaryColor"
+        app:cb_pressedRingWidth="8dip"
+        android:id="@+id/btn_img"
+        android:layout_centerHorizontal="true"
+        android:layout_below="@id/btn_two_colors" />
+
 </RelativeLayout>

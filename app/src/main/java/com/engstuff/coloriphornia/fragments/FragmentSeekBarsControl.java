@@ -14,7 +14,7 @@ public class FragmentSeekBarsControl extends Fragment implements SeekBar.OnSeekB
 
     public interface ColorControlChangeListener {
 
-        public void onColorControlChange();
+        void onColorControlChange();
     }
 
     public FragmentSeekBarsControl() {}
