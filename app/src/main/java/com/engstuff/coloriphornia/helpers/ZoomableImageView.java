@@ -2,16 +2,16 @@ package com.engstuff.coloriphornia.helpers;
 
 import android.content.Context;
 import android.graphics.Bitmap;
+import android.graphics.Color;
 import android.graphics.Matrix;
-import android.graphics.Point;
 import android.graphics.PointF;
-import android.util.AttributeSet;
+import android.util.Log;
 import android.view.MotionEvent;
 import android.view.ScaleGestureDetector;
 import android.view.View;
 import android.widget.ImageView;
 
-public class ZoomableImageView extends ImageView {
+public class ZoomableImageView extends ImageView implements View.OnTouchListener {
 
     Matrix matrix = new Matrix();
 
@@ -24,7 +24,7 @@ public class ZoomableImageView extends ImageView {
     PointF last = new PointF();
     PointF start = new PointF();
 
-    Point clickPoint = new Point();
+    private int r, g, b;
 
     float minScale = 1f;
     float maxScale = 100f;
@@ -38,7 +38,7 @@ public class ZoomableImageView extends ImageView {
     ScaleGestureDetector mScaleDetector;
     Context context;
 
-    public ZoomableImageView(Context context) {
+    public ZoomableImageView(final Context context) {
         super(context);
 
         super.setClickable(true);
@@ -51,92 +51,7 @@ public class ZoomableImageView extends ImageView {
 
         m = new float[9];
 
-        setOnTouchListener(new OnTouchListener() {
-
-            @Override
-            public boolean onTouch(View v, MotionEvent event) {
-
-                mScaleDetector.onTouchEvent(event);
-
-                matrix.getValues(m);
-
-                float x = m[Matrix.MTRANS_X];
-                float y = m[Matrix.MTRANS_Y];
-
-                PointF curr = new PointF(event.getX(), event.getY());
-
-                switch (event.getAction()) {
-
-                    case MotionEvent.ACTION_DOWN:
-
-                        last.set(event.getX(), event.getY());
-                        start.set(last);
-                        mode = DRAG;
-                        break;
-
-                    case MotionEvent.ACTION_POINTER_DOWN:
-
-                        last.set(event.getX(), event.getY());
-                        start.set(last);
-                        mode = ZOOM;
-                        break;
-
-                    case MotionEvent.ACTION_MOVE:
-
-                        if (mode == ZOOM || (mode == DRAG && saveScale > minScale)) {
-
-                            float deltaX = curr.x - last.x;
-                            float deltaY = curr.y - last.y;
-                            float scaleWidth = Math.round(origWidth * saveScale);
-                            float scaleHeight = Math.round(origHeight * saveScale);
-
-                            if (scaleWidth < width) {
-                                deltaX = 0;
-                                if (y + deltaY > 0)
-                                    deltaY = -y;
-                                else if (y + deltaY < -bottom)
-                                    deltaY = -(y + bottom);
-                            } else if (scaleHeight < height) {
-                                deltaY = 0;
-                                if (x + deltaX > 0)
-                                    deltaX = -x;
-                                else if (x + deltaX < -right)
-                                    deltaX = -(x + right);
-                            } else {
-                                if (x + deltaX > 0)
-                                    deltaX = -x;
-                                else if (x + deltaX < -right)
-                                    deltaX = -(x + right);
-
-                                if (y + deltaY > 0)
-                                    deltaY = -y;
-                                else if (y + deltaY < -bottom)
-                                    deltaY = -(y + bottom);
-                            }
-                            matrix.postTranslate(deltaX, deltaY);
-                            last.set(curr.x, curr.y);
-                        }
-                        break;
-
-                    case MotionEvent.ACTION_UP:
-
-                        mode = NONE;
-                        int xDiff = (int) Math.abs(curr.x - start.x);
-                        int yDiff = (int) Math.abs(curr.y - start.y);
-                        if (xDiff < CLICK && yDiff < CLICK)
-                            performClick();
-                        break;
-
-                    case MotionEvent.ACTION_POINTER_UP:
-                        mode = NONE;
-                        break;
-                }
-                setImageMatrix(matrix);
-                invalidate();
-                return true;
-            }
-
-        });
+        setOnTouchListener(this);
     }
 
     @Override
@@ -149,6 +64,107 @@ public class ZoomableImageView extends ImageView {
     public void setMaxZoom(float x) {
         maxScale = x;
     }
+
+
+    @Override
+    public boolean onTouch(View v, MotionEvent event) {
+
+        mScaleDetector.onTouchEvent(event);
+
+        matrix.getValues(m);
+
+        float x = m[Matrix.MTRANS_X];
+        float y = m[Matrix.MTRANS_Y];
+
+        PointF curr = new PointF(event.getX(), event.getY());
+
+        switch (event.getAction()) {
+
+            case MotionEvent.ACTION_DOWN:
+
+                float eventX = event.getX();
+                float eventY = event.getY();
+
+                Log.d("ml", eventX + " :  " + eventY);
+
+                last.set(eventX, eventY);
+                start.set(last);
+                mode = DRAG;
+
+                Bitmap bitmap = getCurrentBitmap(this);
+
+                int pixel = bitmap.getPixel((int) eventX, (int) eventY);
+
+                r = Color.red(pixel);
+                g = Color.green(pixel);
+                b = Color.blue(pixel);
+
+                Log.d("ml", r + " : " + g + " : " + b);
+
+                break;
+
+            case MotionEvent.ACTION_POINTER_DOWN:
+
+                last.set(event.getX(), event.getY());
+                start.set(last);
+                mode = ZOOM;
+                break;
+
+            case MotionEvent.ACTION_MOVE:
+
+                if (mode == ZOOM || (mode == DRAG && saveScale > minScale)) {
+
+                    float deltaX = curr.x - last.x;
+                    float deltaY = curr.y - last.y;
+                    float scaleWidth = Math.round(origWidth * saveScale);
+                    float scaleHeight = Math.round(origHeight * saveScale);
+
+                    if (scaleWidth < width) {
+                        deltaX = 0;
+                        if (y + deltaY > 0)
+                            deltaY = -y;
+                        else if (y + deltaY < -bottom)
+                            deltaY = -(y + bottom);
+                    } else if (scaleHeight < height) {
+                        deltaY = 0;
+                        if (x + deltaX > 0)
+                            deltaX = -x;
+                        else if (x + deltaX < -right)
+                            deltaX = -(x + right);
+                    } else {
+                        if (x + deltaX > 0)
+                            deltaX = -x;
+                        else if (x + deltaX < -right)
+                            deltaX = -(x + right);
+
+                        if (y + deltaY > 0)
+                            deltaY = -y;
+                        else if (y + deltaY < -bottom)
+                            deltaY = -(y + bottom);
+                    }
+                    matrix.postTranslate(deltaX, deltaY);
+                    last.set(curr.x, curr.y);
+                }
+                break;
+
+            case MotionEvent.ACTION_UP:
+
+                mode = NONE;
+                int xDiff = (int) Math.abs(curr.x - start.x);
+                int yDiff = (int) Math.abs(curr.y - start.y);
+                if (xDiff < CLICK && yDiff < CLICK)
+                    performClick();
+                break;
+
+            case MotionEvent.ACTION_POINTER_UP:
+                mode = NONE;
+                break;
+        }
+        setImageMatrix(matrix);
+        invalidate();
+        return true;
+    }
+
 
     private class ScaleListener extends ScaleGestureDetector.SimpleOnScaleGestureListener {
 
@@ -210,6 +226,7 @@ public class ZoomableImageView extends ImageView {
             }
             return true;
         }
+
     }
 
     @Override
@@ -239,5 +256,18 @@ public class ZoomableImageView extends ImageView {
         right = width * saveScale - width - (2 * redundantXSpace * saveScale);
         bottom = height * saveScale - height - (2 * redundantYSpace * saveScale);
         setImageMatrix(matrix);
+    }
+
+    private Bitmap getCurrentBitmap(ImageView iv) {
+
+        iv.setDrawingCacheEnabled(true);
+
+        iv.buildDrawingCache(true);
+
+        Bitmap bitmap = Bitmap.createBitmap(iv.getDrawingCache());
+
+        iv.setDrawingCacheEnabled(false);
+
+        return bitmap;
     }
 }
