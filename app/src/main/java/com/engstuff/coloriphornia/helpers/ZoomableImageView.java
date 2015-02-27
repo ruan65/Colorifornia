@@ -11,9 +11,13 @@ import android.view.ScaleGestureDetector;
 import android.view.View;
 import android.widget.ImageView;
 
+import com.engstuff.coloriphornia.interfaces.ImageGetColorListener;
+
 public class ZoomableImageView extends ImageView implements View.OnTouchListener {
 
     Matrix matrix = new Matrix();
+
+    ImageGetColorListener imageGetColorListener;
 
     static final int NONE = 0;
     static final int DRAG = 1;
@@ -36,13 +40,13 @@ public class ZoomableImageView extends ImageView implements View.OnTouchListener
     float right, bottom, origWidth, origHeight, bmWidth, bmHeight;
 
     ScaleGestureDetector mScaleDetector;
-    Context context;
 
     public ZoomableImageView(final Context context) {
         super(context);
 
+        imageGetColorListener = (ImageGetColorListener) context;
+
         super.setClickable(true);
-        this.context = context;
         mScaleDetector = new ScaleGestureDetector(context, new ScaleListener());
 
         matrix.setTranslate(1f, 1f);
@@ -65,6 +69,11 @@ public class ZoomableImageView extends ImageView implements View.OnTouchListener
         maxScale = x;
     }
 
+    @Override
+    public void onWindowFocusChanged(boolean hasWindowFocus) {
+        super.onWindowFocusChanged(hasWindowFocus);
+
+    }
 
     @Override
     public boolean onTouch(View v, MotionEvent event) {
@@ -100,6 +109,8 @@ public class ZoomableImageView extends ImageView implements View.OnTouchListener
                 b = Color.blue(pixel);
 
                 Log.d("ml", r + " : " + g + " : " + b);
+
+                imageGetColorListener.onPickColor();
 
                 break;
 
@@ -269,5 +280,17 @@ public class ZoomableImageView extends ImageView implements View.OnTouchListener
         iv.setDrawingCacheEnabled(false);
 
         return bitmap;
+    }
+
+    public int getR() {
+        return r;
+    }
+
+    public int getG() {
+        return g;
+    }
+
+    public int getB() {
+        return b;
     }
 }
