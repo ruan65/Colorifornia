@@ -1,27 +1,67 @@
 package com.engstuff.coloriphornia.activities;
 
+import android.app.AlertDialog;
+import android.app.Fragment;
+import android.content.Context;
+import android.content.DialogInterface;
+import android.content.Intent;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarActivity;
 import android.support.v7.widget.Toolbar;
+import android.text.Html;
+import android.util.Log;
+import android.view.Gravity;
 import android.view.KeyEvent;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
+import android.widget.TextView;
+import android.widget.Toast;
 
 import com.engstuff.coloriphornia.R;
+import com.engstuff.coloriphornia.fragments.DialogFragmentSavedEmails;
+import com.engstuff.coloriphornia.fragments.FragmentColorBox;
 import com.engstuff.coloriphornia.fragments.FragmentNavDrawer;
 import com.engstuff.coloriphornia.helpers.PrefsHelper;
 
+import java.lang.ref.WeakReference;
+import java.util.ArrayList;
+import java.util.List;
 
-public abstract class BaseActivity extends ActionBarActivity {
+import static com.engstuff.coloriphornia.helpers.PrefsHelper.eraseAllPrefs;
+import static com.engstuff.coloriphornia.helpers.PrefsHelper.readFromPrefsAllToArray;
+import static com.engstuff.coloriphornia.helpers.PrefsHelper.readFromPrefsInt;
+import static com.engstuff.coloriphornia.helpers.PrefsHelper.writeToPrefs;
+
+
+public abstract class BaseActivity extends ActionBarActivity implements FragmentColorBox.ColorBoxEventListener {
+
+    public final static String EXTRA_MESSAGE_COLOR_1 = "color_parameters_1";
+    public final static String EXTRA_MESSAGE_TEXT_COLOR_1 = "text_color_parameters_1";
+    public final static String EXTRA_MESSAGE_COLOR_2 = "color_parameters_2";
+    public final static String EXTRA_MESSAGE_TEXT_COLOR_2 = "text_color_parameters_2";
+    public final static String SAVED_COLORS = "user_saved_colors";
+    public final static String SAVED_EMAILS = "user_saved_emails";
+
 
     Toolbar mToolbar;
     DrawerLayout mDrawerLayout; // parent activity layout
     View mDrawerView; // child drawer view
 
+    protected final Context ctx = this;
+    protected FragmentColorBox fragmentColorBox;
+    protected FragmentColorBox currentColorBox;
+
+    List<WeakReference<Fragment>> allAttachedFragments = new ArrayList<>();
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(getLayoutResource());
+
+        fragmentColorBox = currentColorBox = new FragmentColorBox();
 
         mToolbar = (Toolbar) findViewById(R.id.app_bar);
         setSupportActionBar(mToolbar);
@@ -47,6 +87,11 @@ public abstract class BaseActivity extends ActionBarActivity {
         }
     }
 
+    @Override
+    public void onAttachFragment(Fragment fragment) {
+        allAttachedFragments.add(new WeakReference<>(fragment));
+    }
+
     protected abstract int getLayoutResource();
 
     /**
@@ -65,5 +110,138 @@ public abstract class BaseActivity extends ActionBarActivity {
             return true;
         }
         return super.onKeyDown(keyCode, event);
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.menu_main, menu);
+
+        return super.onCreateOptionsMenu(menu);
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+
+        String hexColorParams = currentColorBox.getHexColorParams();
+        int colorHex = currentColorBox.getColorHex();
+
+        switch (item.getItemId()) {
+
+            case R.id.save_to_prefs:
+
+                writeToPrefs(this, SAVED_COLORS, hexColorParams, colorHex);
+
+                if (readFromPrefsInt(this, SAVED_COLORS, hexColorParams) == colorHex) {
+
+                    Toast toast = new Toast(getApplicationContext());
+
+                    TextView view = (TextView)
+                            getLayoutInflater().inflate(R.layout.toast_custom, null); //new TextView(this);
+
+                    view.setBackgroundColor(colorHex);
+
+                    view.setTextColor(currentColorBox.isWhiteText() ? Color.WHITE : Color.BLACK);
+                    view.setText("This color's been saved\n\n            " + hexColorParams);
+
+                    toast.setView(view);
+                    toast.setDuration(Toast.LENGTH_LONG);
+                    toast.setGravity(Gravity.TOP, 0, 0);
+                    toast.show();
+
+                }
+                return true;
+
+            case R.id.get_saved:
+
+                for (String colorHexadecimal : readFromPrefsAllToArray(this, SAVED_COLORS)) {
+
+                    Log.d("ml", "hex: " + colorHexadecimal);
+                }
+                break;
+
+            case R.id.saved_emails:
+
+                new DialogFragmentSavedEmails().show(getFragmentManager(), null);
+                break;
+
+            case R.id.erase:
+
+                new AlertDialog.Builder(this, AlertDialog.THEME_HOLO_LIGHT)
+                        .setTitle("Delete saved colors")
+                        .setMessage("All saved colors will be deleted!?")
+                        .setPositiveButton(R.string.ok, new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialog, int which) {
+                                eraseAllPrefs(ctx, SAVED_COLORS);
+                            }
+                        })
+                        .setNegativeButton(R.string.no, new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialog, int which) {
+                                // ignore
+                            }
+                        })
+                        .show();
+                break;
+
+            case R.id.menu_item_share:
+
+                Intent emailIntent = new Intent(Intent.ACTION_SEND);
+
+                emailIntent.setType("message/rfc822");
+
+                emailIntent.putExtra(Intent.EXTRA_EMAIL,
+                        readFromPrefsAllToArray(this, SAVED_EMAILS));
+
+                emailIntent.putExtra(Intent.EXTRA_SUBJECT, "Color parameters from Colorifornia");
+
+                emailIntent.putExtra(Intent.EXTRA_TEXT, Html.fromHtml(composeEmailBody()));
+
+                startActivity(Intent.createChooser(emailIntent, "Send color(s) parameters..."));
+                break;
+            default:
+                break;
+        }
+        return super.onOptionsItemSelected(item);
+    }
+
+    private String composeEmailBody() {
+        StringBuilder result = new StringBuilder()
+                .append("<h3>Colors chosen via \"Colorifornia\" mobile app: </h3>");
+
+        for (WeakReference<Fragment> ref : allAttachedFragments) {
+            Fragment f = ref.get();
+            if (f.getClass().equals(FragmentColorBox.class)) {
+                result.append("<p>" + ((FragmentColorBox) f).getHexColorParams() + "</p>");
+            }
+        }
+
+        return result.toString();
+    }
+
+    @Override
+    public void onColorClicked(FragmentColorBox color) {
+
+        changeFragment(color);
+    }
+
+    protected void changeFragment(FragmentColorBox color){};
+
+    @Override
+    public void onColorLongClicked(FragmentColorBox color) {
+
+        changeFragment(color);
+
+        String[] colorParams = {
+                color.getRgbColorParams(),
+                color.getHexColorParams()
+        };
+
+        Intent i = new Intent(this, FullScreenColorC.class);
+
+        i.putExtra(EXTRA_MESSAGE_COLOR_1, colorParams);
+        i.putExtra(EXTRA_MESSAGE_TEXT_COLOR_1, fragmentColorBox.isWhiteText());
+
+        startActivity(i);
     }
 }

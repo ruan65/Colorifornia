@@ -57,4 +57,10 @@ public class ColorCC extends ColorC {
         return R.layout.color_cc;
     }
 
+    protected void changeFragment(FragmentColorBox color) {
+        currentColorBox = color;
+        fragmentControl.setControls(
+                color.getAlpha(), color.getR(), color.getG(), color.getB());
+    }
+
 }
