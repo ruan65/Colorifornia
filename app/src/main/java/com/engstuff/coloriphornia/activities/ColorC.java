@@ -11,9 +11,12 @@ import android.os.Bundle;
 import android.text.Html;
 import android.text.InputType;
 import android.util.Log;
+import android.view.Gravity;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
 import android.widget.EditText;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.engstuff.coloriphornia.R;
@@ -134,8 +137,22 @@ public class ColorC extends BaseActivity
 
                 if (readFromPrefsInt(this, SAVED_COLORS, hexColorParams) == colorHex) {
 
-                    Toast.makeText(this, "Color: " + hexColorParams +
-                            " has been saved", Toast.LENGTH_SHORT).show();
+                    Toast toast = new Toast(getApplicationContext());
+
+                    View view = getLayoutInflater().inflate(R.layout.toast_castom, null);
+
+                    view.findViewById(R.id.toast_color).setBackgroundColor(colorHex);
+
+                    ((TextView) view.findViewById(R.id.toast_text))
+                            .setText("Color: " + hexColorParams + " has been saved");
+
+                    toast.setView(view);
+                    toast.setDuration(Toast.LENGTH_SHORT);
+                    toast.setGravity(Gravity.TOP, 0, 200);
+                    toast.show();
+
+//                    Toast.makeText(this, "Color: " + hexColorParams +
+//                            " has been saved", Toast.LENGTH_SHORT).show();
                 }
                 return true;
 
