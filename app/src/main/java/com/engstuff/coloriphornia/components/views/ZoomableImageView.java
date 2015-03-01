@@ -1,11 +1,10 @@
-package com.engstuff.coloriphornia.helpers;
+package com.engstuff.coloriphornia.components.views;
 
 import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.Color;
 import android.graphics.Matrix;
 import android.graphics.PointF;
-import android.util.Log;
 import android.view.MotionEvent;
 import android.view.ScaleGestureDetector;
 import android.view.View;
@@ -65,6 +64,16 @@ public class ZoomableImageView extends ImageView implements View.OnTouchListener
         bmHeight = bm.getHeight();
     }
 
+    @Override
+    public void onWindowFocusChanged(boolean hasWindowFocus) {
+        super.onWindowFocusChanged(hasWindowFocus);
+
+        if (hasWindowFocus) {
+            setRGB(getWidth() / 2, getHeight() / 2, getCurrentBitmap(this));
+            imageGetColorListener.onPickColor();
+        }
+    }
+
     public void setMaxZoom(float x) {
         maxScale = x;
     }
@@ -88,21 +97,11 @@ public class ZoomableImageView extends ImageView implements View.OnTouchListener
                 float eventX = event.getX();
                 float eventY = event.getY();
 
-                Log.d("ml", eventX + " :  " + eventY);
-
                 last.set(eventX, eventY);
                 start.set(last);
                 mode = DRAG;
 
-                Bitmap bitmap = getCurrentBitmap(this);
-
-                int pixel = bitmap.getPixel((int) eventX, (int) eventY);
-
-                r = Color.red(pixel);
-                g = Color.green(pixel);
-                b = Color.blue(pixel);
-
-                Log.d("ml", r + " : " + g + " : " + b);
+                setRGB((int) eventX, (int) eventY, getCurrentBitmap(this));
 
                 imageGetColorListener.onPickColor();
 
@@ -237,12 +236,15 @@ public class ZoomableImageView extends ImageView implements View.OnTouchListener
     @Override
     protected void onMeasure(int widthMeasureSpec, int heightMeasureSpec) {
         super.onMeasure(widthMeasureSpec, heightMeasureSpec);
+
         width = MeasureSpec.getSize(widthMeasureSpec);
         height = MeasureSpec.getSize(heightMeasureSpec);
+
         //Fit to screen.
         float scale;
         float scaleX = width / bmWidth;
         float scaleY = height / bmHeight;
+
         scale = Math.min(scaleX, scaleY);
         matrix.setScale(scale, scale);
         setImageMatrix(matrix);
@@ -274,6 +276,15 @@ public class ZoomableImageView extends ImageView implements View.OnTouchListener
         iv.setDrawingCacheEnabled(false);
 
         return bitmap;
+    }
+
+    private void setRGB(int x, int y, Bitmap bitmap) {
+
+        int pixel = bitmap.getPixel(x, y);
+
+        r = Color.red(pixel);
+        g = Color.green(pixel);
+        b = Color.blue(pixel);
     }
 
     public int getR() {

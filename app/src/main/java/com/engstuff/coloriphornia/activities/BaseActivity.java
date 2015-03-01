@@ -198,6 +198,7 @@ public abstract class BaseActivity extends ActionBarActivity implements Fragment
                 emailIntent.putExtra(Intent.EXTRA_TEXT, Html.fromHtml(composeEmailBody()));
 
                 startActivity(Intent.createChooser(emailIntent, "Send color(s) parameters..."));
+
                 break;
             default:
                 break;

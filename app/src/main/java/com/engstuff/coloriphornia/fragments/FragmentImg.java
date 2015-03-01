@@ -10,7 +10,7 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.engstuff.coloriphornia.R;
-import com.engstuff.coloriphornia.helpers.ZoomableImageView;
+import com.engstuff.coloriphornia.components.views.ZoomableImageView;
 
 public class FragmentImg extends Fragment {
 

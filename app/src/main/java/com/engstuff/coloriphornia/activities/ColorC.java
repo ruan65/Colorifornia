@@ -32,8 +32,6 @@ public class ColorC extends BaseActivity
         return R.layout.color_c;
     }
 
-
-
     @Override
     public void onColorControlChange() {
         currentColorBox
