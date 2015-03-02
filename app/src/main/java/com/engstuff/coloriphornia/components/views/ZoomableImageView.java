@@ -10,6 +10,7 @@ import android.view.ScaleGestureDetector;
 import android.view.View;
 import android.widget.ImageView;
 
+import com.engstuff.coloriphornia.R;
 import com.engstuff.coloriphornia.interfaces.ImageGetColorListener;
 
 public class ZoomableImageView extends ImageView implements View.OnTouchListener {
@@ -30,7 +31,7 @@ public class ZoomableImageView extends ImageView implements View.OnTouchListener
     private int r, g, b;
 
     float minScale = 1f;
-    float maxScale = 100f;
+    float maxScale = 1f;
     float[] m;
 
     float redundantXSpace, redundantYSpace;
@@ -43,6 +44,7 @@ public class ZoomableImageView extends ImageView implements View.OnTouchListener
     public ZoomableImageView(final Context context) {
         super(context);
 
+        maxScale = context.getResources().getInteger(R.integer.matrix_max_scale);
         imageGetColorListener = (ImageGetColorListener) context;
 
         super.setClickable(true);
@@ -60,8 +62,10 @@ public class ZoomableImageView extends ImageView implements View.OnTouchListener
     @Override
     public void setImageBitmap(Bitmap bm) {
         super.setImageBitmap(bm);
-        bmWidth = bm.getWidth();
-        bmHeight = bm.getHeight();
+        if (null != bm) {
+            bmWidth = bm.getWidth();
+            bmHeight = bm.getHeight();
+        }
     }
 
     @Override

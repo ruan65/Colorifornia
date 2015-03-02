@@ -6,6 +6,7 @@ import android.app.Fragment;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.net.Uri;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -37,35 +38,17 @@ public class FragmentImg extends Fragment {
 
         ctx = getActivity();
         ziv = new ZoomableImageView(ctx);
-
-        ziv.setImageBitmap(BitmapFactory.decodeResource(getResources(), R.drawable.bitten_apple));
-
         return ziv;
     }
 
-    public void resetBitmap(Uri uri) {
+    public void putBitmap(Uri uri) {
 
         Logging.logMemory();
 
+
         try {
-            int pxx = 300, pxy = 300;
+            new GetImageFromGallery().execute(uri);
 
-            String path = ImageHelper.getRealImagePath(ctx, uri);
-
-            Logging.log("path: " + path);
-
-            File file = new File(path);
-
-            Logging.log(file.getAbsolutePath());
-
-            Bitmap bmp = ImageHelper.decodeSampledBitmapFromResource(
-                    file.getAbsolutePath(), pxx, pxy, Bitmap.Config.RGB_565);
-
-            Logging.log(String.format("Required size = %sx%s, bitmap size = %sx%s, byteCount = %sK",
-                    pxx, pxy, bmp.getWidth(), bmp.getHeight(), bmp.getByteCount() / 1024));
-
-            ziv.setImageBitmap(bmp);
-            ziv.invalidate();
         } catch (Exception e) {
 
             Toast.makeText(ctx, ctx.getString(R.string.file_not_found), Toast.LENGTH_SHORT).show();
@@ -86,5 +69,34 @@ public class FragmentImg extends Fragment {
 
     public int getB() {
         return ziv.getB();
+    }
+
+    private class GetImageFromGallery extends AsyncTask<Uri, Void, Bitmap> {
+
+        int pxx, pxy;
+        @Override
+        protected Bitmap doInBackground(Uri... uris) {
+            pxx = pxy = (int) ctx.getResources().getDimension(R.dimen.bitmap_size);
+
+            String path = ImageHelper.getRealImagePath(ctx, uris[0]);
+
+            Logging.log("path: " + path);
+
+            File file = new File(path);
+
+            Logging.log(file.getAbsolutePath());
+
+            return ImageHelper.decodeSampledBitmapFromResource(
+                    file.getAbsolutePath(), pxx, pxy, Bitmap.Config.RGB_565);
+        }
+
+        @Override
+        protected void onPostExecute(Bitmap bmp) {
+            Logging.log(String.format("Required size = %sx%s, bitmap size = %sx%s, byteCount = %sK",
+                    pxx, pxy, bmp.getWidth(), bmp.getHeight(), bmp.getByteCount() / 1024));
+
+            ziv.setImageBitmap(bmp);
+            ziv.invalidate();
+        }
     }
 }

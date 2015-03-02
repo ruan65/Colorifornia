@@ -8,15 +8,11 @@ import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
 import android.util.Log;
-import android.view.Menu;
-import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 
 import com.engstuff.coloriphornia.R;
-import com.engstuff.coloriphornia.fragments.FragmentColorBox;
 import com.engstuff.coloriphornia.fragments.FragmentImg;
-import com.engstuff.coloriphornia.helpers.ImageHelper;
 import com.engstuff.coloriphornia.interfaces.ImageGetColorListener;
 
 public class ColorFromImage extends BaseActivity implements ImageGetColorListener {
@@ -85,7 +81,7 @@ public class ColorFromImage extends BaseActivity implements ImageGetColorListene
         }
         Log.d("ml", "uri: " + uri);
 
-        fragmentImg.resetBitmap(uri);
+        fragmentImg.putBitmap(uri);
     }
 
     @Override

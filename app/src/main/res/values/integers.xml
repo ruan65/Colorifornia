@@ -4,5 +4,6 @@
     <integer name="sbProgressR">0xE9</integer>
     <integer name="sbProgressG">0x1E</integer>
     <integer name="sbProgressB">0x63</integer>
+    <integer name="matrix_max_scale">100</integer>
 
 </resources>
