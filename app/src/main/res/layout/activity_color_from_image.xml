@@ -18,13 +18,26 @@
             android:id="@+id/img_container"
             android:layout_width="match_parent"
             android:layout_height="0dp"
-            android:layout_weight="38" />
+            android:layout_weight="62" />
+        
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+
+            <Button
+                style="?android:attr/buttonStyleSmall"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Get Image"
+                android:id="@+id/btn_get_image" />
+        </LinearLayout>
 
         <FrameLayout
             android:id="@+id/color_box_container_color_from_image"
             android:layout_width="match_parent"
             android:layout_height="0dp"
-            android:layout_weight="62" />
+            android:layout_weight="38" />
 
 
 

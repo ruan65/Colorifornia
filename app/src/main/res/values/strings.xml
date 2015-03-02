@@ -36,6 +36,8 @@
     <string name="title_activity_color_from_image">ColorFromImage</string>
 
     <string name="hello_world">Hello world!</string>
+    <string name="select_picture">Select Picture</string>
+    <string name="file_not_found">File not found...</string>
 
 
 </resources>
