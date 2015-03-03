@@ -5,6 +5,7 @@ import android.app.Activity;
 import android.app.Fragment;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.media.Image;
 import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Bundle;
@@ -15,6 +16,7 @@ import android.view.ViewGroup;
 import android.widget.Toast;
 
 import com.engstuff.coloriphornia.R;
+import com.engstuff.coloriphornia.activities.ColorFromImage;
 import com.engstuff.coloriphornia.components.views.ZoomableImageView;
 import com.engstuff.coloriphornia.helpers.ImageHelper;
 import com.engstuff.coloriphornia.helpers.Logging;
@@ -58,6 +60,14 @@ public class FragmentImg extends Fragment {
         Logging.logMemory();
     }
 
+    @Override
+    public void onViewCreated(View view, Bundle savedInstanceState) {
+        super.onViewCreated(view, savedInstanceState);
+
+        if (ziv.getDrawable() == null) {
+            ctx.findViewById(R.id.btn_get_image).performClick();
+        }
+    }
 
     public int getR() {
         return ziv.getR();

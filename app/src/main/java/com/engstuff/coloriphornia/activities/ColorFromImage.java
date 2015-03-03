@@ -15,7 +15,8 @@ import com.engstuff.coloriphornia.R;
 import com.engstuff.coloriphornia.fragments.FragmentImg;
 import com.engstuff.coloriphornia.interfaces.ImageGetColorListener;
 
-public class ColorFromImage extends BaseActivity implements ImageGetColorListener {
+public class ColorFromImage extends BaseActivity
+        implements ImageGetColorListener, View.OnClickListener {
 
     private static final int GALLERY_INTENT_CALLED = 0xa;
     private static final int GALLERY_KITKAT_INTENT_CALLED = 0xb;
@@ -36,26 +37,7 @@ public class ColorFromImage extends BaseActivity implements ImageGetColorListene
                 .commit();
 
         Button btnGetImage = (Button) findViewById(R.id.btn_get_image);
-        btnGetImage.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-
-                Intent intent = new Intent();
-                intent.setType("image/jpeg");
-
-                if (Build.VERSION.SDK_INT <19){
-
-                    intent.setAction(Intent.ACTION_GET_CONTENT);
-                    startActivityForResult(Intent.createChooser(intent,
-                            getResources().getString(R.string.select_picture)), GALLERY_INTENT_CALLED);
-                } else {
-
-                    intent.setAction(Intent.ACTION_OPEN_DOCUMENT);
-                    intent.addCategory(Intent.CATEGORY_OPENABLE);
-                    startActivityForResult(intent, GALLERY_KITKAT_INTENT_CALLED);
-                }
-            }
-        });
+        btnGetImage.setOnClickListener(this);
     }
 
     @Override
@@ -100,5 +82,22 @@ public class ColorFromImage extends BaseActivity implements ImageGetColorListene
         ).changeColor();
     }
 
+    @Override
+    public void onClick(View v) {
 
+        Intent intent = new Intent();
+        intent.setType("image/jpeg");
+
+        if (Build.VERSION.SDK_INT < 19) {
+
+            intent.setAction(Intent.ACTION_GET_CONTENT);
+            startActivityForResult(Intent.createChooser(intent,
+                    getResources().getString(R.string.select_picture)), GALLERY_INTENT_CALLED);
+        } else {
+
+            intent.setAction(Intent.ACTION_OPEN_DOCUMENT);
+            intent.addCategory(Intent.CATEGORY_OPENABLE);
+            startActivityForResult(intent, GALLERY_KITKAT_INTENT_CALLED);
+        }
+    }
 }
