@@ -74,7 +74,6 @@ public class ZoomableImageView extends ImageView implements View.OnTouchListener
 
         if (hasWindowFocus) {
             setRGB(getWidth() / 2, getHeight() / 2, getCurrentBitmap(this));
-            imageGetColorListener.onPickColor();
         }
     }
 

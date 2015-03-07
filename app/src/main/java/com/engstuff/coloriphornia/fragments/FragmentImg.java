@@ -13,6 +13,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.FrameLayout;
 import android.widget.Toast;
 
 import com.engstuff.coloriphornia.R;
@@ -38,9 +39,13 @@ public class FragmentImg extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
 
+        FrameLayout frame = (FrameLayout) inflater.inflate(R.layout.fragment_img, container, false);
+
         ctx = getActivity();
         ziv = new ZoomableImageView(ctx);
-        return ziv;
+
+        frame.addView(ziv);
+        return frame;
     }
 
     public void putBitmap(Uri uri) {
