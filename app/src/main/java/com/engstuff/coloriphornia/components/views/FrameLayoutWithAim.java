@@ -18,8 +18,8 @@ public class FrameLayoutWithAim extends FrameLayout {
     public boolean onInterceptTouchEvent(MotionEvent ev) {
         if (ev.getAction() == MotionEvent.ACTION_DOWN) {
             if (aim != null) {
-                aim.setX(ev.getX());
-                aim.setY(ev.getY());
+                aim.setX(ev.getX() - aim.getWidth() / 2);
+                aim.setY(ev.getY() - aim.getHeight() / 2);
             }
         }
         return super.onInterceptTouchEvent(ev);
