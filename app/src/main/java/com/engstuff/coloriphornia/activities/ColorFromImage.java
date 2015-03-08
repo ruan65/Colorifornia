@@ -61,8 +61,6 @@ public class ColorFromImage extends BaseActivity
                 getContentResolver().takePersistableUriPermission(uri, takeFlags);
                 break;
         }
-        Log.d("ml", "uri: " + uri);
-
         fragmentImg.putBitmap(uri);
     }
 

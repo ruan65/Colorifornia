@@ -47,7 +47,6 @@ public class ZoomableImageView extends ImageView implements View.OnTouchListener
         maxScale = context.getResources().getInteger(R.integer.matrix_max_scale);
         imageGetColorListener = (ImageGetColorListener) context;
 
-        super.setClickable(true);
         mScaleDetector = new ScaleGestureDetector(context, new ScaleListener());
 
         matrix.setTranslate(1f, 1f);
@@ -74,6 +73,8 @@ public class ZoomableImageView extends ImageView implements View.OnTouchListener
 
         if (hasWindowFocus) {
             setRGB(getWidth() / 2, getHeight() / 2, getCurrentBitmap(this));
+
+//            imageGetColorListener.onPickColor();
         }
     }
 

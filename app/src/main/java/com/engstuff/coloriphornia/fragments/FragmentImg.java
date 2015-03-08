@@ -4,31 +4,31 @@ package com.engstuff.coloriphornia.fragments;
 import android.app.Activity;
 import android.app.Fragment;
 import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
-import android.media.Image;
 import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Bundle;
-import android.util.Log;
+import android.util.DisplayMetrics;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.FrameLayout;
+import android.widget.ImageView;
 import android.widget.Toast;
 
 import com.engstuff.coloriphornia.R;
-import com.engstuff.coloriphornia.activities.ColorFromImage;
+import com.engstuff.coloriphornia.components.views.FrameLayoutWithAim;
 import com.engstuff.coloriphornia.components.views.ZoomableImageView;
 import com.engstuff.coloriphornia.helpers.ImageHelper;
 import com.engstuff.coloriphornia.helpers.Logging;
 
 import java.io.File;
-import java.io.FileNotFoundException;
-import java.io.InputStream;
+
+import static android.view.ViewGroup.LayoutParams;
 
 public class FragmentImg extends Fragment {
 
     private ZoomableImageView ziv;
+    private ImageView aim;
+    private FrameLayoutWithAim frame;
 
     Activity ctx;
 
@@ -39,13 +39,32 @@ public class FragmentImg extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
 
-        FrameLayout frame = (FrameLayout) inflater.inflate(R.layout.fragment_img, container, false);
+        frame = (FrameLayoutWithAim) inflater.inflate(R.layout.fragment_img, container, false);
 
         ctx = getActivity();
+
         ziv = new ZoomableImageView(ctx);
 
+        aim = createAimImageView();
+
+        frame.setAim(aim);
         frame.addView(ziv);
+        frame.addView(aim);
         return frame;
+    }
+
+    private ImageView createAimImageView() {
+
+        DisplayMetrics display = new DisplayMetrics();
+        ctx.getWindowManager().getDefaultDisplay().getMetrics(display);
+
+        ImageView aim = new ImageView(ctx);
+        aim.setLayoutParams(new LayoutParams(LayoutParams.WRAP_CONTENT, LayoutParams.WRAP_CONTENT));
+        aim.setImageResource(R.drawable.ic_aim_black);
+        aim.setX(display.heightPixels / display.scaledDensity / 2);
+        aim.setY((float) (display.widthPixels * 0.62 / display.scaledDensity / 2));
+
+        return aim;
     }
 
     public void putBitmap(Uri uri) {
