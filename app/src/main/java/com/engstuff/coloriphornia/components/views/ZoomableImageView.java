@@ -73,8 +73,6 @@ public class ZoomableImageView extends ImageView implements View.OnTouchListener
 
         if (hasWindowFocus) {
             setRGB(getWidth() / 2, getHeight() / 2, getCurrentBitmap(this));
-
-//            imageGetColorListener.onPickColor();
         }
     }
 
@@ -92,22 +90,21 @@ public class ZoomableImageView extends ImageView implements View.OnTouchListener
         float x = m[Matrix.MTRANS_X];
         float y = m[Matrix.MTRANS_Y];
 
+        float eventX = event.getX();
+        float eventY = event.getY();
+
         PointF curr = new PointF(event.getX(), event.getY());
 
         switch (event.getAction()) {
 
             case MotionEvent.ACTION_DOWN:
 
-                float eventX = event.getX();
-                float eventY = event.getY();
 
                 last.set(eventX, eventY);
                 start.set(last);
                 mode = DRAG;
 
-                setRGB((int) eventX, (int) eventY, getCurrentBitmap(this));
-
-                imageGetColorListener.onPickColor();
+                changeColor((int) eventX, (int) eventY);
 
                 break;
 
@@ -153,6 +150,7 @@ public class ZoomableImageView extends ImageView implements View.OnTouchListener
                     matrix.postTranslate(deltaX, deltaY);
                     last.set(curr.x, curr.y);
                 }
+                changeColor((int) eventX, (int) eventY);
                 break;
 
             case MotionEvent.ACTION_UP:
@@ -160,8 +158,10 @@ public class ZoomableImageView extends ImageView implements View.OnTouchListener
                 mode = NONE;
                 int xDiff = (int) Math.abs(curr.x - start.x);
                 int yDiff = (int) Math.abs(curr.y - start.y);
-                if (xDiff < CLICK && yDiff < CLICK)
+                if (xDiff < CLICK && yDiff < CLICK) {
                     performClick();
+                }
+                changeColor((int) eventX, (int) eventY);
                 break;
 
             case MotionEvent.ACTION_POINTER_UP:
@@ -173,6 +173,10 @@ public class ZoomableImageView extends ImageView implements View.OnTouchListener
         return true;
     }
 
+    void changeColor(int eventX, int eventY) {
+        setRGB(eventX, eventY, getCurrentBitmap(this));
+        imageGetColorListener.onPickColor();
+    }
 
     private class ScaleListener extends ScaleGestureDetector.SimpleOnScaleGestureListener {
 

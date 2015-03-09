@@ -16,11 +16,18 @@ public class FrameLayoutWithAim extends FrameLayout {
 
     @Override
     public boolean onInterceptTouchEvent(MotionEvent ev) {
-        if (ev.getAction() == MotionEvent.ACTION_DOWN) {
-            if (aim != null) {
-                aim.setX(ev.getX() - aim.getWidth() / 2);
-                aim.setY(ev.getY() - aim.getHeight() / 2);
-            }
+
+
+        switch (ev.getAction()) {
+
+            case MotionEvent.ACTION_DOWN:
+            case MotionEvent.ACTION_UP:
+            case MotionEvent.ACTION_MOVE:
+                if (aim != null) {
+                    aim.setX(ev.getX() - aim.getWidth() / 2);
+                    aim.setY(ev.getY() - aim.getHeight() / 2);
+                }
+                break;
         }
         return super.onInterceptTouchEvent(ev);
     }
