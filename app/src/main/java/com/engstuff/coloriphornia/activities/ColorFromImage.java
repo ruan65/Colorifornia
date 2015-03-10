@@ -14,6 +14,7 @@ import android.widget.Button;
 import com.engstuff.coloriphornia.R;
 import com.engstuff.coloriphornia.fragments.FragmentImg;
 import com.engstuff.coloriphornia.interfaces.ImageGetColorListener;
+import com.software.shell.fab.ActionButton;
 
 public class ColorFromImage extends BaseActivity
         implements ImageGetColorListener, View.OnClickListener {
@@ -36,8 +37,8 @@ public class ColorFromImage extends BaseActivity
                 .add(R.id.color_box_container_color_from_image, fragmentColorBox)
                 .commit();
 
-        Button btnGetImage = (Button) findViewById(R.id.btn_get_image);
-        btnGetImage.setOnClickListener(this);
+        ActionButton aBtn = (ActionButton) findViewById(R.id.action_button);
+        aBtn.setOnClickListener(this);
     }
 
     @Override

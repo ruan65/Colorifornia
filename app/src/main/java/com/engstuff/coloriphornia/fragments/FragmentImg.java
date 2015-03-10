@@ -1,7 +1,6 @@
 package com.engstuff.coloriphornia.fragments;
 
 
-import android.app.Activity;
 import android.app.Fragment;
 import android.graphics.Bitmap;
 import android.net.Uri;
@@ -15,10 +14,12 @@ import android.widget.ImageView;
 import android.widget.Toast;
 
 import com.engstuff.coloriphornia.R;
+import com.engstuff.coloriphornia.activities.BaseActivity;
 import com.engstuff.coloriphornia.components.views.FrameLayoutWithAim;
 import com.engstuff.coloriphornia.components.views.ZoomableImageView;
 import com.engstuff.coloriphornia.helpers.ImageHelper;
 import com.engstuff.coloriphornia.helpers.Logging;
+import com.software.shell.fab.ActionButton;
 
 import java.io.File;
 
@@ -30,7 +31,7 @@ public class FragmentImg extends Fragment {
     private ImageView aim;
     private FrameLayoutWithAim frame;
 
-    Activity ctx;
+    BaseActivity ctx;
 
     public FragmentImg() {
     }
@@ -41,7 +42,7 @@ public class FragmentImg extends Fragment {
 
         frame = (FrameLayoutWithAim) inflater.inflate(R.layout.fragment_img, container, false);
 
-        ctx = getActivity();
+        ctx = (BaseActivity) getActivity();
 
         ziv = new ZoomableImageView(ctx);
 
@@ -50,17 +51,18 @@ public class FragmentImg extends Fragment {
         frame.setAim(aim);
         frame.addView(ziv);
         frame.addView(aim);
+
         return frame;
     }
 
     private ImageView createAimImageView() {
 
-        DisplayMetrics display = new DisplayMetrics();
-        ctx.getWindowManager().getDefaultDisplay().getMetrics(display);
+        DisplayMetrics display = ctx.getDisplay();
 
         ImageView aim = new ImageView(ctx);
         aim.setLayoutParams(new LayoutParams(LayoutParams.WRAP_CONTENT, LayoutParams.WRAP_CONTENT));
-        aim.setImageResource(R.drawable.ic_aim_black);
+        aim.setImageResource(ctx.isWhiteText() ? R.drawable.ic_aim_white
+                : R.drawable.ic_aim_black);
         aim.setX(display.heightPixels / display.scaledDensity / 2);
         aim.setY((float) (display.widthPixels * 0.62 / display.scaledDensity / 2));
 
@@ -89,7 +91,7 @@ public class FragmentImg extends Fragment {
         super.onViewCreated(view, savedInstanceState);
 
         if (ziv.getDrawable() == null) {
-            ctx.findViewById(R.id.btn_get_image).performClick();
+            ctx.findViewById(R.id.action_button).performClick();
         }
     }
 

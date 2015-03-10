@@ -11,6 +11,7 @@ import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarActivity;
 import android.support.v7.widget.Toolbar;
 import android.text.Html;
+import android.util.DisplayMetrics;
 import android.util.Log;
 import android.view.Gravity;
 import android.view.KeyEvent;
@@ -36,7 +37,8 @@ import static com.engstuff.coloriphornia.helpers.PrefsHelper.readFromPrefsInt;
 import static com.engstuff.coloriphornia.helpers.PrefsHelper.writeToPrefs;
 
 
-public abstract class BaseActivity extends ActionBarActivity implements FragmentColorBox.ColorBoxEventListener {
+public abstract class BaseActivity extends ActionBarActivity
+        implements FragmentColorBox.ColorBoxEventListener {
 
     public final static String EXTRA_MESSAGE_COLOR_1 = "color_parameters_1";
     public final static String EXTRA_MESSAGE_TEXT_COLOR_1 = "text_color_parameters_1";
@@ -45,6 +47,9 @@ public abstract class BaseActivity extends ActionBarActivity implements Fragment
     public final static String SAVED_COLORS = "user_saved_colors";
     public final static String SAVED_EMAILS = "user_saved_emails";
 
+
+
+    DisplayMetrics display = new DisplayMetrics();
 
     Toolbar mToolbar;
     DrawerLayout mDrawerLayout; // parent activity layout
@@ -60,6 +65,8 @@ public abstract class BaseActivity extends ActionBarActivity implements Fragment
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(getLayoutResource());
+
+        getWindowManager().getDefaultDisplay().getMetrics(display);
 
         fragmentColorBox = currentColorBox = new FragmentColorBox();
 
@@ -244,5 +251,13 @@ public abstract class BaseActivity extends ActionBarActivity implements Fragment
         i.putExtra(EXTRA_MESSAGE_TEXT_COLOR_1, fragmentColorBox.isWhiteText());
 
         startActivity(i);
+    }
+
+    public boolean isWhiteText() {
+        return fragmentColorBox != null ? fragmentColorBox.isWhiteText() : false;
+    }
+
+    public DisplayMetrics getDisplay() {
+        return display;
     }
 }

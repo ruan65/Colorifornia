@@ -4,44 +4,46 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <LinearLayout
+    <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:background="@color/appBarTextColor"
-        android:orientation="vertical">
+        android:layout_height="match_parent">
 
-        <include
-            android:id="@+id/app_bar"
-            layout="@layout/app_bar" />
 
-        <FrameLayout
-            android:id="@+id/img_container"
-            android:layout_width="match_parent"
-            android:layout_height="0dp"
-            android:layout_weight="62" />
-        
+
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content">
+            android:layout_height="match_parent"
+            android:background="@color/appBarTextColor"
+            android:orientation="vertical">
 
+            <include
+                android:id="@+id/app_bar"
+                layout="@layout/app_bar" />
 
-            <Button
-                style="?android:attr/buttonStyleSmall"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Get Image"
-                android:id="@+id/btn_get_image" />
+            <FrameLayout
+                android:id="@+id/img_container"
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_weight="62"
+                android:background="@color/primaryColor" />
+
+            <FrameLayout
+                android:id="@+id/color_box_container_color_from_image"
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_weight="38" />
+
         </LinearLayout>
 
-        <FrameLayout
-            android:id="@+id/color_box_container_color_from_image"
-            android:layout_width="match_parent"
-            android:layout_height="0dp"
-            android:layout_weight="38" />
-
-
-
-    </LinearLayout>
+        <com.software.shell.fab.ActionButton
+            android:id="@+id/action_button"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:layout_alignParentRight="true"
+            android:layout_marginBottom="@dimen/fab_margin"
+            android:layout_marginRight="@dimen/fab_margin" />
+    </RelativeLayout>
 
     <fragment
         android:id="@+id/fragment_nav_drawer"
