@@ -47,10 +47,6 @@ public abstract class BaseActivity extends ActionBarActivity
     public final static String SAVED_COLORS = "user_saved_colors";
     public final static String SAVED_EMAILS = "user_saved_emails";
 
-
-
-    DisplayMetrics display = new DisplayMetrics();
-
     Toolbar mToolbar;
     DrawerLayout mDrawerLayout; // parent activity layout
     View mDrawerView; // child drawer view
@@ -65,8 +61,6 @@ public abstract class BaseActivity extends ActionBarActivity
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(getLayoutResource());
-
-        getWindowManager().getDefaultDisplay().getMetrics(display);
 
         fragmentColorBox = currentColorBox = new FragmentColorBox();
 
@@ -255,9 +249,5 @@ public abstract class BaseActivity extends ActionBarActivity
 
     public boolean isWhiteText() {
         return fragmentColorBox != null ? fragmentColorBox.isWhiteText() : false;
-    }
-
-    public DisplayMetrics getDisplay() {
-        return display;
     }
 }

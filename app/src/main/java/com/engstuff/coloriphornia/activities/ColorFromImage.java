@@ -7,14 +7,17 @@ import android.content.Intent;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
-import android.util.Log;
+import android.support.v7.widget.Toolbar;
 import android.view.View;
-import android.widget.Button;
+import android.widget.FrameLayout;
+import android.widget.RelativeLayout;
 
 import com.engstuff.coloriphornia.R;
 import com.engstuff.coloriphornia.fragments.FragmentImg;
 import com.engstuff.coloriphornia.interfaces.ImageGetColorListener;
 import com.software.shell.fab.ActionButton;
+
+import static android.widget.RelativeLayout.LayoutParams.WRAP_CONTENT;
 
 public class ColorFromImage extends BaseActivity
         implements ImageGetColorListener, View.OnClickListener {
@@ -23,10 +26,14 @@ public class ColorFromImage extends BaseActivity
     private static final int GALLERY_KITKAT_INTENT_CALLED = 0xb;
 
     protected FragmentImg fragmentImg;
+    protected ActionButton aBtn;
+    private FrameLayout imgContainer;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
+        imgContainer = (FrameLayout) findViewById(R.id.img_container);
 
         fragmentImg = new FragmentImg();
 
@@ -37,8 +44,26 @@ public class ColorFromImage extends BaseActivity
                 .add(R.id.color_box_container_color_from_image, fragmentColorBox)
                 .commit();
 
-        ActionButton aBtn = (ActionButton) findViewById(R.id.action_button);
+        aBtn = (ActionButton) findViewById(R.id.action_button);
         aBtn.setOnClickListener(this);
+    }
+
+    @Override
+    public void onWindowFocusChanged(boolean hasFocus) {
+        super.onWindowFocusChanged(hasFocus);
+
+        if (hasFocus) {
+
+            RelativeLayout.LayoutParams lp =
+                    new RelativeLayout.LayoutParams(WRAP_CONTENT, WRAP_CONTENT);
+
+            lp.setMargins(imgContainer.getWidth() - aBtn.getWidth() - 10,
+                          imgContainer.getHeight() + aBtn.getHeight() / 3,
+                          0, 0);
+
+            aBtn.setLayoutParams(lp);
+            aBtn.invalidate();
+        }
     }
 
     @Override

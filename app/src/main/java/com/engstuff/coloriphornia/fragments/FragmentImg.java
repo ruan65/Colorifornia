@@ -57,7 +57,8 @@ public class FragmentImg extends Fragment {
 
     private ImageView createAimImageView() {
 
-        DisplayMetrics display = ctx.getDisplay();
+        DisplayMetrics display = new DisplayMetrics();
+        ctx.getWindowManager().getDefaultDisplay().getMetrics(display);
 
         ImageView aim = new ImageView(ctx);
         aim.setLayoutParams(new LayoutParams(LayoutParams.WRAP_CONTENT, LayoutParams.WRAP_CONTENT));

@@ -8,8 +8,6 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
-
-
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
@@ -24,25 +22,22 @@
                 android:id="@+id/img_container"
                 android:layout_width="match_parent"
                 android:layout_height="0dp"
-                android:layout_weight="62"
+                android:layout_weight="2"
                 android:background="@color/primaryColor" />
 
             <FrameLayout
                 android:id="@+id/color_box_container_color_from_image"
                 android:layout_width="match_parent"
                 android:layout_height="0dp"
-                android:layout_weight="38" />
+                android:layout_weight="1" />
 
         </LinearLayout>
 
         <com.software.shell.fab.ActionButton
-            android:id="@+id/action_button"
-            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_alignParentBottom="true"
-            android:layout_alignParentRight="true"
-            android:layout_marginBottom="@dimen/fab_margin"
-            android:layout_marginRight="@dimen/fab_margin" />
+            android:layout_width="wrap_content"
+            android:id="@+id/action_button"/>
+
     </RelativeLayout>
 
     <fragment
