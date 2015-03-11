@@ -44,6 +44,11 @@ public abstract class BaseActivity extends ActionBarActivity
     public final static String EXTRA_MESSAGE_TEXT_COLOR_1 = "text_color_parameters_1";
     public final static String EXTRA_MESSAGE_COLOR_2 = "color_parameters_2";
     public final static String EXTRA_MESSAGE_TEXT_COLOR_2 = "text_color_parameters_2";
+
+    public final static String CURRENT_COLOR1 = "current_color1";
+    public final static String CURRENT_COLOR2 = "current_color2";
+    public final static String CURRENT_IMAGE = "current_image";
+
     public final static String SAVED_COLORS = "user_saved_colors";
     public final static String SAVED_EMAILS = "user_saved_emails";
 
@@ -137,7 +142,7 @@ public abstract class BaseActivity extends ActionBarActivity
                     Toast toast = new Toast(getApplicationContext());
 
                     TextView view = (TextView)
-                            getLayoutInflater().inflate(R.layout.toast_custom, null); //new TextView(this);
+                            getLayoutInflater().inflate(R.layout.toast_custom, null);
 
                     view.setBackgroundColor(colorHex);
 

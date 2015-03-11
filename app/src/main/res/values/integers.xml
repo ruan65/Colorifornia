@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <integer name="sbMax">0xff</integer>
-    <integer name="sbProgressR">0xE9</integer>
-    <integer name="sbProgressG">0x1E</integer>
-    <integer name="sbProgressB">0x63</integer>
+    <integer name="sbProgressR">0x68</integer>
+    <integer name="sbProgressG">0x9f</integer>
+    <integer name="sbProgressB">0x38</integer>
     <integer name="matrix_max_scale">100</integer>
 
 </resources>

@@ -5,6 +5,7 @@ import android.graphics.Bitmap;
 import android.graphics.Color;
 import android.graphics.Matrix;
 import android.graphics.PointF;
+import android.util.Log;
 import android.view.MotionEvent;
 import android.view.ScaleGestureDetector;
 import android.view.View;
@@ -288,11 +289,16 @@ public class ZoomableImageView extends ImageView implements View.OnTouchListener
 
     private void setRGB(int x, int y, Bitmap bitmap) {
 
-        int pixel = bitmap.getPixel(x, y);
+        try {
+            int pixel = bitmap.getPixel(x, y);
 
-        r = Color.red(pixel);
-        g = Color.green(pixel);
-        b = Color.blue(pixel);
+            r = Color.red(pixel);
+            g = Color.green(pixel);
+            b = Color.blue(pixel);
+        } catch (IllegalArgumentException justSkipThisTime) {
+            Log.e("Colorifornia", justSkipThisTime.getMessage() + justSkipThisTime);
+        }
+
     }
 
     public int getR() {

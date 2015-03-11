@@ -91,9 +91,9 @@ public class FragmentImg extends Fragment {
     public void onViewCreated(View view, Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
-        if (ziv.getDrawable() == null) {
-            ctx.findViewById(R.id.action_button).performClick();
-        }
+//        if (ziv.getDrawable() == null) {
+//            ctx.findViewById(R.id.action_button).performClick();
+//        }
     }
 
     public int getR() {
@@ -117,11 +117,7 @@ public class FragmentImg extends Fragment {
 
             String path = ImageHelper.getRealImagePath(ctx, uris[0]);
 
-            Logging.log("path: " + path);
-
             File file = new File(path);
-
-            Logging.log(file.getAbsolutePath());
 
             return ImageHelper.decodeSampledBitmapFromResource(
                     file.getAbsolutePath(), pxx, pxy, Bitmap.Config.RGB_565);

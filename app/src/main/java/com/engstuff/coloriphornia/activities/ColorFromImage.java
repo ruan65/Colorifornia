@@ -7,7 +7,6 @@ import android.content.Intent;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
-import android.support.v7.widget.Toolbar;
 import android.view.View;
 import android.widget.FrameLayout;
 import android.widget.RelativeLayout;
@@ -46,6 +45,7 @@ public class ColorFromImage extends BaseActivity
 
         aBtn = (ActionButton) findViewById(R.id.action_button);
         aBtn.setOnClickListener(this);
+        aBtn.hide();
     }
 
     @Override
@@ -62,8 +62,8 @@ public class ColorFromImage extends BaseActivity
                           0, 0);
 
             aBtn.setLayoutParams(lp);
-            aBtn.invalidate();
-        }
+            aBtn.show();
+        } else aBtn.hide();
     }
 
     @Override

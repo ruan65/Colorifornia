@@ -1,12 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
-    <color name="primaryColor">#E91E63</color>
-    <color name="primaryColorDark">#C2185B</color>
-    <color name="primaryColorDarkTransparent">#55C2185B</color>
-    <color name="accentColor">#17183B</color>
+    <color name="primaryColor">#8BC34A</color>
+    <color name="primaryColorDark">#689F38</color>
+    <color name="primaryColorDarkTransparent">#55689F38</color>
+    <color name="accentColor">#795548</color>
 
-    <color name="appBarTextColor">#FFF</color>
+    <color name="appBarTextColor">#FFFFFF</color>
 
 
 </resources>
