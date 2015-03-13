@@ -87,15 +87,6 @@ public class FragmentImg extends Fragment {
         Logging.logMemory();
     }
 
-    @Override
-    public void onViewCreated(View view, Bundle savedInstanceState) {
-        super.onViewCreated(view, savedInstanceState);
-
-//        if (ziv.getDrawable() == null) {
-//            ctx.findViewById(R.id.action_button).performClick();
-//        }
-    }
-
     public int getR() {
         return ziv.getR();
     }

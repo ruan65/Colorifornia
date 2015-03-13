@@ -2,6 +2,7 @@ package com.engstuff.coloriphornia.components.views;
 
 import android.content.Context;
 import android.util.AttributeSet;
+import android.view.GestureDetector;
 import android.view.MotionEvent;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
@@ -14,6 +15,23 @@ public class FrameLayoutWithAim extends FrameLayout {
     private ImageView aim;
     private BaseActivity ctx;
 
+    private GestureDetector gestureDetector =
+            new GestureDetector(ctx, new GestureDetector.SimpleOnGestureListener() {
+
+                @Override
+                public boolean onSingleTapConfirmed(MotionEvent ev) {
+
+                    if (aim != null) {
+                        aim.setX(ev.getX() - aim.getWidth() / 2);
+                        aim.setY(ev.getY() - aim.getHeight() / 2);
+                        aim.setImageResource(ctx.isWhiteText()
+                                ? R.drawable.ic_target_w
+                                : R.drawable.ic_target_b);
+                    }
+                    return super.onSingleTapConfirmed(ev);
+                }
+            });
+
     public FrameLayoutWithAim(Context context, AttributeSet attrs) {
         super(context, attrs);
         ctx = (BaseActivity) context;
@@ -22,21 +40,8 @@ public class FrameLayoutWithAim extends FrameLayout {
     @Override
     public boolean onInterceptTouchEvent(MotionEvent ev) {
 
+        gestureDetector.onTouchEvent(ev);
 
-        switch (ev.getAction()) {
-
-            case MotionEvent.ACTION_DOWN:
-            case MotionEvent.ACTION_UP:
-            case MotionEvent.ACTION_MOVE:
-                if (aim != null) {
-                    aim.setX(ev.getX() - aim.getWidth() / 2);
-                    aim.setY(ev.getY() - aim.getHeight() / 2);
-                    aim.setImageResource(ctx.isWhiteText()
-                            ? R.drawable.ic_aim_white
-                            : R.drawable.ic_aim_black);
-                }
-                break;
-        }
         return super.onInterceptTouchEvent(ev);
     }
 
