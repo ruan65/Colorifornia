@@ -48,6 +48,8 @@ public class ColorFromImage extends BaseActivity
         aBtn.hide();
     }
 
+
+
     @Override
     public void onWindowFocusChanged(boolean hasFocus) {
         super.onWindowFocusChanged(hasFocus);

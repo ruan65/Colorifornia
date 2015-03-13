@@ -40,12 +40,13 @@
             fab:button_color="@color/fab_material_brown_500"
             fab:button_colorPressed="@color/fab_material_brown_900"
             fab:image="@drawable/fab_plus_icon"
-            fab:image_size="24dp"
-            fab:shadow_color="@color/primaryColorDark"
-            fab:stroke_color="@color/fab_material_light_green_500"
-            fab:stroke_width="2.0dp"
-            fab:show_animation="@anim/fab_roll_from_right"
-            fab:hide_animation="@anim/fab_roll_to_right"
+            fab:image_size="30dp"
+            fab:show_animation="@anim/btn_roll_from_r"
+            fab:hide_animation="@anim/btn_roll_to_r"
+            fab:shadow_color="#75757575"
+            fab:shadow_radius="1.0dp"
+            fab:shadow_xOffset="2dp"
+            fab:shadow_yOffset="2dp"
             android:id="@+id/action_button"/>
 
     </RelativeLayout>

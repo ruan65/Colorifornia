@@ -91,6 +91,7 @@ public abstract class BaseActivity extends ActionBarActivity
             mDrawerLayout.openDrawer(mDrawerView);
             PrefsHelper.writeToPrefsDefault(this, keyNotFirstTime, true);
         }
+        overridePendingTransition(R.anim.slide_in_r, R.anim.slide_out_r);
     }
 
     @Override
