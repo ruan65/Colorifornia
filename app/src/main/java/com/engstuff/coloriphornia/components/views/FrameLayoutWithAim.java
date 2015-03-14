@@ -15,22 +15,31 @@ public class FrameLayoutWithAim extends FrameLayout {
     private ImageView aim;
     private BaseActivity ctx;
 
+    private float aimX, aimY;
+
     private GestureDetector gestureDetector =
             new GestureDetector(ctx, new GestureDetector.SimpleOnGestureListener() {
 
                 @Override
-                public boolean onSingleTapConfirmed(MotionEvent ev) {
+                public boolean onSingleTapUp(MotionEvent ev) {
 
                     if (aim != null) {
-                        aim.setX(ev.getX() - aim.getWidth() / 2);
-                        aim.setY(ev.getY() - aim.getHeight() / 2);
-                        aim.setImageResource(ctx.isWhiteText()
-                                ? R.drawable.ic_target_w
-                                : R.drawable.ic_target_b);
+                        aimX = ev.getX() - aim.getWidth() / 2;
+                        aimY = ev.getY() - aim.getHeight() / 2;
+
+                        replaceAim(aimX, aimY);
                     }
-                    return super.onSingleTapConfirmed(ev);
+                    return super.onSingleTapUp(ev);
                 }
             });
+
+    void replaceAim(float x, float y) {
+        aim.setX(x);
+        aim.setY(y);
+        aim.setImageResource(ctx.isWhiteText()
+                ? R.drawable.ic_target_w
+                : R.drawable.ic_target_b);
+    }
 
     public FrameLayoutWithAim(Context context, AttributeSet attrs) {
         super(context, attrs);
@@ -47,5 +56,13 @@ public class FrameLayoutWithAim extends FrameLayout {
 
     public void setAim(ImageView aim) {
         this.aim = aim;
+    }
+
+    public float getAimX() {
+        return aimX;
+    }
+
+    public float getAimY() {
+        return aimY;
     }
 }

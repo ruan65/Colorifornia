@@ -40,6 +40,8 @@ public class ZoomableImageView extends ImageView implements View.OnTouchListener
     float saveScale = 1f;
     float right, bottom, origWidth, origHeight, bmWidth, bmHeight;
 
+    float aimX, aimY;
+
     ScaleGestureDetector mScaleDetector;
 
     public ZoomableImageView(final Context context) {
@@ -111,7 +113,7 @@ public class ZoomableImageView extends ImageView implements View.OnTouchListener
 
             case MotionEvent.ACTION_POINTER_DOWN:
 
-                last.set(event.getX(), event.getY());
+                last.set(eventX, eventY);
                 start.set(last);
                 mode = ZOOM;
                 break;
@@ -174,8 +176,8 @@ public class ZoomableImageView extends ImageView implements View.OnTouchListener
         return true;
     }
 
-    void changeColor(int eventX, int eventY) {
-        setRGB(eventX, eventY, getCurrentBitmap(this));
+    void changeColor(int x, int y) {
+        setRGB(x, y, getCurrentBitmap(this));
         imageGetColorListener.onPickColor();
     }
 
@@ -311,5 +313,21 @@ public class ZoomableImageView extends ImageView implements View.OnTouchListener
 
     public int getB() {
         return b;
+    }
+
+    public float getAimX() {
+        return aimX;
+    }
+
+    public void setAimX(float aimX) {
+        this.aimX = aimX;
+    }
+
+    public float getAimY() {
+        return aimY;
+    }
+
+    public void setAimY(float aimY) {
+        this.aimY = aimY;
     }
 }

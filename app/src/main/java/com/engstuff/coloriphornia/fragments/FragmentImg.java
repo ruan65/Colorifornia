@@ -62,8 +62,8 @@ public class FragmentImg extends Fragment {
 
         ImageView aim = new ImageView(ctx);
         aim.setLayoutParams(new LayoutParams(LayoutParams.WRAP_CONTENT, LayoutParams.WRAP_CONTENT));
-        aim.setImageResource(ctx.isWhiteText() ? R.drawable.ic_aim_white
-                : R.drawable.ic_aim_black);
+        aim.setImageResource(ctx.isWhiteText() ? R.drawable.ic_target_w
+                : R.drawable.ic_target_b);
         aim.setX(display.heightPixels / display.scaledDensity / 2);
         aim.setY((float) (display.widthPixels * 0.62 / display.scaledDensity / 2));
 
