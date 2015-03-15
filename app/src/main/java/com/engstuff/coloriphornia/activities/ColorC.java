@@ -8,8 +8,7 @@ import com.engstuff.coloriphornia.fragments.FragmentColorBox;
 import com.engstuff.coloriphornia.fragments.FragmentSeekBarsControl;
 
 public class ColorC extends BaseActivity
-        implements FragmentSeekBarsControl.ColorControlChangeListener,
-        FragmentColorBox.ColorBoxEventListener {
+        implements FragmentSeekBarsControl.ColorControlChangeListener, FragmentColorBox.ColorBoxEventListener {
 
     protected FragmentSeekBarsControl fragmentControl;
 

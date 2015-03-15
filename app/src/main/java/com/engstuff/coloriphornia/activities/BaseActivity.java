@@ -233,6 +233,11 @@ public abstract class BaseActivity extends ActionBarActivity
         changeFragment(color);
     }
 
+    @Override
+    public void onTextColorChanged(boolean white) {
+
+    }
+
     protected void changeFragment(FragmentColorBox color){};
 
     @Override

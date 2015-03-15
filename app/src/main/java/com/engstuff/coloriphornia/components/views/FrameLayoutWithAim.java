@@ -2,6 +2,7 @@ package com.engstuff.coloriphornia.components.views;
 
 import android.content.Context;
 import android.util.AttributeSet;
+import android.util.Log;
 import android.view.GestureDetector;
 import android.view.MotionEvent;
 import android.widget.FrameLayout;
@@ -14,6 +15,7 @@ public class FrameLayoutWithAim extends FrameLayout {
 
     private ImageView aim;
     private BaseActivity ctx;
+    private ZoomableImageView ziv;
 
     private float aimX, aimY;
 
@@ -23,12 +25,20 @@ public class FrameLayoutWithAim extends FrameLayout {
                 @Override
                 public boolean onSingleTapUp(MotionEvent ev) {
 
-                    if (aim != null) {
-                        aimX = ev.getX() - aim.getWidth() / 2;
-                        aimY = ev.getY() - aim.getHeight() / 2;
+                    float evX = ev.getX();
+                    float evY = ev.getY();
 
-                        replaceAim(aimX, aimY);
+                    aimX = evX - aim.getWidth() / 2;
+                    aimY = evY - aim.getHeight() / 2;
+
+                    if (ziv != null) {
+                        // for some magic reasons it works without subtracting half of aim
+                        ziv.changeColor((int) evX, (int) evY);
+                        ziv.setAimCoords(evX, evY);
                     }
+
+                    if (aim != null) replaceAim(aimX, aimY);
+
                     return super.onSingleTapUp(ev);
                 }
             });
@@ -36,8 +46,11 @@ public class FrameLayoutWithAim extends FrameLayout {
     void replaceAim(float x, float y) {
         aim.setX(x);
         aim.setY(y);
-        aim.setImageResource(ctx.isWhiteText()
-                ? R.drawable.ic_target_w
+        changeAimColor(ctx.isWhiteText());
+    }
+
+    public void changeAimColor(boolean white) {
+        aim.setImageResource(white ? R.drawable.ic_target_w
                 : R.drawable.ic_target_b);
     }
 
@@ -58,11 +71,7 @@ public class FrameLayoutWithAim extends FrameLayout {
         this.aim = aim;
     }
 
-    public float getAimX() {
-        return aimX;
-    }
-
-    public float getAimY() {
-        return aimY;
+    public void setZiv(ZoomableImageView ziv) {
+        this.ziv = ziv;
     }
 }

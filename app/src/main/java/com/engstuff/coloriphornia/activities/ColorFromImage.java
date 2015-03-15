@@ -7,22 +7,24 @@ import android.content.Intent;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
+import android.view.MotionEvent;
 import android.view.View;
 import android.widget.FrameLayout;
 import android.widget.RelativeLayout;
 
 import com.engstuff.coloriphornia.R;
 import com.engstuff.coloriphornia.fragments.FragmentImg;
+import com.engstuff.coloriphornia.fragments.FragmentSeekBarsControl;
 import com.engstuff.coloriphornia.interfaces.ImageGetColorListener;
 import com.software.shell.fab.ActionButton;
 
 import static android.widget.RelativeLayout.LayoutParams.WRAP_CONTENT;
 
 public class ColorFromImage extends BaseActivity
-        implements ImageGetColorListener, View.OnClickListener {
+        implements ImageGetColorListener, View.OnClickListener, FragmentSeekBarsControl.ColorControlChangeListener {
 
-    private static final int GALLERY_INTENT_CALLED = 0xa;
-    private static final int GALLERY_KITKAT_INTENT_CALLED = 0xb;
+    private static final int GALLERY_INTENT_CALLED = 0xbaaa;
+    private static final int GALLERY_KITKAT_INTENT_CALLED = 0xbeee;
 
     protected FragmentImg fragmentImg;
     protected ActionButton aBtn;
@@ -125,5 +127,10 @@ public class ColorFromImage extends BaseActivity
             intent.addCategory(Intent.CATEGORY_OPENABLE);
             startActivityForResult(intent, GALLERY_KITKAT_INTENT_CALLED);
         }
+    }
+
+    @Override
+    public void onColorControlChange() {
+
     }
 }

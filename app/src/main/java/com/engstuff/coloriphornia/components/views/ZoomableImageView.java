@@ -16,33 +16,34 @@ import com.engstuff.coloriphornia.interfaces.ImageGetColorListener;
 
 public class ZoomableImageView extends ImageView implements View.OnTouchListener {
 
-    Matrix matrix = new Matrix();
+    private Matrix matrix = new Matrix();
 
-    ImageGetColorListener imageGetColorListener;
+    private ImageGetColorListener imageGetColorListener;
 
     static final int NONE = 0;
     static final int DRAG = 1;
     static final int ZOOM = 2;
     static final int CLICK = 3;
-    int mode = NONE;
 
-    PointF last = new PointF();
-    PointF start = new PointF();
+    private int mode = NONE;
+
+    private PointF last = new PointF();
+    private PointF start = new PointF();
 
     private int r, g, b;
 
-    float minScale = 1f;
-    float maxScale = 1f;
-    float[] m;
+    private float minScale = 1f;
+    private float maxScale = 1f;
+    private float[] m;
 
-    float redundantXSpace, redundantYSpace;
-    float width, height;
-    float saveScale = 1f;
-    float right, bottom, origWidth, origHeight, bmWidth, bmHeight;
+    private float redundantXSpace, redundantYSpace;
+    private float width, height;
+    private float saveScale = 1f;
+    private float right, bottom, origWidth, origHeight, bmWidth, bmHeight;
 
-    float aimX, aimY;
+    private float aimX, aimY;
 
-    ScaleGestureDetector mScaleDetector;
+    private ScaleGestureDetector mScaleDetector;
 
     public ZoomableImageView(final Context context) {
         super(context);
@@ -96,7 +97,7 @@ public class ZoomableImageView extends ImageView implements View.OnTouchListener
         float eventX = event.getX();
         float eventY = event.getY();
 
-        PointF curr = new PointF(event.getX(), event.getY());
+        PointF curr = new PointF(eventX, eventY);
 
         switch (event.getAction()) {
 
@@ -106,9 +107,6 @@ public class ZoomableImageView extends ImageView implements View.OnTouchListener
                 last.set(eventX, eventY);
                 start.set(last);
                 mode = DRAG;
-
-                changeColor((int) eventX, (int) eventY);
-
                 break;
 
             case MotionEvent.ACTION_POINTER_DOWN:
@@ -153,7 +151,7 @@ public class ZoomableImageView extends ImageView implements View.OnTouchListener
                     matrix.postTranslate(deltaX, deltaY);
                     last.set(curr.x, curr.y);
                 }
-                changeColor((int) eventX, (int) eventY);
+                changeColor((int) aimX, (int) aimY);
                 break;
 
             case MotionEvent.ACTION_UP:
@@ -164,7 +162,6 @@ public class ZoomableImageView extends ImageView implements View.OnTouchListener
                 if (xDiff < CLICK && yDiff < CLICK) {
                     performClick();
                 }
-                changeColor((int) eventX, (int) eventY);
                 break;
 
             case MotionEvent.ACTION_POINTER_UP:
@@ -298,7 +295,6 @@ public class ZoomableImageView extends ImageView implements View.OnTouchListener
             g = Color.green(pixel);
             b = Color.blue(pixel);
         } catch (IllegalArgumentException justSkipThisTime) {
-            Log.e("Colorifornia", justSkipThisTime.getMessage() + justSkipThisTime);
         }
 
     }
@@ -315,19 +311,9 @@ public class ZoomableImageView extends ImageView implements View.OnTouchListener
         return b;
     }
 
-    public float getAimX() {
-        return aimX;
-    }
-
-    public void setAimX(float aimX) {
-        this.aimX = aimX;
-    }
-
-    public float getAimY() {
-        return aimY;
-    }
-
-    public void setAimY(float aimY) {
-        this.aimY = aimY;
+    public void setAimCoords (float x, float y) {
+        aimX = x;
+        aimY = y;
+        Log.d("ml", "setAimCoords x = " + aimX + " y = " + aimY);
     }
 }

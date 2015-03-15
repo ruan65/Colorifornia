@@ -49,6 +49,7 @@ public class FragmentImg extends Fragment {
         aim = createAimImageView();
 
         frame.setAim(aim);
+        frame.setZiv(ziv);
         frame.addView(ziv);
         frame.addView(aim);
 

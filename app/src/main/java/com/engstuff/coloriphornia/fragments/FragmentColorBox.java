@@ -19,6 +19,7 @@ public class FragmentColorBox extends Fragment {
 
         void onColorClicked(FragmentColorBox colorBox);
         void onColorLongClicked(FragmentColorBox colorBox);
+        void onTextColorChanged(boolean white);
     }
 
     private ColorBoxEventListener colorBoxEventListener;
@@ -34,7 +35,7 @@ public class FragmentColorBox extends Fragment {
     int width;
     int height;
 
-    private boolean whiteText = true;
+    private boolean whiteText;
 
     public FragmentColorBox() {}
 
@@ -99,7 +100,14 @@ public class FragmentColorBox extends Fragment {
         iv.setBackgroundColor(colorHex);
         //noinspection deprecation
         iv.setAlpha(alpha);
-        blackOrWhiteText(r, g, b);
+
+        boolean whiteAgain = blackOrWhiteText(r, g, b);
+
+        if (whiteText != whiteAgain) {
+            colorBoxEventListener.onTextColorChanged(whiteAgain);
+        }
+
+        whiteText = whiteAgain;
     }
 
     public FragmentColorBox setColorParams() {
@@ -122,8 +130,8 @@ public class FragmentColorBox extends Fragment {
         return this;
     }
 
-    private void blackOrWhiteText(int r, int g, int b) {
-        whiteText = (r + g + b > 480 || g > 200) ? false : true;
+    private boolean blackOrWhiteText(int r, int g, int b) {
+        return  (r + g + b > 480 || g > 200) ? false : true;
     }
 
     public boolean isWhiteText() {
