@@ -3,6 +3,7 @@ package com.engstuff.coloriphornia.fragments;
 
 import android.app.Fragment;
 import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Bundle;
@@ -32,6 +33,7 @@ public class FragmentImg extends Fragment {
     private FrameLayoutWithAim frame;
 
     BaseActivity ctx;
+    int pxx, pxy;
 
     public FragmentImg() {
     }
@@ -40,9 +42,11 @@ public class FragmentImg extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
 
-        frame = (FrameLayoutWithAim) inflater.inflate(R.layout.fragment_img, container, false);
-
         ctx = (BaseActivity) getActivity();
+
+        pxx = pxy = (int) ctx.getResources().getDimension(R.dimen.bitmap_size);
+
+        frame = (FrameLayoutWithAim) inflater.inflate(R.layout.fragment_img, container, false);
 
         ziv = new ZoomableImageView(ctx);
 
@@ -52,6 +56,10 @@ public class FragmentImg extends Fragment {
         frame.setZiv(ziv);
         frame.addView(ziv);
         frame.addView(aim);
+
+//        Bitmap bm = ImageHelper.decodeSampledBitmapFromResource()
+//
+//        ziv.setImageBitmap();
 
         return frame;
     }
@@ -102,10 +110,9 @@ public class FragmentImg extends Fragment {
 
     private class GetImageFromGallery extends AsyncTask<Uri, Void, Bitmap> {
 
-        int pxx, pxy;
+
         @Override
         protected Bitmap doInBackground(Uri... uris) {
-            pxx = pxy = (int) ctx.getResources().getDimension(R.dimen.bitmap_size);
 
             String path = ImageHelper.getRealImagePath(ctx, uris[0]);
 
@@ -123,5 +130,9 @@ public class FragmentImg extends Fragment {
             ziv.setImageBitmap(bmp);
             ziv.invalidate();
         }
+    }
+
+    public ImageView getAim() {
+        return aim;
     }
 }

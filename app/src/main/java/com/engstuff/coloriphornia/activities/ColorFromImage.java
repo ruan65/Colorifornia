@@ -3,6 +3,7 @@ package com.engstuff.coloriphornia.activities;
 import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.app.FragmentTransaction;
+import android.content.ContentResolver;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Build;
@@ -21,7 +22,7 @@ import com.software.shell.fab.ActionButton;
 import static android.widget.RelativeLayout.LayoutParams.WRAP_CONTENT;
 
 public class ColorFromImage extends BaseActivity
-        implements ImageGetColorListener, View.OnClickListener, FragmentSeekBarsControl.ColorControlChangeListener {
+        implements ImageGetColorListener, View.OnClickListener {
 
     private static final int GALLERY_INTENT_CALLED = 0xbaaa;
     private static final int GALLERY_KITKAT_INTENT_CALLED = 0xbeee;
@@ -49,8 +50,6 @@ public class ColorFromImage extends BaseActivity
         aBtn.setOnClickListener(this);
         aBtn.hide();
     }
-
-
 
     @Override
     public void onWindowFocusChanged(boolean hasFocus) {
@@ -111,6 +110,13 @@ public class ColorFromImage extends BaseActivity
     }
 
     @Override
+    public void onTextColorChanged(boolean white) {
+        fragmentImg.getAim().setImageResource(!fragmentColorBox.isWhiteText()
+                ? R.drawable.ic_target_w
+                : R.drawable.ic_target_b);
+    }
+
+    @Override
     public void onClick(View v) {
 
         Intent intent = new Intent();
@@ -127,10 +133,5 @@ public class ColorFromImage extends BaseActivity
             intent.addCategory(Intent.CATEGORY_OPENABLE);
             startActivityForResult(intent, GALLERY_KITKAT_INTENT_CALLED);
         }
-    }
-
-    @Override
-    public void onColorControlChange() {
-
     }
 }

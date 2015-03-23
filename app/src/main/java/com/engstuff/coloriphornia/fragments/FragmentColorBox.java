@@ -105,9 +105,8 @@ public class FragmentColorBox extends Fragment {
 
         if (whiteText != whiteAgain) {
             colorBoxEventListener.onTextColorChanged(whiteAgain);
+            whiteText = whiteAgain;
         }
-
-        whiteText = whiteAgain;
     }
 
     public FragmentColorBox setColorParams() {
@@ -131,7 +130,7 @@ public class FragmentColorBox extends Fragment {
     }
 
     private boolean blackOrWhiteText(int r, int g, int b) {
-        return  (r + g + b > 480 || g > 200) ? false : true;
+        return  (r + g + b > 450 || g > 200) ? false : true;
     }
 
     public boolean isWhiteText() {
