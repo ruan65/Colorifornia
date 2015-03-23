@@ -2,6 +2,7 @@ package com.engstuff.coloriphornia.activities;
 
 import android.annotation.SuppressLint;
 import android.app.Activity;
+import android.app.FragmentManager;
 import android.app.FragmentTransaction;
 import android.content.ContentResolver;
 import android.content.Intent;
@@ -39,9 +40,8 @@ public class ColorFromImage extends BaseActivity
 
         fragmentImg = new FragmentImg();
 
-        FragmentTransaction transaction = getFragmentManager().beginTransaction();
+        getFragmentManager().beginTransaction()
 
-        transaction
                 .add(R.id.img_container, fragmentImg)
                 .add(R.id.color_box_container_color_from_image, fragmentColorBox)
                 .commit();
@@ -61,8 +61,8 @@ public class ColorFromImage extends BaseActivity
                     new RelativeLayout.LayoutParams(WRAP_CONTENT, WRAP_CONTENT);
 
             lp.setMargins(imgContainer.getWidth() - aBtn.getWidth() - 10,
-                          imgContainer.getHeight() + aBtn.getHeight() / 3,
-                          0, 0);
+                    imgContainer.getHeight() + aBtn.getHeight() / 3,
+                    0, 0);
 
             aBtn.setLayoutParams(lp);
             aBtn.show();
