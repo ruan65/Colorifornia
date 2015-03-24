@@ -48,6 +48,12 @@ public class FullScreenColorC extends Activity {
 
     }
 
+    @Override
+    protected void onResume() {
+        super.onResume();
+        overridePendingTransition(R.anim.slide_in_l, R.anim.slide_out_l);
+    }
+
     public void backClick(View v) {
         this.finish();
     }

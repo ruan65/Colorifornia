@@ -1,10 +1,8 @@
 package com.engstuff.coloriphornia.activities;
 
-import android.app.Activity;
 import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
-import android.view.View;
 import android.widget.Button;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
@@ -15,7 +13,7 @@ import butterknife.ButterKnife;
 import butterknife.InjectView;
 
 
-public class FullScreenColorCC extends Activity {
+public class FullScreenColorCC extends FullScreenColorC {
 
     @InjectView(R.id.tv_color_params_1) TextView tv1;
     @InjectView(R.id.tv_color_params_2) TextView tv2;
@@ -66,9 +64,4 @@ public class FullScreenColorCC extends Activity {
         btn.setBackgroundColor(backColor);
         btn.setTextColor(textColor1);
     }
-
-    public void backClick(View v) {
-        this.finish();
-    }
-
 }
