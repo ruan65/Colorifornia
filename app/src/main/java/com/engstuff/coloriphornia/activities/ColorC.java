@@ -29,7 +29,7 @@ public class ColorC extends BaseActivity
         super.onResume();
 
         String hexColor = PrefsHelper.readFromPrefsString(
-                this, BaseActivity.PREFS_RETAIN_COLORS, "last_color");
+                this, BaseActivity.PREFS_RETAIN, "last_color");
 
         if (hexColor.equals("")) {
 
@@ -48,7 +48,7 @@ public class ColorC extends BaseActivity
     @Override
     protected void onPause() {
         super.onPause();
-        PrefsHelper.writeToPrefs(this, PREFS_RETAIN_COLORS, "last_color",
+        PrefsHelper.writeToPrefs(this, PREFS_RETAIN, "last_color",
                 currentColorBox.getHexColorParams());
     }
 

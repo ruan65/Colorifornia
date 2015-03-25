@@ -33,7 +33,7 @@ public class ColorCC extends BaseActivity
         super.onResume();
 
         String hexColor1 = PrefsHelper.readFromPrefsString(
-                this, BaseActivity.PREFS_RETAIN_COLORS, "last_color_box1");
+                this, BaseActivity.PREFS_RETAIN, "last_color_box1");
 
         if (!checkHexColorString(hexColor1)) {
 
@@ -50,7 +50,7 @@ public class ColorCC extends BaseActivity
             currentColorBox.setColorParams().changeColor();
 
             String hexColor2 = PrefsHelper.readFromPrefsString(
-                    this, BaseActivity.PREFS_RETAIN_COLORS, "last_color_box2");
+                    this, BaseActivity.PREFS_RETAIN, "last_color_box2");
 
             if (checkHexColorString(hexColor2)) {
                 fragmentColorBox2.setColorParams(hexColor2).changeColor();
@@ -67,10 +67,10 @@ public class ColorCC extends BaseActivity
     protected void onPause() {
         super.onPause();
 
-        PrefsHelper.writeToPrefs(this, PREFS_RETAIN_COLORS, "last_color_box1",
+        PrefsHelper.writeToPrefs(this, PREFS_RETAIN, "last_color_box1",
                 fragmentColorBox.getHexColorParams());
 
-        PrefsHelper.writeToPrefs(this, PREFS_RETAIN_COLORS, "last_color_box2",
+        PrefsHelper.writeToPrefs(this, PREFS_RETAIN, "last_color_box2",
                 fragmentColorBox2.getHexColorParams());
     }
 
@@ -79,13 +79,12 @@ public class ColorCC extends BaseActivity
 
         changeFragment(color);
 
-        Intent i = new Intent(this, FullScreenColorCC.class);
-
         String[] colorParams = {
                 color.getRgbColorParams(),
                 color.getHexColorParams()
         };
 
+        Intent i = new Intent(this, FullScreenColorCC.class);
         i.putExtra(EXTRA_MESSAGE_COLOR_1, colorParams);
         i.putExtra(EXTRA_MESSAGE_TEXT_COLOR_1, color.isWhiteText());
 

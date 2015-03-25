@@ -52,7 +52,7 @@ public abstract class BaseActivity extends ActionBarActivity
 
     public final static String SAVED_COLORS = "user_saved_colors";
     public final static String SAVED_EMAILS = "user_saved_emails";
-    public final static String PREFS_RETAIN_COLORS = "prefs_retain_colors";
+    public final static String PREFS_RETAIN = "prefs_retain_colors";
 
     Toolbar mToolbar;
     DrawerLayout mDrawerLayout; // parent activity layout

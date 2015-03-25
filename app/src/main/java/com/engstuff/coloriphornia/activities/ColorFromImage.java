@@ -17,6 +17,7 @@ import android.widget.RelativeLayout;
 import com.engstuff.coloriphornia.R;
 import com.engstuff.coloriphornia.fragments.FragmentImg;
 import com.engstuff.coloriphornia.fragments.FragmentSeekBarsControl;
+import com.engstuff.coloriphornia.helpers.PrefsHelper;
 import com.engstuff.coloriphornia.interfaces.ImageGetColorListener;
 import com.software.shell.fab.ActionButton;
 
@@ -49,6 +50,16 @@ public class ColorFromImage extends BaseActivity
         aBtn = (ActionButton) findViewById(R.id.action_button);
         aBtn.setOnClickListener(this);
         aBtn.hide();
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        String stringUriCurrentImage = PrefsHelper.readFromPrefsString(this,
+                BaseActivity.PREFS_RETAIN, BaseActivity.CURRENT_IMAGE);
+        if (!"".equals(stringUriCurrentImage)) {
+            fragmentImg.putBitmap(Uri.parse(stringUriCurrentImage));
+        }
     }
 
     @Override
@@ -91,6 +102,9 @@ public class ColorFromImage extends BaseActivity
                 break;
         }
         fragmentImg.putBitmap(uri);
+
+        PrefsHelper.writeToPrefs(this,
+                BaseActivity.PREFS_RETAIN, BaseActivity.CURRENT_IMAGE, uri.toString());
     }
 
     @Override
