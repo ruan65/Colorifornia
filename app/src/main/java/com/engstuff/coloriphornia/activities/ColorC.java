@@ -1,29 +1,55 @@
 package com.engstuff.coloriphornia.activities;
 
-import android.app.FragmentTransaction;
 import android.os.Bundle;
 
 import com.engstuff.coloriphornia.R;
-import com.engstuff.coloriphornia.fragments.FragmentColorBox;
 import com.engstuff.coloriphornia.fragments.FragmentSeekBarsControl;
+import com.engstuff.coloriphornia.helpers.HexColorFrom4parts;
+import com.engstuff.coloriphornia.helpers.PrefsHelper;
 
 public class ColorC extends BaseActivity
         implements FragmentSeekBarsControl.ColorControlChangeListener {
 
-    protected FragmentSeekBarsControl fragmentControl;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        fragmentControl = new FragmentSeekBarsControl();
+        getFragmentManager().beginTransaction()
 
-        FragmentTransaction transaction = getFragmentManager().beginTransaction();
-
-        transaction
                 .add(R.id.color_control_container, fragmentControl)
                 .add(R.id.color_box_container, fragmentColorBox)
                 .commit();
+
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+
+        String hexColor = PrefsHelper.readFromPrefsString(
+                this, BaseActivity.PREFS_RETAIN_COLORS, "last_color");
+
+        if (hexColor.equals("")) {
+
+            fragmentControl.setControls(255, 255, 0, 0);
+            onColorControlChange();
+
+        } else {
+
+            int[] argb = HexColorFrom4parts.hexStringToARGB(hexColor);
+
+            fragmentControl.setControls(argb[0], argb[1], argb[2], argb[3]);
+            currentColorBox.setColorParams().changeColor();
+        }
+    }
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+        PrefsHelper.writeToPrefs(this, PREFS_RETAIN_COLORS, "last_color",
+                currentColorBox.getHexColorParams());
     }
 
     @Override
@@ -36,9 +62,5 @@ public class ColorC extends BaseActivity
         currentColorBox
                 .setColorParams()
                 .changeColor();
-    }
-
-    public FragmentSeekBarsControl getFragmentControl() {
-        return fragmentControl;
     }
 }

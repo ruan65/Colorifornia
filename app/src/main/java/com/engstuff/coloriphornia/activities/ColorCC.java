@@ -5,8 +5,12 @@ import android.os.Bundle;
 
 import com.engstuff.coloriphornia.R;
 import com.engstuff.coloriphornia.fragments.FragmentColorBox;
+import com.engstuff.coloriphornia.fragments.FragmentSeekBarsControl;
+import com.engstuff.coloriphornia.helpers.HexColorFrom4parts;
+import com.engstuff.coloriphornia.helpers.PrefsHelper;
 
-public class ColorCC extends ColorC {
+public class ColorCC extends BaseActivity
+        implements FragmentSeekBarsControl.ColorControlChangeListener {
 
     FragmentColorBox fragmentColorBox2;
 
@@ -17,8 +21,57 @@ public class ColorCC extends ColorC {
         fragmentColorBox2 = new FragmentColorBox();
 
         getFragmentManager().beginTransaction()
+
+                .add(R.id.color_control_container, fragmentControl)
+                .add(R.id.color_box_container, fragmentColorBox)
                 .add(R.id.color_box_container2, fragmentColorBox2)
                 .commit();
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+
+        String hexColor1 = PrefsHelper.readFromPrefsString(
+                this, BaseActivity.PREFS_RETAIN_COLORS, "last_color_box1");
+
+        if (!checkHexColorString(hexColor1)) {
+
+            fragmentControl.setControls(255, 0, 255, 0);
+            onColorControlChange();
+
+            fragmentColorBox2.setColorParams(255, 0, 0, 255).changeColor();
+
+        } else {
+
+            int[] argb = HexColorFrom4parts.hexStringToARGB(hexColor1);
+
+            fragmentControl.setControls(argb[0], argb[1], argb[2], argb[3]);
+            currentColorBox.setColorParams().changeColor();
+
+            String hexColor2 = PrefsHelper.readFromPrefsString(
+                    this, BaseActivity.PREFS_RETAIN_COLORS, "last_color_box2");
+
+            if (checkHexColorString(hexColor2)) {
+                fragmentColorBox2.setColorParams(hexColor2).changeColor();
+            }
+        }
+
+    }
+
+    private boolean checkHexColorString(String hexColor2) {
+        return hexColor2.startsWith("#") && (hexColor2.length() == 7 || hexColor2.length() == 9);
+    }
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+
+        PrefsHelper.writeToPrefs(this, PREFS_RETAIN_COLORS, "last_color_box1",
+                fragmentColorBox.getHexColorParams());
+
+        PrefsHelper.writeToPrefs(this, PREFS_RETAIN_COLORS, "last_color_box2",
+                fragmentColorBox2.getHexColorParams());
     }
 
     @Override
@@ -63,4 +116,12 @@ public class ColorCC extends ColorC {
                 color.getAlpha(), color.getR(), color.getG(), color.getB());
     }
 
+    @Override
+    public void onColorControlChange() {
+        currentColorBox
+                .setColorParams()
+                .changeColor();
+    }
 }
+
+

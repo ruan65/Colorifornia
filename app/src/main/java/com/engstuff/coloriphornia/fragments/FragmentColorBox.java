@@ -3,6 +3,8 @@ package com.engstuff.coloriphornia.fragments;
 
 import android.app.Activity;
 import android.app.Fragment;
+import android.content.Context;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -10,8 +12,10 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 
 import com.engstuff.coloriphornia.R;
+import com.engstuff.coloriphornia.activities.BaseActivity;
 import com.engstuff.coloriphornia.activities.ColorC;
 import com.engstuff.coloriphornia.helpers.HexColorFrom4parts;
+import com.engstuff.coloriphornia.helpers.PrefsHelper;
 
 public class FragmentColorBox extends Fragment {
 
@@ -23,6 +27,8 @@ public class FragmentColorBox extends Fragment {
     }
 
     private ColorBoxEventListener colorBoxEventListener;
+
+    Context ctx;
 
     private ImageView iv;
 
@@ -42,6 +48,8 @@ public class FragmentColorBox extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
+
+        ctx = getActivity();
 
         View rootView = inflater.inflate(R.layout.fragment_color_box, container, false);
 
@@ -81,17 +89,6 @@ public class FragmentColorBox extends Fragment {
         colorBoxEventListener = null;
     }
 
-    @Override
-    public void onViewCreated(View view, Bundle savedInstanceState) {
-        super.onViewCreated(view, savedInstanceState);
-
-        if (((ViewGroup) getView().getParent()).getId() == R.id.color_box_container2) {
-            setColorParams(255, 60, 130,200).changeColor();
-        } else if (((ViewGroup) getView().getParent()).getId() == R.id.color_box_container){
-            setColorParams().changeColor();
-        }
-    }
-
     public void changeColor() {
 
         colorHex = HexColorFrom4parts.composeHex(alpha, r, g, b);
@@ -111,7 +108,7 @@ public class FragmentColorBox extends Fragment {
 
     public FragmentColorBox setColorParams() {
 
-        FragmentSeekBarsControl fragmentControl = ((ColorC) getActivity()).getFragmentControl();
+        FragmentSeekBarsControl fragmentControl = ((BaseActivity) getActivity()).getFragmentControl();
         alpha = fragmentControl.getAlpha();
         r = fragmentControl.getR();
         g = fragmentControl.getG();
@@ -121,6 +118,14 @@ public class FragmentColorBox extends Fragment {
 
     public FragmentColorBox setColorParams(int a, int r, int g, int b) {
         alpha = a; this.r = r; this.g = g; this.b = b;
+        return this;
+    }
+
+    public FragmentColorBox setColorParams(String hexARGB) {
+
+        int[] argb = HexColorFrom4parts.hexStringToARGB(hexARGB);
+
+        setColorParams(argb[0], argb[1], argb[2], argb[3]);
         return this;
     }
 

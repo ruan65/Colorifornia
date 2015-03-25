@@ -25,6 +25,7 @@ import com.engstuff.coloriphornia.R;
 import com.engstuff.coloriphornia.fragments.DialogFragmentSavedEmails;
 import com.engstuff.coloriphornia.fragments.FragmentColorBox;
 import com.engstuff.coloriphornia.fragments.FragmentNavDrawer;
+import com.engstuff.coloriphornia.fragments.FragmentSeekBarsControl;
 import com.engstuff.coloriphornia.helpers.PrefsHelper;
 
 import java.lang.ref.WeakReference;
@@ -51,12 +52,14 @@ public abstract class BaseActivity extends ActionBarActivity
 
     public final static String SAVED_COLORS = "user_saved_colors";
     public final static String SAVED_EMAILS = "user_saved_emails";
+    public final static String PREFS_RETAIN_COLORS = "prefs_retain_colors";
 
     Toolbar mToolbar;
     DrawerLayout mDrawerLayout; // parent activity layout
     View mDrawerView; // child drawer view
 
     protected final Context ctx = this;
+    FragmentSeekBarsControl fragmentControl;
     protected FragmentColorBox fragmentColorBox;
     protected FragmentColorBox currentColorBox;
 
@@ -66,6 +69,8 @@ public abstract class BaseActivity extends ActionBarActivity
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(getLayoutResource());
+
+        fragmentControl = new FragmentSeekBarsControl();
 
         fragmentColorBox = currentColorBox = new FragmentColorBox();
 
@@ -93,6 +98,8 @@ public abstract class BaseActivity extends ActionBarActivity
         }
         overridePendingTransition(R.anim.slide_in_r, R.anim.slide_out_r);
     }
+
+
 
     @Override
     public void onAttachFragment(Fragment fragment) {
@@ -260,5 +267,9 @@ public abstract class BaseActivity extends ActionBarActivity
 
     public boolean isWhiteText() {
         return fragmentColorBox != null ? fragmentColorBox.isWhiteText() : false;
+    }
+
+    public FragmentSeekBarsControl getFragmentControl() {
+        return fragmentControl;
     }
 }

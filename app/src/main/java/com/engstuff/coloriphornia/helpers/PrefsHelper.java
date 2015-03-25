@@ -60,6 +60,12 @@ public class PrefsHelper {
                     .getString(key, "");
     }
 
+    public static String readFromPrefsString(Context ctx, String name, String key) {
+        return ctx
+                    .getSharedPreferences(name, ctx.MODE_PRIVATE)
+                    .getString(key, "");
+    }
+
     public static boolean readFromPrefsBoolean(Context ctx, String key) {
         return ctx
                     .getSharedPreferences(ctx.getApplicationInfo().packageName, ctx.MODE_PRIVATE)
