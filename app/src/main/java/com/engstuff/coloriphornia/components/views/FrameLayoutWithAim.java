@@ -25,6 +25,8 @@ public class FrameLayoutWithAim extends FrameLayout {
                 @Override
                 public boolean onSingleTapUp(MotionEvent ev) {
 
+                    Log.d("ml", "onSingleTapUp: " + ev.toString());
+
                     float evX = ev.getX();
                     float evY = ev.getY();
 
@@ -43,7 +45,7 @@ public class FrameLayoutWithAim extends FrameLayout {
                 }
             });
 
-    void replaceAim(float x, float y) {
+    public void replaceAim(float x, float y) {
         aim.setX(x);
         aim.setY(y);
         changeAimColor(ctx.isWhiteText());

@@ -9,6 +9,7 @@ import android.content.Intent;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
+import android.os.SystemClock;
 import android.view.MotionEvent;
 import android.view.View;
 import android.widget.FrameLayout;
@@ -20,6 +21,8 @@ import com.engstuff.coloriphornia.fragments.FragmentSeekBarsControl;
 import com.engstuff.coloriphornia.helpers.PrefsHelper;
 import com.engstuff.coloriphornia.interfaces.ImageGetColorListener;
 import com.software.shell.fab.ActionButton;
+
+import java.util.concurrent.TimeUnit;
 
 import static android.widget.RelativeLayout.LayoutParams.WRAP_CONTENT;
 
@@ -60,6 +63,8 @@ public class ColorFromImage extends BaseActivity
         if (!"".equals(stringUriCurrentImage)) {
             fragmentImg.putBitmap(Uri.parse(stringUriCurrentImage));
         }
+
+
     }
 
     @Override

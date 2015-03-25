@@ -173,7 +173,7 @@ public class ZoomableImageView extends ImageView implements View.OnTouchListener
         return true;
     }
 
-    void changeColor(int x, int y) {
+    public void changeColor(int x, int y) {
         setRGB(x, y, getCurrentBitmap(this));
         imageGetColorListener.onPickColor();
     }
@@ -314,6 +314,5 @@ public class ZoomableImageView extends ImageView implements View.OnTouchListener
     public void setAimCoords (float x, float y) {
         aimX = x;
         aimY = y;
-        Log.d("ml", "setAimCoords x = " + aimX + " y = " + aimY);
     }
 }
