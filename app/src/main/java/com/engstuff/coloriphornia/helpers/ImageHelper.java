@@ -7,7 +7,7 @@ import android.graphics.BitmapFactory;
 import android.net.Uri;
 import android.provider.MediaStore;
 
-public class ImageHelper {
+public abstract class ImageHelper {
 
     public static Bitmap decodeSampledBitmapFromResource(
             String path,

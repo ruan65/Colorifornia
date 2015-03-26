@@ -2,7 +2,10 @@ package com.engstuff.coloriphornia.activities;
 
 import android.annotation.SuppressLint;
 import android.app.Activity;
+import android.content.ContentResolver;
 import android.content.Intent;
+import android.content.res.Resources;
+import android.graphics.BitmapFactory;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
@@ -56,6 +59,9 @@ public class ColorFromImage extends BaseActivity
                 Cv.PREFS_RETAIN, Cv.CURRENT_IMAGE);
         if (!"".equals(stringUriCurrentImage)) {
             fragmentImg.putBitmap(Uri.parse(stringUriCurrentImage));
+        } else {
+            fragmentImg.getZiv().setImageBitmap(BitmapFactory.decodeResource(
+                    getResources(), R.drawable.triangles));
         }
     }
 

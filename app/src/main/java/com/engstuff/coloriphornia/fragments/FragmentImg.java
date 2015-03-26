@@ -103,6 +103,10 @@ public class FragmentImg extends Fragment {
         return aim;
     }
 
+    public ZoomableImageView getZiv() {
+        return ziv;
+    }
+
     public int getR() {
         return ziv.getR();
     }
