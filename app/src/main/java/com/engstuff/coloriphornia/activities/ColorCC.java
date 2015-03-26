@@ -42,13 +42,12 @@ public class ColorCC extends BaseActivity
             onColorControlChange();
 
             fragmentColorBox2.setColorParams(255, 0, 0, 255).changeColor();
-
         } else {
 
             int[] argb = HexColorFrom4parts.hexStringToARGB(hexColor1);
 
             fragmentControl.setControls(argb[0], argb[1], argb[2], argb[3]);
-            currentColorBox.setColorParams().changeColor();
+            onColorControlChange();
 
             String hexColor2 = PrefsHelper.readFromPrefsString(
                     this, Cv.PREFS_RETAIN, "last_color_box2");

@@ -87,7 +87,6 @@ public abstract class BaseActivity extends ActionBarActivity
     }
 
 
-
     @Override
     public void onAttachFragment(Fragment fragment) {
         allAttachedFragments.add(new WeakReference<>(fragment));
@@ -229,10 +228,13 @@ public abstract class BaseActivity extends ActionBarActivity
 
     @Override
     public void onTextColorChanged(boolean white) {
-
+        currentColorBox.getInfo().setImageResource(
+                white ? R.drawable.ic_info_white
+                      : R.drawable.ic_info_black);
     }
 
-    protected void changeFragment(FragmentColorBox color){};
+    protected void changeFragment(FragmentColorBox color) {
+    }
 
     @Override
     public void onColorLongClicked(FragmentColorBox color) {

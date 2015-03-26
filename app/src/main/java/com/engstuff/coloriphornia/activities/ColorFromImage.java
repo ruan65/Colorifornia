@@ -131,9 +131,10 @@ public class ColorFromImage extends BaseActivity
 
     @Override
     public void onTextColorChanged(boolean white) {
-        fragmentImg.getAim().setImageResource(!fragmentColorBox.isWhiteText()
-                ? R.drawable.ic_target_w
-                : R.drawable.ic_target_b);
+        super.onTextColorChanged(white);
+        fragmentImg.getAim().setImageResource(
+                white ? R.drawable.ic_target_w
+                      : R.drawable.ic_target_b);
     }
 
     @Override

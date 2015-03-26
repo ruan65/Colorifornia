@@ -33,6 +33,7 @@ public class FragmentColorBox extends Fragment {
     Context ctx;
 
     @InjectView(R.id.color_box_layout) ViewGroup layout;
+    @InjectView(R.id.btn_color_info) ImageView info;
 
     private String rgbColorParams;
     private String hexColorParams;
@@ -78,6 +79,12 @@ public class FragmentColorBox extends Fragment {
         ButterKnife.reset(this);
     }
 
+    @Override
+    public void onActivityCreated(Bundle savedInstanceState) {
+        super.onActivityCreated(savedInstanceState);
+        changeColor();
+    }
+
     public void changeColor() {
 
         colorHex = HexColorFrom4parts.composeHex(alpha, r, g, b);
@@ -92,7 +99,7 @@ public class FragmentColorBox extends Fragment {
         if (whiteText != whiteAgain) {
             colorBoxEventListener.onTextColorChanged(whiteAgain);
             whiteText = whiteAgain;
-        }
+        } else colorBoxEventListener.onTextColorChanged(whiteText);
     }
 
     public FragmentColorBox setColorParams() {
@@ -145,6 +152,10 @@ public class FragmentColorBox extends Fragment {
 
     public boolean isWhiteText() {
         return whiteText;
+    }
+
+    public ImageView getInfo() {
+        return info;
     }
 
     public String getRgbColorParams() {

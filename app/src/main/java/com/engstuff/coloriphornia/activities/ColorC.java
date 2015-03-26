@@ -42,7 +42,7 @@ public class ColorC extends BaseActivity
             int[] argb = HexColorFrom4parts.hexStringToARGB(hexColor);
 
             fragmentControl.setControls(argb[0], argb[1], argb[2], argb[3]);
-            currentColorBox.setColorParams().changeColor();
+            onColorControlChange();
         }
     }
 
