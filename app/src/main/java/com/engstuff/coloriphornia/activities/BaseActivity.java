@@ -11,7 +11,6 @@ import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarActivity;
 import android.support.v7.widget.Toolbar;
 import android.text.Html;
-import android.util.DisplayMetrics;
 import android.util.Log;
 import android.view.Gravity;
 import android.view.KeyEvent;
@@ -22,6 +21,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.engstuff.coloriphornia.R;
+import com.engstuff.coloriphornia.data.Cv;
 import com.engstuff.coloriphornia.fragments.DialogFragmentSavedEmails;
 import com.engstuff.coloriphornia.fragments.FragmentColorBox;
 import com.engstuff.coloriphornia.fragments.FragmentNavDrawer;
@@ -40,19 +40,6 @@ import static com.engstuff.coloriphornia.helpers.PrefsHelper.writeToPrefs;
 
 public abstract class BaseActivity extends ActionBarActivity
         implements FragmentColorBox.ColorBoxEventListener {
-
-    public final static String EXTRA_MESSAGE_COLOR_1 = "color_parameters_1";
-    public final static String EXTRA_MESSAGE_TEXT_COLOR_1 = "text_color_parameters_1";
-    public final static String EXTRA_MESSAGE_COLOR_2 = "color_parameters_2";
-    public final static String EXTRA_MESSAGE_TEXT_COLOR_2 = "text_color_parameters_2";
-
-    public final static String CURRENT_COLOR1 = "current_color1";
-    public final static String CURRENT_COLOR2 = "current_color2";
-    public final static String CURRENT_IMAGE = "current_image";
-
-    public final static String SAVED_COLORS = "user_saved_colors";
-    public final static String SAVED_EMAILS = "user_saved_emails";
-    public final static String PREFS_RETAIN = "prefs_retain_colors";
 
     Toolbar mToolbar;
     DrawerLayout mDrawerLayout; // parent activity layout
@@ -143,9 +130,9 @@ public abstract class BaseActivity extends ActionBarActivity
 
             case R.id.save_to_prefs:
 
-                writeToPrefs(this, SAVED_COLORS, hexColorParams, colorHex);
+                writeToPrefs(this, Cv.SAVED_COLORS, hexColorParams, colorHex);
 
-                if (readFromPrefsInt(this, SAVED_COLORS, hexColorParams) == colorHex) {
+                if (readFromPrefsInt(this, Cv.SAVED_COLORS, hexColorParams) == colorHex) {
 
                     Toast toast = new Toast(getApplicationContext());
 
@@ -167,7 +154,7 @@ public abstract class BaseActivity extends ActionBarActivity
 
             case R.id.get_saved:
 
-                for (String colorHexadecimal : readFromPrefsAllToArray(this, SAVED_COLORS)) {
+                for (String colorHexadecimal : readFromPrefsAllToArray(this, Cv.SAVED_COLORS)) {
 
                     Log.d("ml", "hex: " + colorHexadecimal);
                 }
@@ -186,7 +173,7 @@ public abstract class BaseActivity extends ActionBarActivity
                         .setPositiveButton(R.string.ok, new DialogInterface.OnClickListener() {
                             @Override
                             public void onClick(DialogInterface dialog, int which) {
-                                eraseAllPrefs(ctx, SAVED_COLORS);
+                                eraseAllPrefs(ctx, Cv.SAVED_COLORS);
                             }
                         })
                         .setNegativeButton(R.string.no, new DialogInterface.OnClickListener() {
@@ -205,7 +192,7 @@ public abstract class BaseActivity extends ActionBarActivity
                 emailIntent.setType("message/rfc822");
 
                 emailIntent.putExtra(Intent.EXTRA_EMAIL,
-                        readFromPrefsAllToArray(this, SAVED_EMAILS));
+                        readFromPrefsAllToArray(this, Cv.SAVED_EMAILS));
 
                 emailIntent.putExtra(Intent.EXTRA_SUBJECT, "Color parameters from Colorifornia");
 
@@ -259,8 +246,8 @@ public abstract class BaseActivity extends ActionBarActivity
 
         Intent i = new Intent(this, FullScreenColorC.class);
 
-        i.putExtra(EXTRA_MESSAGE_COLOR_1, colorParams);
-        i.putExtra(EXTRA_MESSAGE_TEXT_COLOR_1, fragmentColorBox.isWhiteText());
+        i.putExtra(Cv.EXTRA_MESSAGE_COLOR_1, colorParams);
+        i.putExtra(Cv.EXTRA_MESSAGE_TEXT_COLOR_1, fragmentColorBox.isWhiteText());
 
         startActivity(i);
     }

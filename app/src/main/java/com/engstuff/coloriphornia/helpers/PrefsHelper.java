@@ -4,7 +4,7 @@ import android.content.Context;
 
 import java.util.Map;
 
-public class PrefsHelper {
+public abstract class PrefsHelper {
 
     /**
      * Writing to Preferences

@@ -41,6 +41,7 @@ public class FragmentImg extends Fragment {
     BaseActivity ctx;
     int pxx, pxy;
 
+
     public FragmentImg() {
     }
 
@@ -98,6 +99,10 @@ public class FragmentImg extends Fragment {
         }
     }
 
+    public ImageView getAim() {
+        return aim;
+    }
+
     public int getR() {
         return ziv.getR();
     }
@@ -131,9 +136,5 @@ public class FragmentImg extends Fragment {
 
             GesturesHelper.performSingleTouch(frame, 100, 100);
         }
-    }
-
-    public ImageView getAim() {
-        return aim;
     }
 }

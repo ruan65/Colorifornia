@@ -2,27 +2,21 @@ package com.engstuff.coloriphornia.activities;
 
 import android.annotation.SuppressLint;
 import android.app.Activity;
-import android.app.FragmentManager;
-import android.app.FragmentTransaction;
-import android.content.ContentResolver;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
-import android.os.SystemClock;
-import android.view.MotionEvent;
 import android.view.View;
 import android.widget.FrameLayout;
 import android.widget.RelativeLayout;
 
 import com.engstuff.coloriphornia.R;
+import com.engstuff.coloriphornia.data.Cv;
+import com.engstuff.coloriphornia.fragments.FragmentColorBox;
 import com.engstuff.coloriphornia.fragments.FragmentImg;
-import com.engstuff.coloriphornia.fragments.FragmentSeekBarsControl;
 import com.engstuff.coloriphornia.helpers.PrefsHelper;
 import com.engstuff.coloriphornia.interfaces.ImageGetColorListener;
 import com.software.shell.fab.ActionButton;
-
-import java.util.concurrent.TimeUnit;
 
 import static android.widget.RelativeLayout.LayoutParams.WRAP_CONTENT;
 
@@ -59,12 +53,10 @@ public class ColorFromImage extends BaseActivity
     protected void onResume() {
         super.onResume();
         String stringUriCurrentImage = PrefsHelper.readFromPrefsString(this,
-                BaseActivity.PREFS_RETAIN, BaseActivity.CURRENT_IMAGE);
+                Cv.PREFS_RETAIN, Cv.CURRENT_IMAGE);
         if (!"".equals(stringUriCurrentImage)) {
             fragmentImg.putBitmap(Uri.parse(stringUriCurrentImage));
         }
-
-
     }
 
     @Override
@@ -82,6 +74,7 @@ public class ColorFromImage extends BaseActivity
 
             aBtn.setLayoutParams(lp);
             aBtn.show();
+
         } else aBtn.hide();
     }
 
@@ -109,7 +102,7 @@ public class ColorFromImage extends BaseActivity
         fragmentImg.putBitmap(uri);
 
         PrefsHelper.writeToPrefs(this,
-                BaseActivity.PREFS_RETAIN, BaseActivity.CURRENT_IMAGE, uri.toString());
+                Cv.PREFS_RETAIN, Cv.CURRENT_IMAGE, uri.toString());
     }
 
     @Override
@@ -152,5 +145,10 @@ public class ColorFromImage extends BaseActivity
             intent.addCategory(Intent.CATEGORY_OPENABLE);
             startActivityForResult(intent, GALLERY_KITKAT_INTENT_CALLED);
         }
+    }
+
+    @Override
+    public void onColorLongClicked(FragmentColorBox color) {
+        super.onColorLongClicked(color);
     }
 }

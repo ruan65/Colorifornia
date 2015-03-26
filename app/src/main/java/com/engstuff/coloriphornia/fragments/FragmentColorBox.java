@@ -30,7 +30,7 @@ public class FragmentColorBox extends Fragment {
 
     Context ctx;
 
-    private ImageView iv;
+    private View iv;
 
     private String rgbColorParams;
     private String hexColorParams;
@@ -53,7 +53,7 @@ public class FragmentColorBox extends Fragment {
 
         View rootView = inflater.inflate(R.layout.fragment_color_box, container, false);
 
-        iv = (ImageView) rootView.findViewById(R.id.colorView);
+        iv = (View) rootView.findViewById(R.id.colorView);
 
         iv.setOnClickListener(new View.OnClickListener() {
             @Override

@@ -3,6 +3,7 @@ package com.engstuff.coloriphornia.activities;
 import android.os.Bundle;
 
 import com.engstuff.coloriphornia.R;
+import com.engstuff.coloriphornia.data.Cv;
 import com.engstuff.coloriphornia.fragments.FragmentSeekBarsControl;
 import com.engstuff.coloriphornia.helpers.HexColorFrom4parts;
 import com.engstuff.coloriphornia.helpers.PrefsHelper;
@@ -29,7 +30,7 @@ public class ColorC extends BaseActivity
         super.onResume();
 
         String hexColor = PrefsHelper.readFromPrefsString(
-                this, BaseActivity.PREFS_RETAIN, "last_color");
+                this, Cv.PREFS_RETAIN, "last_color");
 
         if (hexColor.equals("")) {
 
@@ -48,7 +49,7 @@ public class ColorC extends BaseActivity
     @Override
     protected void onPause() {
         super.onPause();
-        PrefsHelper.writeToPrefs(this, PREFS_RETAIN, "last_color",
+        PrefsHelper.writeToPrefs(this, Cv.PREFS_RETAIN, "last_color",
                 currentColorBox.getHexColorParams());
     }
 

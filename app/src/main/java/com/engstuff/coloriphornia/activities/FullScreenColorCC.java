@@ -8,6 +8,7 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.engstuff.coloriphornia.R;
+import com.engstuff.coloriphornia.data.Cv;
 
 import butterknife.ButterKnife;
 import butterknife.InjectView;
@@ -35,12 +36,12 @@ public class FullScreenColorCC extends FullScreenColorC {
 
         // set color 1
         setColor(intent,
-                ColorC.EXTRA_MESSAGE_COLOR_1, ColorC.EXTRA_MESSAGE_TEXT_COLOR_1,
+                Cv.EXTRA_MESSAGE_COLOR_1, Cv.EXTRA_MESSAGE_TEXT_COLOR_1,
                 rl1, tv1, btnBack1);
 
         // set color 2
         setColor(intent,
-                ColorC.EXTRA_MESSAGE_COLOR_2, ColorC.EXTRA_MESSAGE_TEXT_COLOR_2,
+                Cv.EXTRA_MESSAGE_COLOR_2, Cv.EXTRA_MESSAGE_TEXT_COLOR_2,
                 rl2, tv2, btnBack2);
     }
 

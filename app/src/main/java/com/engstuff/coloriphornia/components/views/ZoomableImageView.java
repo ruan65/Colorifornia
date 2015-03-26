@@ -12,6 +12,7 @@ import android.view.View;
 import android.widget.ImageView;
 
 import com.engstuff.coloriphornia.R;
+import com.engstuff.coloriphornia.helpers.Logging;
 import com.engstuff.coloriphornia.interfaces.ImageGetColorListener;
 
 public class ZoomableImageView extends ImageView implements View.OnTouchListener {

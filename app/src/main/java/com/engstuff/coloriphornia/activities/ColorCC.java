@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.os.Bundle;
 
 import com.engstuff.coloriphornia.R;
+import com.engstuff.coloriphornia.data.Cv;
 import com.engstuff.coloriphornia.fragments.FragmentColorBox;
 import com.engstuff.coloriphornia.fragments.FragmentSeekBarsControl;
 import com.engstuff.coloriphornia.helpers.HexColorFrom4parts;
@@ -33,7 +34,7 @@ public class ColorCC extends BaseActivity
         super.onResume();
 
         String hexColor1 = PrefsHelper.readFromPrefsString(
-                this, BaseActivity.PREFS_RETAIN, "last_color_box1");
+                this, Cv.PREFS_RETAIN, "last_color_box1");
 
         if (!checkHexColorString(hexColor1)) {
 
@@ -50,7 +51,7 @@ public class ColorCC extends BaseActivity
             currentColorBox.setColorParams().changeColor();
 
             String hexColor2 = PrefsHelper.readFromPrefsString(
-                    this, BaseActivity.PREFS_RETAIN, "last_color_box2");
+                    this, Cv.PREFS_RETAIN, "last_color_box2");
 
             if (checkHexColorString(hexColor2)) {
                 fragmentColorBox2.setColorParams(hexColor2).changeColor();
@@ -67,10 +68,10 @@ public class ColorCC extends BaseActivity
     protected void onPause() {
         super.onPause();
 
-        PrefsHelper.writeToPrefs(this, PREFS_RETAIN, "last_color_box1",
+        PrefsHelper.writeToPrefs(this, Cv.PREFS_RETAIN, "last_color_box1",
                 fragmentColorBox.getHexColorParams());
 
-        PrefsHelper.writeToPrefs(this, PREFS_RETAIN, "last_color_box2",
+        PrefsHelper.writeToPrefs(this, Cv.PREFS_RETAIN, "last_color_box2",
                 fragmentColorBox2.getHexColorParams());
     }
 
@@ -85,8 +86,8 @@ public class ColorCC extends BaseActivity
         };
 
         Intent i = new Intent(this, FullScreenColorCC.class);
-        i.putExtra(EXTRA_MESSAGE_COLOR_1, colorParams);
-        i.putExtra(EXTRA_MESSAGE_TEXT_COLOR_1, color.isWhiteText());
+        i.putExtra(Cv.EXTRA_MESSAGE_COLOR_1, colorParams);
+        i.putExtra(Cv.EXTRA_MESSAGE_TEXT_COLOR_1, color.isWhiteText());
 
         int fragmentId = color.getId() == R.id.color_box_container
                 ? R.id.color_box_container2 : R.id.color_box_container;
@@ -98,8 +99,8 @@ public class ColorCC extends BaseActivity
                 color.getHexColorParams()
         };
 
-        i.putExtra(EXTRA_MESSAGE_COLOR_2, colorParams2);
-        i.putExtra(EXTRA_MESSAGE_TEXT_COLOR_2, color.isWhiteText());
+        i.putExtra(Cv.EXTRA_MESSAGE_COLOR_2, colorParams2);
+        i.putExtra(Cv.EXTRA_MESSAGE_TEXT_COLOR_2, color.isWhiteText());
 
         startActivity(i);
     }

@@ -25,8 +25,6 @@ public class FrameLayoutWithAim extends FrameLayout {
                 @Override
                 public boolean onSingleTapUp(MotionEvent ev) {
 
-                    Log.d("ml", "onSingleTapUp: " + ev.toString());
-
                     float evX = ev.getX();
                     float evY = ev.getY();
 

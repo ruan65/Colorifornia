@@ -10,6 +10,7 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.engstuff.coloriphornia.R;
+import com.engstuff.coloriphornia.data.Cv;
 
 
 public class FullScreenColorC extends Activity {
@@ -27,7 +28,7 @@ public class FullScreenColorC extends Activity {
 
         Intent intent = getIntent();
 
-        String[] colorMessage = intent.getStringArrayExtra(ColorC.EXTRA_MESSAGE_COLOR_1);
+        String[] colorMessage = intent.getStringArrayExtra(Cv.EXTRA_MESSAGE_COLOR_1);
 
         int backColor = (int) Long.parseLong(colorMessage[1].substring(1), 16);
 
@@ -35,7 +36,7 @@ public class FullScreenColorC extends Activity {
 
         tv = (TextView) findViewById(R.id.tv_color_params);
 
-        int textColor = intent.getBooleanExtra(ColorC.EXTRA_MESSAGE_TEXT_COLOR_1, false)
+        int textColor = intent.getBooleanExtra(Cv.EXTRA_MESSAGE_TEXT_COLOR_1, false)
                 ? Color.WHITE
                 : Color.BLACK;
 

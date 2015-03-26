@@ -12,7 +12,7 @@ import android.widget.EditText;
 import android.widget.Toast;
 
 import com.engstuff.coloriphornia.R;
-import com.engstuff.coloriphornia.activities.ColorC;
+import com.engstuff.coloriphornia.data.Cv;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -34,7 +34,7 @@ public class DialogFragmentSavedEmails extends DialogFragment {
 
         AlertDialog.Builder builder = new AlertDialog.Builder(activity);
 
-        final String[] emails = readFromPrefsAllToArray(activity, ColorC.SAVED_EMAILS);
+        final String[] emails = readFromPrefsAllToArray(activity, Cv.SAVED_EMAILS);
 
         builder
                 .setTitle(R.string.prefs_emails)
@@ -74,7 +74,7 @@ public class DialogFragmentSavedEmails extends DialogFragment {
 
                                         String newEmail = inputEmail.getText().toString();
 
-                                        writeToPrefs(activity, ColorC.SAVED_EMAILS, newEmail, null);
+                                        writeToPrefs(activity, Cv.SAVED_EMAILS, newEmail, null);
 
                                         Toast.makeText(activity, text(R.string.toast_email) + newEmail +
                                                 text(R.string.toast_hb_saved), Toast.LENGTH_SHORT).show();
@@ -111,7 +111,7 @@ public class DialogFragmentSavedEmails extends DialogFragment {
                                     public void onClick(DialogInterface dialog, int which) {
 
                                         for (String key : emailsToDelete) {
-                                            erasePrefs(activity, ColorC.SAVED_EMAILS, key);
+                                            erasePrefs(activity, Cv.SAVED_EMAILS, key);
                                         }
                                     }
                                 })
