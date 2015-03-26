@@ -17,6 +17,7 @@ import com.engstuff.coloriphornia.R;
 import com.engstuff.coloriphornia.data.Cv;
 import com.engstuff.coloriphornia.fragments.FragmentColorBox;
 import com.engstuff.coloriphornia.fragments.FragmentImg;
+import com.engstuff.coloriphornia.helpers.GesturesHelper;
 import com.engstuff.coloriphornia.helpers.PrefsHelper;
 import com.engstuff.coloriphornia.interfaces.ImageGetColorListener;
 import com.software.shell.fab.ActionButton;
@@ -62,6 +63,7 @@ public class ColorFromImage extends BaseActivity
         } else {
             fragmentImg.getZiv().setImageBitmap(BitmapFactory.decodeResource(
                     getResources(), R.drawable.triangles));
+            fragmentColorBox.setColorParams(255, 130, 58).changeColor();
         }
     }
 

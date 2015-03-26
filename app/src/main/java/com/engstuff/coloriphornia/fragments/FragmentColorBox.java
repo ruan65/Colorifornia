@@ -4,7 +4,6 @@ package com.engstuff.coloriphornia.fragments;
 import android.app.Activity;
 import android.app.Fragment;
 import android.content.Context;
-import android.graphics.Color;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -13,9 +12,12 @@ import android.widget.ImageView;
 
 import com.engstuff.coloriphornia.R;
 import com.engstuff.coloriphornia.activities.BaseActivity;
-import com.engstuff.coloriphornia.activities.ColorC;
 import com.engstuff.coloriphornia.helpers.HexColorFrom4parts;
-import com.engstuff.coloriphornia.helpers.PrefsHelper;
+
+import butterknife.ButterKnife;
+import butterknife.InjectView;
+import butterknife.OnClick;
+import butterknife.OnLongClick;
 
 public class FragmentColorBox extends Fragment {
 
@@ -30,7 +32,7 @@ public class FragmentColorBox extends Fragment {
 
     Context ctx;
 
-    private View iv;
+    @InjectView(R.id.color_box_layout) ViewGroup layout;
 
     private String rgbColorParams;
     private String hexColorParams;
@@ -53,22 +55,8 @@ public class FragmentColorBox extends Fragment {
 
         View rootView = inflater.inflate(R.layout.fragment_color_box, container, false);
 
-        iv = (View) rootView.findViewById(R.id.colorView);
+        ButterKnife.inject(this, rootView);
 
-        iv.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                colorBoxEventListener.onColorClicked(FragmentColorBox.this);
-            }
-        });
-
-        iv.setOnLongClickListener(new View.OnLongClickListener() {
-            @Override
-            public boolean onLongClick(View v) {
-                colorBoxEventListener.onColorLongClicked(FragmentColorBox.this);
-                return true;
-            }
-        });
         return rootView;
     }
 
@@ -84,9 +72,10 @@ public class FragmentColorBox extends Fragment {
     }
 
     @Override
-    public void onDetach() {
-        super.onDetach();
+    public void onDestroyView() {
+        super.onDestroyView();
         colorBoxEventListener = null;
+        ButterKnife.reset(this);
     }
 
     public void changeColor() {
@@ -94,9 +83,9 @@ public class FragmentColorBox extends Fragment {
         colorHex = HexColorFrom4parts.composeHex(alpha, r, g, b);
         rgbColorParams = "\u03b1: " + alpha + " r:" + r + " g:" + g + " b:" + b;
         hexColorParams = "#" + Integer.toHexString(colorHex);
-        iv.setBackgroundColor(colorHex);
+        layout.setBackgroundColor(colorHex);
         //noinspection deprecation
-        iv.setAlpha(alpha);
+        layout.setAlpha(alpha);
 
         boolean whiteAgain = blackOrWhiteText(r, g, b);
 
@@ -136,6 +125,22 @@ public class FragmentColorBox extends Fragment {
 
     private boolean blackOrWhiteText(int r, int g, int b) {
         return  (r + g + b > 450 || g > 200) ? false : true;
+    }
+
+    @OnClick(R.id.color_box_layout)
+    public void colorClicked() {
+        colorBoxEventListener.onColorClicked(FragmentColorBox.this);
+    }
+
+    @OnClick(R.id.btn_color_info)
+    public void infoClick() {
+        colorBoxEventListener.onColorLongClicked(FragmentColorBox.this);
+    }
+
+    @OnLongClick(R.id.color_box_layout)
+    public boolean colorLongClick() {
+        colorBoxEventListener.onColorLongClicked(FragmentColorBox.this);
+        return true;
     }
 
     public boolean isWhiteText() {

@@ -81,8 +81,8 @@ public class FragmentImg extends Fragment {
         aim.setLayoutParams(new LayoutParams(LayoutParams.WRAP_CONTENT, LayoutParams.WRAP_CONTENT));
         aim.setImageResource(ctx.isWhiteText() ? R.drawable.ic_target_w
                 : R.drawable.ic_target_b);
-        aim.setX(display.heightPixels / display.scaledDensity / 2);
-        aim.setY((float) (display.widthPixels * 0.62 / display.scaledDensity / 2));
+        aim.setX(display.heightPixels / display.scaledDensity / 3f);
+        aim.setY((display.widthPixels / display.scaledDensity / 1.8f));
 
         return aim;
     }
