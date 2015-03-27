@@ -86,6 +86,12 @@ public abstract class BaseActivity extends ActionBarActivity
         overridePendingTransition(R.anim.slide_in_r, R.anim.slide_out_r);
     }
 
+    @Override
+    protected void onPause() {
+        super.onPause();
+        PrefsHelper.writeToPrefsDefault(
+                getApplicationContext(), Cv.LAST_ACTIVITY, getClass().getName());
+    }
 
     @Override
     public void onAttachFragment(Fragment fragment) {

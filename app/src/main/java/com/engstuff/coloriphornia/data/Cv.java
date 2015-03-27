@@ -15,4 +15,5 @@ public interface Cv {
     String CURRENT_COLOR2 = "current_color2";
     String CURRENT_IMAGE = "current_image";
     String SAVED_EMAILS = "user_saved_emails";
+    String LAST_ACTIVITY = "last_used_activity";
 }

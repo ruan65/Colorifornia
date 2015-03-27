@@ -38,6 +38,7 @@
     <string name="hello_world">Hello world!</string>
     <string name="select_picture">Select Picture</string>
     <string name="file_not_found">File not found...</string>
+    <string name="title_activity_dispatcher">Dispatcher</string>
 
 
 </resources>
