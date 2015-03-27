@@ -2,9 +2,7 @@ package com.engstuff.coloriphornia.activities;
 
 import android.annotation.SuppressLint;
 import android.app.Activity;
-import android.content.ContentResolver;
 import android.content.Intent;
-import android.content.res.Resources;
 import android.graphics.BitmapFactory;
 import android.net.Uri;
 import android.os.Build;
@@ -17,7 +15,6 @@ import com.engstuff.coloriphornia.R;
 import com.engstuff.coloriphornia.data.Cv;
 import com.engstuff.coloriphornia.fragments.FragmentColorBox;
 import com.engstuff.coloriphornia.fragments.FragmentImg;
-import com.engstuff.coloriphornia.helpers.GesturesHelper;
 import com.engstuff.coloriphornia.helpers.PrefsHelper;
 import com.engstuff.coloriphornia.interfaces.ImageGetColorListener;
 import com.software.shell.fab.ActionButton;
@@ -58,13 +55,35 @@ public class ColorFromImage extends BaseActivity
         super.onResume();
         String stringUriCurrentImage = PrefsHelper.readFromPrefsString(this,
                 Cv.PREFS_RETAIN, Cv.CURRENT_IMAGE);
+        String currentHex = PrefsHelper.readFromPrefsString(this,
+                Cv.PREFS_RETAIN, Cv.CURRENT_COLOR_IMG);
+
+        float x = PrefsHelper.readFromPrefsInt(this, Cv.PREFS_RETAIN, Cv.AIM_X);
+        float y = PrefsHelper.readFromPrefsInt(this, Cv.PREFS_RETAIN, Cv.AIM_Y);
+
         if (!"".equals(stringUriCurrentImage)) {
             fragmentImg.putBitmap(Uri.parse(stringUriCurrentImage));
         } else {
             fragmentImg.getZiv().setImageBitmap(BitmapFactory.decodeResource(
                     getResources(), R.drawable.triangles));
-            fragmentColorBox.setColorParams(255, 130, 58).changeColor();
         }
+
+        if (!"".equals(currentHex)) {
+            fragmentColorBox.setColorParams(currentHex).changeColor();
+        } else fragmentColorBox.setColorParams(255, 130, 58).changeColor();
+
+        if (x != 0 && y != 0) {
+            fragmentImg.getAim().setX(x);
+            fragmentImg.getAim().setY(y);
+        }
+    }
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+        PrefsHelper.writeToPrefs(this, Cv.PREFS_RETAIN, Cv.CURRENT_COLOR_IMG, currentColorBox.getHexColorParams());
+        PrefsHelper.writeToPrefs(this, Cv.PREFS_RETAIN, Cv.AIM_X, (int) fragmentImg.getAim().getX());
+        PrefsHelper.writeToPrefs(this, Cv.PREFS_RETAIN, Cv.AIM_Y, (int) fragmentImg.getAim().getY());
     }
 
     @Override

@@ -3,15 +3,11 @@ package com.engstuff.coloriphornia.fragments;
 
 import android.app.Fragment;
 import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
 import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Bundle;
-import android.os.SystemClock;
-import android.support.v7.internal.widget.TintRadioButton;
 import android.util.DisplayMetrics;
 import android.view.LayoutInflater;
-import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
@@ -19,16 +15,12 @@ import android.widget.Toast;
 
 import com.engstuff.coloriphornia.R;
 import com.engstuff.coloriphornia.activities.BaseActivity;
-import com.engstuff.coloriphornia.activities.ColorFromImage;
 import com.engstuff.coloriphornia.components.views.FrameLayoutWithAim;
 import com.engstuff.coloriphornia.components.views.ZoomableImageView;
-import com.engstuff.coloriphornia.helpers.GesturesHelper;
 import com.engstuff.coloriphornia.helpers.ImageHelper;
 import com.engstuff.coloriphornia.helpers.Logging;
-import com.software.shell.fab.ActionButton;
 
 import java.io.File;
-import java.util.concurrent.TimeUnit;
 
 import static android.view.ViewGroup.LayoutParams;
 
@@ -135,10 +127,7 @@ public class FragmentImg extends Fragment {
 
         @Override
         protected void onPostExecute(Bitmap bmp) {
-
             ziv.setImageBitmap(bmp);
-
-            GesturesHelper.performSingleTouch(frame, 100, 100);
         }
     }
 }

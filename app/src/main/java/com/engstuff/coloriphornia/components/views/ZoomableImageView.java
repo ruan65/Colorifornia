@@ -5,14 +5,12 @@ import android.graphics.Bitmap;
 import android.graphics.Color;
 import android.graphics.Matrix;
 import android.graphics.PointF;
-import android.util.Log;
 import android.view.MotionEvent;
 import android.view.ScaleGestureDetector;
 import android.view.View;
 import android.widget.ImageView;
 
 import com.engstuff.coloriphornia.R;
-import com.engstuff.coloriphornia.helpers.Logging;
 import com.engstuff.coloriphornia.interfaces.ImageGetColorListener;
 
 public class ZoomableImageView extends ImageView implements View.OnTouchListener {
