@@ -35,7 +35,7 @@ public class FullScreenColorCC extends FullScreenColorC {
 
         rl1.setOnClickListener(this);
         rl2.setOnClickListener(this);
-        
+
         // set color 1
         setColor(intent,
                 Cv.EXTRA_MESSAGE_COLOR_1, Cv.EXTRA_MESSAGE_TEXT_COLOR_1,
