@@ -8,12 +8,12 @@ import android.widget.FrameLayout;
 import android.widget.ImageView;
 
 import com.engstuff.coloriphornia.R;
-import com.engstuff.coloriphornia.activities.BaseActivity;
+import com.engstuff.coloriphornia.activities.BaseColorActivity;
 
 public class FrameLayoutWithAim extends FrameLayout {
 
     private ImageView aim;
-    private BaseActivity ctx;
+    private BaseColorActivity ctx;
     private ZoomableImageView ziv;
 
     private float aimX, aimY;
@@ -55,7 +55,7 @@ public class FrameLayoutWithAim extends FrameLayout {
 
     public FrameLayoutWithAim(Context context, AttributeSet attrs) {
         super(context, attrs);
-        ctx = (BaseActivity) context;
+        ctx = (BaseColorActivity) context;
     }
 
     @Override

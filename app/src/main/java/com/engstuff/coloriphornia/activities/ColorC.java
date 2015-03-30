@@ -8,7 +8,7 @@ import com.engstuff.coloriphornia.fragments.FragmentSeekBarsControl;
 import com.engstuff.coloriphornia.helpers.HexColorFrom4parts;
 import com.engstuff.coloriphornia.helpers.PrefsHelper;
 
-public class ColorC extends BaseActivity
+public class ColorC extends BaseColorActivity
         implements FragmentSeekBarsControl.ColorControlChangeListener {
 
 

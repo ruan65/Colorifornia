@@ -2,7 +2,7 @@ package com.engstuff.coloriphornia.activities;
 
 import com.engstuff.coloriphornia.R;
 
-public class FavoriteColorsActivity extends BaseActivity{
+public class FavoriteColorsActivity extends BaseColorActivity {
 
 
     @Override

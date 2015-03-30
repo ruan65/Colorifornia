@@ -8,7 +8,6 @@ import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.support.v4.widget.DrawerLayout;
-import android.support.v7.app.ActionBarActivity;
 import android.support.v7.widget.Toolbar;
 import android.text.Html;
 import android.util.Log;
@@ -38,7 +37,7 @@ import static com.engstuff.coloriphornia.helpers.PrefsHelper.readFromPrefsInt;
 import static com.engstuff.coloriphornia.helpers.PrefsHelper.writeToPrefs;
 
 
-public abstract class BaseActivity extends ActionBarActivity
+public abstract class BaseColorActivity extends MockUpActivity
         implements FragmentColorBox.ColorBoxEventListener {
 
     Toolbar mToolbar;
@@ -128,34 +127,15 @@ public abstract class BaseActivity extends ActionBarActivity
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
 
-        String hexColorParams = currentColorBox.getHexColorParams();
-        int colorHex = currentColorBox.getColorHex();
+
 
         switch (item.getItemId()) {
 
             case R.id.save_to_prefs:
 
-                writeToPrefs(this, Cv.SAVED_COLORS, hexColorParams, colorHex);
+                saveColorToPrefs();
 
-                if (readFromPrefsInt(this, Cv.SAVED_COLORS, hexColorParams) == colorHex) {
-
-                    Toast toast = new Toast(getApplicationContext());
-
-                    TextView view = (TextView)
-                            getLayoutInflater().inflate(R.layout.toast_custom, null);
-
-                    view.setBackgroundColor(colorHex);
-
-                    view.setTextColor(currentColorBox.isWhiteText() ? Color.WHITE : Color.BLACK);
-                    view.setText("This color's been saved\n\n            " + hexColorParams);
-
-                    toast.setView(view);
-                    toast.setDuration(Toast.LENGTH_LONG);
-                    toast.setGravity(Gravity.TOP, 0, 0);
-                    toast.show();
-
-                }
-                return true;
+                break;
 
             case R.id.get_saved:
 
@@ -212,6 +192,33 @@ public abstract class BaseActivity extends ActionBarActivity
         return super.onOptionsItemSelected(item);
     }
 
+    void saveColorToPrefs() {
+
+        String hexColorParams = currentColorBox.getHexColorParams();
+        int colorHex = currentColorBox.getColorHex();
+
+        writeToPrefs(this, Cv.SAVED_COLORS, hexColorParams, colorHex);
+
+        if (readFromPrefsInt(this, Cv.SAVED_COLORS, hexColorParams) == colorHex) {
+
+            Toast toast = new Toast(getApplicationContext());
+
+            TextView view = (TextView)
+                    getLayoutInflater().inflate(R.layout.toast_custom, null);
+
+            view.setBackgroundColor(colorHex);
+
+            view.setTextColor(currentColorBox.isWhiteText() ? Color.WHITE : Color.BLACK);
+            view.setText("This color's been saved\n\n            " + hexColorParams);
+
+            toast.setView(view);
+            toast.setDuration(Toast.LENGTH_LONG);
+            toast.setGravity(Gravity.TOP, 0, 0);
+            toast.show();
+
+        }
+    }
+
     private String composeEmailBody() {
         StringBuilder result = new StringBuilder()
                 .append("<h3>Colors chosen via \"Colorifornia\" mobile app: </h3>");
@@ -243,7 +250,7 @@ public abstract class BaseActivity extends ActionBarActivity
     }
 
     @Override
-    public void onColorLongClicked(FragmentColorBox color) {
+    public void onInfoClicked(FragmentColorBox color) {
 
         changeFragment(color);
 

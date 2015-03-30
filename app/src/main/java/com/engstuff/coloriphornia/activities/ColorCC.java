@@ -10,7 +10,7 @@ import com.engstuff.coloriphornia.fragments.FragmentSeekBarsControl;
 import com.engstuff.coloriphornia.helpers.HexColorFrom4parts;
 import com.engstuff.coloriphornia.helpers.PrefsHelper;
 
-public class ColorCC extends BaseActivity
+public class ColorCC extends BaseColorActivity
         implements FragmentSeekBarsControl.ColorControlChangeListener {
 
     FragmentColorBox fragmentColorBox2;
@@ -75,7 +75,7 @@ public class ColorCC extends BaseActivity
     }
 
     @Override
-    public void onColorLongClicked(FragmentColorBox color) {
+    public void onInfoClicked(FragmentColorBox color) {
 
         changeFragment(color);
 

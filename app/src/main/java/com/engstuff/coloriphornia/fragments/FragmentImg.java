@@ -14,7 +14,7 @@ import android.widget.ImageView;
 import android.widget.Toast;
 
 import com.engstuff.coloriphornia.R;
-import com.engstuff.coloriphornia.activities.BaseActivity;
+import com.engstuff.coloriphornia.activities.BaseColorActivity;
 import com.engstuff.coloriphornia.components.views.FrameLayoutWithAim;
 import com.engstuff.coloriphornia.components.views.ZoomableImageView;
 import com.engstuff.coloriphornia.helpers.ImageHelper;
@@ -30,7 +30,7 @@ public class FragmentImg extends Fragment {
     private ImageView aim;
     private FrameLayoutWithAim frame;
 
-    BaseActivity ctx;
+    BaseColorActivity ctx;
     int pxx, pxy;
 
 
@@ -46,7 +46,7 @@ public class FragmentImg extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
 
-        ctx = (BaseActivity) getActivity();
+        ctx = (BaseColorActivity) getActivity();
 
         pxx = pxy = (int) ctx.getResources().getDimension(R.dimen.bitmap_size);
 

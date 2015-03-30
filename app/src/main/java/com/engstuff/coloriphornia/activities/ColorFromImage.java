@@ -13,7 +13,6 @@ import android.widget.RelativeLayout;
 
 import com.engstuff.coloriphornia.R;
 import com.engstuff.coloriphornia.data.Cv;
-import com.engstuff.coloriphornia.fragments.FragmentColorBox;
 import com.engstuff.coloriphornia.fragments.FragmentImg;
 import com.engstuff.coloriphornia.helpers.PrefsHelper;
 import com.engstuff.coloriphornia.interfaces.ImageGetColorListener;
@@ -21,7 +20,7 @@ import com.software.shell.fab.ActionButton;
 
 import static android.widget.RelativeLayout.LayoutParams.WRAP_CONTENT;
 
-public class ColorFromImage extends BaseActivity
+public class ColorFromImage extends BaseColorActivity
         implements ImageGetColorListener, View.OnClickListener {
 
     private static final int GALLERY_INTENT_CALLED = 0xbaaa;
@@ -173,10 +172,5 @@ public class ColorFromImage extends BaseActivity
             intent.addCategory(Intent.CATEGORY_OPENABLE);
             startActivityForResult(intent, GALLERY_KITKAT_INTENT_CALLED);
         }
-    }
-
-    @Override
-    public void onColorLongClicked(FragmentColorBox color) {
-        super.onColorLongClicked(color);
     }
 }

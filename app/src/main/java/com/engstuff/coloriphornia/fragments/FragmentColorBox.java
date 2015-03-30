@@ -11,7 +11,7 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 
 import com.engstuff.coloriphornia.R;
-import com.engstuff.coloriphornia.activities.BaseActivity;
+import com.engstuff.coloriphornia.activities.BaseColorActivity;
 import com.engstuff.coloriphornia.helpers.HexColorFrom4parts;
 
 import butterknife.ButterKnife;
@@ -24,7 +24,7 @@ public class FragmentColorBox extends Fragment {
     public interface ColorBoxEventListener {
 
         void onColorClicked(FragmentColorBox colorBox);
-        void onColorLongClicked(FragmentColorBox colorBox);
+        void onInfoClicked(FragmentColorBox colorBox);
         void onTextColorChanged(boolean white);
     }
 
@@ -104,7 +104,7 @@ public class FragmentColorBox extends Fragment {
 
     public FragmentColorBox setColorParams() {
 
-        FragmentSeekBarsControl fragmentControl = ((BaseActivity) getActivity()).getFragmentControl();
+        FragmentSeekBarsControl fragmentControl = ((BaseColorActivity) getActivity()).getFragmentControl();
         alpha = fragmentControl.getAlpha();
         r = fragmentControl.getR();
         g = fragmentControl.getG();
@@ -141,13 +141,7 @@ public class FragmentColorBox extends Fragment {
 
     @OnClick(R.id.btn_color_info)
     public void infoClick() {
-        colorBoxEventListener.onColorLongClicked(FragmentColorBox.this);
-    }
-
-    @OnLongClick(R.id.color_box_layout)
-    public boolean colorLongClick() {
-        colorBoxEventListener.onColorLongClicked(FragmentColorBox.this);
-        return true;
+        colorBoxEventListener.onInfoClicked(FragmentColorBox.this);
     }
 
     public boolean isWhiteText() {
