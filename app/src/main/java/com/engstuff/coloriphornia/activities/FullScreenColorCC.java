@@ -3,6 +3,8 @@ package com.engstuff.coloriphornia.activities;
 import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
+import android.util.Log;
+import android.view.View;
 import android.widget.Button;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
@@ -22,9 +24,6 @@ public class FullScreenColorCC extends FullScreenColorC {
     @InjectView(R.id.layout_full_screen_color_1) RelativeLayout rl1;
     @InjectView(R.id.layout_full_screen_color_2) RelativeLayout rl2;
 
-    @InjectView(R.id.btnBack1) Button btnBack1;
-    @InjectView(R.id.btnBack2) Button btnBack2;
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -34,19 +33,22 @@ public class FullScreenColorCC extends FullScreenColorC {
 
         Intent intent = getIntent();
 
+        rl1.setOnClickListener(this);
+        rl2.setOnClickListener(this);
+        
         // set color 1
         setColor(intent,
                 Cv.EXTRA_MESSAGE_COLOR_1, Cv.EXTRA_MESSAGE_TEXT_COLOR_1,
-                rl1, tv1, btnBack1);
+                rl1, tv1);
 
         // set color 2
         setColor(intent,
                 Cv.EXTRA_MESSAGE_COLOR_2, Cv.EXTRA_MESSAGE_TEXT_COLOR_2,
-                rl2, tv2, btnBack2);
+                rl2, tv2);
     }
 
     private void setColor(Intent intent, String extra1, String extra2,
-                          RelativeLayout rl, TextView tv, Button btn) {
+                          RelativeLayout rl, TextView tv) {
 
         String[] colorMessage = intent.getStringArrayExtra(extra1);
 
@@ -61,8 +63,5 @@ public class FullScreenColorCC extends FullScreenColorC {
 
         tv.setTextColor(textColor1);
         tv.setText(colorMessage[0] + "\n" + colorMessage[1]);
-
-        btn.setBackgroundColor(backColor);
-        btn.setTextColor(textColor1);
     }
 }

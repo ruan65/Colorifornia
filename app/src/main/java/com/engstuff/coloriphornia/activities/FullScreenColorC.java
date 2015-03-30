@@ -4,27 +4,27 @@ import android.app.Activity;
 import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
-import android.widget.Button;
-import android.widget.RelativeLayout;
+import android.view.View.OnClickListener;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.engstuff.coloriphornia.R;
 import com.engstuff.coloriphornia.data.Cv;
 
 
-public class FullScreenColorC extends Activity {
+public class FullScreenColorC extends Activity implements OnClickListener {
 
     private TextView tv;
-    private RelativeLayout rl;
-    private Button btnBack;
+    protected LinearLayout container;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_full_screen_color_c);
 
-        rl = (RelativeLayout) findViewById(R.id.layout_full_screen_color);
+        container = (LinearLayout) findViewById(R.id.layout_full_screen_color);
 
         Intent intent = getIntent();
 
@@ -32,7 +32,8 @@ public class FullScreenColorC extends Activity {
 
         int backColor = (int) Long.parseLong(colorMessage[1].substring(1), 16);
 
-        rl.setBackgroundColor(backColor);
+        container.setBackgroundColor(backColor);
+        container.setOnClickListener(this);
 
         tv = (TextView) findViewById(R.id.tv_color_params);
 
@@ -42,11 +43,6 @@ public class FullScreenColorC extends Activity {
 
         tv.setTextColor(textColor);
         tv.setText(colorMessage[0] + "\n" + colorMessage[1]);
-
-        btnBack = (Button) findViewById(R.id.btnBack);
-        btnBack.setBackgroundColor(backColor);
-        btnBack.setTextColor(textColor);
-
     }
 
     @Override
@@ -55,8 +51,8 @@ public class FullScreenColorC extends Activity {
         overridePendingTransition(R.anim.slide_in_l, R.anim.slide_out_l);
     }
 
-    public void backClick(View v) {
-        this.finish();
+    @Override
+    public void onClick(View v) {
+        finish();
     }
-
 }
