@@ -8,11 +8,6 @@
         android:icon="@drawable/ic_action_share"
         android:title="@string/share"
         app:showAsAction="ifRoom" />
-    <item
-        android:id="@+id/save_to_prefs"
-        android:orderInCategory="100"
-        android:title="@string/save"
-        app:showAsAction="never" />
 
     <item
         android:id="@+id/get_saved"

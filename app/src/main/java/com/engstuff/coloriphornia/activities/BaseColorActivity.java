@@ -11,11 +11,13 @@ import android.support.v4.widget.DrawerLayout;
 import android.support.v7.widget.Toolbar;
 import android.text.Html;
 import android.util.Log;
+import android.view.ContextMenu;
 import android.view.Gravity;
 import android.view.KeyEvent;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.SeekBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -38,7 +40,7 @@ import static com.engstuff.coloriphornia.helpers.PrefsHelper.writeToPrefs;
 
 
 public abstract class BaseColorActivity extends MockUpActivity
-        implements FragmentColorBox.ColorBoxEventListener {
+        implements FragmentColorBox.ColorBoxEventListener, FragmentSeekBarsControl.ColorControlChangeListener {
 
     Toolbar mToolbar;
     DrawerLayout mDrawerLayout; // parent activity layout
@@ -75,6 +77,8 @@ public abstract class BaseColorActivity extends MockUpActivity
     @Override
     protected void onResume() {
         super.onResume();
+
+        registerForContextMenu(fragmentColorBox.getView());
 
         String keyNotFirstTime = getString(R.string.not_first_time);
 
@@ -127,15 +131,7 @@ public abstract class BaseColorActivity extends MockUpActivity
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
 
-
-
         switch (item.getItemId()) {
-
-            case R.id.save_to_prefs:
-
-                saveColorToPrefs();
-
-                break;
 
             case R.id.get_saved:
 
@@ -186,37 +182,29 @@ public abstract class BaseColorActivity extends MockUpActivity
                 startActivity(Intent.createChooser(emailIntent, "Send color(s) parameters..."));
 
                 break;
-            default:
-                break;
         }
         return super.onOptionsItemSelected(item);
     }
 
-    void saveColorToPrefs() {
+    @Override
+    public void onCreateContextMenu(ContextMenu menu, View v, ContextMenu.ContextMenuInfo menuInfo) {
+        super.onCreateContextMenu(menu, v, menuInfo);
+        getMenuInflater().inflate(R.menu.context_menu_color_box, menu);
+    }
 
-        String hexColorParams = currentColorBox.getHexColorParams();
-        int colorHex = currentColorBox.getColorHex();
+    @Override
+    public boolean onContextItemSelected(MenuItem item) {
 
-        writeToPrefs(this, Cv.SAVED_COLORS, hexColorParams, colorHex);
+        switch (item.getItemId()) {
+            case R.id.ctx_menu_save_color:
+                saveColorToPrefs();
+                return true;
 
-        if (readFromPrefsInt(this, Cv.SAVED_COLORS, hexColorParams) == colorHex) {
+            case R.id.ctx_menu_share_color:
 
-            Toast toast = new Toast(getApplicationContext());
-
-            TextView view = (TextView)
-                    getLayoutInflater().inflate(R.layout.toast_custom, null);
-
-            view.setBackgroundColor(colorHex);
-
-            view.setTextColor(currentColorBox.isWhiteText() ? Color.WHITE : Color.BLACK);
-            view.setText("This color's been saved\n\n            " + hexColorParams);
-
-            toast.setView(view);
-            toast.setDuration(Toast.LENGTH_LONG);
-            toast.setGravity(Gravity.TOP, 0, 0);
-            toast.show();
-
+                return true;
         }
+        return super.onContextItemSelected(item);
     }
 
     private String composeEmailBody() {
@@ -234,8 +222,14 @@ public abstract class BaseColorActivity extends MockUpActivity
     }
 
     @Override
-    public void onColorClicked(FragmentColorBox color) {
+    public void onColorControlChange() {
+        currentColorBox
+                .setColorParams()
+                .changeColor();
+    }
 
+    @Override
+    public void onColorClicked(FragmentColorBox color) {
         changeFragment(color);
     }
 
@@ -268,10 +262,36 @@ public abstract class BaseColorActivity extends MockUpActivity
     }
 
     public boolean isWhiteText() {
-        return fragmentColorBox != null ? fragmentColorBox.isWhiteText() : false;
+        return currentColorBox.isWhiteText();
     }
 
     public FragmentSeekBarsControl getFragmentControl() {
         return fragmentControl;
+    }
+
+    protected void saveColorToPrefs() {
+
+        String hexColorParams = currentColorBox.getHexColorParams();
+        int colorHex = currentColorBox.getColorHex();
+
+        writeToPrefs(ctx, Cv.SAVED_COLORS, hexColorParams, colorHex);
+
+        if (readFromPrefsInt(ctx, Cv.SAVED_COLORS, hexColorParams) == colorHex) {
+
+            Toast toast = new Toast(ctx);
+
+            TextView view = (TextView)
+                    getLayoutInflater().inflate(R.layout.toast_custom, null);
+
+            view.setBackgroundColor(colorHex);
+
+            view.setTextColor(isWhiteText() ? Color.WHITE : Color.BLACK);
+            view.setText("This color's been saved\n\n            " + hexColorParams);
+
+            toast.setView(view);
+            toast.setDuration(Toast.LENGTH_LONG);
+            toast.setGravity(Gravity.TOP, 0, 0);
+            toast.show();
+        }
     }
 }

@@ -10,8 +10,7 @@ import com.engstuff.coloriphornia.fragments.FragmentSeekBarsControl;
 import com.engstuff.coloriphornia.helpers.HexColorFrom4parts;
 import com.engstuff.coloriphornia.helpers.PrefsHelper;
 
-public class ColorCC extends BaseColorActivity
-        implements FragmentSeekBarsControl.ColorControlChangeListener {
+public class ColorCC extends BaseColorActivity {
 
     FragmentColorBox fragmentColorBox2;
 
@@ -32,6 +31,8 @@ public class ColorCC extends BaseColorActivity
     @Override
     protected void onResume() {
         super.onResume();
+
+        registerForContextMenu(fragmentColorBox2.getView());
 
         String hexColor1 = PrefsHelper.readFromPrefsString(
                 this, Cv.PREFS_RETAIN, "last_color_box1");
@@ -113,13 +114,6 @@ public class ColorCC extends BaseColorActivity
         currentColorBox = color;
         fragmentControl.setControls(
                 color.getAlpha(), color.getR(), color.getG(), color.getB());
-    }
-
-    @Override
-    public void onColorControlChange() {
-        currentColorBox
-                .setColorParams()
-                .changeColor();
     }
 }
 

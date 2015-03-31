@@ -3,15 +3,21 @@ package com.engstuff.coloriphornia.fragments;
 
 import android.app.Activity;
 import android.app.Fragment;
-import android.content.Context;
+import android.graphics.Color;
 import android.os.Bundle;
+import android.view.ContextMenu;
+import android.view.Gravity;
 import android.view.LayoutInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.TextView;
+import android.widget.Toast;
 
 import com.engstuff.coloriphornia.R;
 import com.engstuff.coloriphornia.activities.BaseColorActivity;
+import com.engstuff.coloriphornia.data.Cv;
 import com.engstuff.coloriphornia.helpers.HexColorFrom4parts;
 
 import butterknife.ButterKnife;
@@ -19,21 +25,28 @@ import butterknife.InjectView;
 import butterknife.OnClick;
 import butterknife.OnLongClick;
 
+import static com.engstuff.coloriphornia.helpers.PrefsHelper.readFromPrefsInt;
+import static com.engstuff.coloriphornia.helpers.PrefsHelper.writeToPrefs;
+
 public class FragmentColorBox extends Fragment {
 
     public interface ColorBoxEventListener {
 
         void onColorClicked(FragmentColorBox colorBox);
+
         void onInfoClicked(FragmentColorBox colorBox);
+
         void onTextColorChanged(boolean white);
     }
 
     private ColorBoxEventListener colorBoxEventListener;
 
-    Context ctx;
+    Activity ctx;
 
-    @InjectView(R.id.color_box_layout) ViewGroup layout;
-    @InjectView(R.id.btn_color_info) ImageView info;
+    View layout;
+
+    @InjectView(R.id.btn_color_info)
+    ImageView info;
 
     private String rgbColorParams;
     private String hexColorParams;
@@ -46,19 +59,19 @@ public class FragmentColorBox extends Fragment {
 
     private boolean whiteText;
 
-    public FragmentColorBox() {}
+    public FragmentColorBox() {
+    }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-
         ctx = getActivity();
 
-        View rootView = inflater.inflate(R.layout.fragment_color_box, container, false);
+        layout = inflater.inflate(R.layout.fragment_color_box, container, false);
 
-        ButterKnife.inject(this, rootView);
+        ButterKnife.inject(this, layout);
 
-        return rootView;
+        return layout;
     }
 
     @Override
@@ -113,7 +126,10 @@ public class FragmentColorBox extends Fragment {
     }
 
     public FragmentColorBox setColorParams(int a, int r, int g, int b) {
-        alpha = a; this.r = r; this.g = g; this.b = b;
+        alpha = a;
+        this.r = r;
+        this.g = g;
+        this.b = b;
         return this;
     }
 
@@ -126,17 +142,29 @@ public class FragmentColorBox extends Fragment {
     }
 
     public FragmentColorBox setColorParams(int r, int g, int b) {
-        alpha = 255; this.r = r; this.g = g; this.b = b;
+        alpha = 255;
+        this.r = r;
+        this.g = g;
+        this.b = b;
         return this;
     }
 
     private boolean blackOrWhiteText(int r, int g, int b) {
-        return  (r + g + b > 450 || g > 200) ? false : true;
+        return (r + g + b > 450 || g > 200) ? false : true;
     }
 
     @OnClick(R.id.color_box_layout)
     public void colorClicked() {
         colorBoxEventListener.onColorClicked(FragmentColorBox.this);
+    }
+
+    /**
+     * I need this hack for fragment swapping while saving color to favorites
+     */
+    @OnLongClick(R.id.color_box_layout)
+    public boolean colorLongClicked() {
+        colorClicked();
+        return false;
     }
 
     @OnClick(R.id.btn_color_info)
