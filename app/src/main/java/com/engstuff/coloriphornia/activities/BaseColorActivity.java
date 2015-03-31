@@ -42,40 +42,27 @@ import static com.engstuff.coloriphornia.helpers.PrefsHelper.writeToPrefs;
 public abstract class BaseColorActivity extends MockUpActivity
         implements FragmentColorBox.ColorBoxEventListener, FragmentSeekBarsControl.ColorControlChangeListener {
 
-    Toolbar mToolbar;
-    DrawerLayout mDrawerLayout; // parent activity layout
-    View mDrawerView; // child drawer view
 
-    protected final Context ctx = this;
-    FragmentSeekBarsControl fragmentControl;
+    protected FragmentSeekBarsControl fragmentControl;
     protected FragmentColorBox fragmentColorBox;
     protected FragmentColorBox currentColorBox;
 
     List<WeakReference<Fragment>> allAttachedFragments = new ArrayList<>();
 
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
+    public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(getLayoutResource());
+
 
         fragmentControl = new FragmentSeekBarsControl();
 
         fragmentColorBox = currentColorBox = new FragmentColorBox();
 
-        mToolbar = (Toolbar) findViewById(R.id.app_bar);
-        setSupportActionBar(mToolbar);
-
-        FragmentNavDrawer drawerFragment = (FragmentNavDrawer) getSupportFragmentManager()
-                .findFragmentById(R.id.fragment_nav_drawer);
-
-        mDrawerLayout = (DrawerLayout) findViewById(R.id.drawer_layout);
-        mDrawerView = findViewById(R.id.fragment_nav_drawer);
-        drawerFragment.setUp(mDrawerLayout, mToolbar);
 
     }
 
     @Override
-    protected void onResume() {
+    public void onResume() {
         super.onResume();
 
         registerForContextMenu(fragmentColorBox.getView());
@@ -90,7 +77,7 @@ public abstract class BaseColorActivity extends MockUpActivity
     }
 
     @Override
-    protected void onPause() {
+    public void onPause() {
         super.onPause();
         PrefsHelper.writeToPrefsDefault(
                 getApplicationContext(), Cv.LAST_ACTIVITY, getClass().getName());
@@ -101,7 +88,7 @@ public abstract class BaseColorActivity extends MockUpActivity
         allAttachedFragments.add(new WeakReference<>(fragment));
     }
 
-    protected abstract int getLayoutResource();
+
 
     /**
      * This is for preventing app crash after pressing hardware Menu button

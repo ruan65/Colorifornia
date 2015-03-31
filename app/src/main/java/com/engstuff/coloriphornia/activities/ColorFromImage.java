@@ -31,7 +31,7 @@ public class ColorFromImage extends BaseColorActivity
     private FrameLayout imgContainer;
 
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
+    public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
         imgContainer = (FrameLayout) findViewById(R.id.img_container);
@@ -50,7 +50,7 @@ public class ColorFromImage extends BaseColorActivity
     }
 
     @Override
-    protected void onResume() {
+    public void onResume() {
         super.onResume();
         String stringUriCurrentImage = PrefsHelper.readFromPrefsString(this,
                 Cv.PREFS_RETAIN, Cv.CURRENT_IMAGE);
@@ -78,7 +78,7 @@ public class ColorFromImage extends BaseColorActivity
     }
 
     @Override
-    protected void onPause() {
+    public void onPause() {
         super.onPause();
         PrefsHelper.writeToPrefs(this, Cv.PREFS_RETAIN, Cv.CURRENT_COLOR_IMG, currentColorBox.getHexColorParams());
         PrefsHelper.writeToPrefs(this, Cv.PREFS_RETAIN, Cv.AIM_X, (int) fragmentImg.getAim().getX());

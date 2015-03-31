@@ -15,7 +15,7 @@ public class ColorCC extends BaseColorActivity {
     FragmentColorBox fragmentColorBox2;
 
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
+    public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
         fragmentColorBox2 = new FragmentColorBox();
@@ -29,7 +29,7 @@ public class ColorCC extends BaseColorActivity {
     }
 
     @Override
-    protected void onResume() {
+    public void onResume() {
         super.onResume();
 
         registerForContextMenu(fragmentColorBox2.getView());
@@ -65,7 +65,7 @@ public class ColorCC extends BaseColorActivity {
     }
 
     @Override
-    protected void onPause() {
+    public void onPause() {
         super.onPause();
 
         PrefsHelper.writeToPrefs(this, Cv.PREFS_RETAIN, "last_color_box1",

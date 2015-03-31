@@ -12,7 +12,7 @@ public class ColorC extends BaseColorActivity
         implements FragmentSeekBarsControl.ColorControlChangeListener{
 
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
+    public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
         getFragmentManager().beginTransaction()
@@ -23,7 +23,7 @@ public class ColorC extends BaseColorActivity
     }
 
     @Override
-    protected void onResume() {
+    public void onResume() {
         super.onResume();
 
         String hexColor = PrefsHelper.readFromPrefsString(
@@ -44,7 +44,7 @@ public class ColorC extends BaseColorActivity
     }
 
     @Override
-    protected void onPause() {
+    public void onPause() {
         super.onPause();
         PrefsHelper.writeToPrefs(this, Cv.PREFS_RETAIN, "last_color",
                 currentColorBox.getHexColorParams());
