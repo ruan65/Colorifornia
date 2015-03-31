@@ -10,6 +10,7 @@ import android.support.v7.app.ActionBarActivity;
 import android.support.v7.widget.Toolbar;
 import android.text.Html;
 import android.util.Log;
+import android.view.KeyEvent;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -133,4 +134,22 @@ public abstract class MockUpActivity extends ActionBarActivity {
     protected abstract int getLayoutResource();
 
     protected abstract String composeEmailBody();
+
+    /**
+     * This is for preventing app crash after pressing hardware Menu button
+     * And now more - open/close drawer after pressing it
+     */
+    @Override
+    public boolean onKeyDown(int keyCode, KeyEvent event) {
+        if (keyCode == KeyEvent.KEYCODE_MENU) {
+
+            if (!mDrawerLayout.isDrawerOpen(mDrawerView)) {
+                mDrawerLayout.openDrawer(mDrawerView);
+            } else if (mDrawerLayout.isDrawerOpen(mDrawerView)) {
+                mDrawerLayout.closeDrawer(mDrawerView);
+            }
+            return true;
+        }
+        return super.onKeyDown(keyCode, event);
+    }
 }

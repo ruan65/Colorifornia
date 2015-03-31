@@ -1,17 +1,11 @@
 package com.engstuff.coloriphornia.activities;
 
-import android.app.AlertDialog;
 import android.app.Fragment;
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
-import android.text.Html;
-import android.util.Log;
 import android.view.ContextMenu;
 import android.view.Gravity;
-import android.view.KeyEvent;
-import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.TextView;
@@ -19,7 +13,6 @@ import android.widget.Toast;
 
 import com.engstuff.coloriphornia.R;
 import com.engstuff.coloriphornia.data.Cv;
-import com.engstuff.coloriphornia.fragments.DialogFragmentSavedEmails;
 import com.engstuff.coloriphornia.fragments.FragmentColorBox;
 import com.engstuff.coloriphornia.fragments.FragmentSeekBarsControl;
 
@@ -27,11 +20,8 @@ import java.lang.ref.WeakReference;
 import java.util.ArrayList;
 import java.util.List;
 
-import static com.engstuff.coloriphornia.helpers.PrefsHelper.eraseAllPrefs;
-import static com.engstuff.coloriphornia.helpers.PrefsHelper.readFromPrefsAllToArray;
 import static com.engstuff.coloriphornia.helpers.PrefsHelper.readFromPrefsInt;
 import static com.engstuff.coloriphornia.helpers.PrefsHelper.writeToPrefs;
-
 
 public abstract class BaseColorActivity extends MockUpActivity
         implements FragmentColorBox.ColorBoxEventListener, FragmentSeekBarsControl.ColorControlChangeListener {
@@ -61,26 +51,6 @@ public abstract class BaseColorActivity extends MockUpActivity
     public void onAttachFragment(Fragment fragment) {
         allAttachedFragments.add(new WeakReference<>(fragment));
     }
-
-    /**
-     * This is for preventing app crash after pressing hardware Menu button
-     * And now more - open/close drawer after pressing it
-     */
-    @Override
-    public boolean onKeyDown(int keyCode, KeyEvent event) {
-        if (keyCode == KeyEvent.KEYCODE_MENU) {
-
-            if (!mDrawerLayout.isDrawerOpen(mDrawerView)) {
-                mDrawerLayout.openDrawer(mDrawerView);
-            } else if (mDrawerLayout.isDrawerOpen(mDrawerView)) {
-                mDrawerLayout.closeDrawer(mDrawerView);
-            }
-            return true;
-        }
-        return super.onKeyDown(keyCode, event);
-    }
-
-
 
     @Override
     public void onCreateContextMenu(ContextMenu menu, View v, ContextMenu.ContextMenuInfo menuInfo) {
