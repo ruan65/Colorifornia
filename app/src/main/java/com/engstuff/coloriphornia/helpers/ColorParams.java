@@ -1,6 +1,6 @@
 package com.engstuff.coloriphornia.helpers;
 
-public class HexColorFrom4parts {
+public class ColorParams {
 
 	public static int composeHex(int alpha, int r, int g, int b) {
 
@@ -39,5 +39,16 @@ public class HexColorFrom4parts {
         } else hexStringToARGB("#FF" + hexARGB.substring(1));
 
         return intARGB;
+    }
+
+    public static boolean blackOrWhiteText(int r, int g, int b) {
+
+        return (r + g + b > 450 || g > 200) ? false : true;
+    }
+
+    public static boolean blackOrWhiteText(String hex) {
+
+        int[] argb = hexStringToARGB(hex);
+        return blackOrWhiteText(argb[1], argb[2], argb[3]);
     }
 }

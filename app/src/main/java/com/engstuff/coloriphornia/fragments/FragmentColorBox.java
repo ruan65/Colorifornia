@@ -3,22 +3,15 @@ package com.engstuff.coloriphornia.fragments;
 
 import android.app.Activity;
 import android.app.Fragment;
-import android.graphics.Color;
 import android.os.Bundle;
-import android.view.ContextMenu;
-import android.view.Gravity;
 import android.view.LayoutInflater;
-import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
-import android.widget.TextView;
-import android.widget.Toast;
 
 import com.engstuff.coloriphornia.R;
 import com.engstuff.coloriphornia.activities.BaseColorActivity;
-import com.engstuff.coloriphornia.data.Cv;
-import com.engstuff.coloriphornia.helpers.HexColorFrom4parts;
+import com.engstuff.coloriphornia.helpers.ColorParams;
 
 import butterknife.ButterKnife;
 import butterknife.InjectView;
@@ -100,14 +93,14 @@ public class FragmentColorBox extends Fragment {
 
     public void changeColor() {
 
-        colorHex = HexColorFrom4parts.composeHex(alpha, r, g, b);
+        colorHex = ColorParams.composeHex(alpha, r, g, b);
         rgbColorParams = "\u03b1: " + alpha + " r:" + r + " g:" + g + " b:" + b;
         hexColorParams = "#" + Integer.toHexString(colorHex);
         layout.setBackgroundColor(colorHex);
         //noinspection deprecation
         layout.setAlpha(alpha);
 
-        boolean whiteAgain = blackOrWhiteText(r, g, b);
+        boolean whiteAgain = ColorParams.blackOrWhiteText(r, g, b);
 
         if (whiteText != whiteAgain) {
             colorBoxEventListener.onTextColorChanged(whiteAgain);
@@ -135,7 +128,7 @@ public class FragmentColorBox extends Fragment {
 
     public FragmentColorBox setColorParams(String hexARGB) {
 
-        int[] argb = HexColorFrom4parts.hexStringToARGB(hexARGB);
+        int[] argb = ColorParams.hexStringToARGB(hexARGB);
 
         setColorParams(argb[0], argb[1], argb[2], argb[3]);
         return this;
@@ -147,10 +140,6 @@ public class FragmentColorBox extends Fragment {
         this.g = g;
         this.b = b;
         return this;
-    }
-
-    private boolean blackOrWhiteText(int r, int g, int b) {
-        return (r + g + b > 450 || g > 200) ? false : true;
     }
 
     @OnClick(R.id.color_box_layout)

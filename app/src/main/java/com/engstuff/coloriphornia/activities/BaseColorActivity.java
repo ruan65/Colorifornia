@@ -1,20 +1,16 @@
 package com.engstuff.coloriphornia.activities;
 
 import android.app.Fragment;
-import android.content.Intent;
-import android.graphics.Color;
 import android.os.Bundle;
 import android.view.ContextMenu;
-import android.view.Gravity;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.TextView;
-import android.widget.Toast;
 
 import com.engstuff.coloriphornia.R;
 import com.engstuff.coloriphornia.data.Cv;
 import com.engstuff.coloriphornia.fragments.FragmentColorBox;
 import com.engstuff.coloriphornia.fragments.FragmentSeekBarsControl;
+import com.engstuff.coloriphornia.helpers.AppHelper;
 
 import java.lang.ref.WeakReference;
 import java.util.ArrayList;
@@ -114,17 +110,9 @@ public abstract class BaseColorActivity extends MockUpActivity
 
         changeFragment(color);
 
-        String[] colorParams = {
-                color.getRgbColorParams(),
-                color.getHexColorParams()
-        };
-
-        Intent i = new Intent(this, FullScreenColorC.class);
-
-        i.putExtra(Cv.EXTRA_MESSAGE_COLOR_1, colorParams);
-        i.putExtra(Cv.EXTRA_MESSAGE_TEXT_COLOR_1, fragmentColorBox.isWhiteText());
-
-        startActivity(i);
+        AppHelper.startFullColorC(this,
+                fragmentColorBox.getRgbColorParams(),
+                fragmentColorBox.getHexColorParams());
     }
 
     public boolean isWhiteText() {
@@ -144,20 +132,7 @@ public abstract class BaseColorActivity extends MockUpActivity
 
         if (readFromPrefsInt(ctx, Cv.SAVED_COLORS, hexColorParams) == colorHex) {
 
-            Toast toast = new Toast(ctx);
-
-            TextView view = (TextView)
-                    getLayoutInflater().inflate(R.layout.toast_custom, null);
-
-            view.setBackgroundColor(colorHex);
-
-            view.setTextColor(isWhiteText() ? Color.WHITE : Color.BLACK);
-            view.setText("This color's been saved\n\n            " + hexColorParams);
-
-            toast.setView(view);
-            toast.setDuration(Toast.LENGTH_LONG);
-            toast.setGravity(Gravity.TOP, 0, 0);
-            toast.show();
+            AppHelper.showCustomToast(this, hexColorParams, colorHex);
         }
     }
 }

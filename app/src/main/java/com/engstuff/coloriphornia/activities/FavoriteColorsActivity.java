@@ -1,10 +1,12 @@
 package com.engstuff.coloriphornia.activities;
 
 import android.content.Context;
+import android.content.Intent;
 import android.graphics.Point;
 import android.os.Bundle;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.GridView;
 
@@ -41,12 +43,20 @@ public class FavoriteColorsActivity extends MockUpActivity {
 
         fAdapter = new FavoritesAdapter(this, fColorsList);
         lvFavorites.setAdapter(fAdapter);
+
+        lvFavorites.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                Intent intent = new Intent(getApplicationContext(), FullScreenColorC.class);
+                startActivity(intent);
+            }
+        });
     }
 
     int calculateGridSize() {
         Point p = new Point();
         getWindowManager().getDefaultDisplay().getSize(p);
-        return gridSize = (int) (p.x / 3.5);
+        return gridSize = (int) (p.x / 3.1);
     }
 
     @Override
