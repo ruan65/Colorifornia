@@ -10,12 +10,6 @@
         app:showAsAction="ifRoom" />
 
     <item
-        android:id="@+id/get_saved"
-        android:orderInCategory="50"
-        android:title="@string/saved"
-        app:showAsAction="never" />
-
-    <item
         android:id="@+id/erase"
         android:orderInCategory="40"
         android:title="@string/erase"

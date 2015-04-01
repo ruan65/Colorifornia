@@ -78,14 +78,6 @@ public abstract class MockUpActivity extends ActionBarActivity {
 
         switch (item.getItemId()) {
 
-            case R.id.get_saved:
-
-                for (String colorHexadecimal : readFromPrefsAllToArray(this, Cv.SAVED_COLORS)) {
-
-                    Log.d("ml", "hex: " + colorHexadecimal);
-                }
-                break;
-
             case R.id.saved_emails:
 
                 new DialogFragmentSavedEmails().show(getFragmentManager(), null);
