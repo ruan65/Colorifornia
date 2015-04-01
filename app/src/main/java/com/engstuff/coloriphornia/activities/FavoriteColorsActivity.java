@@ -74,12 +74,10 @@ public class FavoriteColorsActivity extends MockUpActivity {
 
             if (v == null) {
                 v = new View(getApplicationContext());
-//                getLayoutInflater().inflate(R.layout.list_item_favorite, parent, false);
             }
             v.setMinimumHeight(gridSize);
             v.setMinimumWidth(gridSize);
             v.setBackgroundColor(fc.color);
-
 
             return v;
         }
