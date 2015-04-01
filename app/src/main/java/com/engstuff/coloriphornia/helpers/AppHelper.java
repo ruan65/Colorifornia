@@ -1,7 +1,6 @@
 package com.engstuff.coloriphornia.helpers;
 
 import android.app.Activity;
-import android.content.Context;
 import android.content.Intent;
 import android.graphics.Color;
 import android.view.Gravity;
@@ -14,16 +13,16 @@ import com.engstuff.coloriphornia.data.Cv;
 
 public class AppHelper {
 
-    public static void startFullColorC(Context ctx, String rgb, String hex) {
+    public static void startFullColorC(Activity activity, String rgb, String hex) {
 
         String[] colorParams = {rgb, hex};
 
-        Intent i = new Intent(ctx, FullScreenColorC.class);
+        Intent i = new Intent(activity, FullScreenColorC.class);
 
         i.putExtra(Cv.EXTRA_MESSAGE_COLOR_1, colorParams);
         i.putExtra(Cv.EXTRA_MESSAGE_TEXT_COLOR_1, ColorParams.blackOrWhiteText(hex));
 
-        ctx.startActivity(i);
+        activity.startActivity(i);
     }
 
     public static void showCustomToast(Activity a, String hexColorParams, int colorHex) {
@@ -43,4 +42,5 @@ public class AppHelper {
         toast.setGravity(Gravity.TOP, 0, 0);
         toast.show();
     }
+
 }

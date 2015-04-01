@@ -51,4 +51,17 @@ public class ColorParams {
         int[] argb = hexStringToARGB(hex);
         return blackOrWhiteText(argb[1], argb[2], argb[3]);
     }
+
+    public static String makeArgbInfo(int a, int r, int g, int b) {
+        return "\u03b1: " + a + " r:" + r + " g:" + g + " b:" + b;
+    }
+
+    public static String makeArgbInfo(String hex) {
+        int[] argb = hexStringToARGB(hex);
+        return makeArgbInfo(argb[0], argb[1], argb[2], argb[3]);
+    }
+
+    public static String makeHexInfo(int color) {
+        return "#" + Integer.toHexString(color);
+    }
 }

@@ -1,7 +1,6 @@
 package com.engstuff.coloriphornia.activities;
 
 import android.content.Context;
-import android.content.Intent;
 import android.graphics.Point;
 import android.os.Bundle;
 import android.view.View;
@@ -12,6 +11,8 @@ import android.widget.GridView;
 
 import com.engstuff.coloriphornia.R;
 import com.engstuff.coloriphornia.data.Cv;
+import com.engstuff.coloriphornia.helpers.AppHelper;
+import com.engstuff.coloriphornia.helpers.ColorParams;
 import com.engstuff.coloriphornia.helpers.PrefsHelper;
 
 import java.util.ArrayList;
@@ -47,8 +48,10 @@ public class FavoriteColorsActivity extends MockUpActivity {
         lvFavorites.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                Intent intent = new Intent(getApplicationContext(), FullScreenColorC.class);
-                startActivity(intent);
+
+                FavoriteColor c = fColorsList.get(position);
+                AppHelper.startFullColorC(FavoriteColorsActivity.this,
+                        ColorParams.makeArgbInfo(c.hexString), c.hexString);
             }
         });
     }
@@ -56,7 +59,7 @@ public class FavoriteColorsActivity extends MockUpActivity {
     int calculateGridSize() {
         Point p = new Point();
         getWindowManager().getDefaultDisplay().getSize(p);
-        return gridSize = (int) (p.x / 3.1);
+        return gridSize = (int) (p.x / 3.3);
     }
 
     @Override

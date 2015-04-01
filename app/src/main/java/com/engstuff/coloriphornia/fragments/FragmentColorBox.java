@@ -94,8 +94,8 @@ public class FragmentColorBox extends Fragment {
     public void changeColor() {
 
         colorHex = ColorParams.composeHex(alpha, r, g, b);
-        rgbColorParams = "\u03b1: " + alpha + " r:" + r + " g:" + g + " b:" + b;
-        hexColorParams = "#" + Integer.toHexString(colorHex);
+        rgbColorParams = ColorParams.makeArgbInfo(alpha, r, g, b);
+        hexColorParams = ColorParams.makeHexInfo(colorHex);
         layout.setBackgroundColor(colorHex);
         //noinspection deprecation
         layout.setAlpha(alpha);
