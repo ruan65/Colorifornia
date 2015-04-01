@@ -7,20 +7,23 @@ android:layout_height="match_parent">
 <LinearLayout
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/primaryColorDarkTransparent"
     android:orientation="vertical">
 
     <include
         android:id="@+id/app_bar"
         layout="@layout/app_bar" />
 
-    <ListView
-        android:id="@+id/list_favorite_colors"
+    <GridView
+        android:layout_margin="5dp"
+        android:id="@+id/favorite_colors"
         android:layout_width="match_parent"
-        android:background="#994"
-        android:layout_height="match_parent">
+        android:columnWidth="100dp"
+        android:numColumns="auto_fit"
+        android:verticalSpacing="5dp"
+        android:stretchMode="spacingWidthUniform"
+        android:gravity="center"
+        android:layout_height="match_parent" />
 
-    </ListView>
 </LinearLayout>
 
 <fragment
