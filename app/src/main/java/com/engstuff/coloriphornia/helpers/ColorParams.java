@@ -26,7 +26,7 @@ public class ColorParams {
 
         if (!hexARGB.startsWith("#") || !(hexARGB.length() == 7 || hexARGB.length() == 9)) {
 
-            throw new IllegalArgumentException("Hex color string is incorrect!");
+            hexARGB = "#00000000";
         }
 
         int[] intARGB = new int[4];
