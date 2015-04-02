@@ -68,7 +68,7 @@ public class FavoriteColorsActivity extends MockUpActivity {
     }
 
     @Override
-    protected String composeEmailBody() {
+    protected String composeEmailBody(boolean calledFromContextMenu) {
         return "";
     }
 

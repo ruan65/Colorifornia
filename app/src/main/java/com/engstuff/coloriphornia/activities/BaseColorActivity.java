@@ -63,23 +63,28 @@ public abstract class BaseColorActivity extends MockUpActivity
                 return true;
 
             case R.id.ctx_menu_share_color:
-
+                fireShareIntent(true);
                 return true;
         }
         return super.onContextItemSelected(item);
     }
 
-    protected String composeEmailBody() {
+    protected String composeEmailBody(boolean calledFromContextMenu) {
+
         StringBuilder result = new StringBuilder()
                 .append("<h3>Colors chosen via \"Colorifornia\" mobile app: </h3>");
 
-        for (WeakReference<Fragment> ref : allAttachedFragments) {
-            Fragment f = ref.get();
-            if (f.getClass().equals(FragmentColorBox.class)) {
-                result.append("<p>" + ((FragmentColorBox) f).getHexColorParams() + "</p>");
-            }
-        }
+        if (!calledFromContextMenu) {
 
+            for (WeakReference<Fragment> ref : allAttachedFragments) {
+                Fragment f = ref.get();
+                if (f.getClass().equals(FragmentColorBox.class)) {
+                    result.append("<p>" + ((FragmentColorBox) f).getHexColorParams() + "</p>");
+                }
+            }
+        } else {
+            result.append("<p>" + currentColorBox.getHexColorParams() + "</p>");
+        }
         return result.toString();
     }
 

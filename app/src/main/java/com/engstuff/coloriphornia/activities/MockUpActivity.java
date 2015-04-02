@@ -105,27 +105,30 @@ public abstract class MockUpActivity extends ActionBarActivity {
 
             case R.id.menu_item_share:
 
-                Intent emailIntent = new Intent(Intent.ACTION_SEND);
-
-                emailIntent.setType("message/rfc822");
-
-                emailIntent.putExtra(Intent.EXTRA_EMAIL,
-                        readFromPrefsAllToArray(this, Cv.SAVED_EMAILS));
-
-                emailIntent.putExtra(Intent.EXTRA_SUBJECT, "Color parameters from Colorifornia");
-
-                emailIntent.putExtra(Intent.EXTRA_TEXT, Html.fromHtml(composeEmailBody()));
-
-                startActivity(Intent.createChooser(emailIntent, "Send color(s) parameters..."));
-
+                fireShareIntent(false);
                 break;
         }
         return super.onOptionsItemSelected(item);
     }
 
+    public void fireShareIntent(boolean calledFromContextMenu) {
+        Intent emailIntent = new Intent(Intent.ACTION_SEND);
+
+        emailIntent.setType("message/rfc822");
+
+        emailIntent.putExtra(Intent.EXTRA_EMAIL,
+                readFromPrefsAllToArray(this, Cv.SAVED_EMAILS));
+
+        emailIntent.putExtra(Intent.EXTRA_SUBJECT, "Color parameters from Colorifornia");
+
+        emailIntent.putExtra(Intent.EXTRA_TEXT, Html.fromHtml(composeEmailBody(calledFromContextMenu)));
+
+        startActivity(Intent.createChooser(emailIntent, "Send color(s) parameters..."));
+    }
+
     protected abstract int getLayoutResource();
 
-    protected abstract String composeEmailBody();
+    protected abstract String composeEmailBody(boolean calledFromContextMenu);
 
     /**
      * This is for preventing app crash after pressing hardware Menu button
