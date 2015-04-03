@@ -14,11 +14,14 @@ import android.view.LayoutInflater;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.animation.Animation;
+import android.view.animation.AnimationUtils;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
 
 import com.engstuff.coloriphornia.R;
 import com.engstuff.coloriphornia.activities.BaseColorActivity;
+import com.engstuff.coloriphornia.data.Cv;
 import com.engstuff.coloriphornia.helpers.ColorParams;
 
 import java.util.ArrayList;
@@ -47,6 +50,8 @@ public class FragmentColorBox extends Fragment {
     GestureOverlayView gestureLayer;
     GestureDetector gestureDetector;
     GestureLibrary gestureLibrary;
+
+    Animation likeAnim;
 
     @InjectView(R.id.color_box_layout)
     RelativeLayout layout;
@@ -81,6 +86,8 @@ public class FragmentColorBox extends Fragment {
         gestureLibrary = GestureLibraries.fromRawResource(ctx, R.raw.gestures);
         gestureLibrary.load();
 
+        likeAnim = AnimationUtils.loadAnimation(ctx, R.anim.like);
+
         gestureLayer.addOnGesturePerformedListener(new GestureOverlayView.OnGesturePerformedListener() {
 
             @Override
@@ -89,8 +96,10 @@ public class FragmentColorBox extends Fragment {
                 ArrayList<Prediction> recognized = gestureLibrary.recognize(gesture);
 
                 if (recognized.size() > 0) {
+
                     Prediction prediction = recognized.get(0);
-                    if (prediction.score > 1.5 && prediction.name.equals("yes")) {
+
+                    if (prediction.score > 1.5 && prediction.name.equals(Cv.G_YES)) {
                         performColorSave();
                     }
                 }
@@ -201,6 +210,9 @@ public class FragmentColorBox extends Fragment {
             layout.removeView(like);
         }
         layout.addView(like);
+        likeAnim.cancel();
+        likeAnim.setFillAfter(true); // this one keeps view on place after animation
+        like.startAnimation(likeAnim);
     }
 
     @OnClick(R.id.color_box_layout)

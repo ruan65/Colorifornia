@@ -16,7 +16,6 @@ import java.lang.ref.WeakReference;
 import java.util.ArrayList;
 import java.util.List;
 
-import static com.engstuff.coloriphornia.helpers.PrefsHelper.readFromPrefsInt;
 import static com.engstuff.coloriphornia.helpers.PrefsHelper.writeToPrefs;
 
 public abstract class BaseColorActivity extends MockUpActivity implements
@@ -141,11 +140,5 @@ public abstract class BaseColorActivity extends MockUpActivity implements
         int colorHex = currentColorBox.getColorHex();
 
         writeToPrefs(ctx, Cv.SAVED_COLORS, hexColorParams, colorHex);
-
-        if (readFromPrefsInt(ctx, Cv.SAVED_COLORS, hexColorParams) == colorHex) {
-
-            AppHelper.showCustomToast(this, hexColorParams, colorHex);
-
-        }
     }
 }

@@ -25,8 +25,10 @@
         <ImageView
             android:layout_height="wrap_content"
             android:layout_width="wrap_content"
-            android:layout_centerInParent="true"
-            android:src="@drawable/ic_favorite_white_36dp"
+            android:layout_alignRight="@+id/btn_color_info"
+            android:layout_alignParentTop="true"
+            android:padding="10dp"
+            android:src="@drawable/ic_loyalty_white_18dp"
             android:id="@+id/like"/>
 
     </RelativeLayout>
