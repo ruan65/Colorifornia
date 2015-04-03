@@ -10,7 +10,7 @@
     <string name="not_first_time">notFirstTimeAppStarts</string>
     <string name="color">color</string>
     <string name="btn_back">\u21a9</string>
-    <string name="save">Save color</string>
+    <string name="save_color">Save color (also via double click)</string>
     <string name="erase">Clear saved colors</string>
     <string name="ok">OK</string>
     <string name="no">Cancel</string>

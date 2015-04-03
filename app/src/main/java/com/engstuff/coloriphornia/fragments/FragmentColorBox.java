@@ -3,6 +3,7 @@ package com.engstuff.coloriphornia.fragments;
 
 import android.app.Activity;
 import android.app.Fragment;
+import android.gesture.GestureOverlayView;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.GestureDetector;
@@ -38,9 +39,12 @@ public class FragmentColorBox extends Fragment {
 
     Activity ctx;
 
-    RelativeLayout layout;
+    GestureOverlayView gestureOverlayView;
 
     GestureDetector gestureDetector;
+
+    @InjectView(R.id.color_box_layout)
+    RelativeLayout layout;
 
     @InjectView(R.id.btn_color_info)
     ImageView info;
@@ -79,13 +83,13 @@ public class FragmentColorBox extends Fragment {
             }
         });
 
-        layout = (RelativeLayout) inflater.inflate(R.layout.fragment_color_box, container, false);
+        gestureOverlayView = (GestureOverlayView) inflater.inflate(R.layout.fragment_color_box, container, false);
 
-        ButterKnife.inject(this, layout);
+        ButterKnife.inject(this, gestureOverlayView);
 
         layout.removeView(like);
 
-        return layout;
+        return gestureOverlayView;
     }
 
     @Override
@@ -189,7 +193,6 @@ public class FragmentColorBox extends Fragment {
     public boolean colorTouched(MotionEvent event) {
         return gestureDetector.onTouchEvent(event);
     }
-
 
     @OnClick(R.id.btn_color_info)
     public void infoClick() {
