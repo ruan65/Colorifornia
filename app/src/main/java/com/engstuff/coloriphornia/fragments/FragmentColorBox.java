@@ -3,9 +3,12 @@ package com.engstuff.coloriphornia.fragments;
 
 import android.app.Activity;
 import android.app.Fragment;
+import android.gesture.Gesture;
+import android.gesture.GestureLibraries;
+import android.gesture.GestureLibrary;
 import android.gesture.GestureOverlayView;
+import android.gesture.Prediction;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.GestureDetector;
 import android.view.LayoutInflater;
 import android.view.MotionEvent;
@@ -17,6 +20,8 @@ import android.widget.RelativeLayout;
 import com.engstuff.coloriphornia.R;
 import com.engstuff.coloriphornia.activities.BaseColorActivity;
 import com.engstuff.coloriphornia.helpers.ColorParams;
+
+import java.util.ArrayList;
 
 import butterknife.ButterKnife;
 import butterknife.InjectView;
@@ -39,9 +44,9 @@ public class FragmentColorBox extends Fragment {
 
     Activity ctx;
 
-    GestureOverlayView gestureOverlayView;
-
+    GestureOverlayView gestureLayer;
     GestureDetector gestureDetector;
+    GestureLibrary gestureLibrary;
 
     @InjectView(R.id.color_box_layout)
     RelativeLayout layout;
@@ -71,25 +76,48 @@ public class FragmentColorBox extends Fragment {
                              Bundle savedInstanceState) {
         ctx = getActivity();
 
+        gestureLayer = (GestureOverlayView) inflater
+                .inflate(R.layout.fragment_color_box, container, false);
+        gestureLibrary = GestureLibraries.fromRawResource(ctx, R.raw.gestures);
+        gestureLibrary.load();
+
+        gestureLayer.addOnGesturePerformedListener(new GestureOverlayView.OnGesturePerformedListener() {
+
+            @Override
+            public void onGesturePerformed(GestureOverlayView overlay, Gesture gesture) {
+
+                ArrayList<Prediction> recognized = gestureLibrary.recognize(gesture);
+
+                if (recognized.size() > 0) {
+                    Prediction prediction = recognized.get(0);
+                    if (prediction.score > 1.5 && prediction.name.equals("yes")) {
+                        performColorSave();
+                    }
+                }
+            }
+        });
+
         gestureDetector = new GestureDetector(ctx, new GestureDetector.SimpleOnGestureListener() {
 
             @Override
             public boolean onDoubleTap(MotionEvent e) {
 
-                colorClicked();
-                ((BaseColorActivity) ctx).saveColorToPrefs();
-                likeColor();
+                performColorSave();
                 return true;
             }
         });
 
-        gestureOverlayView = (GestureOverlayView) inflater.inflate(R.layout.fragment_color_box, container, false);
-
-        ButterKnife.inject(this, gestureOverlayView);
+        ButterKnife.inject(this, gestureLayer);
 
         layout.removeView(like);
 
-        return gestureOverlayView;
+        return gestureLayer;
+    }
+
+    void performColorSave() {
+        colorClicked();
+        ((BaseColorActivity) ctx).saveColorToPrefs();
+        likeColor();
     }
 
     @Override
