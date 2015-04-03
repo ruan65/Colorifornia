@@ -19,8 +19,9 @@ import java.util.List;
 import static com.engstuff.coloriphornia.helpers.PrefsHelper.readFromPrefsInt;
 import static com.engstuff.coloriphornia.helpers.PrefsHelper.writeToPrefs;
 
-public abstract class BaseColorActivity extends MockUpActivity
-        implements FragmentColorBox.ColorBoxEventListener, FragmentSeekBarsControl.ColorControlChangeListener {
+public abstract class BaseColorActivity extends MockUpActivity implements
+        FragmentColorBox.ColorBoxEventListener,
+        FragmentSeekBarsControl.ColorControlChangeListener {
 
     protected FragmentSeekBarsControl fragmentControl;
     protected FragmentColorBox fragmentColorBox;
@@ -59,11 +60,17 @@ public abstract class BaseColorActivity extends MockUpActivity
 
         switch (item.getItemId()) {
             case R.id.ctx_menu_save_color:
+
                 saveColorToPrefs();
+
+                currentColorBox.likeColor();
+
                 return true;
 
             case R.id.ctx_menu_share_color:
+
                 fireShareIntent(true);
+
                 return true;
         }
         return super.onContextItemSelected(item);
@@ -71,8 +78,8 @@ public abstract class BaseColorActivity extends MockUpActivity
 
     protected String composeEmailBody(boolean calledFromContextMenu) {
 
-        StringBuilder result = new StringBuilder()
-                .append("<h3>Colors chosen via \"Colorifornia\" mobile app: </h3>");
+        StringBuilder result = new StringBuilder(
+                "<h3>Colors chosen via \"Colorifornia\" mobile app: </h3>");
 
         if (!calledFromContextMenu) {
 
@@ -128,7 +135,7 @@ public abstract class BaseColorActivity extends MockUpActivity
         return fragmentControl;
     }
 
-    protected void saveColorToPrefs() {
+    public void saveColorToPrefs() {
 
         String hexColorParams = currentColorBox.getHexColorParams();
         int colorHex = currentColorBox.getColorHex();
@@ -138,6 +145,7 @@ public abstract class BaseColorActivity extends MockUpActivity
         if (readFromPrefsInt(ctx, Cv.SAVED_COLORS, hexColorParams) == colorHex) {
 
             AppHelper.showCustomToast(this, hexColorParams, colorHex);
+
         }
     }
 }

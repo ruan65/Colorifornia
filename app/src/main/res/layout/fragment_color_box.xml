@@ -12,7 +12,14 @@
         android:layout_alignParentTop="true"
         android:layout_alignParentLeft="true"
         android:src="@drawable/ic_info_white"
-        android:clickable="true"
         android:padding="10dp"
         android:id="@+id/btn_color_info"/>
+
+    <ImageView
+        android:layout_height="wrap_content"
+        android:layout_width="wrap_content"
+        android:layout_centerInParent="true"
+        android:src="@drawable/ic_favorite_white_36dp"
+        android:id="@+id/like"/>
+
 </RelativeLayout>

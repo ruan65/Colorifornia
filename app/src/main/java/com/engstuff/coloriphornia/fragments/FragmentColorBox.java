@@ -4,10 +4,14 @@ package com.engstuff.coloriphornia.fragments;
 import android.app.Activity;
 import android.app.Fragment;
 import android.os.Bundle;
+import android.util.Log;
+import android.view.GestureDetector;
 import android.view.LayoutInflater;
+import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.RelativeLayout;
 
 import com.engstuff.coloriphornia.R;
 import com.engstuff.coloriphornia.activities.BaseColorActivity;
@@ -17,9 +21,7 @@ import butterknife.ButterKnife;
 import butterknife.InjectView;
 import butterknife.OnClick;
 import butterknife.OnLongClick;
-
-import static com.engstuff.coloriphornia.helpers.PrefsHelper.readFromPrefsInt;
-import static com.engstuff.coloriphornia.helpers.PrefsHelper.writeToPrefs;
+import butterknife.OnTouch;
 
 public class FragmentColorBox extends Fragment {
 
@@ -36,10 +38,15 @@ public class FragmentColorBox extends Fragment {
 
     Activity ctx;
 
-    View layout;
+    RelativeLayout layout;
+
+    GestureDetector gestureDetector;
 
     @InjectView(R.id.btn_color_info)
     ImageView info;
+
+    @InjectView(R.id.like)
+    ImageView like;
 
     private String rgbColorParams;
     private String hexColorParams;
@@ -60,9 +67,23 @@ public class FragmentColorBox extends Fragment {
                              Bundle savedInstanceState) {
         ctx = getActivity();
 
-        layout = inflater.inflate(R.layout.fragment_color_box, container, false);
+        gestureDetector = new GestureDetector(ctx, new GestureDetector.SimpleOnGestureListener() {
+
+            @Override
+            public boolean onDoubleTap(MotionEvent e) {
+
+                colorClicked();
+                ((BaseColorActivity) ctx).saveColorToPrefs();
+                likeColor();
+                return true;
+            }
+        });
+
+        layout = (RelativeLayout) inflater.inflate(R.layout.fragment_color_box, container, false);
 
         ButterKnife.inject(this, layout);
+
+        layout.removeView(like);
 
         return layout;
     }
@@ -142,6 +163,14 @@ public class FragmentColorBox extends Fragment {
         return this;
     }
 
+    public void likeColor() {
+
+        if (layout.findViewById(R.id.like) != null) {
+            layout.removeView(like);
+        }
+        layout.addView(like);
+    }
+
     @OnClick(R.id.color_box_layout)
     public void colorClicked() {
         colorBoxEventListener.onColorClicked(FragmentColorBox.this);
@@ -155,6 +184,12 @@ public class FragmentColorBox extends Fragment {
         colorClicked();
         return false;
     }
+
+    @OnTouch(R.id.color_box_layout)
+    public boolean colorTouched(MotionEvent event) {
+        return gestureDetector.onTouchEvent(event);
+    }
+
 
     @OnClick(R.id.btn_color_info)
     public void infoClick() {
