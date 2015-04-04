@@ -3,6 +3,7 @@ package com.engstuff.coloriphornia.fragments;
 
 import android.app.Activity;
 import android.app.Fragment;
+import android.content.Intent;
 import android.gesture.Gesture;
 import android.gesture.GestureLibraries;
 import android.gesture.GestureLibrary;
@@ -21,6 +22,7 @@ import android.widget.RelativeLayout;
 
 import com.engstuff.coloriphornia.R;
 import com.engstuff.coloriphornia.activities.BaseColorActivity;
+import com.engstuff.coloriphornia.activities.FavoriteColorsActivity;
 import com.engstuff.coloriphornia.data.Cv;
 import com.engstuff.coloriphornia.helpers.ColorParams;
 
@@ -116,7 +118,17 @@ public class FragmentColorBox extends Fragment {
             }
         });
 
+
+
         ButterKnife.inject(this, gestureLayer);
+
+        like.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(ctx, FavoriteColorsActivity.class));
+                ctx.finish();
+            }
+        });
 
         layout.removeView(like);
 
@@ -127,6 +139,19 @@ public class FragmentColorBox extends Fragment {
         colorClicked();
         ((BaseColorActivity) ctx).saveColorToPrefs();
         likeColor();
+    }
+
+    public void likeColor() {
+
+        if (layout.findViewById(R.id.like) != null) {
+            layout.removeView(like);
+        }
+        like.setImageResource(ColorParams.blackOrWhiteText(r, g, b)
+                        ? R.drawable.ic_loyalty_white_24dp
+                        : R.drawable.ic_loyalty_black_24dp);
+        layout.addView(like);
+        likeAnim.cancel();
+        like.startAnimation(likeAnim);
     }
 
     @Override
@@ -204,16 +229,7 @@ public class FragmentColorBox extends Fragment {
         return this;
     }
 
-    public void likeColor() {
 
-        if (layout.findViewById(R.id.like) != null) {
-            layout.removeView(like);
-        }
-        layout.addView(like);
-        likeAnim.cancel();
-        likeAnim.setFillAfter(true); // this one keeps view on place after animation
-        like.startAnimation(likeAnim);
-    }
 
     @OnClick(R.id.color_box_layout)
     public void colorClicked() {

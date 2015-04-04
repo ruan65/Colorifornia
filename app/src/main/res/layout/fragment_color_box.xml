@@ -25,11 +25,12 @@
         <ImageView
             android:layout_height="wrap_content"
             android:layout_width="wrap_content"
-            android:layout_alignRight="@+id/btn_color_info"
-            android:layout_alignParentTop="true"
             android:padding="10dp"
-            android:src="@drawable/ic_loyalty_white_18dp"
-            android:id="@+id/like"/>
+            android:src="@drawable/ic_loyalty_white_24dp"
+            android:id="@+id/like"
+            android:layout_alignParentTop="true"
+            android:layout_toRightOf="@+id/btn_color_info"
+            android:layout_toEndOf="@+id/btn_color_info" />
 
     </RelativeLayout>
 </android.gesture.GestureOverlayView>
