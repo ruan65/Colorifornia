@@ -5,6 +5,7 @@ import android.os.Bundle;
 import com.engstuff.coloriphornia.R;
 import com.engstuff.coloriphornia.data.Cv;
 import com.engstuff.coloriphornia.fragments.FragmentSeekBarsControl;
+import com.engstuff.coloriphornia.helpers.AppHelper;
 import com.engstuff.coloriphornia.helpers.ColorParams;
 import com.engstuff.coloriphornia.helpers.PrefsHelper;
 
@@ -41,6 +42,7 @@ public class ColorC extends BaseColorActivity
             fragmentControl.setControls(argb[0], argb[1], argb[2], argb[3]);
             currentColorBox.setColorParams().changeColor();
         }
+        AppHelper.setLikesAndInfo(this, currentColorBox);
     }
 
     @Override

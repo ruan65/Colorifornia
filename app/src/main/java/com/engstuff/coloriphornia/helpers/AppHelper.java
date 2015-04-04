@@ -45,4 +45,19 @@ public class AppHelper {
             if (like.getParent() == null) colorBox.getLayout().addView(like);
         }
     }
+
+    public static void setInfoIcon(FragmentColorBox box) {
+        box.getInfo().setImageResource(
+                box.isWhiteText()
+                        ? R.drawable.ic_info_white
+                        : R.drawable.ic_info_black
+        );
+    }
+
+    public static void setLikesAndInfo(Context ctx, FragmentColorBox... boxes) {
+        for (FragmentColorBox box : boxes) {
+            setInfoIcon(box);
+            setLike(ctx, box);
+        }
+    }
 }

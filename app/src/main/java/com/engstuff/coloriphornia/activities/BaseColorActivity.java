@@ -119,29 +119,26 @@ public abstract class BaseColorActivity extends MockUpActivity implements
     }
 
     @Override
-    public void onColorClicked(FragmentColorBox color) {
-        changeFragment(color);
+    public void onColorClicked(FragmentColorBox box) {
+        changeFragment(box);
     }
 
     @Override
-    public void onTextColorChanged(boolean white) {
-        currentColorBox.getInfo().setImageResource(
-                white ? R.drawable.ic_info_white
-                      : R.drawable.ic_info_black
-        );
+    public void onTextColorChanged() {
+        AppHelper.setInfoIcon(currentColorBox);
     }
 
-    protected void changeFragment(FragmentColorBox color) {
+    protected void changeFragment(FragmentColorBox box) {
     }
 
     @Override
-    public void onInfoClicked(FragmentColorBox color) {
+    public void onInfoClicked(FragmentColorBox box) {
 
-        changeFragment(color);
+        changeFragment(box);
 
         AppHelper.startFullColorC(this,
-                fragmentColorBox.getRgbColorParams(),
-                fragmentColorBox.getHexColorParams());
+                box.getRgbColorParams(),
+                box.getHexColorParams());
     }
 
     public boolean isWhiteText() {

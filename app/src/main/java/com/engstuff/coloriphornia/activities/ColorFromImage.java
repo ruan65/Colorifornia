@@ -14,6 +14,7 @@ import android.widget.RelativeLayout;
 import com.engstuff.coloriphornia.R;
 import com.engstuff.coloriphornia.data.Cv;
 import com.engstuff.coloriphornia.fragments.FragmentImg;
+import com.engstuff.coloriphornia.helpers.AppHelper;
 import com.engstuff.coloriphornia.helpers.PrefsHelper;
 import com.engstuff.coloriphornia.interfaces.ImageGetColorListener;
 import com.software.shell.fab.ActionButton;
@@ -75,6 +76,7 @@ public class ColorFromImage extends BaseColorActivity
             fragmentImg.getAim().setX(x);
             fragmentImg.getAim().setY(y);
         }
+        AppHelper.setLikesAndInfo(this, fragmentColorBox);
     }
 
     @Override
@@ -148,11 +150,12 @@ public class ColorFromImage extends BaseColorActivity
     }
 
     @Override
-    public void onTextColorChanged(boolean white) {
-        super.onTextColorChanged(white);
+    public void onTextColorChanged() {
+        super.onTextColorChanged();
         fragmentImg.getAim().setImageResource(
-                white ? R.drawable.ic_target_w
-                      : R.drawable.ic_target_b);
+                fragmentColorBox.isWhiteText()
+                        ? R.drawable.ic_target_w
+                        : R.drawable.ic_target_b);
     }
 
     @Override

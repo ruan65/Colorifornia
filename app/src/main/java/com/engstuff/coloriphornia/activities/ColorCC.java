@@ -6,6 +6,7 @@ import android.os.Bundle;
 import com.engstuff.coloriphornia.R;
 import com.engstuff.coloriphornia.data.Cv;
 import com.engstuff.coloriphornia.fragments.FragmentColorBox;
+import com.engstuff.coloriphornia.helpers.AppHelper;
 import com.engstuff.coloriphornia.helpers.ColorParams;
 import com.engstuff.coloriphornia.helpers.PrefsHelper;
 
@@ -34,7 +35,7 @@ public class ColorCC extends BaseColorActivity {
         registerForContextMenu(fragmentColorBox2.getView());
 
         String hexColor1 = PrefsHelper.readFromPrefsString(
-                this, Cv.PREFS_RETAIN, "last_color_box1");
+                this, Cv.PREFS_RETAIN, Cv.LAST_COLOR_BOX_1);
 
         if (!checkHexColorString(hexColor1)) {
 
@@ -50,13 +51,13 @@ public class ColorCC extends BaseColorActivity {
             onColorControlChange();
 
             String hexColor2 = PrefsHelper.readFromPrefsString(
-                    this, Cv.PREFS_RETAIN, "last_color_box2");
+                    this, Cv.PREFS_RETAIN, Cv.LAST_COLOR_BOX_2);
 
             if (checkHexColorString(hexColor2)) {
                 fragmentColorBox2.setColorParams(hexColor2).changeColor();
             }
         }
-
+        AppHelper.setLikesAndInfo(this, fragmentColorBox, fragmentColorBox2);
     }
 
     private boolean checkHexColorString(String hexColor2) {
@@ -67,39 +68,39 @@ public class ColorCC extends BaseColorActivity {
     public void onPause() {
         super.onPause();
 
-        PrefsHelper.writeToPrefs(this, Cv.PREFS_RETAIN, "last_color_box1",
+        PrefsHelper.writeToPrefs(this, Cv.PREFS_RETAIN, Cv.LAST_COLOR_BOX_1,
                 fragmentColorBox.getHexColorParams());
 
-        PrefsHelper.writeToPrefs(this, Cv.PREFS_RETAIN, "last_color_box2",
+        PrefsHelper.writeToPrefs(this, Cv.PREFS_RETAIN, Cv.LAST_COLOR_BOX_2,
                 fragmentColorBox2.getHexColorParams());
     }
 
     @Override
-    public void onInfoClicked(FragmentColorBox color) {
+    public void onInfoClicked(FragmentColorBox box) {
 
-        changeFragment(color);
+        changeFragment(box);
 
         String[] colorParams = {
-                color.getRgbColorParams(),
-                color.getHexColorParams()
+                box.getRgbColorParams(),
+                box.getHexColorParams()
         };
 
         Intent i = new Intent(this, FullScreenColorCC.class);
         i.putExtra(Cv.EXTRA_MESSAGE_COLOR_1, colorParams);
-        i.putExtra(Cv.EXTRA_MESSAGE_TEXT_COLOR_1, color.isWhiteText());
+        i.putExtra(Cv.EXTRA_MESSAGE_TEXT_COLOR_1, box.isWhiteText());
 
-        int fragmentId = color.getId() == R.id.color_box_container
+        int fragmentId = box.getId() == R.id.color_box_container
                 ? R.id.color_box_container2 : R.id.color_box_container;
 
-        color = (FragmentColorBox) getFragmentManager().findFragmentById(fragmentId);
+        box = (FragmentColorBox) getFragmentManager().findFragmentById(fragmentId);
 
         String[] colorParams2 = {
-                color.getRgbColorParams(),
-                color.getHexColorParams()
+                box.getRgbColorParams(),
+                box.getHexColorParams()
         };
 
         i.putExtra(Cv.EXTRA_MESSAGE_COLOR_2, colorParams2);
-        i.putExtra(Cv.EXTRA_MESSAGE_TEXT_COLOR_2, color.isWhiteText());
+        i.putExtra(Cv.EXTRA_MESSAGE_TEXT_COLOR_2, box.isWhiteText());
 
         startActivity(i);
     }
@@ -109,10 +110,11 @@ public class ColorCC extends BaseColorActivity {
         return R.layout.color_cc;
     }
 
-    protected void changeFragment(FragmentColorBox color) {
-        currentColorBox = color;
+    protected void changeFragment(FragmentColorBox box) {
+        currentColorBox = box;
         fragmentControl.setControls(
-                color.getAlpha(), color.getR(), color.getG(), color.getB());
+                box.getAlpha(), box.getR(), box.getG(), box.getB());
+        AppHelper.setInfoIcon(box);
     }
 }
 

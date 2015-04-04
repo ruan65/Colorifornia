@@ -13,8 +13,6 @@ public interface Cv {
     String EXTRA_MESSAGE_COLOR_2 = "color_parameters_2";
     String EXTRA_MESSAGE_TEXT_COLOR_2 = "text_color_parameters_2";
 
-    String CURRENT_COLOR1 = "current_color1";
-    String CURRENT_COLOR2 = "current_color2";
     String CURRENT_COLOR_IMG = "current_color_img";
 
     String AIM_X = "aim_x";
@@ -26,4 +24,6 @@ public interface Cv {
 
     String G_YES = "yes";
     String G_NO = "no";
+    String LAST_COLOR_BOX_1 = "last_color_box1";
+    String LAST_COLOR_BOX_2 = "last_color_box2";
 }

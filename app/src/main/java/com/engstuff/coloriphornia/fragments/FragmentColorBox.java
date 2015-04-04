@@ -24,6 +24,7 @@ import com.engstuff.coloriphornia.R;
 import com.engstuff.coloriphornia.activities.BaseColorActivity;
 import com.engstuff.coloriphornia.activities.FavoriteColorsActivity;
 import com.engstuff.coloriphornia.data.Cv;
+import com.engstuff.coloriphornia.helpers.AppHelper;
 import com.engstuff.coloriphornia.helpers.ColorParams;
 
 import java.util.ArrayList;
@@ -42,7 +43,7 @@ public class FragmentColorBox extends Fragment {
 
         void onInfoClicked(FragmentColorBox colorBox);
 
-        void onTextColorChanged(boolean white);
+        void onTextColorChanged();
     }
 
     private ColorBoxEventListener colorBoxEventListener;
@@ -118,8 +119,6 @@ public class FragmentColorBox extends Fragment {
             }
         });
 
-
-
         ButterKnife.inject(this, gestureLayer);
 
         like.setOnClickListener(new View.OnClickListener() {
@@ -133,25 +132,6 @@ public class FragmentColorBox extends Fragment {
         layout.removeView(like);
 
         return gestureLayer;
-    }
-
-    void performColorSave() {
-        colorClicked();
-        ((BaseColorActivity) ctx).saveColorToPrefs();
-        likeColor();
-    }
-
-    public void likeColor() {
-
-        if (layout.findViewById(R.id.like) != null) {
-            layout.removeView(like);
-        }
-        like.setImageResource(ColorParams.blackOrWhiteText(r, g, b)
-                        ? R.drawable.ic_loyalty_white_24dp
-                        : R.drawable.ic_loyalty_black_24dp);
-        layout.addView(like);
-        likeAnim.cancel();
-        like.startAnimation(likeAnim);
     }
 
     @Override
@@ -178,6 +158,25 @@ public class FragmentColorBox extends Fragment {
         changeColor();
     }
 
+    void performColorSave() {
+        colorClicked();
+        ((BaseColorActivity) ctx).saveColorToPrefs();
+        likeColor();
+    }
+
+    public void likeColor() {
+
+        if (layout.findViewById(R.id.like) != null) {
+            layout.removeView(like);
+        }
+        like.setImageResource(ColorParams.blackOrWhiteText(r, g, b)
+                ? R.drawable.ic_loyalty_white_24dp
+                : R.drawable.ic_loyalty_black_24dp);
+        layout.addView(like);
+        likeAnim.cancel();
+        like.startAnimation(likeAnim);
+    }
+
     public void changeColor() {
 
         colorHex = ColorParams.composeHex(alpha, r, g, b);
@@ -190,9 +189,9 @@ public class FragmentColorBox extends Fragment {
         boolean whiteAgain = ColorParams.blackOrWhiteText(r, g, b);
 
         if (whiteText != whiteAgain) {
-            colorBoxEventListener.onTextColorChanged(whiteAgain);
+            colorBoxEventListener.onTextColorChanged();
             whiteText = whiteAgain;
-        } else colorBoxEventListener.onTextColorChanged(whiteText);
+        } else colorBoxEventListener.onTextColorChanged();
     }
 
     public FragmentColorBox setColorParams() {
