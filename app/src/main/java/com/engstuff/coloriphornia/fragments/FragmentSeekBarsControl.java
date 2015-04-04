@@ -15,6 +15,8 @@ public class FragmentSeekBarsControl extends Fragment implements SeekBar.OnSeekB
     public interface ColorControlChangeListener {
 
         void onColorControlChange();
+        void onColorControlStartTracking();
+        void onColorControlStopTracking();
     }
 
     public FragmentSeekBarsControl() {}
@@ -92,10 +94,14 @@ public class FragmentSeekBarsControl extends Fragment implements SeekBar.OnSeekB
     }
 
     @Override
-    public void onStartTrackingTouch(SeekBar seekBar) {}
+    public void onStartTrackingTouch(SeekBar seekBar) {
+        colorChangeListener.onColorControlStartTracking();
+    }
 
     @Override
-    public void onStopTrackingTouch(SeekBar seekBar) {}
+    public void onStopTrackingTouch(SeekBar seekBar) {
+        colorChangeListener.onColorControlStopTracking();
+    }
 
     public int getR() {
         return r;

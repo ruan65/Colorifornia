@@ -1,16 +1,14 @@
 package com.engstuff.coloriphornia.helpers;
 
 import android.app.Activity;
+import android.content.Context;
 import android.content.Intent;
-import android.graphics.Color;
-import android.util.Log;
-import android.view.Gravity;
-import android.widget.TextView;
-import android.widget.Toast;
+import android.widget.ImageView;
 
 import com.engstuff.coloriphornia.R;
 import com.engstuff.coloriphornia.activities.FullScreenColorC;
 import com.engstuff.coloriphornia.data.Cv;
+import com.engstuff.coloriphornia.fragments.FragmentColorBox;
 
 public class AppHelper {
 
@@ -24,5 +22,27 @@ public class AppHelper {
         i.putExtra(Cv.EXTRA_MESSAGE_TEXT_COLOR_1, ColorParams.blackOrWhiteText(hex));
 
         activity.startActivity(i);
+    }
+
+    public static void setLike(Context ctx, FragmentColorBox colorBox) {
+
+        String currentHexParams = colorBox.getHexColorParams();
+
+        boolean isColorSaved = false;
+
+        for (String c : PrefsHelper.readFromPrefsAllToArray(ctx, Cv.SAVED_COLORS)) {
+            if (c.equals(currentHexParams)) isColorSaved = true;
+        }
+
+        if (isColorSaved) {
+            ImageView like = colorBox.getLike();
+            like.setImageResource(
+                    colorBox.isWhiteText()
+                            ? R.drawable.ic_loyalty_white_24dp
+                            : R.drawable.ic_loyalty_black_24dp
+            );
+
+            if (like.getParent() == null) colorBox.getLayout().addView(like);
+        }
     }
 }

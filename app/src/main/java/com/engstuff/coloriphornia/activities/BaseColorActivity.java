@@ -5,6 +5,7 @@ import android.os.Bundle;
 import android.view.ContextMenu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.ImageView;
 
 import com.engstuff.coloriphornia.R;
 import com.engstuff.coloriphornia.data.Cv;
@@ -102,6 +103,22 @@ public abstract class BaseColorActivity extends MockUpActivity implements
     }
 
     @Override
+    public void onColorControlStartTracking() {
+
+        ImageView like = currentColorBox.getLike();
+
+        if (like.getParent() != null) {
+            currentColorBox.getLayout().removeView(like);
+        }
+    }
+
+    @Override
+    public void onColorControlStopTracking() {
+
+        AppHelper.setLike(this, currentColorBox);
+    }
+
+    @Override
     public void onColorClicked(FragmentColorBox color) {
         changeFragment(color);
     }
@@ -110,7 +127,8 @@ public abstract class BaseColorActivity extends MockUpActivity implements
     public void onTextColorChanged(boolean white) {
         currentColorBox.getInfo().setImageResource(
                 white ? R.drawable.ic_info_white
-                      : R.drawable.ic_info_black);
+                      : R.drawable.ic_info_black
+        );
     }
 
     protected void changeFragment(FragmentColorBox color) {

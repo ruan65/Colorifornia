@@ -263,6 +263,14 @@ public class FragmentColorBox extends Fragment {
         return info;
     }
 
+    public ImageView getLike() {
+        return like;
+    }
+
+    public RelativeLayout getLayout() {
+        return layout;
+    }
+
     public String getRgbColorParams() {
         return rgbColorParams;
     }
