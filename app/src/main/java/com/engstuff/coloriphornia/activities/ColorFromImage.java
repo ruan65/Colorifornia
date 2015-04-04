@@ -150,6 +150,17 @@ public class ColorFromImage extends BaseColorActivity
     }
 
     @Override
+    public void onFirstFingerDown() {
+
+        AppHelper.unsetLike(fragmentColorBox);
+    }
+
+    @Override
+    public void onLastFingerUp() {
+        AppHelper.setLike(this, fragmentColorBox);
+    }
+
+    @Override
     public void onTextColorChanged() {
         super.onTextColorChanged();
         fragmentImg.getAim().setImageResource(

@@ -5,7 +5,6 @@ import android.os.Bundle;
 import android.view.ContextMenu;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.ImageView;
 
 import com.engstuff.coloriphornia.R;
 import com.engstuff.coloriphornia.data.Cv;
@@ -105,11 +104,7 @@ public abstract class BaseColorActivity extends MockUpActivity implements
     @Override
     public void onColorControlStartTracking() {
 
-        ImageView like = currentColorBox.getLike();
-
-        if (like.getParent() != null) {
-            currentColorBox.getLayout().removeView(like);
-        }
+        AppHelper.unsetLike(currentColorBox);
     }
 
     @Override

@@ -9,6 +9,7 @@ import android.widget.ImageView;
 
 import com.engstuff.coloriphornia.R;
 import com.engstuff.coloriphornia.activities.BaseColorActivity;
+import com.engstuff.coloriphornia.helpers.AppHelper;
 
 public class FrameLayoutWithAim extends FrameLayout {
 

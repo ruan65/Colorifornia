@@ -60,4 +60,13 @@ public class AppHelper {
             setLike(ctx, box);
         }
     }
+
+    public static void unsetLike(FragmentColorBox box) {
+
+        ImageView like = box.getLike();
+
+        if (like.getParent() != null) {
+            box.getLayout().removeView(like);
+        }
+    }
 }

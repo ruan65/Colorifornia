@@ -11,6 +11,7 @@ import android.view.View;
 import android.widget.ImageView;
 
 import com.engstuff.coloriphornia.R;
+import com.engstuff.coloriphornia.helpers.AppHelper;
 import com.engstuff.coloriphornia.interfaces.ImageGetColorListener;
 
 public class ZoomableImageView extends ImageView implements View.OnTouchListener {
@@ -102,10 +103,10 @@ public class ZoomableImageView extends ImageView implements View.OnTouchListener
 
             case MotionEvent.ACTION_DOWN:
 
-
                 last.set(eventX, eventY);
                 start.set(last);
                 mode = DRAG;
+                imageGetColorListener.onFirstFingerDown();
                 break;
 
             case MotionEvent.ACTION_POINTER_DOWN:
@@ -161,6 +162,7 @@ public class ZoomableImageView extends ImageView implements View.OnTouchListener
                 if (xDiff < CLICK && yDiff < CLICK) {
                     performClick();
                 }
+                imageGetColorListener.onLastFingerUp();
                 break;
 
             case MotionEvent.ACTION_POINTER_UP:
