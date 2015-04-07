@@ -85,25 +85,21 @@ public class FragmentNavDrawer extends Fragment {
     @OnClick(R.id.btn_two_colors)
     public void goTo2ColorsActivity() {
         startActivity(new Intent(activity, ColorCC.class));
-//        activity.finish();
     }
 
     @OnClick(R.id.btn_one_color)
     public void goTo1ColorsActivity() {
 
         startActivity(new Intent(activity, ColorC.class));
-//        activity.finish();
     }
 
     @OnClick(R.id.btn_img)
     public void goToImgActivity() {
         startActivity(new Intent(activity, ColorFromImage.class));
-//        activity.finish();
     }
 
     @OnClick(R.id.btn_favorite)
     public void goToFavoritesColors() {
         startActivity(new Intent(activity, FavoriteColorsActivity.class));
-//        activity.finish();
     }
 }

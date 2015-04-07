@@ -18,7 +18,7 @@ public class Dispatcher extends ActionBarActivity {
             activityClass = Class.forName(
                     PrefsHelper.readFromPrefsString(getApplicationContext(), Cv.LAST_ACTIVITY));
         } catch (ClassNotFoundException e) {
-            activityClass = ColorC.class;
+            activityClass = ColorFromImage.class;
         }
         startActivity(new Intent(this, activityClass));
     }

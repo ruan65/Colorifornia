@@ -55,6 +55,8 @@ public abstract class MockUpActivity extends ActionBarActivity {
         if (!PrefsHelper.readFromPrefsBoolean(this, keyNotFirstTime)) {
             mDrawerLayout.openDrawer(mDrawerView);
             PrefsHelper.writeToPrefsDefault(this, keyNotFirstTime, true);
+        } else if (mDrawerLayout.isDrawerOpen(mDrawerView)) {
+            mDrawerLayout.closeDrawer(mDrawerView);
         }
         overridePendingTransition(R.anim.slide_in_r, R.anim.slide_out_r);
     }
