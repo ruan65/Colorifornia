@@ -53,6 +53,7 @@ public class ColorFromImage extends BaseColorActivity
     @Override
     public void onResume() {
         super.onResume();
+
         String stringUriCurrentImage = PrefsHelper.readFromPrefsString(this,
                 Cv.PREFS_RETAIN, Cv.CURRENT_IMAGE);
         String currentHex = PrefsHelper.readFromPrefsString(this,
@@ -157,7 +158,7 @@ public class ColorFromImage extends BaseColorActivity
 
     @Override
     public void onLastFingerUp() {
-        AppHelper.setLike(this, fragmentColorBox);
+        AppHelper.setLikesAndInfo(this, fragmentColorBox);
     }
 
     @Override
