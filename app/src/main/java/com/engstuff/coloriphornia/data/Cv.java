@@ -26,4 +26,6 @@ public interface Cv {
     String G_NO = "no";
     String LAST_COLOR_BOX_1 = "last_color_box1";
     String LAST_COLOR_BOX_2 = "last_color_box2";
+
+    String IMAGE_FRAGMENT_RETAINED = "retained_img_fragment";
 }

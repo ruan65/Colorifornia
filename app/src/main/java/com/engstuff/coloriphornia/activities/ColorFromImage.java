@@ -2,6 +2,7 @@ package com.engstuff.coloriphornia.activities;
 
 import android.annotation.SuppressLint;
 import android.app.Activity;
+import android.app.FragmentManager;
 import android.content.Intent;
 import android.graphics.BitmapFactory;
 import android.net.Uri;
@@ -37,11 +38,16 @@ public class ColorFromImage extends BaseColorActivity
 
         imgContainer = (FrameLayout) findViewById(R.id.img_container);
 
-        fragmentImg = new FragmentImg();
+        FragmentManager fragmentManager = getFragmentManager();
 
-        getFragmentManager().beginTransaction()
+        fragmentImg = (FragmentImg) fragmentManager.findFragmentByTag(Cv.IMAGE_FRAGMENT_RETAINED);
 
-                .add(R.id.img_container, fragmentImg)
+        fragmentImg = fragmentImg == null ? new FragmentImg() : fragmentImg;
+
+
+        fragmentManager.beginTransaction()
+
+                .add(R.id.img_container, fragmentImg, Cv.IMAGE_FRAGMENT_RETAINED)
                 .add(R.id.color_box_container_color_from_image, fragmentColorBox)
                 .commit();
 
