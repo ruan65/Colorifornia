@@ -35,7 +35,7 @@ public abstract class BaseColorActivity extends MockUpActivity implements
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        fragmentControl = new SeekBarsColorControlFragment();
+
         fragmentColorBox = currentColorBox = new FragmentColorBox();
     }
 

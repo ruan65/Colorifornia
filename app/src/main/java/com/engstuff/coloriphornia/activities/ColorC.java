@@ -4,6 +4,7 @@ import android.os.Bundle;
 
 import com.engstuff.coloriphornia.R;
 import com.engstuff.coloriphornia.data.Cv;
+import com.engstuff.coloriphornia.fragments.SeekBarsColorControlFragment;
 import com.engstuff.coloriphornia.helpers.AppHelper;
 import com.engstuff.coloriphornia.helpers.ColorParams;
 import com.engstuff.coloriphornia.helpers.PrefsHelper;
@@ -15,6 +16,8 @@ public class ColorC extends BaseColorActivity
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
+        fragmentControl = new SeekBarsColorControlFragment();
 
         getFragmentManager().beginTransaction()
 
