@@ -187,7 +187,7 @@ public class FragmentColorBox extends Fragment {
 
     public FragmentColorBox setColorParams() {
 
-        SeekBarsColorControlFragment fragmentControl = ((BaseColorActivity) getActivity()).getFragmentControl();
+        ColorControlAbstractFragment fragmentControl = ((BaseColorActivity) getActivity()).getFragmentControl();
         alpha = fragmentControl.getAlpha();
         r = fragmentControl.getR();
         g = fragmentControl.getG();

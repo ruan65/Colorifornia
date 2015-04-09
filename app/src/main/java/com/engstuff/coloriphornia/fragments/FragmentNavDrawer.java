@@ -16,6 +16,7 @@ import com.engstuff.coloriphornia.R;
 import com.engstuff.coloriphornia.activities.ColorC;
 import com.engstuff.coloriphornia.activities.ColorCC;
 import com.engstuff.coloriphornia.activities.ColorFromImage;
+import com.engstuff.coloriphornia.activities.ColorRoundControlC;
 import com.engstuff.coloriphornia.activities.FavoriteColorsActivity;
 
 import butterknife.ButterKnife;
@@ -89,7 +90,6 @@ public class FragmentNavDrawer extends Fragment {
 
     @OnClick(R.id.btn_one_color)
     public void goTo1ColorsActivity() {
-
         startActivity(new Intent(activity, ColorC.class));
     }
 
@@ -101,5 +101,10 @@ public class FragmentNavDrawer extends Fragment {
     @OnClick(R.id.btn_favorite)
     public void goToFavoritesColors() {
         startActivity(new Intent(activity, FavoriteColorsActivity.class));
+    }
+
+    @OnClick(R.id.btn_round_control_c)
+    public void goToRoundControlCActivity() {
+        startActivity(new Intent(activity, ColorRoundControlC.class));
     }
 }

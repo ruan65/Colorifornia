@@ -30,6 +30,8 @@ public abstract class ColorControlAbstractFragment extends Fragment {
         colorChangeListener = null;
     }
 
+    public abstract void setControls(int alpha, int r, int g, int b);
+
     public int getR() {
         return r;
     }

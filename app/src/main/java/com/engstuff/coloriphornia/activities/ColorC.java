@@ -54,6 +54,6 @@ public class ColorC extends BaseColorActivity
 
     @Override
     protected int getLayoutResource() {
-        return R.layout.color_c;
+        return R.layout.activity_color_c;
     }
 }

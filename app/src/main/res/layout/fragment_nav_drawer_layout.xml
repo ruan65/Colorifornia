@@ -10,7 +10,6 @@
 
 
 
-
     <at.markushi.ui.CircleButton
         android:layout_width="72dp"
         android:layout_height="72dp"
@@ -21,6 +20,8 @@
         android:layout_centerVertical="true"
         android:layout_centerHorizontal="true" />
 
+
+
     <at.markushi.ui.CircleButton
         android:layout_width="72dp"
         android:layout_height="72dp"
@@ -30,6 +31,16 @@
         android:id="@+id/btn_one_color"
         android:layout_centerHorizontal="true"
         android:layout_above="@id/btn_two_colors" />
+
+    <at.markushi.ui.CircleButton
+        android:layout_width="72dp"
+        android:layout_height="72dp"
+        android:src="@drawable/ic_track_changes_white_36dp"
+        app:cb_color="@color/primaryColor"
+        app:cb_pressedRingWidth="8dip"
+        android:id="@+id/btn_round_control_c"
+        android:layout_centerHorizontal="true"
+        android:layout_above="@id/btn_one_color" />
 
     <at.markushi.ui.CircleButton
         android:layout_width="72dp"

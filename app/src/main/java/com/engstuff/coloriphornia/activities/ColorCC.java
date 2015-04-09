@@ -107,7 +107,7 @@ public class ColorCC extends BaseColorActivity {
 
     @Override
     protected int getLayoutResource() {
-        return R.layout.color_cc;
+        return R.layout.activity_color_cc;
     }
 
     protected void changeFragment(FragmentColorBox box) {
