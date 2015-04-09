@@ -1,0 +1,13 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:id="@+id/fragment_round_color_layout"
+    tools:context="com.engstuff.coloriphornia.fragments.SeekBarsColorControlFragment">
+
+    <com.engstuff.coloriphornia.components.views.RoundColorMaker
+        android:id="@+id/view_round_color_maker"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent" />
+
+</RelativeLayout>
