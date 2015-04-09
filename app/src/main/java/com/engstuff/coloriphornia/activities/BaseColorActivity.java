@@ -9,8 +9,9 @@ import android.view.View;
 import com.engstuff.coloriphornia.R;
 import com.engstuff.coloriphornia.data.Cv;
 import com.engstuff.coloriphornia.fragments.FragmentColorBox;
-import com.engstuff.coloriphornia.fragments.FragmentSeekBarsControl;
+import com.engstuff.coloriphornia.fragments.SeekBarsColorControlFragment;
 import com.engstuff.coloriphornia.helpers.AppHelper;
+import com.engstuff.coloriphornia.interfaces.ColorControlChangeListener;
 
 import java.lang.ref.WeakReference;
 import java.util.ArrayList;
@@ -20,9 +21,9 @@ import static com.engstuff.coloriphornia.helpers.PrefsHelper.writeToPrefs;
 
 public abstract class BaseColorActivity extends MockUpActivity implements
         FragmentColorBox.ColorBoxEventListener,
-        FragmentSeekBarsControl.ColorControlChangeListener {
+        ColorControlChangeListener {
 
-    protected FragmentSeekBarsControl fragmentControl;
+    protected SeekBarsColorControlFragment fragmentControl;
     protected FragmentColorBox fragmentColorBox;
     protected FragmentColorBox currentColorBox;
 
@@ -32,7 +33,7 @@ public abstract class BaseColorActivity extends MockUpActivity implements
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        fragmentControl = new FragmentSeekBarsControl();
+        fragmentControl = new SeekBarsColorControlFragment();
         fragmentColorBox = currentColorBox = new FragmentColorBox();
     }
 
@@ -140,7 +141,7 @@ public abstract class BaseColorActivity extends MockUpActivity implements
         return currentColorBox.isWhiteText();
     }
 
-    public FragmentSeekBarsControl getFragmentControl() {
+    public SeekBarsColorControlFragment getFragmentControl() {
         return fragmentControl;
     }
 

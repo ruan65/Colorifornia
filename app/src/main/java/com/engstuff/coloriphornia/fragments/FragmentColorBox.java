@@ -24,7 +24,6 @@ import com.engstuff.coloriphornia.R;
 import com.engstuff.coloriphornia.activities.BaseColorActivity;
 import com.engstuff.coloriphornia.activities.FavoriteColorsActivity;
 import com.engstuff.coloriphornia.data.Cv;
-import com.engstuff.coloriphornia.helpers.AppHelper;
 import com.engstuff.coloriphornia.helpers.ColorParams;
 
 import java.util.ArrayList;
@@ -196,7 +195,7 @@ public class FragmentColorBox extends Fragment {
 
     public FragmentColorBox setColorParams() {
 
-        FragmentSeekBarsControl fragmentControl = ((BaseColorActivity) getActivity()).getFragmentControl();
+        SeekBarsColorControlFragment fragmentControl = ((BaseColorActivity) getActivity()).getFragmentControl();
         alpha = fragmentControl.getAlpha();
         r = fragmentControl.getR();
         g = fragmentControl.getG();

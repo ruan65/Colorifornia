@@ -4,13 +4,13 @@ import android.os.Bundle;
 
 import com.engstuff.coloriphornia.R;
 import com.engstuff.coloriphornia.data.Cv;
-import com.engstuff.coloriphornia.fragments.FragmentSeekBarsControl;
 import com.engstuff.coloriphornia.helpers.AppHelper;
 import com.engstuff.coloriphornia.helpers.ColorParams;
 import com.engstuff.coloriphornia.helpers.PrefsHelper;
+import com.engstuff.coloriphornia.interfaces.ColorControlChangeListener;
 
 public class ColorC extends BaseColorActivity
-        implements FragmentSeekBarsControl.ColorControlChangeListener{
+        implements ColorControlChangeListener {
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
