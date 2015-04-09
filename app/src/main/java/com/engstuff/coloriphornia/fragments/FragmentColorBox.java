@@ -25,6 +25,7 @@ import com.engstuff.coloriphornia.activities.BaseColorActivity;
 import com.engstuff.coloriphornia.activities.FavoriteColorsActivity;
 import com.engstuff.coloriphornia.data.Cv;
 import com.engstuff.coloriphornia.helpers.ColorParams;
+import com.engstuff.coloriphornia.interfaces.ColorBoxEventListener;
 
 import java.util.ArrayList;
 
@@ -35,15 +36,6 @@ import butterknife.OnLongClick;
 import butterknife.OnTouch;
 
 public class FragmentColorBox extends Fragment {
-
-    public interface ColorBoxEventListener {
-
-        void onColorClicked(FragmentColorBox colorBox);
-
-        void onInfoClicked(FragmentColorBox colorBox);
-
-        void onTextColorChanged();
-    }
 
     private ColorBoxEventListener colorBoxEventListener;
 

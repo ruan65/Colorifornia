@@ -47,11 +47,15 @@ public class AppHelper {
     }
 
     public static void setInfoIcon(FragmentColorBox box) {
-        box.getInfo().setImageResource(
-                box.isWhiteText()
-                        ? R.drawable.ic_info_white
-                        : R.drawable.ic_info_black
-        );
+        ImageView info = box.getInfo();
+
+        if (null != info) {
+            info.setImageResource(
+                    box.isWhiteText()
+                            ? R.drawable.ic_info_white
+                            : R.drawable.ic_info_black
+            );
+        }
     }
 
     public static void setLikesAndInfo(Context ctx, FragmentColorBox... boxes) {

@@ -11,6 +11,7 @@ import com.engstuff.coloriphornia.data.Cv;
 import com.engstuff.coloriphornia.fragments.FragmentColorBox;
 import com.engstuff.coloriphornia.fragments.SeekBarsColorControlFragment;
 import com.engstuff.coloriphornia.helpers.AppHelper;
+import com.engstuff.coloriphornia.interfaces.ColorBoxEventListener;
 import com.engstuff.coloriphornia.interfaces.ColorControlChangeListener;
 
 import java.lang.ref.WeakReference;
@@ -20,7 +21,7 @@ import java.util.List;
 import static com.engstuff.coloriphornia.helpers.PrefsHelper.writeToPrefs;
 
 public abstract class BaseColorActivity extends MockUpActivity implements
-        FragmentColorBox.ColorBoxEventListener,
+        ColorBoxEventListener,
         ColorControlChangeListener {
 
     protected SeekBarsColorControlFragment fragmentControl;
@@ -121,7 +122,7 @@ public abstract class BaseColorActivity extends MockUpActivity implements
 
     @Override
     public void onTextColorChanged() {
-        AppHelper.setInfoIcon(currentColorBox);
+        if (null !=  currentColorBox) AppHelper.setInfoIcon(currentColorBox);
     }
 
     protected void changeFragment(FragmentColorBox box) {
