@@ -2,7 +2,6 @@ package com.engstuff.coloriphornia.activities;
 
 import android.app.Fragment;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.ContextMenu;
 import android.view.MenuItem;
 import android.view.View;
@@ -11,7 +10,6 @@ import com.engstuff.coloriphornia.R;
 import com.engstuff.coloriphornia.data.Cv;
 import com.engstuff.coloriphornia.fragments.ColorControlAbstractFragment;
 import com.engstuff.coloriphornia.fragments.FragmentColorBox;
-import com.engstuff.coloriphornia.fragments.SeekBarsColorControlFragment;
 import com.engstuff.coloriphornia.helpers.AppHelper;
 import com.engstuff.coloriphornia.interfaces.ColorBoxEventListener;
 import com.engstuff.coloriphornia.interfaces.ColorControlChangeListener;
@@ -103,8 +101,6 @@ public abstract class BaseColorActivity extends MockUpActivity implements
         currentColorBox
                 .setColorParams()
                 .changeColor();
-
-        Log.d("ml", "onColorControlChange in the BaseColorActivity");
     }
 
     @Override

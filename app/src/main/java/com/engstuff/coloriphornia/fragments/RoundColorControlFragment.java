@@ -2,7 +2,6 @@ package com.engstuff.coloriphornia.fragments;
 
 import android.graphics.Color;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -24,7 +23,6 @@ public class RoundColorControlFragment extends ColorControlAbstractFragment
 
         roundControl = (RoundColorMaker) rootView.findViewById(R.id.view_round_color_maker);
         if (roundControl != null) {
-            Log.d("ml", "setting round control listener: " + roundControl);
             roundControl.setRoundColorMakerChangedListener(this);
         }
         return rootView;
@@ -33,6 +31,7 @@ public class RoundColorControlFragment extends ColorControlAbstractFragment
     @Override
     public void setControls(int alpha, int r, int g, int b) {
 
+        roundControl.setColorAndControls(alpha, r, g, b);
     }
 
     @Override
@@ -41,12 +40,11 @@ public class RoundColorControlFragment extends ColorControlAbstractFragment
 
     @Override
     public void onColorControlChange(int val, int alpha) {
+
         this.alpha = alpha;
         r = Color.red(val);
         g = Color.green(val);
         b = Color.blue(val);
-
-        Log.i("ml", "onColorChanged in the RoundColorControlFragment " + r + " " + g + " " + b + " alpha " + alpha);
 
         colorChangeListener.onColorControlChange();
     }

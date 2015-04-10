@@ -7,6 +7,7 @@ import android.graphics.Paint;
 import android.graphics.Shader;
 import android.graphics.SweepGradient;
 import android.util.AttributeSet;
+import android.util.Log;
 import android.view.MotionEvent;
 import android.view.View;
 
@@ -14,6 +15,7 @@ import com.engstuff.coloriphornia.interfaces.ColorControlChangeListener;
 
 import java.lang.Math;
 import java.lang.Override;
+import java.util.Arrays;
 
 public class RoundColorMaker extends View implements View.OnTouchListener {
 
@@ -160,14 +162,13 @@ public class RoundColorMaker extends View implements View.OnTouchListener {
 
     private void drawAlphaGradient(Canvas canvas) {
 
-        // Three lines for evaluation of transparency
-        canvas.drawCircle(cx, cy, rad_3 - lw, p_white);
         canvas.drawCircle(cx, cy, rad_3, p_white);
-        canvas.drawCircle(cx, cy, rad_3 + lw, p_white);
+
+        int solidColor = mColor | 0xff000000;
 
         int[] arrayForShader = {
-                mColor,
-                Color.argb(0, Color.red(mColor), Color.green(mColor), Color.blue(mColor))
+                solidColor,
+                Color.argb(0, Color.red(solidColor), Color.green(solidColor), Color.blue(solidColor))
         };
 
         p_alpha.setShader(new SweepGradient(cx, cy, arrayForShader, null));
@@ -233,6 +234,11 @@ public class RoundColorMaker extends View implements View.OnTouchListener {
         p_centre.setColor(mColor);
     }
 
+    private float getSatDegree() {
+        return hsv[1] == 1f ? hsv[2] * 90 : hsv[2] == 1f ?
+                        (1 - hsv[1]) * 90 + 90 : (1 - hsv[2]) * 180 + 180;
+    }
+
     private void setAlphaScale(float x, float y) {
 
         deg_alp = getAngle(x, y);
@@ -242,6 +248,10 @@ public class RoundColorMaker extends View implements View.OnTouchListener {
         mColor = Color.HSVToColor(argb[0], hsv);
 
         p_centre.setColor(mColor);
+    }
+
+    private float getAlphaDegree() {
+        return (255 - argb[0]) * 360 / 255;
     }
 
     @Override
@@ -291,6 +301,22 @@ public class RoundColorMaker extends View implements View.OnTouchListener {
         invalidate();
 
         return true;
+    }
+
+    public void setColorAndControls(int alpha, int r, int g, int b) {
+
+        argb[0] = alpha;
+        argb[1] = r;
+        argb[2] = g;
+        argb[3] = b;
+
+        mColor = Color.argb(alpha, r, g, b);
+        Color.colorToHSV(mColor, hsv);
+
+        deg_sat = getSatDegree();
+        deg_alp = getAlphaDegree();
+
+        colorControlChangeListener.onColorControlChange(mColor, alpha);
     }
 
     public void setRoundColorMakerChangedListener(ColorControlChangeListener l) {

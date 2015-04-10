@@ -179,8 +179,6 @@ public class FragmentColorBox extends Fragment {
         //noinspection deprecation
         layout.setAlpha(alpha);
 
-        Log.d("ml", "changeColor in FragmentColorBox: hexColorParams: " + hexColorParams + " " + colorHex + " " + alpha);
-
         boolean whiteAgain = ColorParams.blackOrWhiteText(r, g, b);
 
         if (whiteText != whiteAgain) {
@@ -197,7 +195,6 @@ public class FragmentColorBox extends Fragment {
         g = fragmentControl.getG();
         b = fragmentControl.getB();
 
-        Log.d("ml", "setColorParams in thr FragmentColorBox: " + r);
         return this;
     }
 
