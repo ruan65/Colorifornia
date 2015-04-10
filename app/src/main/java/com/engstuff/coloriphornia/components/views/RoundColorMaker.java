@@ -3,11 +3,11 @@ package com.engstuff.coloriphornia.components.views;
 import android.content.Context;
 import android.graphics.Canvas;
 import android.graphics.Color;
+import android.graphics.DashPathEffect;
 import android.graphics.Paint;
 import android.graphics.Shader;
 import android.graphics.SweepGradient;
 import android.util.AttributeSet;
-import android.util.Log;
 import android.view.MotionEvent;
 import android.view.View;
 
@@ -15,7 +15,6 @@ import com.engstuff.coloriphornia.interfaces.ColorControlChangeListener;
 
 import java.lang.Math;
 import java.lang.Override;
-import java.util.Arrays;
 
 public class RoundColorMaker extends View implements View.OnTouchListener {
 
@@ -33,7 +32,6 @@ public class RoundColorMaker extends View implements View.OnTouchListener {
     private float rad_1;
     private float rad_2;
     private float rad_3;
-    private float r_centre;
 
     private float r_sel_c;
     private float r_sel_s;
@@ -44,14 +42,11 @@ public class RoundColorMaker extends View implements View.OnTouchListener {
     private Paint p_alpha = new Paint(Paint.ANTI_ALIAS_FLAG);
     private Paint p_white = new Paint(Paint.ANTI_ALIAS_FLAG);
     private Paint p_handl = new Paint(Paint.ANTI_ALIAS_FLAG);
-    private Paint p_centre = new Paint(Paint.ANTI_ALIAS_FLAG);
 
     private float deg_sat;
     private float deg_alp;
 
-    private float lc;
     private float lm;
-    private float lw;
 
     private int[] argb = {255, 0, 0, 0};
     private float[] hsv = {0, 1, 1};
@@ -78,10 +73,9 @@ public class RoundColorMaker extends View implements View.OnTouchListener {
         p_white.setStyle(Paint.Style.STROKE);
         p_alpha.setStyle(Paint.Style.STROKE);
 
-        p_centre.setStyle(Paint.Style.FILL_AND_STROKE);
-
         p_white.setColor(Color.WHITE);
-        p_white.setStrokeWidth(2);
+        p_white.setStrokeWidth(3);
+        p_white.setPathEffect(new DashPathEffect(new float[]{3, 5}, 0));
 
         p_handl.setStrokeWidth(5);
         p_handl.setStrokeCap(Paint.Cap.SQUARE);
@@ -114,19 +108,21 @@ public class RoundColorMaker extends View implements View.OnTouchListener {
     }
 
     private void calculateThenSetSizesAndCoords() {
-        cx = size * 0.5f;
-        cy = cx;
+
+        cy = cx = size * 0.5f;
+
         lm = size * 0.043f;
-        lw = size * 0.035f;
+
         rad_1 = size * 0.44f;
         r_sel_c = size * 0.39f;
+
         rad_2 = size * 0.34f;
         r_sel_s = size * 0.29f;
+
         rad_3 = size * 0.24f;
         r_sel_a = size * 0.19f;
-        r_centre = size * 0.18f;
 
-        lc = size * 0.08f;
+        float lc = size * 0.08f;
 
         p_color.setStrokeWidth(lc);
         p_satur.setStrokeWidth(lc);
@@ -203,7 +199,7 @@ public class RoundColorMaker extends View implements View.OnTouchListener {
 
         float deg = x == 0 ? 0 : y / x;
 
-        deg = (float) Math.toDegrees(Math.atan(deg));
+        deg =  (float) Math.toDegrees(Math.atan(deg));
 
         return x < 0 ? deg + 180 : x > 0 && y < 0 ? deg + 360 : deg;
     }
@@ -213,7 +209,6 @@ public class RoundColorMaker extends View implements View.OnTouchListener {
         hsv[0] = getAngle(x, y);
 
         mColor = Color.HSVToColor(argb[0], hsv);
-        p_centre.setColor(mColor);
     }
 
     private void setSatScale(float x, float y) {
@@ -231,7 +226,6 @@ public class RoundColorMaker extends View implements View.OnTouchListener {
             hsv[2] = 1 - (deg_sat - 180) / 180;
         }
         mColor = Color.HSVToColor(argb[0], hsv);
-        p_centre.setColor(mColor);
     }
 
     private float getSatDegree() {
@@ -246,8 +240,6 @@ public class RoundColorMaker extends View implements View.OnTouchListener {
         argb[0] = (int) (255 - deg_alp / 360 * 255);
 
         mColor = Color.HSVToColor(argb[0], hsv);
-
-        p_centre.setColor(mColor);
     }
 
     private float getAlphaDegree() {
