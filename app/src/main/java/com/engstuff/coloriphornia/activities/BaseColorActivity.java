@@ -2,6 +2,7 @@ package com.engstuff.coloriphornia.activities;
 
 import android.app.Fragment;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.ContextMenu;
 import android.view.MenuItem;
 import android.view.View;
@@ -102,6 +103,8 @@ public abstract class BaseColorActivity extends MockUpActivity implements
         currentColorBox
                 .setColorParams()
                 .changeColor();
+
+        Log.d("ml", "onColorControlChange in the BaseColorActivity");
     }
 
     @Override

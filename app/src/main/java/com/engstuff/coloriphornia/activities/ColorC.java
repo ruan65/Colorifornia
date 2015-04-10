@@ -10,8 +10,7 @@ import com.engstuff.coloriphornia.helpers.ColorParams;
 import com.engstuff.coloriphornia.helpers.PrefsHelper;
 import com.engstuff.coloriphornia.interfaces.ColorControlChangeListener;
 
-public class ColorC extends BaseColorActivity
-        implements ColorControlChangeListener {
+public class ColorC extends BaseColorActivity {
 
     @Override
     public void onCreate(Bundle savedInstanceState) {

@@ -10,6 +10,7 @@ import android.gesture.GestureLibrary;
 import android.gesture.GestureOverlayView;
 import android.gesture.Prediction;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.GestureDetector;
 import android.view.LayoutInflater;
 import android.view.MotionEvent;
@@ -177,6 +178,8 @@ public class FragmentColorBox extends Fragment {
         //noinspection deprecation
         layout.setAlpha(alpha);
 
+        Log.d("ml", "changeColor in FragmentColorBox: hexColorParams: " + hexColorParams);
+
         boolean whiteAgain = ColorParams.blackOrWhiteText(r, g, b);
 
         if (whiteText != whiteAgain) {
@@ -192,6 +195,8 @@ public class FragmentColorBox extends Fragment {
         r = fragmentControl.getR();
         g = fragmentControl.getG();
         b = fragmentControl.getB();
+
+        Log.d("ml", "setColorParams in thr FragmentColorBox: " + r);
         return this;
     }
 
@@ -216,6 +221,8 @@ public class FragmentColorBox extends Fragment {
         this.r = r;
         this.g = g;
         this.b = b;
+
+
         return this;
     }
 

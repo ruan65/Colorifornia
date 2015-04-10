@@ -8,22 +8,14 @@ import android.graphics.Shader;
 import android.graphics.SweepGradient;
 import android.util.AttributeSet;
 import android.view.MotionEvent;
-import android.view.View;import java.lang.Math;import java.lang.Override;
+import android.view.View;
+
+import com.engstuff.coloriphornia.interfaces.RoundColorMakerChangedListener;
+
+import java.lang.Math;
+import java.lang.Override;
 
 public class RoundColorMaker extends View implements View.OnTouchListener {
-
-    public interface OnColorChangedListener {
-
-        void onDismiss(int val, float alpha);
-
-        void onColorChanged(int val, float alpha);
-    }
-
-    public void setOnColorChangedListener(OnColorChangedListener l) {
-        onColorChangedListener = l;
-    }
-
-    private OnColorChangedListener onColorChangedListener;
 
     protected static final int SET_COLOR = 0;
     protected static final int SET_SATUR = 1;
@@ -61,9 +53,9 @@ public class RoundColorMaker extends View implements View.OnTouchListener {
 
     private int[] argb = {255, 0, 0, 0};
     private float[] hsv = {0, 1, 1};
-    private float alpha;
+    private int alpha;
 
-
+    private RoundColorMakerChangedListener roundColorMakerChangedListener;
 
     public RoundColorMaker(Context context) {
         this(context, null);
@@ -156,11 +148,11 @@ public class RoundColorMaker extends View implements View.OnTouchListener {
         float angle = hsv[0];
 
         int[] sar = {
-                Color.HSVToColor(new float[] {angle, 1, 0}),
-                Color.HSVToColor(new float[] {angle, 1, 1}),
-                Color.HSVToColor(new float[] {angle, 0, 1}),
-                Color.HSVToColor(new float[] {angle, 0, .5f}),
-                Color.HSVToColor(new float[] {angle, 1, 0})
+                Color.HSVToColor(new float[]{angle, 1, 0}),
+                Color.HSVToColor(new float[]{angle, 1, 1}),
+                Color.HSVToColor(new float[]{angle, 0, 1}),
+                Color.HSVToColor(new float[]{angle, 0, .5f}),
+                Color.HSVToColor(new float[]{angle, 1, 0})
         };
 
         p_satur.setShader(new SweepGradient(cx, cy, sar, null));
@@ -269,7 +261,8 @@ public class RoundColorMaker extends View implements View.OnTouchListener {
                 if (c > r_sel_c) mode = SET_COLOR;
                 else if (c < r_sel_c && c > r_sel_s) mode = SET_SATUR;
                 else if (c < r_sel_s && c > r_sel_a) mode = SET_ALPHA;
-                else if (c < r_centre) onColorChangedListener.onDismiss(mColor, alpha);
+//                else if (c < r_centre) onColorChangedListener.onDismiss(mColor, alpha);
+
                 break;
 
             case MotionEvent.ACTION_MOVE:
@@ -294,7 +287,15 @@ public class RoundColorMaker extends View implements View.OnTouchListener {
                 break;
         }
         invalidate();
+
+        if (roundColorMakerChangedListener != null)
+            roundColorMakerChangedListener.onColorChanged(mColor, alpha);
+
         return true;
+    }
+
+    public void setRoundColorMakerChangedListener(RoundColorMakerChangedListener l) {
+        this.roundColorMakerChangedListener = l;
     }
 }
 

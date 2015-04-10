@@ -13,18 +13,19 @@
         <include
             android:id="@+id/app_bar"
             layout="@layout/app_bar" />
+        <FrameLayout
+            android:id="@+id/color_control_container_round"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="62" />
 
         <FrameLayout
             android:id="@+id/color_box_container_round"
             android:layout_width="match_parent"
             android:layout_height="0dp"
-            android:layout_weight="32" />
+            android:layout_weight="38" />
 
-        <FrameLayout
-            android:id="@+id/color_control_container_round"
-            android:layout_width="match_parent"
-            android:layout_height="0dp"
-            android:layout_weight="68" />
+
 
     </LinearLayout>
 
