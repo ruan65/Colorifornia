@@ -8,6 +8,7 @@ import android.widget.ImageView;
 import com.engstuff.coloriphornia.R;
 import com.engstuff.coloriphornia.activities.FullScreenColorC;
 import com.engstuff.coloriphornia.data.Cv;
+import com.engstuff.coloriphornia.fragments.ColorControlAbstractFragment;
 import com.engstuff.coloriphornia.fragments.FragmentColorBox;
 
 public class AppHelper {
@@ -71,6 +72,24 @@ public class AppHelper {
 
         if (like.getParent() != null) {
             box.getLayout().removeView(like);
+        }
+    }
+
+    public static void setColorToColorBox(Context ctx, String prefsKey, ColorControlAbstractFragment control, FragmentColorBox color) {
+        String hexColor = PrefsHelper.readFromPrefsString(
+                ctx, Cv.PREFS_RETAIN, prefsKey);
+
+        if (hexColor.equals("")) {
+
+            control.setControls(255, 255, 0, 0);
+            color.setColorParams().changeColor();
+
+        } else {
+
+            int[] argb = ColorParams.hexStringToARGB(hexColor);
+
+            control.setControls(argb[0], argb[1], argb[2], argb[3]);
+            color.setColorParams().changeColor();
         }
     }
 }

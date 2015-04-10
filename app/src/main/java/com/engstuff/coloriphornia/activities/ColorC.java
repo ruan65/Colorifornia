@@ -29,21 +29,7 @@ public class ColorC extends BaseColorActivity {
     public void onResume() {
         super.onResume();
 
-        String hexColor = PrefsHelper.readFromPrefsString(
-                this, Cv.PREFS_RETAIN, "last_color");
-
-        if (hexColor.equals("")) {
-
-            fragmentControl.setControls(255, 255, 0, 0);
-            currentColorBox.setColorParams().changeColor();
-
-        } else {
-
-            int[] argb = ColorParams.hexStringToARGB(hexColor);
-
-            fragmentControl.setControls(argb[0], argb[1], argb[2], argb[3]);
-            currentColorBox.setColorParams().changeColor();
-        }
+        AppHelper.setColorToColorBox(this, "last_color", fragmentControl, currentColorBox);
         AppHelper.setLikesAndInfo(this, currentColorBox);
     }
 
