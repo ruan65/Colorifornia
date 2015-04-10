@@ -108,6 +108,14 @@ public abstract class BaseColorActivity extends MockUpActivity implements
     }
 
     @Override
+    public void onColorControlChange(int color, int alpha) {
+
+        currentColorBox
+                .setColorParams(alpha, color)
+                .changeColor();
+    }
+
+    @Override
     public void onColorControlStartTracking() {
 
         AppHelper.unsetLike(currentColorBox);

@@ -10,7 +10,7 @@ import android.util.AttributeSet;
 import android.view.MotionEvent;
 import android.view.View;
 
-import com.engstuff.coloriphornia.interfaces.RoundColorMakerChangedListener;
+import com.engstuff.coloriphornia.interfaces.ColorControlChangeListener;
 
 import java.lang.Math;
 import java.lang.Override;
@@ -53,9 +53,8 @@ public class RoundColorMaker extends View implements View.OnTouchListener {
 
     private int[] argb = {255, 0, 0, 0};
     private float[] hsv = {0, 1, 1};
-    private int alpha;
 
-    private RoundColorMakerChangedListener roundColorMakerChangedListener;
+    private ColorControlChangeListener colorControlChangeListener;
 
     public RoundColorMaker(Context context) {
         this(context, null);
@@ -242,8 +241,6 @@ public class RoundColorMaker extends View implements View.OnTouchListener {
 
         mColor = Color.HSVToColor(argb[0], hsv);
 
-        alpha = Color.alpha(mColor) / 255;
-
         p_centre.setColor(mColor);
     }
 
@@ -261,8 +258,12 @@ public class RoundColorMaker extends View implements View.OnTouchListener {
                 if (c > r_sel_c) mode = SET_COLOR;
                 else if (c < r_sel_c && c > r_sel_s) mode = SET_SATUR;
                 else if (c < r_sel_s && c > r_sel_a) mode = SET_ALPHA;
-//                else if (c < r_centre) onColorChangedListener.onDismiss(mColor, alpha);
 
+                colorControlChangeListener.onColorControlStartTracking();
+                break;
+
+            case MotionEvent.ACTION_UP:
+                colorControlChangeListener.onColorControlStopTracking();
                 break;
 
             case MotionEvent.ACTION_MOVE:
@@ -284,18 +285,16 @@ public class RoundColorMaker extends View implements View.OnTouchListener {
                         setAlphaScale(x, y);
                         break;
                 }
+                colorControlChangeListener.onColorControlChange(mColor, argb[0]);
                 break;
         }
         invalidate();
 
-        if (roundColorMakerChangedListener != null)
-            roundColorMakerChangedListener.onColorChanged(mColor, alpha);
-
         return true;
     }
 
-    public void setRoundColorMakerChangedListener(RoundColorMakerChangedListener l) {
-        this.roundColorMakerChangedListener = l;
+    public void setRoundColorMakerChangedListener(ColorControlChangeListener l) {
+        this.colorControlChangeListener = l;
     }
 }
 

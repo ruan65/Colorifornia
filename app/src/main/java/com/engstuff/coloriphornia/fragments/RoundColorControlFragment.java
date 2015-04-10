@@ -9,10 +9,10 @@ import android.view.ViewGroup;
 
 import com.engstuff.coloriphornia.R;
 import com.engstuff.coloriphornia.components.views.RoundColorMaker;
-import com.engstuff.coloriphornia.interfaces.RoundColorMakerChangedListener;
+import com.engstuff.coloriphornia.interfaces.ColorControlChangeListener;
 
 public class RoundColorControlFragment extends ColorControlAbstractFragment
-        implements RoundColorMakerChangedListener {
+        implements ColorControlChangeListener {
 
     private RoundColorMaker roundControl;
 
@@ -31,27 +31,33 @@ public class RoundColorControlFragment extends ColorControlAbstractFragment
     }
 
     @Override
-    public void onColorChanged(int val, int alpha) {
+    public void setControls(int alpha, int r, int g, int b) {
 
+    }
+
+    @Override
+    public void onColorControlChange() {
+    }
+
+    @Override
+    public void onColorControlChange(int val, int alpha) {
         this.alpha = alpha;
         r = Color.red(val);
         g = Color.green(val);
         b = Color.blue(val);
 
-        Log.i("ml", "onColorChanged in the RoundColorControlFragment " + r + " " + g + " " + b);
+        Log.i("ml", "onColorChanged in the RoundColorControlFragment " + r + " " + g + " " + b + " alpha " + alpha);
 
         colorChangeListener.onColorControlChange();
     }
 
     @Override
-    public void onDismiss(int val, int alpha) {
-
+    public void onColorControlStartTracking() {
+        colorChangeListener.onColorControlStartTracking();
     }
 
     @Override
-    public void setControls(int alpha, int r, int g, int b) {
-
+    public void onColorControlStopTracking() {
+        colorChangeListener.onColorControlStopTracking();
     }
-
-
 }
