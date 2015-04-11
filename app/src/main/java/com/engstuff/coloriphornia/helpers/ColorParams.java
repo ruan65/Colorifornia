@@ -49,7 +49,7 @@ public class ColorParams {
     public static boolean blackOrWhiteText(String hex) {
 
         int[] argb = hexStringToARGB(hex);
-        return blackOrWhiteText(argb[1], argb[2], argb[3]);
+        return argb[0] > 100 || blackOrWhiteText(argb[1], argb[2], argb[3]);
     }
 
     public static String makeArgbInfo(int a, int r, int g, int b) {

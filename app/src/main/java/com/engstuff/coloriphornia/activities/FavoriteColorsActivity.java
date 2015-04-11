@@ -36,11 +36,7 @@ public class FavoriteColorsActivity extends MockUpActivity {
 
         lvFavorites.setColumnWidth(gridSize);
 
-        String[] ss = PrefsHelper.readFromPrefsAllToArray(this, Cv.SAVED_COLORS);
-
-        for (String s : ss) {
-            fColorsList.add(new FavoriteColor(s));
-        }
+        refreshData();
 
         fAdapter = new FavoritesAdapter(this, fColorsList);
         lvFavorites.setAdapter(fAdapter);
@@ -56,10 +52,28 @@ public class FavoriteColorsActivity extends MockUpActivity {
         });
     }
 
+    private void refreshData() {
+
+        fColorsList.clear();
+
+        String[] ss = PrefsHelper.readFromPrefsAllToArray(this, Cv.SAVED_COLORS);
+
+        for (String s : ss) {
+            fColorsList.add(new FavoriteColor(s));
+        }
+    }
+
     int calculateGridSize() {
         Point p = new Point();
         getWindowManager().getDefaultDisplay().getSize(p);
         return gridSize = (int) (p.x / 3.3);
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        refreshData();
+        fAdapter.notifyDataSetChanged();
     }
 
     @Override
