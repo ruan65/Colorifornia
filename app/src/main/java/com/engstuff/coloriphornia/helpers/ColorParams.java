@@ -41,15 +41,15 @@ public class ColorParams {
         return intARGB;
     }
 
-    public static boolean blackOrWhiteText(int r, int g, int b) {
+    public static boolean blackOrWhiteText(int alpha, int r, int g, int b) {
 
-        return (r + g + b > 450 || g > 200) ? false : true;
+        return alpha < 100 || (r + g + b > 450 || g > 200) ? false : true;
     }
 
     public static boolean blackOrWhiteText(String hex) {
 
         int[] argb = hexStringToARGB(hex);
-        return argb[0] > 100 || blackOrWhiteText(argb[1], argb[2], argb[3]);
+        return blackOrWhiteText(argb[0], argb[1], argb[2], argb[3]);
     }
 
     public static String makeArgbInfo(int a, int r, int g, int b) {

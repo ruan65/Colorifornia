@@ -162,7 +162,7 @@ public class FragmentColorBox extends Fragment {
         if (layout.findViewById(R.id.like) != null) {
             layout.removeView(like);
         }
-        like.setImageResource(ColorParams.blackOrWhiteText(r, g, b)
+        like.setImageResource(ColorParams.blackOrWhiteText(alpha, r, g, b)
                 ? R.drawable.ic_loyalty_white_24dp
                 : R.drawable.ic_loyalty_black_24dp);
         layout.addView(like);
@@ -179,7 +179,7 @@ public class FragmentColorBox extends Fragment {
         //noinspection deprecation
         layout.setAlpha(alpha);
 
-        boolean whiteAgain = ColorParams.blackOrWhiteText(r, g, b);
+        boolean whiteAgain = ColorParams.blackOrWhiteText(alpha, r, g, b);
 
         if (whiteText != whiteAgain) {
             colorBoxEventListener.onTextColorChanged();
