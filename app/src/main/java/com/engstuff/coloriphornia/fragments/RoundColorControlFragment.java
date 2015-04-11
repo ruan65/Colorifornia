@@ -23,7 +23,7 @@ public class RoundColorControlFragment extends ColorControlAbstractFragment
 
         roundControl = (RoundColorMaker) rootView.findViewById(R.id.view_round_color_maker);
         if (roundControl != null) {
-            roundControl.setRoundColorMakerChangedListener(this);
+            roundControl.setColorControlChangeListener(this);
         }
         return rootView;
     }

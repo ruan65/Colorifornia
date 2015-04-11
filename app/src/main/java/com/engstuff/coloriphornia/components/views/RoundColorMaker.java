@@ -25,17 +25,10 @@ public class RoundColorMaker extends View implements View.OnTouchListener {
     private int mode;
     private int mColor;
 
-    private float cx;
-    private float cy;
+    private float cx, cy;
     private int size;
 
-    private float rad_1;
-    private float rad_2;
-    private float rad_3;
-
-    private float r_sel_c;
-    private float r_sel_s;
-    private float r_sel_a;
+    private float r1, r2, r3;
 
     private Paint p_color = new Paint(Paint.ANTI_ALIAS_FLAG);
     private Paint p_satur = new Paint(Paint.ANTI_ALIAS_FLAG);
@@ -43,15 +36,15 @@ public class RoundColorMaker extends View implements View.OnTouchListener {
     private Paint p_white = new Paint(Paint.ANTI_ALIAS_FLAG);
     private Paint p_handl = new Paint(Paint.ANTI_ALIAS_FLAG);
 
-    private float deg_sat;
-    private float deg_alp;
+    private float deg_sat, deg_alp;
 
-    private float lm;
+    private float halfHaldle;
 
     private int[] argb = {255, 0, 0, 0};
     private float[] hsv = {0, 1, 1};
 
     private ColorControlChangeListener colorControlChangeListener;
+    private float stroke;
 
     public RoundColorMaker(Context context) {
         this(context, null);
@@ -111,22 +104,19 @@ public class RoundColorMaker extends View implements View.OnTouchListener {
 
         cy = cx = size * 0.5f;
 
-        lm = size * 0.043f;
+        stroke = size * 0.1f;
 
-        rad_1 = size * 0.44f;
-        r_sel_c = size * 0.39f;
+        halfHaldle = stroke / 1.85f;
 
-        rad_2 = size * 0.34f;
-        r_sel_s = size * 0.29f;
+        r1 = size * 0.43f;
 
-        rad_3 = size * 0.24f;
-        r_sel_a = size * 0.19f;
+        r2 = size * 0.30f;
 
-        float lc = size * 0.08f;
+        r3 = size * 0.18f;
 
-        p_color.setStrokeWidth(lc);
-        p_satur.setStrokeWidth(lc);
-        p_alpha.setStrokeWidth(lc);
+        p_color.setStrokeWidth(stroke);
+        p_satur.setStrokeWidth(stroke);
+        p_alpha.setStrokeWidth(stroke);
     }
 
     private void drawColorPickingCircle(Canvas canvas) {
@@ -137,7 +127,7 @@ public class RoundColorMaker extends View implements View.OnTouchListener {
 
         p_color.setShader(s);
 
-        canvas.drawCircle(cx, cy, rad_1, p_color);
+        canvas.drawCircle(cx, cy, r1, p_color);
     }
 
     private void drawSaturationGradient(Canvas canvas) {
@@ -153,12 +143,12 @@ public class RoundColorMaker extends View implements View.OnTouchListener {
         };
 
         p_satur.setShader(new SweepGradient(cx, cy, sar, null));
-        canvas.drawCircle(cx, cy, rad_2, p_satur);
+        canvas.drawCircle(cx, cy, r2, p_satur);
     }
 
     private void drawAlphaGradient(Canvas canvas) {
 
-        canvas.drawCircle(cx, cy, rad_3, p_white);
+        canvas.drawCircle(cx, cy, r3, p_white);
 
         int solidColor = mColor | 0xff000000;
 
@@ -168,20 +158,20 @@ public class RoundColorMaker extends View implements View.OnTouchListener {
         };
 
         p_alpha.setShader(new SweepGradient(cx, cy, arrayForShader, null));
-        canvas.drawCircle(cx, cy, rad_3, p_alpha);
+        canvas.drawCircle(cx, cy, r3, p_alpha);
     }
 
     private void drawHandles(Canvas c) {
 
-        drawHandle(c, hsv[0], rad_1);
-        drawHandle(c, deg_sat, rad_2);
-        drawHandle(c, deg_alp, rad_3);
+        drawHandle(c, hsv[0], r1);
+        drawHandle(c, deg_sat, r2);
+        drawHandle(c, deg_alp, r3);
     }
 
     private void drawHandle(Canvas c, float d, float rad) {
 
         c.rotate(d, cx, cy);
-        c.drawLine(cx + rad + lm, cy, cx + rad - lm, cy, p_handl);
+        c.drawLine(cx + rad + halfHaldle, cy, cx + rad - halfHaldle, cy, p_handl);
         c.rotate(-d, cx, cy);
     }
 
@@ -257,14 +247,17 @@ public class RoundColorMaker extends View implements View.OnTouchListener {
 
                 float c = (float) Math.sqrt(a * a + b * b);
 
-                if (c > r_sel_c) mode = SET_COLOR;
-                else if (c < r_sel_c && c > r_sel_s) mode = SET_SATUR;
-                else if (c < r_sel_s && c > r_sel_a) mode = SET_ALPHA;
+                float delta = stroke / 2;
+
+                if      (c > r1 - delta && c < r1 + delta) mode = SET_COLOR;
+                else if (c < r1 - delta && c > r2 - delta) mode = SET_SATUR;
+                else if (c < r2 - delta && c > r3 - delta) mode = SET_ALPHA;
 
                 colorControlChangeListener.onColorControlStartTracking();
                 break;
 
             case MotionEvent.ACTION_UP:
+                mode = -1;
                 colorControlChangeListener.onColorControlStopTracking();
                 break;
 
@@ -311,7 +304,7 @@ public class RoundColorMaker extends View implements View.OnTouchListener {
         colorControlChangeListener.onColorControlChange(mColor, alpha);
     }
 
-    public void setRoundColorMakerChangedListener(ColorControlChangeListener l) {
+    public void setColorControlChangeListener(ColorControlChangeListener l) {
         this.colorControlChangeListener = l;
     }
 }

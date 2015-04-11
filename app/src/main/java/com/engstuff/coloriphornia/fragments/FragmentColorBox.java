@@ -120,7 +120,6 @@ public class FragmentColorBox extends Fragment {
                 ctx.startActivity(new Intent(ctx, FavoriteColorsActivity.class));
             }
         });
-
         layout.removeView(like);
 
         return gestureLayer;
@@ -220,11 +219,11 @@ public class FragmentColorBox extends Fragment {
     }
 
     public FragmentColorBox setColorParams(int r, int g, int b) {
+
         alpha = 255;
         this.r = r;
         this.g = g;
         this.b = b;
-
 
         return this;
     }
