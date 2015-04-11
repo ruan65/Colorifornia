@@ -117,8 +117,7 @@ public class FragmentColorBox extends Fragment {
         like.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                startActivity(new Intent(ctx, FavoriteColorsActivity.class));
-                ctx.finish();
+                ctx.startActivity(new Intent(ctx, FavoriteColorsActivity.class));
             }
         });
 
