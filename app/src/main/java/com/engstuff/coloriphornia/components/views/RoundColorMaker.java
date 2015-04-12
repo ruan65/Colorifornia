@@ -193,7 +193,7 @@ public class RoundColorMaker extends View implements View.OnTouchListener {
 
         float deg = x == 0 ? 0 : y / x;
 
-        deg =  (float) Math.toDegrees(Math.atan(deg));
+        deg = (float) Math.toDegrees(Math.atan(deg));
 
         return x < 0 ? deg + 180 : x > 0 && y < 0 ? deg + 360 : deg;
     }
@@ -253,7 +253,7 @@ public class RoundColorMaker extends View implements View.OnTouchListener {
 
                 float delta = stroke / 2;
 
-                if      (c > r1 - delta && c < r1 + delta) mode = SET_COLOR;
+                if (c > r1 - delta && c < r1 + delta) mode = SET_COLOR;
                 else if (c < r1 - delta && c > r2 - delta) mode = SET_SATUR;
                 else if (c < r2 - delta && c > r3 - delta) mode = SET_ALPHA;
 
@@ -278,15 +278,13 @@ public class RoundColorMaker extends View implements View.OnTouchListener {
                         break;
 
                     case SET_SATUR:
-                        setSatScale(x, y);
 
-                        Log.d("ml", "satur: " + Arrays.toString(hsv) + "x, y = " + x + " " + y);
+                        setSatScale(x, y);
                         break;
 
                     case SET_ALPHA:
-                        setAlphaScale(x, y);
 
-                        Log.d("ml", "alpha: " + Arrays.toString(hsv) + "x, y = " + x + " " + y);
+                        setAlphaScale(x, y);
                         break;
                 }
                 colorControlChangeListener.onColorControlChange(mColor, argb[0]);
