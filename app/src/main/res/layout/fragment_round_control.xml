@@ -1,23 +1,35 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:fab="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/fragment_round_color_layout"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="#000"
-    android:id="@+id/fragment_round_color_layout"
     tools:context="com.engstuff.coloriphornia.fragments.SeekBarsColorControlFragment">
 
     <com.engstuff.coloriphornia.components.views.RoundColorMaker
         android:id="@+id/view_round_color_maker"
-        android:layout_centerInParent="true"
         android:layout_width="match_parent"
-        android:layout_height="match_parent" />
+        android:layout_height="match_parent"
+        android:layout_centerInParent="true" />
 
-    <ImageView
+    <com.software.shell.fab.ActionButton
         android:id="@+id/reset_alpha"
         android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
         android:layout_centerInParent="true"
+        android:onClick="resetAlphaAndSatur"
         android:rotation="180"
-        android:src="@drawable/ic_settings_backup_restore_white_48dp"
-        android:layout_height="wrap_content" />
+
+        fab:button_color="@color/primaryColor"
+        fab:button_colorPressed="@color/primaryColorDarkTransparent"
+        fab:image="@drawable/ic_settings_backup_restore_white_48dp"
+        fab:image_size="48dp"
+        fab:shadow_color="#55ffffff"
+        fab:shadow_radius="1.0dp"
+        fab:shadow_xOffset="-2dp"
+        fab:shadow_yOffset="-2dp"
+        fab:hide_animation="@anim/btn_roll_to_r"
+        fab:show_animation="@anim/btn_roll_from_r"/>
 
 </RelativeLayout>

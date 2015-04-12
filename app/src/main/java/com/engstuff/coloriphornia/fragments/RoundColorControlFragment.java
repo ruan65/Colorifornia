@@ -9,13 +9,14 @@ import android.view.ViewGroup;
 import com.engstuff.coloriphornia.R;
 import com.engstuff.coloriphornia.components.views.RoundColorMaker;
 import com.engstuff.coloriphornia.interfaces.ColorControlChangeListener;
+import com.software.shell.fab.ActionButton;
 
 public class RoundColorControlFragment extends ColorControlAbstractFragment
         implements ColorControlChangeListener {
 
     private RoundColorMaker roundControl;
 
-    View reset;
+    ActionButton reset;
     RoundColorMaker control;
 
     @Override
@@ -26,7 +27,7 @@ public class RoundColorControlFragment extends ColorControlAbstractFragment
 
         control = (RoundColorMaker) rootView.findViewById(R.id.view_round_color_maker);
 
-        reset = rootView.findViewById(R.id.reset_alpha);
+        reset = (ActionButton) rootView.findViewById(R.id.reset_alpha);
 
         reset.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -39,7 +40,20 @@ public class RoundColorControlFragment extends ColorControlAbstractFragment
         if (roundControl != null) {
             roundControl.setColorControlChangeListener(this);
         }
+        reset.hide();
         return rootView;
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        reset.show();
+    }
+
+    @Override
+    public void onPause() {
+        super.onPause();
+        reset.hide();
     }
 
     @Override
@@ -71,5 +85,9 @@ public class RoundColorControlFragment extends ColorControlAbstractFragment
     @Override
     public void onColorControlStopTracking() {
         colorChangeListener.onColorControlStopTracking();
+    }
+
+    public ActionButton getReset() {
+        return reset;
     }
 }

@@ -118,12 +118,17 @@ public class FragmentImg extends Fragment {
         @Override
         protected Bitmap doInBackground(Uri... uris) {
 
-            String path = ImageHelper.getRealImagePath(ctx, uris[0]);
+            try {
+                String path = ImageHelper.getRealImagePath(ctx, uris[0]);
 
-            File file = new File(path);
+                File file = new File(path);
 
-            return ImageHelper.decodeSampledBitmapFromResource(
-                    file.getAbsolutePath(), pxx, pxy, Bitmap.Config.RGB_565);
+                return ImageHelper.decodeSampledBitmapFromResource(
+                        file.getAbsolutePath(), pxx, pxy, Bitmap.Config.RGB_565);
+            } catch (Exception e) {
+                return null;
+            }
+
         }
 
         @Override
