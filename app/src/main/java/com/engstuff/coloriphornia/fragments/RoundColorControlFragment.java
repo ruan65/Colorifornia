@@ -15,11 +15,25 @@ public class RoundColorControlFragment extends ColorControlAbstractFragment
 
     private RoundColorMaker roundControl;
 
+    View reset;
+    RoundColorMaker control;
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
 
         View rootView = inflater.inflate(R.layout.fragment_round_control, container, false);
+
+        control = (RoundColorMaker) rootView.findViewById(R.id.view_round_color_maker);
+
+        reset = rootView.findViewById(R.id.reset_alpha);
+
+        reset.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                control.resetAlphaAndSatur();
+            }
+        });
 
         roundControl = (RoundColorMaker) rootView.findViewById(R.id.view_round_color_maker);
         if (roundControl != null) {

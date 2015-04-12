@@ -8,6 +8,7 @@ import android.graphics.Paint;
 import android.graphics.Shader;
 import android.graphics.SweepGradient;
 import android.util.AttributeSet;
+import android.util.Log;
 import android.view.MotionEvent;
 import android.view.View;
 
@@ -15,6 +16,7 @@ import com.engstuff.coloriphornia.interfaces.ColorControlChangeListener;
 
 import java.lang.Math;
 import java.lang.Override;
+import java.util.Arrays;
 
 public class RoundColorMaker extends View implements View.OnTouchListener {
 
@@ -22,7 +24,7 @@ public class RoundColorMaker extends View implements View.OnTouchListener {
     protected static final int SET_SATUR = 1;
     protected static final int SET_ALPHA = 2;
 
-    private int mode;
+    private int mode = -1;
     private int mColor;
 
     private float cx, cy;
@@ -180,8 +182,10 @@ public class RoundColorMaker extends View implements View.OnTouchListener {
         int result;
         int specMode = MeasureSpec.getMode(measureSpec);
         int specSize = MeasureSpec.getSize(measureSpec);
+
         if (specMode == MeasureSpec.UNSPECIFIED) result = 200;
         else result = specSize;
+
         return result;
     }
 
@@ -218,11 +222,6 @@ public class RoundColorMaker extends View implements View.OnTouchListener {
         mColor = Color.HSVToColor(argb[0], hsv);
     }
 
-    private float getSatDegree() {
-        return hsv[1] == 1f ? hsv[2] * 90 : hsv[2] == 1f ?
-                        (1 - hsv[1]) * 90 + 90 : (1 - hsv[2]) * 180 + 180;
-    }
-
     private void setAlphaScale(float x, float y) {
 
         deg_alp = getAngle(x, y);
@@ -230,6 +229,11 @@ public class RoundColorMaker extends View implements View.OnTouchListener {
         argb[0] = (int) (255 - deg_alp / 360 * 255);
 
         mColor = Color.HSVToColor(argb[0], hsv);
+    }
+
+    private float getSatDegree() {
+        return hsv[1] == 1f ? hsv[2] * 90 : hsv[2] == 1f ?
+                (1 - hsv[1]) * 90 + 90 : (1 - hsv[2]) * 180 + 180;
     }
 
     private float getAlphaDegree() {
@@ -257,7 +261,8 @@ public class RoundColorMaker extends View implements View.OnTouchListener {
                 break;
 
             case MotionEvent.ACTION_UP:
-                mode = -1;
+
+                mode = -1; // no actions anymore
                 colorControlChangeListener.onColorControlStopTracking();
                 break;
 
@@ -274,10 +279,14 @@ public class RoundColorMaker extends View implements View.OnTouchListener {
 
                     case SET_SATUR:
                         setSatScale(x, y);
+
+                        Log.d("ml", "satur: " + Arrays.toString(hsv) + "x, y = " + x + " " + y);
                         break;
 
                     case SET_ALPHA:
                         setAlphaScale(x, y);
+
+                        Log.d("ml", "alpha: " + Arrays.toString(hsv) + "x, y = " + x + " " + y);
                         break;
                 }
                 colorControlChangeListener.onColorControlChange(mColor, argb[0]);
@@ -288,21 +297,36 @@ public class RoundColorMaker extends View implements View.OnTouchListener {
         return true;
     }
 
-    public void setColorAndControls(int alpha, int r, int g, int b) {
+    public void setColorAndControls(int... p) { // alpha, r, g, b
 
-        argb[0] = alpha;
-        argb[1] = r;
-        argb[2] = g;
-        argb[3] = b;
+        argb[0] = p[0];
+        argb[1] = p[1];
+        argb[2] = p[2];
+        argb[3] = p[3];
 
-        mColor = Color.argb(alpha, r, g, b);
+        proceedColorParamSetting(argb);
+    }
+
+    private void proceedColorParamSetting(int... p) {
+
+        mColor = Color.argb(p[0], p[1], p[2], p[3]);
         Color.colorToHSV(mColor, hsv);
 
         deg_sat = getSatDegree();
         deg_alp = getAlphaDegree();
 
-        colorControlChangeListener.onColorControlChange(mColor, alpha);
+        colorControlChangeListener.onColorControlChange(mColor, p[0]);
     }
+
+    public void resetAlphaAndSatur() {
+
+        setAlphaScale(0, 0);
+        setSatScale(1, Float.MAX_VALUE);
+        colorControlChangeListener.onColorControlChange(mColor, argb[0]);
+        colorControlChangeListener.onColorControlStopTracking();
+        invalidate();
+    }
+
 
     public void setColorControlChangeListener(ColorControlChangeListener l) {
         this.colorControlChangeListener = l;
