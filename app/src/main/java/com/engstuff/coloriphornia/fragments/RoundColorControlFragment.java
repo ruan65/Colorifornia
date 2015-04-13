@@ -5,6 +5,7 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.TextView;
 
 import com.engstuff.coloriphornia.R;
 import com.engstuff.coloriphornia.components.views.RoundColorMaker;
@@ -18,6 +19,7 @@ public class RoundColorControlFragment extends ColorControlAbstractFragment
 
     ActionButton reset;
     RoundColorMaker control;
+    TextView colorInfo;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -26,6 +28,8 @@ public class RoundColorControlFragment extends ColorControlAbstractFragment
         View rootView = inflater.inflate(R.layout.fragment_round_control, container, false);
 
         control = (RoundColorMaker) rootView.findViewById(R.id.view_round_color_maker);
+
+        colorInfo = (TextView) rootView.findViewById(R.id.round_info);
 
         reset = (ActionButton) rootView.findViewById(R.id.reset_alpha);
 
@@ -67,12 +71,19 @@ public class RoundColorControlFragment extends ColorControlAbstractFragment
     }
 
     @Override
-    public void onColorControlChange(int val, int alpha) {
+    public void onColorControlChange(int val, int alpha, float[] hsv) {
 
         this.alpha = alpha;
         r = Color.red(val);
         g = Color.green(val);
         b = Color.blue(val);
+
+
+
+        StringBuilder sb = new StringBuilder("hue: " + (int) hsv[0] + (char) 0x00B0);
+        sb.append("\nsat: " + (int) (hsv[1] * 100) + (char) 0x0025);
+        sb.append("\nval: " + (int) (hsv[2] * 100) + (char) 0x0025);
+        colorInfo.setText(sb.toString());
 
         colorChangeListener.onColorControlChange();
     }

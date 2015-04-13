@@ -13,6 +13,15 @@
         android:layout_height="match_parent"
         android:layout_centerInParent="true" />
 
+    <TextView
+        android:id="@+id/round_info"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentRight="true"
+        android:textColor="#fff"
+        android:textSize="12sp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" />
+
     <com.software.shell.fab.ActionButton
         android:id="@+id/reset_alpha"
         android:layout_width="wrap_content"
@@ -25,7 +34,7 @@
         fab:button_colorPressed="@color/primaryColorDarkTransparent"
         fab:image="@drawable/ic_settings_backup_restore_white_48dp"
         fab:image_size="48dp"
-        fab:shadow_color="#55ffffff"
+        fab:shadow_color="#88ffffff"
         fab:shadow_radius="1.0dp"
         fab:shadow_xOffset="-2dp"
         fab:shadow_yOffset="-2dp"
