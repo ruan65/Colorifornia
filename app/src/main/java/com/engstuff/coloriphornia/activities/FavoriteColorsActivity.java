@@ -24,6 +24,8 @@ public class FavoriteColorsActivity extends MockUpActivity {
 
     int gridSize;
 
+    boolean modeColorsOperation;
+
     FavoritesAdapter fAdapter;
     GridView lvFavorites;
 
@@ -42,15 +44,58 @@ public class FavoriteColorsActivity extends MockUpActivity {
         fAdapter = new FavoritesAdapter(this, fColorsList);
         lvFavorites.setAdapter(fAdapter);
 
-        lvFavorites.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+        lvFavorites.setOnItemClickListener(getOnItemClickListener(modeColorsOperation));
+        lvFavorites.setOnItemLongClickListener(getOnItemLongClickListener());
+    }
+
+    AdapterView.OnItemLongClickListener getOnItemLongClickListener() {
+
+        return new AdapterView.OnItemLongClickListener() {
+
+            @Override
+            public boolean onItemLongClick(AdapterView<?> parent, View view, int position, long id) {
+
+                if (!modeColorsOperation) {
+
+                    lvFavorites.setOnItemClickListener(getOnItemClickListener((
+                            modeColorsOperation = true)));
+
+                    checkColor(view, position, true);
+                }
+                return true;
+            }
+        };
+    }
+
+    void checkColor(View view, int position, boolean check) {
+
+        view.findViewById(R.id.check_favorite).setVisibility(check ? View.VISIBLE : View.GONE);
+
+        fColorsList.get(position).setChecked(check);
+    }
+
+    AdapterView.OnItemClickListener getOnItemClickListener(final boolean mode) {
+
+        return new AdapterView.OnItemClickListener() {
+
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
 
-                FavoriteColor c = fColorsList.get(position);
-                AppHelper.startFullColorC(FavoriteColorsActivity.this,
-                        ColorParams.makeArgbInfo(c.hexString), c.hexString);
+                if (mode) {
+
+                    if (fColorsList.get(position).isChecked()) {
+                        checkColor(view, position, false);
+                    } else {
+                        checkColor(view, position, true);
+                    }
+
+                } else {
+                    FavoriteColor c = fColorsList.get(position);
+                    AppHelper.startFullColorC(FavoriteColorsActivity.this,
+                            ColorParams.makeArgbInfo(c.hexString), c.hexString);
+                }
             }
-        });
+        };
     }
 
     private void refreshData() {
@@ -100,21 +145,18 @@ public class FavoriteColorsActivity extends MockUpActivity {
         public View getView(int position, View convertView, ViewGroup parent) {
 
             RelativeLayout frame = (RelativeLayout) convertView;
-            View checkMark;
-
-            FavoriteColor fc = fColorsList.get(position);
 
             if (frame == null) {
                 frame = (RelativeLayout) getLayoutInflater()
                         .inflate(R.layout.favorite_color_item, null);
             }
-
-            checkMark = frame.findViewById(R.id.check_favorite);
-//            checkMark.setVisibility(View.GONE);
+            FavoriteColor color = fColorsList.get(position);
 
             frame.setMinimumHeight(gridSize);
             frame.setMinimumWidth(gridSize);
-            frame.setBackgroundColor(fc.color);
+            frame.findViewById(R.id.check_favorite).setVisibility(
+                    color.isChecked() ? View.VISIBLE : View.GONE);
+            frame.setBackgroundColor(color.color);
 
             return frame;
         }
@@ -124,10 +166,19 @@ public class FavoriteColorsActivity extends MockUpActivity {
 
         String hexString;
         int color;
+        boolean checked;
 
         private FavoriteColor(String h) {
             hexString = h;
             color = (int) Long.parseLong(hexString.substring(1), 16);
+        }
+
+        public void setChecked(boolean checked) {
+            this.checked = checked;
+        }
+
+        public boolean isChecked() {
+            return checked;
         }
     }
 }
