@@ -8,6 +8,7 @@ import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.GridView;
+import android.widget.RelativeLayout;
 
 import com.engstuff.coloriphornia.R;
 import com.engstuff.coloriphornia.data.Cv;
@@ -86,6 +87,9 @@ public class FavoriteColorsActivity extends MockUpActivity {
         return "";
     }
 
+    /**
+     *  Custom adapter
+     */
     private class FavoritesAdapter extends ArrayAdapter<FavoriteColor> {
 
         public FavoritesAdapter(Context context, ArrayList<FavoriteColor> data) {
@@ -95,18 +99,24 @@ public class FavoriteColorsActivity extends MockUpActivity {
         @Override
         public View getView(int position, View convertView, ViewGroup parent) {
 
-            View v = convertView;
+            RelativeLayout frame = (RelativeLayout) convertView;
+            View checkMark;
 
             FavoriteColor fc = fColorsList.get(position);
 
-            if (v == null) {
-                v = new View(getApplicationContext());
+            if (frame == null) {
+                frame = (RelativeLayout) getLayoutInflater()
+                        .inflate(R.layout.favorite_color_item, null);
             }
-            v.setMinimumHeight(gridSize);
-            v.setMinimumWidth(gridSize);
-            v.setBackgroundColor(fc.color);
 
-            return v;
+            checkMark = frame.findViewById(R.id.check_favorite);
+//            checkMark.setVisibility(View.GONE);
+
+            frame.setMinimumHeight(gridSize);
+            frame.setMinimumWidth(gridSize);
+            frame.setBackgroundColor(fc.color);
+
+            return frame;
         }
     }
 
