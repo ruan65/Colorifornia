@@ -3,12 +3,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     tools:context=".Main">
 
-    <item
-        android:id="@+id/menu_item_share"
-        android:icon="@drawable/ic_action_share"
-        android:orderInCategory="20"
-        android:title="@string/share"
-        app:showAsAction="always" />
+
 
     <item
         android:id="@+id/bin"
@@ -16,6 +11,21 @@
         android:title="@string/erase"
         android:icon="@drawable/ic_action_discard"
         android:visible="false"
+        app:showAsAction="always" />
+
+    <item
+        android:id="@+id/check_mode"
+        android:orderInCategory="10"
+        android:title="@string/erase"
+        android:icon="@drawable/ic_action_accept"
+        android:visible="false"
+        app:showAsAction="always" />
+
+    <item
+        android:id="@+id/menu_item_share"
+        android:icon="@drawable/ic_action_share"
+        android:orderInCategory="20"
+        android:title="@string/share"
         app:showAsAction="always" />
 
     <item

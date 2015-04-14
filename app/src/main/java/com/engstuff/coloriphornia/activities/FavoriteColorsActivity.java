@@ -5,7 +5,7 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.graphics.Point;
 import android.os.Bundle;
-import android.util.Log;
+import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
@@ -18,7 +18,6 @@ import com.engstuff.coloriphornia.R;
 import com.engstuff.coloriphornia.data.Cv;
 import com.engstuff.coloriphornia.helpers.AppHelper;
 import com.engstuff.coloriphornia.helpers.ColorParams;
-import com.engstuff.coloriphornia.helpers.Logging;
 import com.engstuff.coloriphornia.helpers.PrefsHelper;
 
 import java.util.ArrayList;
@@ -53,41 +52,6 @@ public class FavoriteColorsActivity extends MockUpActivity {
         lvFavorites.setOnItemLongClickListener(getOnItemLongClickListener());
     }
 
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-
-        switch (item.getItemId()) {
-
-            case R.id.bin:
-
-                new AlertDialog.Builder(this, AlertDialog.THEME_HOLO_LIGHT)
-                        .setTitle("Dismiss checked")
-                        .setMessage("All checked colors will be deleted saved colors list!?")
-                        .setPositiveButton(R.string.ok, new DialogInterface.OnClickListener() {
-                            @Override
-                            public void onClick(DialogInterface dialog, int which) {
-
-                                for (FavoriteColor fc : fColorsList) {
-                                    if (fc.isChecked()) {
-
-                                        PrefsHelper.erasePrefs(activity, Cv.SAVED_COLORS, fc.hexString);
-                                    }
-                                }
-                                activity.recreate();
-                            }
-                        })
-                        .setNegativeButton(R.string.no, new DialogInterface.OnClickListener() {
-                            @Override
-                            public void onClick(DialogInterface dialog, int which) {
-                                // ignore
-                            }
-                        })
-                        .show();
-                break;
-        }
-        return super.onOptionsItemSelected(item);
-    }
-
     private AdapterView.OnItemLongClickListener getOnItemLongClickListener() {
 
         return new AdapterView.OnItemLongClickListener() {
@@ -98,9 +62,8 @@ public class FavoriteColorsActivity extends MockUpActivity {
                 if (!modeColorsOperation) {
 
                     setColorOperationsMode();
-
-                    checkColor(view, position, true);
                 }
+                checkColor(view, position, true);
                 return true;
             }
         };
@@ -154,7 +117,8 @@ public class FavoriteColorsActivity extends MockUpActivity {
 
         lvFavorites.setOnItemClickListener(operationModeOnClickListener);
 
-        bin.setVisible(true);
+        checkModeIcon.setVisible(false);
+        binIcon.setVisible(true);
     }
 
     private void setViewMode() {
@@ -163,7 +127,8 @@ public class FavoriteColorsActivity extends MockUpActivity {
 
         lvFavorites.setOnItemClickListener(viewModeOnClickListener);
 
-        bin.setVisible(false);
+        checkModeIcon.setVisible(true);
+        binIcon.setVisible(false);
     }
 
     private void checkColor(View view, int position, boolean check) {
@@ -195,6 +160,57 @@ public class FavoriteColorsActivity extends MockUpActivity {
         super.onResume();
         refreshData();
         fAdapter.notifyDataSetChanged();
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        boolean retValue = super.onCreateOptionsMenu(menu);
+        checkModeIcon.setVisible(true);
+        return retValue;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+
+        switch (item.getItemId()) {
+
+            case R.id.bin:
+
+                new AlertDialog.Builder(this, AlertDialog.THEME_HOLO_LIGHT)
+                        .setTitle("Discard checked")
+                        .setMessage("All checked colors will be deleted saved colors list!?")
+                        .setPositiveButton(R.string.ok, new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialog, int which) {
+
+                                for (FavoriteColor fc : fColorsList) {
+                                    if (fc.isChecked()) {
+
+                                        PrefsHelper.erasePrefs(activity, Cv.SAVED_COLORS, fc.hexString);
+                                    }
+                                }
+                                activity.recreate();
+                            }
+                        })
+                        .setNegativeButton(R.string.no, new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialog, int which) {
+                                // ignore
+                            }
+                        })
+                        .show();
+                break;
+
+            case R.id.check_mode:
+
+                setColorOperationsMode();
+
+                for (int i = 0; i < fColorsList.size(); i++) {
+                    lvFavorites.getChildAt(i).performClick();
+                }
+                break;
+        }
+        return super.onOptionsItemSelected(item);
     }
 
     @Override

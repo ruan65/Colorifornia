@@ -25,7 +25,8 @@ public abstract class MockUpActivity extends ActionBarActivity {
     Toolbar mToolbar;
     DrawerLayout mDrawerLayout; // parent activity layout
     View mDrawerView; // child drawer view
-    MenuItem bin;
+    MenuItem binIcon;
+    MenuItem checkModeIcon;
 
     protected final Activity activity = this;
 
@@ -70,7 +71,8 @@ public abstract class MockUpActivity extends ActionBarActivity {
     public boolean onCreateOptionsMenu(Menu menu) {
 
         getMenuInflater().inflate(R.menu.menu_main, menu);
-        bin = menu.findItem(R.id.bin);
+        binIcon = menu.findItem(R.id.bin);
+        checkModeIcon = menu.findItem(R.id.check_mode);
 
         return super.onCreateOptionsMenu(menu);
     }
