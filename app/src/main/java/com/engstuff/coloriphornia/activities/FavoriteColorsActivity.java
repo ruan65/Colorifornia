@@ -120,6 +120,7 @@ public class FavoriteColorsActivity extends MockUpActivity {
 
         checkModeIcon.setVisible(false);
         binIcon.setVisible(true);
+        undoIcon.setVisible(true);
     }
 
     private void setViewMode() {
@@ -130,6 +131,7 @@ public class FavoriteColorsActivity extends MockUpActivity {
 
         checkModeIcon.setVisible(true);
         binIcon.setVisible(false);
+        undoIcon.setVisible(false);
     }
 
     private void checkColor(View view, int position, boolean check) {
@@ -206,13 +208,22 @@ public class FavoriteColorsActivity extends MockUpActivity {
 
                 setColorOperationsMode();
 
-                for (int i = 0; i < fColorsList.size(); i++) {
+                clickAllColors();
+                break;
 
-                    gridView.performItemClick(gridView.getChildAt(i), i, R.id.check_favorite);
-                }
+            case R.id.undo:
+
+                activity.recreate();
                 break;
         }
         return super.onOptionsItemSelected(item);
+    }
+
+    void clickAllColors() {
+        for (int i = 0; i < fColorsList.size(); i++) {
+
+            gridView.performItemClick(gridView.getChildAt(i), i, R.id.check_favorite);
+        }
     }
 
     @Override

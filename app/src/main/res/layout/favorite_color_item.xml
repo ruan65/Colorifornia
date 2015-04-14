@@ -4,7 +4,7 @@
 
     <ImageView
         android:id="@+id/check_favorite"
-        android:src="@drawable/ic_check_white_48dp"
+        android:src="@drawable/ic_done_white_48dp"
         android:background="#33000000"
         android:padding="5dp"
         android:layout_centerInParent="true"

@@ -14,10 +14,18 @@
         app:showAsAction="always" />
 
     <item
+        android:id="@+id/undo"
+        android:orderInCategory="10"
+        android:title="@string/erase"
+        android:icon="@drawable/ic_undo_white_36dp"
+        android:visible="false"
+        app:showAsAction="always" />
+
+    <item
         android:id="@+id/check_mode"
         android:orderInCategory="10"
         android:title="@string/erase"
-        android:icon="@drawable/ic_action_accept"
+        android:icon="@drawable/ic_done_all_white_36dp"
         android:visible="false"
         app:showAsAction="always" />
 

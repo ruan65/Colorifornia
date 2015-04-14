@@ -27,6 +27,7 @@ public abstract class MockUpActivity extends ActionBarActivity {
     View mDrawerView; // child drawer view
     MenuItem binIcon;
     MenuItem checkModeIcon;
+    MenuItem undoIcon;
 
     protected final Activity activity = this;
 
@@ -71,8 +72,10 @@ public abstract class MockUpActivity extends ActionBarActivity {
     public boolean onCreateOptionsMenu(Menu menu) {
 
         getMenuInflater().inflate(R.menu.menu_main, menu);
+
         binIcon = menu.findItem(R.id.bin);
         checkModeIcon = menu.findItem(R.id.check_mode);
+        undoIcon = menu.findItem(R.id.undo);
 
         return super.onCreateOptionsMenu(menu);
     }

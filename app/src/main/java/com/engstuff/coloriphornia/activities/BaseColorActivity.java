@@ -51,6 +51,26 @@ public abstract class BaseColorActivity extends MockUpActivity implements
     }
 
     @Override
+    public void onWindowFocusChanged(boolean hasFocus) {
+        super.onWindowFocusChanged(hasFocus);
+        if (hasFocus) {
+
+            /**
+             * This two calls I need to unset "like" tag after color deleting from favorites
+             */
+            for (WeakReference<Fragment> ref : allAttachedFragments) {
+
+                Fragment f = ref.get();
+
+                if (f.getClass().equals(FragmentColorBox.class)) {
+                    AppHelper.unsetLike((FragmentColorBox) f);
+                    AppHelper.setLike(this, (FragmentColorBox) f);
+                }
+            }
+        }
+    }
+
+    @Override
     public void onCreateContextMenu(ContextMenu menu, View v, ContextMenu.ContextMenuInfo menuInfo) {
         super.onCreateContextMenu(menu, v, menuInfo);
         getMenuInflater().inflate(R.menu.context_menu_color_box, menu);
@@ -130,7 +150,7 @@ public abstract class BaseColorActivity extends MockUpActivity implements
 
     @Override
     public void onTextColorChanged() {
-        if (null !=  currentColorBox) AppHelper.setInfoIcon(currentColorBox);
+        if (null != currentColorBox) AppHelper.setInfoIcon(currentColorBox);
     }
 
     protected void changeFragment(FragmentColorBox box) {
