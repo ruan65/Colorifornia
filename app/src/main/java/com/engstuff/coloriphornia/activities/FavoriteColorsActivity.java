@@ -18,6 +18,7 @@ import com.engstuff.coloriphornia.R;
 import com.engstuff.coloriphornia.data.Cv;
 import com.engstuff.coloriphornia.helpers.AppHelper;
 import com.engstuff.coloriphornia.helpers.ColorParams;
+import com.engstuff.coloriphornia.helpers.Logging;
 import com.engstuff.coloriphornia.helpers.PrefsHelper;
 
 import java.util.ArrayList;
@@ -31,25 +32,25 @@ public class FavoriteColorsActivity extends MockUpActivity {
     boolean modeColorsOperation;
 
     FavoritesAdapter fAdapter;
-    GridView lvFavorites;
+    GridView gridView;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        lvFavorites = (GridView) findViewById(R.id.favorite_colors);
+        gridView = (GridView) findViewById(R.id.favorite_colors);
 
         gridSize = calculateGridSize();
 
-        lvFavorites.setColumnWidth(gridSize);
+        gridView.setColumnWidth(gridSize);
 
         refreshData();
 
         fAdapter = new FavoritesAdapter(this, fColorsList);
-        lvFavorites.setAdapter(fAdapter);
+        gridView.setAdapter(fAdapter);
 
-        lvFavorites.setOnItemClickListener(viewModeOnClickListener);
-        lvFavorites.setOnItemLongClickListener(getOnItemLongClickListener());
+        gridView.setOnItemClickListener(viewModeOnClickListener);
+        gridView.setOnItemLongClickListener(getOnItemLongClickListener());
     }
 
     private AdapterView.OnItemLongClickListener getOnItemLongClickListener() {
@@ -115,7 +116,7 @@ public class FavoriteColorsActivity extends MockUpActivity {
 
         modeColorsOperation = true;
 
-        lvFavorites.setOnItemClickListener(operationModeOnClickListener);
+        gridView.setOnItemClickListener(operationModeOnClickListener);
 
         checkModeIcon.setVisible(false);
         binIcon.setVisible(true);
@@ -125,7 +126,7 @@ public class FavoriteColorsActivity extends MockUpActivity {
 
         modeColorsOperation = false;
 
-        lvFavorites.setOnItemClickListener(viewModeOnClickListener);
+        gridView.setOnItemClickListener(viewModeOnClickListener);
 
         checkModeIcon.setVisible(true);
         binIcon.setVisible(false);
@@ -206,7 +207,8 @@ public class FavoriteColorsActivity extends MockUpActivity {
                 setColorOperationsMode();
 
                 for (int i = 0; i < fColorsList.size(); i++) {
-                    lvFavorites.getChildAt(i).performClick();
+
+                    gridView.performItemClick(gridView.getChildAt(i), i, R.id.check_favorite);
                 }
                 break;
         }
