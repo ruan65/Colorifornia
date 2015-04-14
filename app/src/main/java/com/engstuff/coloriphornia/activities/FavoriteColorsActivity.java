@@ -18,6 +18,7 @@ import com.engstuff.coloriphornia.R;
 import com.engstuff.coloriphornia.data.Cv;
 import com.engstuff.coloriphornia.helpers.AppHelper;
 import com.engstuff.coloriphornia.helpers.ColorParams;
+import com.engstuff.coloriphornia.helpers.Logging;
 import com.engstuff.coloriphornia.helpers.PrefsHelper;
 
 import java.util.ArrayList;
@@ -48,7 +49,7 @@ public class FavoriteColorsActivity extends MockUpActivity {
         fAdapter = new FavoritesAdapter(this, fColorsList);
         lvFavorites.setAdapter(fAdapter);
 
-        lvFavorites.setOnItemClickListener(getOnItemClickListener(modeColorsOperation));
+        lvFavorites.setOnItemClickListener(viewModeOnClickListener);
         lvFavorites.setOnItemLongClickListener(getOnItemLongClickListener());
     }
 
@@ -60,8 +61,8 @@ public class FavoriteColorsActivity extends MockUpActivity {
             case R.id.bin:
 
                 new AlertDialog.Builder(this, AlertDialog.THEME_HOLO_LIGHT)
-                        .setTitle("Delete saved colors")
-                        .setMessage("All checked colors will be deleted!?")
+                        .setTitle("Dismiss checked")
+                        .setMessage("All checked colors will be deleted saved colors list!?")
                         .setPositiveButton(R.string.ok, new DialogInterface.OnClickListener() {
                             @Override
                             public void onClick(DialogInterface dialog, int which) {
@@ -87,45 +88,6 @@ public class FavoriteColorsActivity extends MockUpActivity {
         return super.onOptionsItemSelected(item);
     }
 
-    AdapterView.OnItemClickListener getOnItemClickListener(final boolean mode) {
-
-        return new AdapterView.OnItemClickListener() {
-
-            @Override
-            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-
-                if (mode) {
-
-                    if (fColorsList.get(position).isChecked()) {
-
-                        checkColor(view, position, false);
-
-                        boolean allUnchecked = true;
-
-                        for (FavoriteColor fc : fColorsList) {
-                            if (fc.isChecked()) allUnchecked = false;
-                            break;
-                        }
-
-                        if (allUnchecked) {
-                            setColorOperationsMode(false);
-                        }
-
-                    } else {
-                        checkColor(view, position, true);
-                    }
-
-                } else {
-
-                    FavoriteColor c = fColorsList.get(position);
-
-                    AppHelper.startFullColorC(FavoriteColorsActivity.this,
-                            ColorParams.makeArgbInfo(c.hexString), c.hexString);
-                }
-            }
-        };
-    }
-
     private AdapterView.OnItemLongClickListener getOnItemLongClickListener() {
 
         return new AdapterView.OnItemLongClickListener() {
@@ -135,7 +97,7 @@ public class FavoriteColorsActivity extends MockUpActivity {
 
                 if (!modeColorsOperation) {
 
-                    setColorOperationsMode(true);
+                    setColorOperationsMode();
 
                     checkColor(view, position, true);
                 }
@@ -144,12 +106,64 @@ public class FavoriteColorsActivity extends MockUpActivity {
         };
     }
 
-    private void setColorOperationsMode(boolean toSetOrNotToSet) {
+    AdapterView.OnItemClickListener viewModeOnClickListener = new AdapterView.OnItemClickListener() {
 
-        lvFavorites.setOnItemClickListener(getOnItemClickListener((
-                modeColorsOperation = toSetOrNotToSet)));
+        @Override
+        public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
 
-        bin.setVisible(toSetOrNotToSet);
+            FavoriteColor c = fColorsList.get(position);
+
+            AppHelper.startFullColorC(FavoriteColorsActivity.this,
+                    ColorParams.makeArgbInfo(c.hexString), c.hexString);
+        }
+    };
+
+    AdapterView.OnItemClickListener operationModeOnClickListener = new AdapterView.OnItemClickListener() {
+
+        @Override
+        public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+
+            if (fColorsList.get(position).isChecked()) {
+
+                checkColor(view, position, false);
+
+                boolean allUnchecked = true;
+
+                for (FavoriteColor fc : fColorsList) {
+
+                    if (fc.isChecked()) {
+                        allUnchecked = false;
+                        break;
+                    }
+                }
+
+                if (allUnchecked) {
+
+                    setViewMode();
+                }
+
+            } else {
+                checkColor(view, position, true);
+            }
+        }
+    };
+
+    private void setColorOperationsMode() {
+
+        modeColorsOperation = true;
+
+        lvFavorites.setOnItemClickListener(operationModeOnClickListener);
+
+        bin.setVisible(true);
+    }
+
+    private void setViewMode() {
+
+        modeColorsOperation = false;
+
+        lvFavorites.setOnItemClickListener(viewModeOnClickListener);
+
+        bin.setVisible(false);
     }
 
     private void checkColor(View view, int position, boolean check) {
