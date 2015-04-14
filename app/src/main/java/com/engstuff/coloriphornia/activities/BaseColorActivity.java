@@ -159,6 +159,6 @@ public abstract class BaseColorActivity extends MockUpActivity implements
         String hexColorParams = currentColorBox.getHexColorParams();
         int colorHex = currentColorBox.getColorHex();
 
-        writeToPrefs(ctx, Cv.SAVED_COLORS, hexColorParams, colorHex);
+        writeToPrefs(activity, Cv.SAVED_COLORS, hexColorParams, colorHex);
     }
 }

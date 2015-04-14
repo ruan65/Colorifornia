@@ -1,15 +1,12 @@
 package com.engstuff.coloriphornia.activities;
 
-import android.app.AlertDialog;
-import android.content.Context;
-import android.content.DialogInterface;
+import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarActivity;
 import android.support.v7.widget.Toolbar;
 import android.text.Html;
-import android.util.Log;
 import android.view.KeyEvent;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -21,7 +18,6 @@ import com.engstuff.coloriphornia.fragments.DialogFragmentSavedEmails;
 import com.engstuff.coloriphornia.fragments.FragmentNavDrawer;
 import com.engstuff.coloriphornia.helpers.PrefsHelper;
 
-import static com.engstuff.coloriphornia.helpers.PrefsHelper.eraseAllPrefs;
 import static com.engstuff.coloriphornia.helpers.PrefsHelper.readFromPrefsAllToArray;
 
 public abstract class MockUpActivity extends ActionBarActivity {
@@ -29,8 +25,10 @@ public abstract class MockUpActivity extends ActionBarActivity {
     Toolbar mToolbar;
     DrawerLayout mDrawerLayout; // parent activity layout
     View mDrawerView; // child drawer view
+    MenuItem bin;
 
-    protected final Context ctx = this;
+    protected final Activity activity = this;
+
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -70,7 +68,9 @@ public abstract class MockUpActivity extends ActionBarActivity {
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
+
         getMenuInflater().inflate(R.menu.menu_main, menu);
+        bin = menu.findItem(R.id.bin);
 
         return super.onCreateOptionsMenu(menu);
     }
@@ -83,26 +83,6 @@ public abstract class MockUpActivity extends ActionBarActivity {
             case R.id.saved_emails:
 
                 new DialogFragmentSavedEmails().show(getFragmentManager(), null);
-                break;
-
-            case R.id.erase:
-
-                new AlertDialog.Builder(this, AlertDialog.THEME_HOLO_LIGHT)
-                        .setTitle("Delete saved colors")
-                        .setMessage("All saved colors will be deleted!?")
-                        .setPositiveButton(R.string.ok, new DialogInterface.OnClickListener() {
-                            @Override
-                            public void onClick(DialogInterface dialog, int which) {
-                                eraseAllPrefs(ctx, Cv.SAVED_COLORS);
-                            }
-                        })
-                        .setNegativeButton(R.string.no, new DialogInterface.OnClickListener() {
-                            @Override
-                            public void onClick(DialogInterface dialog, int which) {
-                                // ignore
-                            }
-                        })
-                        .show();
                 break;
 
             case R.id.menu_item_share:

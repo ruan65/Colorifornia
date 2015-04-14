@@ -1,8 +1,12 @@
 package com.engstuff.coloriphornia.activities;
 
+import android.app.AlertDialog;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.graphics.Point;
 import android.os.Bundle;
+import android.util.Log;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
@@ -48,30 +52,39 @@ public class FavoriteColorsActivity extends MockUpActivity {
         lvFavorites.setOnItemLongClickListener(getOnItemLongClickListener());
     }
 
-    AdapterView.OnItemLongClickListener getOnItemLongClickListener() {
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
 
-        return new AdapterView.OnItemLongClickListener() {
+        switch (item.getItemId()) {
 
-            @Override
-            public boolean onItemLongClick(AdapterView<?> parent, View view, int position, long id) {
+            case R.id.bin:
 
-                if (!modeColorsOperation) {
+                new AlertDialog.Builder(this, AlertDialog.THEME_HOLO_LIGHT)
+                        .setTitle("Delete saved colors")
+                        .setMessage("All checked colors will be deleted!?")
+                        .setPositiveButton(R.string.ok, new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialog, int which) {
 
-                    lvFavorites.setOnItemClickListener(getOnItemClickListener((
-                            modeColorsOperation = true)));
+                                for (FavoriteColor fc : fColorsList) {
+                                    if (fc.isChecked()) {
 
-                    checkColor(view, position, true);
-                }
-                return true;
-            }
-        };
-    }
-
-    void checkColor(View view, int position, boolean check) {
-
-        view.findViewById(R.id.check_favorite).setVisibility(check ? View.VISIBLE : View.GONE);
-
-        fColorsList.get(position).setChecked(check);
+                                        PrefsHelper.erasePrefs(activity, Cv.SAVED_COLORS, fc.hexString);
+                                    }
+                                }
+                                activity.recreate();
+                            }
+                        })
+                        .setNegativeButton(R.string.no, new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialog, int which) {
+                                // ignore
+                            }
+                        })
+                        .show();
+                break;
+        }
+        return super.onOptionsItemSelected(item);
     }
 
     AdapterView.OnItemClickListener getOnItemClickListener(final boolean mode) {
@@ -84,18 +97,66 @@ public class FavoriteColorsActivity extends MockUpActivity {
                 if (mode) {
 
                     if (fColorsList.get(position).isChecked()) {
+
                         checkColor(view, position, false);
+
+                        boolean allUnchecked = true;
+
+                        for (FavoriteColor fc : fColorsList) {
+                            if (fc.isChecked()) allUnchecked = false;
+                            break;
+                        }
+
+                        if (allUnchecked) {
+                            setColorOperationsMode(false);
+                        }
+
                     } else {
                         checkColor(view, position, true);
                     }
 
                 } else {
+
                     FavoriteColor c = fColorsList.get(position);
+
                     AppHelper.startFullColorC(FavoriteColorsActivity.this,
                             ColorParams.makeArgbInfo(c.hexString), c.hexString);
                 }
             }
         };
+    }
+
+    private AdapterView.OnItemLongClickListener getOnItemLongClickListener() {
+
+        return new AdapterView.OnItemLongClickListener() {
+
+            @Override
+            public boolean onItemLongClick(AdapterView<?> parent, View view, int position, long id) {
+
+                if (!modeColorsOperation) {
+
+                    setColorOperationsMode(true);
+
+                    checkColor(view, position, true);
+                }
+                return true;
+            }
+        };
+    }
+
+    private void setColorOperationsMode(boolean toSetOrNotToSet) {
+
+        lvFavorites.setOnItemClickListener(getOnItemClickListener((
+                modeColorsOperation = toSetOrNotToSet)));
+
+        bin.setVisible(toSetOrNotToSet);
+    }
+
+    private void checkColor(View view, int position, boolean check) {
+
+        view.findViewById(R.id.check_favorite).setVisibility(check ? View.VISIBLE : View.GONE);
+
+        fColorsList.get(position).setChecked(check);
     }
 
     private void refreshData() {
@@ -133,7 +194,7 @@ public class FavoriteColorsActivity extends MockUpActivity {
     }
 
     /**
-     *  Custom adapter
+     * Custom adapter
      */
     private class FavoritesAdapter extends ArrayAdapter<FavoriteColor> {
 

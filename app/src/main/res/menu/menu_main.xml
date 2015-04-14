@@ -10,10 +10,12 @@
         app:showAsAction="ifRoom" />
 
     <item
-        android:id="@+id/erase"
+        android:id="@+id/bin"
         android:orderInCategory="40"
         android:title="@string/erase"
-        app:showAsAction="never" />
+        android:icon="@drawable/ic_action_discard"
+        android:visible="false"
+        app:showAsAction="always" />
 
     <item
         android:id="@+id/saved_emails"
