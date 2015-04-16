@@ -6,33 +6,40 @@
 
 
     <item
-        android:id="@+id/bin"
-        android:orderInCategory="10"
+        android:id="@+id/back"
+        android:orderInCategory="40"
         android:title="@string/erase"
-        android:icon="@drawable/ic_action_discard"
-        android:visible="false"
+        android:icon="@drawable/ic_action_back"
         app:showAsAction="always" />
 
     <item
         android:id="@+id/undo"
-        android:orderInCategory="10"
+        android:orderInCategory="50"
         android:title="@string/erase"
         android:icon="@drawable/ic_undo_white_36dp"
         android:visible="false"
         app:showAsAction="always" />
 
     <item
-        android:id="@+id/check_mode"
-        android:orderInCategory="10"
+        android:id="@+id/bin"
+        android:orderInCategory="100"
         android:title="@string/erase"
-        android:icon="@drawable/ic_done_all_white_36dp"
+        android:icon="@drawable/ic_action_discard"
+        android:visible="false"
+        app:showAsAction="always" />
+
+    <item
+        android:id="@+id/check_mode"
+        android:orderInCategory="100"
+        android:title="@string/erase"
+        android:icon="@drawable/ic_select_all_white_36dp"
         android:visible="false"
         app:showAsAction="always" />
 
     <item
         android:id="@+id/menu_item_share"
-        android:icon="@drawable/ic_action_share"
-        android:orderInCategory="20"
+        android:icon="@drawable/ic_send_white_36dp"
+        android:orderInCategory="200"
         android:title="@string/share"
         app:showAsAction="always" />
 

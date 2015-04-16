@@ -16,6 +16,7 @@ import com.engstuff.coloriphornia.R;
 import com.engstuff.coloriphornia.data.Cv;
 import com.engstuff.coloriphornia.fragments.DialogFragmentSavedEmails;
 import com.engstuff.coloriphornia.fragments.FragmentNavDrawer;
+import com.engstuff.coloriphornia.helpers.AppHelper;
 import com.engstuff.coloriphornia.helpers.PrefsHelper;
 
 import static com.engstuff.coloriphornia.helpers.PrefsHelper.readFromPrefsAllToArray;
@@ -94,6 +95,10 @@ public abstract class MockUpActivity extends ActionBarActivity {
 
                 fireShareIntent(false);
                 break;
+
+            case R.id.back:
+
+                AppHelper.startLastSavedActivity(this);
         }
         return super.onOptionsItemSelected(item);
     }

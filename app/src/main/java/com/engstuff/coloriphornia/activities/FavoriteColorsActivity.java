@@ -181,7 +181,11 @@ public class FavoriteColorsActivity extends MockUpActivity {
 
                 new AlertDialog.Builder(this, AlertDialog.THEME_HOLO_LIGHT)
                         .setTitle("Discard checked")
-                        .setMessage("All checked colors will be deleted saved colors list!?")
+                        .setMessage(
+                                fColorsList.size() > 0
+                                        ? "All checked colors will be erased. Proceed?"
+                                        : "An empty list. Nothing to delete."
+                        )
                         .setPositiveButton(R.string.ok, new DialogInterface.OnClickListener() {
                             @Override
                             public void onClick(DialogInterface dialog, int which) {

@@ -4,8 +4,10 @@ import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.widget.ImageView;
+import android.widget.Toast;
 
 import com.engstuff.coloriphornia.R;
+import com.engstuff.coloriphornia.activities.ColorFromImage;
 import com.engstuff.coloriphornia.activities.FullScreenColorC;
 import com.engstuff.coloriphornia.data.Cv;
 import com.engstuff.coloriphornia.fragments.ColorControlAbstractFragment;
@@ -90,6 +92,26 @@ public class AppHelper {
 
             control.setControls(argb[0], argb[1], argb[2], argb[3]);
             color.setColorParams().changeColor();
+        }
+    }
+
+    public static void startLastSavedActivity(Context ctx) {
+
+        Class<?> activityClass;
+        try {
+            activityClass = Class.forName(
+                    PrefsHelper.readFromPrefsString(ctx, Cv.LAST_ACTIVITY));
+
+        } catch (ClassNotFoundException e) {
+
+            activityClass = ColorFromImage.class;
+        }
+        if (activityClass.equals(ctx.getClass())) {
+
+            Toast.makeText(ctx, "History stack is empty. Use \"Navigation drawer\".",
+                    Toast.LENGTH_SHORT).show();
+        } else {
+            ctx.startActivity(new Intent(ctx, activityClass));
         }
     }
 }
