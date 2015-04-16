@@ -106,15 +106,15 @@ public class RoundColorMaker extends View implements View.OnTouchListener {
 
         cy = cx = size * 0.5f;
 
-        stroke = size * 0.1f;
+        stroke = size * 0.11f;
 
         halfHaldle = stroke / 1.85f;
 
         r1 = size * 0.43f;
 
-        r2 = size * 0.30f;
+        r2 = size * 0.294f;
 
-        r3 = size * 0.18f;
+        r3 = size * 0.159f;
 
         p_color.setStrokeWidth(stroke);
         p_satur.setStrokeWidth(stroke);

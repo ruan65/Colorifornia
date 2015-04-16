@@ -42,11 +42,7 @@
         fab:button_color="@color/primaryColor"
         fab:button_colorPressed="@color/primaryColorDarkTransparent"
         fab:image="@drawable/ic_settings_backup_restore_white_48dp"
-        fab:image_size="48dp"
-        fab:shadow_color="#88ffffff"
-        fab:shadow_radius="1.0dp"
-        fab:shadow_xOffset="-2dp"
-        fab:shadow_yOffset="-2dp"
+        fab:image_size="40dp"
         fab:hide_animation="@anim/btn_roll_to_r"
         fab:show_animation="@anim/btn_roll_from_r"/>
 

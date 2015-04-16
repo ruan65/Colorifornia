@@ -9,7 +9,7 @@
         android:id="@+id/back"
         android:orderInCategory="40"
         android:title="@string/erase"
-        android:icon="@drawable/ic_action_back"
+        android:icon="@drawable/ic_repeat_white_36dp"
         app:showAsAction="always" />
 
     <item

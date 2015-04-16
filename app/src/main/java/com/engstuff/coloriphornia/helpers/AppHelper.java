@@ -109,7 +109,7 @@ public class AppHelper {
         if (activityClass.equals(ctx.getClass())) {
 
             Toast.makeText(ctx, "History stack is empty. Use \"Navigation drawer\".",
-                    Toast.LENGTH_SHORT).show();
+                    Toast.LENGTH_LONG).show();
         } else {
             ctx.startActivity(new Intent(ctx, activityClass));
         }
