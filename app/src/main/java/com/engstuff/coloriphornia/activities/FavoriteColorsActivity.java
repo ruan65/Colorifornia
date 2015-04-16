@@ -196,7 +196,8 @@ public class FavoriteColorsActivity extends MockUpActivity {
                                         PrefsHelper.erasePrefs(activity, Cv.SAVED_COLORS, fc.hexString);
                                     }
                                 }
-                                activity.recreate();
+                                refreshData();
+                                fAdapter.notifyDataSetChanged();
                             }
                         })
                         .setNegativeButton(R.string.no, new DialogInterface.OnClickListener() {
@@ -217,7 +218,13 @@ public class FavoriteColorsActivity extends MockUpActivity {
 
             case R.id.undo:
 
-                activity.recreate();
+                for (int i = 0; i < fColorsList.size(); i++) {
+
+                    if (fColorsList.get(i).isChecked()) {
+
+                        gridView.performItemClick(gridView.getChildAt(i), i, R.id.check_favorite);
+                    }
+                }
                 break;
         }
         return super.onOptionsItemSelected(item);
