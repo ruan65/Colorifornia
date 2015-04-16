@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="utf-8"?>
+<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <PreferenceCategory
+        android:key="user_saved_emails"
+        android:title="Edit emails list">
+        <Preference
+            android:defaultValue=""
+            android:key="user_saved_emails"
+            android:title="Add email" />
+
+    </PreferenceCategory>
+
+    <PreferenceCategory
+        android:key="pref_key_info"
+        android:title="Info">
+        <CheckBoxPreference
+            android:defaultValue="false"
+            android:key="pref_key_tips"
+            android:summary="Show tips on start"
+            android:title="Tips" />
+        <Preference
+            android:dependency="pref_key_tips"
+            android:key="some_key"
+            android:summary="Put summary here"
+            android:title="Put title here" />
+        <Preference
+            android:dependency="pref_key_tips"
+            android:key="another_key"
+            android:summary="Hello world"
+            android:title="Hello title" />
+    </PreferenceCategory>
+
+</PreferenceScreen>

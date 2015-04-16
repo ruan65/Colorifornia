@@ -38,4 +38,6 @@
     <string name="select_picture">Select Picture</string>
     <string name="file_not_found">File not found...</string>
     <string name="title_activity_color_round_control_c">Colorifornia</string>
+    <string name="settings_label">Colorifornia Settings</string>
+    <string name="title_activity_app_settings">Settings</string>
 </resources>

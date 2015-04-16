@@ -169,6 +169,7 @@ public class FavoriteColorsActivity extends MockUpActivity {
     public boolean onCreateOptionsMenu(Menu menu) {
         boolean retValue = super.onCreateOptionsMenu(menu);
         checkModeIcon.setVisible(true);
+        sendIcon.setVisible(true);
         return retValue;
     }
 

@@ -13,6 +13,7 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.engstuff.coloriphornia.R;
+import com.engstuff.coloriphornia.activities.AppSettingsActivity;
 import com.engstuff.coloriphornia.activities.ColorC;
 import com.engstuff.coloriphornia.activities.ColorCC;
 import com.engstuff.coloriphornia.activities.ColorFromImage;
@@ -106,5 +107,10 @@ public class FragmentNavDrawer extends Fragment {
     @OnClick(R.id.btn_round_control_c)
     public void goToRoundControlCActivity() {
         startActivity(new Intent(activity, ColorRoundControlC.class));
+    }
+
+    @OnClick(R.id.btn_settings)
+    public void goToPrefs() {
+        startActivity(new Intent(activity, AppSettingsActivity.class));
     }
 }

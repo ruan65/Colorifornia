@@ -3,6 +3,7 @@ package com.engstuff.coloriphornia.activities;
 import android.app.Fragment;
 import android.os.Bundle;
 import android.view.ContextMenu;
+import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 
@@ -68,6 +69,14 @@ public abstract class BaseColorActivity extends MockUpActivity implements
                 }
             }
         }
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+
+        boolean rv = super.onCreateOptionsMenu(menu);
+        sendIcon.setVisible(true);
+        return rv;
     }
 
     @Override

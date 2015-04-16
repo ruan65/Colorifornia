@@ -63,7 +63,16 @@
         <activity
             android:name=".activities.ColorRoundControlC"
             android:label="@string/title_activity_color_round_control_c"
-            android:screenOrientation="portrait"></activity>
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".activities.AppSettingsActivity"
+            android:label="@string/title_activity_app_settings"
+            android:screenOrientation="portrait"
+            android:parentActivityName=".activities.Dispatcher">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="com.engstuff.coloriphornia.activities.Dispatcher" />
+        </activity>
     </application>
 
 </manifest>

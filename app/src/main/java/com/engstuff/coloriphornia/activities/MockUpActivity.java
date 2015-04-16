@@ -26,9 +26,7 @@ public abstract class MockUpActivity extends ActionBarActivity {
     Toolbar mToolbar;
     DrawerLayout mDrawerLayout; // parent activity layout
     View mDrawerView; // child drawer view
-    MenuItem binIcon;
-    MenuItem checkModeIcon;
-    MenuItem undoIcon;
+    MenuItem binIcon, checkModeIcon, undoIcon, sendIcon;
 
     protected final Activity activity = this;
 
@@ -77,6 +75,7 @@ public abstract class MockUpActivity extends ActionBarActivity {
         binIcon = menu.findItem(R.id.bin);
         checkModeIcon = menu.findItem(R.id.check_mode);
         undoIcon = menu.findItem(R.id.undo);
+        sendIcon = menu.findItem(R.id.send);
 
         return super.onCreateOptionsMenu(menu);
     }
@@ -91,7 +90,7 @@ public abstract class MockUpActivity extends ActionBarActivity {
                 new DialogFragmentSavedEmails().show(getFragmentManager(), null);
                 break;
 
-            case R.id.menu_item_share:
+            case R.id.send:
 
                 fireShareIntent(false);
                 break;
