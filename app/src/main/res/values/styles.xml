@@ -16,6 +16,13 @@
 
     </style>
 
+    <style name="SettingsFragmentStyle">
+
+        <item name="android:textColorSecondary">@color/settingsTextColorSecondary</item>
+        <item name="android:textColor">@color/settingTextColor</item>
+        <item name="android:background">@color/settingsBackground</item>
+    </style>
+
     <style name="seek_bar_style">
         <item name="android:layout_width">match_parent</item>
         <item name="android:layout_height">0dp</item>

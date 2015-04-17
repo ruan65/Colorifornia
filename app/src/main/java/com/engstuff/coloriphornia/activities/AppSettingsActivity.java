@@ -11,8 +11,10 @@ public class AppSettingsActivity extends MockUpActivity {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
+        setTheme(R.style.SettingsFragmentStyle);
+
         getFragmentManager().beginTransaction()
-                .replace(R.id.settings_fragment_container, new FragmentAppSettings())
+                .add(R.id.settings_fragment_container, new FragmentAppSettings())
                 .commit();
     }
 

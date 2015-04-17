@@ -6,7 +6,13 @@
     <color name="primaryColorDarkTransparent">#55689F38</color>
     <color name="accentColor">#795548</color>
 
-    <color name="appBarTextColor">#FFFFFF</color>
+    <color name="settingsBackground">#33691e</color>
+
+
+    <color name="appBarTextColor">#FFF</color>
+
+    <color name="settingTextColor">#CCC</color>
+    <color name="settingsTextColorSecondary">#000</color>
 
 
 </resources>

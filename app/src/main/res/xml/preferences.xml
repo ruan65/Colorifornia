@@ -1,34 +1,29 @@
 <?xml version="1.0" encoding="utf-8"?>
 <PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android">
 
-    <PreferenceCategory
+
+    <Preference
+
+        android:defaultValue=""
         android:key="user_saved_emails"
-        android:title="Edit emails list">
-        <Preference
-            android:defaultValue=""
-            android:key="user_saved_emails"
-            android:title="Add email" />
+        android:summary="Adding/deleting emails for sending colors params"
+        android:title="Edit emails" />
 
-    </PreferenceCategory>
 
     <PreferenceCategory
-        android:key="pref_key_info"
-        android:title="Info">
-        <CheckBoxPreference
-            android:defaultValue="false"
-            android:key="pref_key_tips"
-            android:summary="Show tips on start"
-            android:title="Tips" />
+        android:key="no_key"
+        android:title="Info:">
         <Preference
-            android:dependency="pref_key_tips"
-            android:key="some_key"
-            android:summary="Put summary here"
-            android:title="Put title here" />
+            android:key="no_key"
+            android:summary="On line help"
+            android:title="Help" />
         <Preference
-            android:dependency="pref_key_tips"
-            android:key="another_key"
-            android:summary="Hello world"
-            android:title="Hello title" />
+            android:key="no_key"
+            android:title="About" />
+        <Preference
+            android:key="no_key"
+            android:summary="Contact information"
+            android:title="Contacts" />
     </PreferenceCategory>
 
 </PreferenceScreen>
