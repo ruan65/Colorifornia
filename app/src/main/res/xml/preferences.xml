@@ -5,7 +5,7 @@
     <Preference
 
         android:defaultValue=""
-        android:key="user_saved_emails"
+        android:key="@string/prefs_user_saved_emails"
         android:summary="Adding/deleting emails for sending colors params"
         android:title="Edit emails" />
 

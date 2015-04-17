@@ -37,11 +37,9 @@
         android:layout_height="wrap_content"
         android:layout_centerInParent="true"
         android:onClick="resetAlphaAndSatur"
-        android:rotation="180"
-
         fab:button_color="@color/primaryColor"
         fab:button_colorPressed="@color/primaryColorDarkTransparent"
-        fab:image="@drawable/ic_settings_backup_restore_white_48dp"
+        fab:image="@drawable/ic_sync_black_48dp"
         fab:image_size="40dp"
         fab:hide_animation="@anim/btn_roll_to_r"
         fab:show_animation="@anim/btn_roll_from_r"/>

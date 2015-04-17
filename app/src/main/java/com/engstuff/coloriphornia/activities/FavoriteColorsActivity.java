@@ -18,7 +18,6 @@ import com.engstuff.coloriphornia.R;
 import com.engstuff.coloriphornia.data.Cv;
 import com.engstuff.coloriphornia.helpers.AppHelper;
 import com.engstuff.coloriphornia.helpers.ColorParams;
-import com.engstuff.coloriphornia.helpers.Logging;
 import com.engstuff.coloriphornia.helpers.PrefsHelper;
 
 import java.util.ArrayList;
@@ -199,6 +198,7 @@ public class FavoriteColorsActivity extends MockUpActivity {
                                 }
                                 refreshData();
                                 fAdapter.notifyDataSetChanged();
+                                setViewMode();
                             }
                         })
                         .setNegativeButton(R.string.no, new DialogInterface.OnClickListener() {
@@ -214,28 +214,26 @@ public class FavoriteColorsActivity extends MockUpActivity {
 
                 setColorOperationsMode();
 
-                clickAllColors();
+                checkAllColors(true);
                 break;
 
             case R.id.undo:
 
-                for (int i = 0; i < fColorsList.size(); i++) {
+                checkAllColors(false);
 
-                    if (fColorsList.get(i).isChecked()) {
-
-                        gridView.performItemClick(gridView.getChildAt(i), i, R.id.check_favorite);
-                    }
-                }
+                setViewMode();
                 break;
         }
         return super.onOptionsItemSelected(item);
     }
 
-    void clickAllColors() {
-        for (int i = 0; i < fColorsList.size(); i++) {
+    void checkAllColors(boolean checkOrUncheckThatIsTheQuestion) {
 
-            gridView.performItemClick(gridView.getChildAt(i), i, R.id.check_favorite);
+        for (FavoriteColor fc : fColorsList) {
+            fc.setChecked(checkOrUncheckThatIsTheQuestion);
         }
+
+        fAdapter.notifyDataSetChanged();
     }
 
     @Override
