@@ -28,4 +28,8 @@ public interface Cv {
     String LAST_COLOR_BOX_2 = "last_color_box2";
 
     String IMAGE_FRAGMENT_RETAINED = "retained_img_fragment";
+    String LAST_COLOR = "last_color";
+    String EMAIL_SUBJ = "Color parameters from \"Colorifornia\"";
+
+    String CHOOSER_TITLE = "Send color(s) parameters...";
 }

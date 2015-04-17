@@ -11,8 +11,6 @@ public class AppSettingsActivity extends MockUpActivity {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        setTheme(R.style.SettingsFragmentStyle);
-
         getFragmentManager().beginTransaction()
                 .add(R.id.settings_fragment_container, new FragmentAppSettings())
                 .commit();

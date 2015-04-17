@@ -6,9 +6,7 @@ import com.engstuff.coloriphornia.R;
 import com.engstuff.coloriphornia.data.Cv;
 import com.engstuff.coloriphornia.fragments.SeekBarsColorControlFragment;
 import com.engstuff.coloriphornia.helpers.AppHelper;
-import com.engstuff.coloriphornia.helpers.ColorParams;
 import com.engstuff.coloriphornia.helpers.PrefsHelper;
-import com.engstuff.coloriphornia.interfaces.ColorControlChangeListener;
 
 public class ColorC extends BaseColorActivity {
 
@@ -29,14 +27,14 @@ public class ColorC extends BaseColorActivity {
     public void onResume() {
         super.onResume();
 
-        AppHelper.setColorToColorBox(this, "last_color", fragmentControl, currentColorBox);
+        AppHelper.setColorToColorBox(this, Cv.LAST_COLOR, fragmentControl, currentColorBox);
         AppHelper.setLikesAndInfo(this, currentColorBox);
     }
 
     @Override
     public void onPause() {
         super.onPause();
-        PrefsHelper.writeToPrefs(this, Cv.PREFS_RETAIN, "last_color",
+        PrefsHelper.writeToPrefs(this, Cv.PREFS_RETAIN, Cv.LAST_COLOR,
                 currentColorBox.getHexColorParams());
     }
 

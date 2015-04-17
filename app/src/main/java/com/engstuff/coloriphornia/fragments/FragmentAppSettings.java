@@ -14,6 +14,7 @@ public class FragmentAppSettings extends PreferenceFragment {
 
         addPreferencesFromResource(R.xml.preferences);
 
+
         findPreference(getString(R.string.prefs_user_saved_emails))
                 .setOnPreferenceClickListener(new Preference.OnPreferenceClickListener() {
 

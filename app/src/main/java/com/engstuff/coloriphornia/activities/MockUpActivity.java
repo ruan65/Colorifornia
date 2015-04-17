@@ -14,7 +14,6 @@ import android.view.View;
 
 import com.engstuff.coloriphornia.R;
 import com.engstuff.coloriphornia.data.Cv;
-import com.engstuff.coloriphornia.fragments.DialogFragmentSavedEmails;
 import com.engstuff.coloriphornia.fragments.FragmentNavDrawer;
 import com.engstuff.coloriphornia.helpers.AppHelper;
 import com.engstuff.coloriphornia.helpers.PrefsHelper;
@@ -85,11 +84,6 @@ public abstract class MockUpActivity extends ActionBarActivity {
 
         switch (item.getItemId()) {
 
-            case R.id.saved_emails:
-
-                new DialogFragmentSavedEmails().show(getFragmentManager(), null);
-                break;
-
             case R.id.send:
 
                 fireShareIntent(false);
@@ -103,6 +97,7 @@ public abstract class MockUpActivity extends ActionBarActivity {
     }
 
     public void fireShareIntent(boolean calledFromContextMenu) {
+
         Intent emailIntent = new Intent(Intent.ACTION_SEND);
 
         emailIntent.setType("message/rfc822");
@@ -110,11 +105,11 @@ public abstract class MockUpActivity extends ActionBarActivity {
         emailIntent.putExtra(Intent.EXTRA_EMAIL,
                 readFromPrefsAllToArray(this, Cv.SAVED_EMAILS));
 
-        emailIntent.putExtra(Intent.EXTRA_SUBJECT, "Color parameters from Colorifornia");
+        emailIntent.putExtra(Intent.EXTRA_SUBJECT, Cv.EMAIL_SUBJ);
 
         emailIntent.putExtra(Intent.EXTRA_TEXT, Html.fromHtml(composeEmailBody(calledFromContextMenu)));
 
-        startActivity(Intent.createChooser(emailIntent, "Send color(s) parameters..."));
+        startActivity(Intent.createChooser(emailIntent, Cv.CHOOSER_TITLE));
     }
 
     protected abstract int getLayoutResource();
