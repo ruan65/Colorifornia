@@ -1,5 +1,7 @@
 package com.engstuff.coloriphornia.helpers;
 
+import android.accounts.Account;
+import android.accounts.AccountManager;
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
@@ -77,7 +79,10 @@ public class AppHelper {
         }
     }
 
-    public static void setColorToColorBox(Context ctx, String prefsKey, ColorControlAbstractFragment control, FragmentColorBox color) {
+    public static void setColorToColorBox(Context ctx,
+                                          String prefsKey,
+                                          ColorControlAbstractFragment control,
+                                          FragmentColorBox color) {
         String hexColor = PrefsHelper.readFromPrefsString(
                 ctx, Cv.PREFS_RETAIN, prefsKey);
 
@@ -113,5 +118,24 @@ public class AppHelper {
         } else {
             ctx.startActivity(new Intent(ctx, activityClass));
         }
+    }
+
+    public static String getDeviceGoogleEmail(Context context) {
+        AccountManager accountManager = AccountManager.get(context);
+        Account account = getAccount(accountManager);
+        if (account == null) {
+            return "";
+        } else {
+            return account.name;
+        }
+    }
+    private static Account getAccount(AccountManager accountManager) {
+        Account[] accounts = accountManager.getAccountsByType("com.google");
+        Account account;
+        if (accounts.length > 0) {
+            account = accounts[0];
+        } else {
+            account = null;
+        } return account;
     }
 }

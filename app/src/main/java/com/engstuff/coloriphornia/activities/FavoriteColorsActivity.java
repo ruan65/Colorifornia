@@ -1,10 +1,13 @@
 package com.engstuff.coloriphornia.activities;
 
 import android.app.AlertDialog;
+import android.app.Fragment;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.graphics.Point;
 import android.os.Bundle;
+import android.util.Log;
+import android.view.ContextMenu;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -16,10 +19,12 @@ import android.widget.RelativeLayout;
 
 import com.engstuff.coloriphornia.R;
 import com.engstuff.coloriphornia.data.Cv;
+import com.engstuff.coloriphornia.fragments.FragmentColorBox;
 import com.engstuff.coloriphornia.helpers.AppHelper;
 import com.engstuff.coloriphornia.helpers.ColorParams;
 import com.engstuff.coloriphornia.helpers.PrefsHelper;
 
+import java.lang.ref.WeakReference;
 import java.util.ArrayList;
 
 public class FavoriteColorsActivity extends MockUpActivity {
@@ -50,6 +55,22 @@ public class FavoriteColorsActivity extends MockUpActivity {
 
         gridView.setOnItemClickListener(viewModeOnClickListener);
         gridView.setOnItemLongClickListener(getOnItemLongClickListener());
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        if (checkModeIcon != null) {
+            checkMode();
+        }
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        boolean retValue = super.onCreateOptionsMenu(menu);
+
+        checkMode(); // this steps I need to prevent menu changes while open/close nav drawer
+        return retValue;
     }
 
     private AdapterView.OnItemLongClickListener getOnItemLongClickListener() {
@@ -160,26 +181,13 @@ public class FavoriteColorsActivity extends MockUpActivity {
         return gridSize = (int) (p.x / 3.3);
     }
 
-    @Override
-    protected void onResume() {
-        super.onResume();
-        refreshData();
-        fAdapter.notifyDataSetChanged();
-    }
-
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        boolean retValue = super.onCreateOptionsMenu(menu);
+    private void checkMode() {
 
         if (modeColorsOperation) {
-            sendIcon.setVisible(true);
-            binIcon.setVisible(true);
-            undoIcon.setVisible(true);
-
+            setColorOperationsMode();
         } else {
-            checkModeIcon.setVisible(true);
+            setViewMode();
         }
-        return retValue;
     }
 
     @Override
@@ -251,10 +259,20 @@ public class FavoriteColorsActivity extends MockUpActivity {
         return R.layout.activity_favorite_colors;
     }
 
-    @Override
     protected String composeEmailBody(boolean calledFromContextMenu) {
-        return "";
+
+        StringBuilder result = new StringBuilder(getString(R.string.email_body_header));
+
+        for (FavoriteColor fc : fColorsList) {
+
+            if (fc.isChecked()) {
+
+                result.append("<p>" + fc.hexString + "</p>");
+            }
+        }
+        return result.toString();
     }
+
 
     /**
      * Custom adapter

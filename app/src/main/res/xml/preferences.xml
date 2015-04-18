@@ -1,29 +1,25 @@
 <?xml version="1.0" encoding="utf-8"?>
-<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android" >
+<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android">
 
 
     <Preference
-
         android:defaultValue=""
         android:key="@string/prefs_user_saved_emails"
         android:summary="Adding/deleting emails for sending colors params"
         android:title="Edit emails" />
 
-
-    <PreferenceCategory
+    <Preference
         android:key="no_key"
-        android:title="Info:">
-        <Preference
-            android:key="no_key"
-            android:summary="On line help"
-            android:title="Help" />
-        <Preference
-            android:key="no_key"
-            android:title="About" />
-        <Preference
-            android:key="no_key"
-            android:summary="Contact information"
-            android:title="Contacts" />
-    </PreferenceCategory>
+        android:summary="On line help"
+        android:title="Help" />
+
+    <Preference
+        android:key="no_key"
+        android:title="About" />
+
+    <Preference
+        android:key="no_key"
+        android:summary="Contact information"
+        android:title="Contacts" />
 
 </PreferenceScreen>
