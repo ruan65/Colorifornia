@@ -95,6 +95,7 @@ public class FavoriteColorsActivity extends MockUpActivity {
                 for (FavoriteColor fc : fColorsList) {
 
                     if (fc.isChecked()) {
+
                         allUnchecked = false;
                         break;
                     }
@@ -120,6 +121,7 @@ public class FavoriteColorsActivity extends MockUpActivity {
         checkModeIcon.setVisible(false);
         binIcon.setVisible(true);
         undoIcon.setVisible(true);
+        sendIcon.setVisible(true);
     }
 
     private void setViewMode() {
@@ -131,6 +133,7 @@ public class FavoriteColorsActivity extends MockUpActivity {
         checkModeIcon.setVisible(true);
         binIcon.setVisible(false);
         undoIcon.setVisible(false);
+        sendIcon.setVisible(false);
     }
 
     private void checkColor(View view, int position, boolean check) {
@@ -167,8 +170,15 @@ public class FavoriteColorsActivity extends MockUpActivity {
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         boolean retValue = super.onCreateOptionsMenu(menu);
-        checkModeIcon.setVisible(true);
-        sendIcon.setVisible(true);
+
+        if (modeColorsOperation) {
+            sendIcon.setVisible(true);
+            binIcon.setVisible(true);
+            undoIcon.setVisible(true);
+
+        } else {
+            checkModeIcon.setVisible(true);
+        }
         return retValue;
     }
 

@@ -38,7 +38,6 @@ public class DialogFragmentSavedEmails extends DialogFragment {
         final String[] emails = readFromPrefsAllToArray(activity, Cv.SAVED_EMAILS);
 
         builder
-
                 .setTitle(R.string.prefs_emails)
                 .setMultiChoiceItems(
                         emails,

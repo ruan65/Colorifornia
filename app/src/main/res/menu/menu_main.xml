@@ -44,9 +44,4 @@
         android:visible="false"
         app:showAsAction="always" />
 
-    <item
-        android:id="@+id/saved_emails"
-        android:orderInCategory="30"
-        android:title="@string/prefs_emails"
-        app:showAsAction="never" />
 </menu>
