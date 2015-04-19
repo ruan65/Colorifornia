@@ -29,16 +29,18 @@ public class ColorParams {
             hexARGB = "#00000000";
         }
 
-        int[] intARGB = new int[4];
+        int[] intArrayARGB = new int[4];
 
         if (hexARGB.length() == 9) {
-            intARGB[0] = Integer.valueOf(hexARGB.substring(1, 3), 16); // alpha
-            intARGB[1] = Integer.valueOf(hexARGB.substring(3, 5), 16); // red
-            intARGB[2] = Integer.valueOf(hexARGB.substring(5, 7), 16); // green
-            intARGB[3] = Integer.valueOf(hexARGB.substring(7), 16); // blue
+
+            intArrayARGB[0] = Integer.valueOf(hexARGB.substring(1, 3), 16); // alpha
+            intArrayARGB[1] = Integer.valueOf(hexARGB.substring(3, 5), 16); // red
+            intArrayARGB[2] = Integer.valueOf(hexARGB.substring(5, 7), 16); // green
+            intArrayARGB[3] = Integer.valueOf(hexARGB.substring(7), 16); // blue
+
         } else hexStringToARGB("#FF" + hexARGB.substring(1));
 
-        return intARGB;
+        return intArrayARGB;
     }
 
     public static boolean blackOrWhiteText(int alpha, int r, int g, int b) {

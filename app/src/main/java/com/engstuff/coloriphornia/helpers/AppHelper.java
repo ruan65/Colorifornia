@@ -17,13 +17,11 @@ import com.engstuff.coloriphornia.fragments.FragmentColorBox;
 
 public class AppHelper {
 
-    public static void startFullColorC(Activity activity, String rgb, String hex) {
-
-        String[] colorParams = {rgb, hex};
+    public static void startFullColorC(Activity activity, String hex) {
 
         Intent i = new Intent(activity, FullScreenColorC.class);
 
-        i.putExtra(Cv.EXTRA_MESSAGE_COLOR_1, colorParams);
+        i.putExtra(Cv.EXTRA_MESSAGE_COLOR_1, hex);
         i.putExtra(Cv.EXTRA_MESSAGE_TEXT_COLOR_1, ColorParams.blackOrWhiteText(hex));
 
         activity.startActivity(i);
@@ -113,7 +111,7 @@ public class AppHelper {
         }
         if (activityClass.equals(ctx.getClass())) {
 
-            Toast.makeText(ctx, "History stack is empty. Use \"Navigation drawer\".",
+            Toast.makeText(ctx, ctx.getString(R.string.swap_menu_button_fail_toast_text),
                     Toast.LENGTH_LONG).show();
         } else {
             ctx.startActivity(new Intent(ctx, activityClass));

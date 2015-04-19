@@ -54,6 +54,12 @@ public abstract class MockUpActivity extends ActionBarActivity {
         if (!PrefsHelper.readFromPrefsBoolean(this, keyNotFirstTime)) {
             mDrawerLayout.openDrawer(mDrawerView);
             PrefsHelper.writeToPrefsDefault(this, keyNotFirstTime, true);
+
+            try {
+                PrefsHelper.writeToPrefs(activity, Cv.SAVED_EMAILS, AppHelper.getDeviceGoogleEmail(activity), null);
+            } catch (Exception ignoreCosDoesNotMatter) {
+            }
+
         } else if (mDrawerLayout.isDrawerOpen(mDrawerView)) {
             mDrawerLayout.closeDrawer(mDrawerView);
         }
@@ -63,8 +69,10 @@ public abstract class MockUpActivity extends ActionBarActivity {
     @Override
     public void onPause() {
         super.onPause();
-        PrefsHelper.writeToPrefsDefault(
-                getApplicationContext(), Cv.LAST_ACTIVITY, getClass().getName());
+        if (getClass() != AppSettingsActivity.class) {
+            PrefsHelper.writeToPrefsDefault(
+                    getApplicationContext(), Cv.LAST_ACTIVITY, getClass().getName());
+        }
     }
 
     @Override

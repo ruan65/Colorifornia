@@ -169,9 +169,7 @@ public abstract class BaseColorActivity extends MockUpActivity implements
 
         changeFragment(box);
 
-        AppHelper.startFullColorC(this,
-                box.getRgbColorParams(),
-                box.getHexColorParams());
+        AppHelper.startFullColorC(this, box.getHexColorParams());
     }
 
     public boolean isWhiteText() {

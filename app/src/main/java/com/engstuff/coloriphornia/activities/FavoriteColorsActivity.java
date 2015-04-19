@@ -1,13 +1,10 @@
 package com.engstuff.coloriphornia.activities;
 
 import android.app.AlertDialog;
-import android.app.Fragment;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.graphics.Point;
 import android.os.Bundle;
-import android.util.Log;
-import android.view.ContextMenu;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -19,12 +16,10 @@ import android.widget.RelativeLayout;
 
 import com.engstuff.coloriphornia.R;
 import com.engstuff.coloriphornia.data.Cv;
-import com.engstuff.coloriphornia.fragments.FragmentColorBox;
 import com.engstuff.coloriphornia.helpers.AppHelper;
 import com.engstuff.coloriphornia.helpers.ColorParams;
 import com.engstuff.coloriphornia.helpers.PrefsHelper;
 
-import java.lang.ref.WeakReference;
 import java.util.ArrayList;
 
 public class FavoriteColorsActivity extends MockUpActivity {
@@ -60,16 +55,20 @@ public class FavoriteColorsActivity extends MockUpActivity {
     @Override
     protected void onResume() {
         super.onResume();
+
         if (checkModeIcon != null) {
-            checkMode();
+            checkCurrentMode();
         }
+
+        refreshData();
+        fAdapter.notifyDataSetChanged();
     }
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         boolean retValue = super.onCreateOptionsMenu(menu);
 
-        checkMode(); // this steps I need to prevent menu changes while open/close nav drawer
+        checkCurrentMode(); // this steps I need to prevent menu changes while open/close nav drawer
         return retValue;
     }
 
@@ -97,8 +96,7 @@ public class FavoriteColorsActivity extends MockUpActivity {
 
             FavoriteColor c = fColorsList.get(position);
 
-            AppHelper.startFullColorC(FavoriteColorsActivity.this,
-                    ColorParams.makeArgbInfo(c.hexString), c.hexString);
+            AppHelper.startFullColorC(FavoriteColorsActivity.this, c.hexString);
         }
     };
 
@@ -181,7 +179,7 @@ public class FavoriteColorsActivity extends MockUpActivity {
         return gridSize = (int) (p.x / 3.3);
     }
 
-    private void checkMode() {
+    private void checkCurrentMode() {
 
         if (modeColorsOperation) {
             setColorOperationsMode();
@@ -231,14 +229,12 @@ public class FavoriteColorsActivity extends MockUpActivity {
             case R.id.check_mode:
 
                 setColorOperationsMode();
-
                 checkAllColors(true);
                 break;
 
             case R.id.undo:
 
                 checkAllColors(false);
-
                 setViewMode();
                 break;
         }
@@ -250,7 +246,6 @@ public class FavoriteColorsActivity extends MockUpActivity {
         for (FavoriteColor fc : fColorsList) {
             fc.setChecked(checkOrUncheckThatIsTheQuestion);
         }
-
         fAdapter.notifyDataSetChanged();
     }
 

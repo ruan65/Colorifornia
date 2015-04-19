@@ -50,9 +50,9 @@ public class FullScreenColorCC extends FullScreenColorC {
     private void setColor(Intent intent, String extra1, String extra2,
                           RelativeLayout rl, TextView tv) {
 
-        String[] colorMessage = intent.getStringArrayExtra(extra1);
+        String hexColor = intent.getStringExtra(extra1);
 
-        int backColor = (int) Long.parseLong(colorMessage[1].substring(1), 16);
+        int backColor = (int) Long.parseLong(hexColor.substring(1), 16);
 
         rl.setBackgroundColor(backColor);
 
@@ -62,6 +62,6 @@ public class FullScreenColorCC extends FullScreenColorC {
                 : Color.BLACK;
 
         tv.setTextColor(textColor1);
-        tv.setText(colorMessage[0] + "\n" + colorMessage[1]);
+        tv.setText(composeInfo(hexColor));
     }
 }

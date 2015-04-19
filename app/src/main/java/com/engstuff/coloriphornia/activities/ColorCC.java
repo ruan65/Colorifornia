@@ -82,10 +82,7 @@ public class ColorCC extends BaseColorActivity {
 
         changeFragment(box);
 
-        String[] colorParams = {
-                box.getRgbColorParams(),
-                box.getHexColorParams()
-        };
+        String colorParams = box.getHexColorParams();
 
         Intent i = new Intent(this, FullScreenColorCC.class);
         i.putExtra(Cv.EXTRA_MESSAGE_COLOR_1, colorParams);
@@ -96,10 +93,7 @@ public class ColorCC extends BaseColorActivity {
 
         box = (FragmentColorBox) getFragmentManager().findFragmentById(fragmentId);
 
-        String[] colorParams2 = {
-                box.getRgbColorParams(),
-                box.getHexColorParams()
-        };
+        String colorParams2 = box.getHexColorParams();
 
         i.putExtra(Cv.EXTRA_MESSAGE_COLOR_2, colorParams2);
         i.putExtra(Cv.EXTRA_MESSAGE_TEXT_COLOR_2, box.isWhiteText());

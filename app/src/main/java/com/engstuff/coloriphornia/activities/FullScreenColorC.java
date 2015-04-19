@@ -12,6 +12,7 @@ import android.widget.TextView;
 
 import com.engstuff.coloriphornia.R;
 import com.engstuff.coloriphornia.data.Cv;
+import com.engstuff.coloriphornia.helpers.ColorParams;
 
 
 public class FullScreenColorC extends Activity implements OnClickListener {
@@ -28,9 +29,9 @@ public class FullScreenColorC extends Activity implements OnClickListener {
 
         Intent intent = getIntent();
 
-        String[] colorMessage = intent.getStringArrayExtra(Cv.EXTRA_MESSAGE_COLOR_1);
+        String hexString = intent.getStringExtra(Cv.EXTRA_MESSAGE_COLOR_1);
 
-        int backColor = (int) Long.parseLong(colorMessage[1].substring(1), 16);
+        int backColor = (int) Long.parseLong(hexString.substring(1), 16);
 
         container.setBackgroundColor(backColor);
         container.setOnClickListener(this);
@@ -42,7 +43,7 @@ public class FullScreenColorC extends Activity implements OnClickListener {
                 : Color.BLACK;
 
         tv.setTextColor(textColor);
-        tv.setText(colorMessage[0] + "\n" + colorMessage[1]);
+        tv.setText(composeInfo(hexString));
     }
 
     @Override
@@ -54,5 +55,14 @@ public class FullScreenColorC extends Activity implements OnClickListener {
     @Override
     public void onClick(View v) {
         finish();
+    }
+
+    protected String composeInfo(String hexColorString) {
+
+        int[] argb = ColorParams.hexStringToARGB(hexColorString);
+
+        StringBuilder sb = new StringBuilder("Name: ");
+
+        return sb.toString();
     }
 }

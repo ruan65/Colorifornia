@@ -10,11 +10,12 @@
 
     <Preference
         android:key="no_key"
-        android:summary="On line help"
+        android:summary="Instruction"
         android:title="Help" />
 
     <Preference
         android:key="no_key"
+        android:summary="Info about Colorifornia app"
         android:title="About" />
 
     <Preference
