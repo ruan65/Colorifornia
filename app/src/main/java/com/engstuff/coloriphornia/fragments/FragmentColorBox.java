@@ -58,7 +58,6 @@ public class FragmentColorBox extends Fragment {
     @InjectView(R.id.like)
     ImageView like;
 
-    private String rgbColorParams;
     private String hexColorParams;
 
     int colorHex;
@@ -171,7 +170,6 @@ public class FragmentColorBox extends Fragment {
     public void changeColor() {
 
         colorHex = ColorParams.composeHex(alpha, r, g, b);
-        rgbColorParams = ColorParams.makeArgbInfo(alpha, r, g, b);
         hexColorParams = ColorParams.makeHexInfo(colorHex);
         layout.setBackgroundColor(colorHex);
         //noinspection deprecation
@@ -268,10 +266,6 @@ public class FragmentColorBox extends Fragment {
 
     public RelativeLayout getLayout() {
         return layout;
-    }
-
-    public String getRgbColorParams() {
-        return rgbColorParams;
     }
 
     public String getHexColorParams() {

@@ -1,5 +1,7 @@
 package com.engstuff.coloriphornia.helpers;
 
+import android.graphics.Color;
+
 public class ColorParams {
 
 	public static int composeHex(int alpha, int r, int g, int b) {
@@ -29,18 +31,18 @@ public class ColorParams {
             hexARGB = "#00000000";
         }
 
-        int[] intArrayARGB = new int[4];
+        int[] intARGB = new int[4];
 
         if (hexARGB.length() == 9) {
 
-            intArrayARGB[0] = Integer.valueOf(hexARGB.substring(1, 3), 16); // alpha
-            intArrayARGB[1] = Integer.valueOf(hexARGB.substring(3, 5), 16); // red
-            intArrayARGB[2] = Integer.valueOf(hexARGB.substring(5, 7), 16); // green
-            intArrayARGB[3] = Integer.valueOf(hexARGB.substring(7), 16); // blue
+            intARGB[0] = Integer.valueOf(hexARGB.substring(1, 3), 16); // alpha
+            intARGB[1] = Integer.valueOf(hexARGB.substring(3, 5), 16); // red
+            intARGB[2] = Integer.valueOf(hexARGB.substring(5, 7), 16); // green
+            intARGB[3] = Integer.valueOf(hexARGB.substring(7), 16); // blue
 
         } else hexStringToARGB("#FF" + hexARGB.substring(1));
 
-        return intArrayARGB;
+        return intARGB;
     }
 
     public static boolean blackOrWhiteText(int alpha, int r, int g, int b) {
@@ -55,7 +57,7 @@ public class ColorParams {
     }
 
     public static String makeArgbInfo(int a, int r, int g, int b) {
-        return "\u03b1: " + a + " r:" + r + " g:" + g + " b:" + b;
+        return "\u03b1 " + a + " r " + r + " g " + g + " b " + b;
     }
 
     public static String makeArgbInfo(String hex) {
@@ -65,5 +67,30 @@ public class ColorParams {
 
     public static String makeHexInfo(int color) {
         return "#" + Integer.toHexString(color);
+    }
+
+    public static String composeInfo(String hexColorString) {
+
+        int[] argb = ColorParams.hexStringToARGB(hexColorString);
+
+        float[] hsv = new float[3];
+
+        Color.RGBToHSV(argb[1], argb[2], argb[3], hsv);
+        StringBuilder sb = new StringBuilder("Opacity: ").append(percent255(argb[0])).append((char) 0x0025)
+                .append("\nRed: ").append(percent255(argb[1])).append((char) 0x0025)
+                .append("\nGreen: ").append(percent255(argb[2])).append((char) 0x0025)
+                .append("\nBlue: ").append(percent255(argb[3])).append((char) 0x0025)
+                .append("\n\nHEX: ").append(hexColorString.substring(1))
+                .append("\nARGB: ").append(makeArgbInfo(hexColorString))
+                .append("\nHSV:")
+                .append(" hue ").append((int) hsv[0]).append((char) 0x00B0)
+                .append(" sat ").append((int) (hsv[1] * 100)).append((char) 0x0025)
+                .append(" val ").append((int) (hsv[2] * 100)).append((char) 0x0025);
+
+        return sb.toString();
+    }
+
+    public static int percent255(int i) {
+        return i * 100 / 255;
     }
 }

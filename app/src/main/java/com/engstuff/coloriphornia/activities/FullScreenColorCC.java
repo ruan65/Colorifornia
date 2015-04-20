@@ -11,6 +11,7 @@ import android.widget.TextView;
 
 import com.engstuff.coloriphornia.R;
 import com.engstuff.coloriphornia.data.Cv;
+import com.engstuff.coloriphornia.helpers.ColorParams;
 
 import butterknife.ButterKnife;
 import butterknife.InjectView;
@@ -62,6 +63,6 @@ public class FullScreenColorCC extends FullScreenColorC {
                 : Color.BLACK;
 
         tv.setTextColor(textColor1);
-        tv.setText(composeInfo(hexColor));
+        tv.setText(ColorParams.composeInfo(hexColor));
     }
 }

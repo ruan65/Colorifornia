@@ -43,7 +43,7 @@ public class FullScreenColorC extends Activity implements OnClickListener {
                 : Color.BLACK;
 
         tv.setTextColor(textColor);
-        tv.setText(composeInfo(hexString));
+        tv.setText(ColorParams.composeInfo(hexString));
     }
 
     @Override
@@ -57,12 +57,9 @@ public class FullScreenColorC extends Activity implements OnClickListener {
         finish();
     }
 
-    protected String composeInfo(String hexColorString) {
 
-        int[] argb = ColorParams.hexStringToARGB(hexColorString);
 
-        StringBuilder sb = new StringBuilder("Name: ");
 
-        return sb.toString();
-    }
+
+    
 }
