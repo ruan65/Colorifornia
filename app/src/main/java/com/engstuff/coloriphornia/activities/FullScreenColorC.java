@@ -5,11 +5,9 @@ import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.support.v7.widget.CardView;
-import android.text.Layout;
-import android.util.Log;
 import android.view.View;
 import android.view.View.OnClickListener;
-import android.widget.LinearLayout;
+import android.widget.ImageButton;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
@@ -17,19 +15,24 @@ import com.engstuff.coloriphornia.R;
 import com.engstuff.coloriphornia.data.Cv;
 import com.engstuff.coloriphornia.helpers.ColorParams;
 
+import butterknife.ButterKnife;
+import butterknife.InjectView;
+import butterknife.OnClick;
+
 
 public class FullScreenColorC extends Activity implements OnClickListener {
 
-    private CardView cv;
-    private TextView tv;
-    protected RelativeLayout container;
+    @InjectView(R.id.layout_full_screen_color) RelativeLayout container;
+    @InjectView(R.id.card_view_full_c) CardView cv;
+    @InjectView(R.id.tv_color_params) TextView tv;
+    @InjectView(R.id.show_info_full_c) ImageButton showInfo;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_full_screen_color_c);
 
-        container = (RelativeLayout) findViewById(R.id.layout_full_screen_color);
+        ButterKnife.inject(this);
 
         Intent intent = getIntent();
 
@@ -41,16 +44,12 @@ public class FullScreenColorC extends Activity implements OnClickListener {
         container.setBackgroundColor(backColor);
         container.setOnClickListener(this);
 
-        cv = (CardView) findViewById(R.id.card_view_full_c);
         cv.setCardBackgroundColor(backCardColor);
-
-        tv = (TextView) findViewById(R.id.tv_color_params);
 
         int textColor = intent.getBooleanExtra(Cv.EXTRA_MESSAGE_TEXT_COLOR_1, false)
                 ? Color.WHITE
                 : Color.BLACK;
 
-        tv.setBackgroundColor(backCardColor);
         tv.setTextColor(textColor);
         tv.setText(ColorParams.composeInfo(hexString));
     }
@@ -66,7 +65,17 @@ public class FullScreenColorC extends Activity implements OnClickListener {
         finish();
     }
 
+    @OnClick(R.id.show_info_full_c)
+    public void showInfo() {
+        cv.setVisibility(View.VISIBLE);
+        showInfo.setVisibility(View.INVISIBLE);
+    }
 
+    @OnClick(R.id.close_info_full_c_card)
+    public void closeInfo() {
+        cv.setVisibility(View.INVISIBLE);
+        showInfo.setVisibility(View.VISIBLE);
+    }
 
 
 
