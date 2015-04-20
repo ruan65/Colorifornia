@@ -47,7 +47,7 @@ public class ColorParams {
 
     public static boolean blackOrWhiteText(int alpha, int r, int g, int b) {
 
-        return alpha < 100 || (r + g + b > 450 || g > 200) ? false : true;
+        return !(alpha < 100 || (r + g + b > 450 || g > 200));
     }
 
     public static boolean blackOrWhiteText(String hex) {
@@ -57,7 +57,7 @@ public class ColorParams {
     }
 
     public static String makeArgbInfo(int a, int r, int g, int b) {
-        return "\u03b1 " + a + " r " + r + " g " + g + " b " + b;
+        return "\u03b1=" + a + ", r=" + r + ", g=" + g + ", b=" + b;
     }
 
     public static String makeArgbInfo(String hex) {
@@ -80,12 +80,13 @@ public class ColorParams {
                 .append("\nRed: ").append(percent255(argb[1])).append((char) 0x0025)
                 .append("\nGreen: ").append(percent255(argb[2])).append((char) 0x0025)
                 .append("\nBlue: ").append(percent255(argb[3])).append((char) 0x0025)
-                .append("\n\nHEX: ").append(hexColorString.substring(1))
+                .append("\n\nAHEX: ").append(hexColorString.substring(1))
+                .append(", HEX: ").append(hexColorString.substring(3))
                 .append("\nARGB: ").append(makeArgbInfo(hexColorString))
                 .append("\nHSV:")
-                .append(" hue ").append((int) hsv[0]).append((char) 0x00B0)
-                .append(" sat ").append((int) (hsv[1] * 100)).append((char) 0x0025)
-                .append(" val ").append((int) (hsv[2] * 100)).append((char) 0x0025);
+                .append(" hue=").append((int) hsv[0]).append((char) 0x00B0)
+                .append(", sat=").append((int) (hsv[1] * 100)).append((char) 0x0025)
+                .append(", val=").append((int) (hsv[2] * 100)).append((char) 0x0025);
 
         return sb.toString();
     }
