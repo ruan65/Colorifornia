@@ -7,7 +7,7 @@ import android.os.Bundle;
 import android.support.v7.widget.CardView;
 import android.view.View;
 import android.view.View.OnClickListener;
-import android.widget.ImageButton;
+import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
@@ -22,10 +22,18 @@ import butterknife.OnClick;
 
 public class FullScreenColorC extends Activity implements OnClickListener {
 
-    @InjectView(R.id.layout_full_screen_color) RelativeLayout container;
-    @InjectView(R.id.card_view_full_c) CardView cv;
-    @InjectView(R.id.tv_color_params) TextView tv;
-    @InjectView(R.id.show_info_full_c) ImageButton showInfo;
+    @InjectView(R.id.layout_full_screen_color)
+    RelativeLayout container;
+    @InjectView(R.id.card_view_full_c)
+    CardView cv;
+    @InjectView(R.id.tv_color_params)
+    TextView tv;
+    @InjectView(R.id.show_info_full_c)
+    ImageView showInfo;
+    @InjectView(R.id.close_info_full_c_card)
+    ImageView closeInfo;
+    @InjectView(R.id.send_info_full_c)
+    ImageView sendInfo;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -37,6 +45,22 @@ public class FullScreenColorC extends Activity implements OnClickListener {
         Intent intent = getIntent();
 
         String hexString = intent.getStringExtra(Cv.EXTRA_MESSAGE_COLOR_1);
+        boolean whiteText = ColorParams.blackOrWhiteText(hexString);
+
+        showInfo.setImageResource(
+                whiteText
+                        ? R.drawable.ic_add_circle_outline_white_36dp
+                        : R.drawable.ic_add_circle_outline_black_36dp);
+
+        closeInfo.setImageResource(
+                whiteText
+                        ? R.drawable.ic_remove_circle_outline_white_36dp
+                        : R.drawable.ic_remove_circle_outline_black_36dp);
+
+        sendInfo.setImageResource(
+                whiteText
+                        ? R.drawable.ic_send_white_36dp
+                        : R.drawable.ic_send_black_36dp);
 
         int backColor = (int) Long.parseLong(hexString.substring(1), 16);
         int backCardColor = (int) Long.parseLong(hexString.substring(3), 16);
@@ -77,7 +101,9 @@ public class FullScreenColorC extends Activity implements OnClickListener {
         showInfo.setVisibility(View.VISIBLE);
     }
 
+    @OnClick(R.id.send_info_full_c)
+    public void sendInfo() {
+        
+    }
 
-
-    
 }
