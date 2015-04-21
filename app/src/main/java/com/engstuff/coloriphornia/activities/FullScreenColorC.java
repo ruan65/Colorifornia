@@ -35,11 +35,4 @@ public class FullScreenColorC extends Activity {
         super.onResume();
         overridePendingTransition(R.anim.slide_in_l, R.anim.slide_out_l);
     }
-
-    @Override
-    public void onPause() {
-        super.onPause();
-            PrefsHelper.writeToPrefsDefault(
-                    getApplicationContext(), Cv.LAST_ACTIVITY, getClass().getName());
-    }
 }

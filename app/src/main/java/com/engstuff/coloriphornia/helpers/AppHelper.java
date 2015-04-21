@@ -105,7 +105,7 @@ public class AppHelper {
         }
     }
 
-    public static void startLastSavedActivity(Context ctx) {
+    public static boolean startLastSavedActivity(Context ctx) {
 
         Class<?> activityClass;
         try {
@@ -120,8 +120,10 @@ public class AppHelper {
 
             Toast.makeText(ctx, ctx.getString(R.string.swap_menu_button_fail_toast_text),
                     Toast.LENGTH_LONG).show();
+            return false;
         } else {
             ctx.startActivity(new Intent(ctx, activityClass));
+            return true;
         }
     }
 

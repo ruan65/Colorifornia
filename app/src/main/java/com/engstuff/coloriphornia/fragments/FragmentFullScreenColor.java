@@ -45,6 +45,8 @@ public class FragmentFullScreenColor extends Fragment implements View.OnClickLis
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 
+        setRetainInstance(true);
+
         RelativeLayout root = (RelativeLayout) inflater
                 .inflate(R.layout.fragment_full_screen_color, container, false);
 

@@ -104,7 +104,10 @@ public abstract class MockUpActivity extends ActionBarActivity {
 
             case R.id.back:
 
-                AppHelper.startLastSavedActivity(this);
+                if (!AppHelper.startLastSavedActivity(this)) {
+                    openCloseDrawer();
+                }
+
         }
         return super.onOptionsItemSelected(item);
     }
@@ -122,13 +125,17 @@ public abstract class MockUpActivity extends ActionBarActivity {
 
         if (keyCode == KeyEvent.KEYCODE_MENU) {
 
-            if (!mDrawerLayout.isDrawerOpen(mDrawerView)) {
-                mDrawerLayout.openDrawer(mDrawerView);
-            } else if (mDrawerLayout.isDrawerOpen(mDrawerView)) {
-                mDrawerLayout.closeDrawer(mDrawerView);
-            }
+            openCloseDrawer();
             return true;
         }
         return super.onKeyDown(keyCode, event);
+    }
+
+    void openCloseDrawer() {
+        if (!mDrawerLayout.isDrawerOpen(mDrawerView)) {
+            mDrawerLayout.openDrawer(mDrawerView);
+        } else if (mDrawerLayout.isDrawerOpen(mDrawerView)) {
+            mDrawerLayout.closeDrawer(mDrawerView);
+        }
     }
 }
