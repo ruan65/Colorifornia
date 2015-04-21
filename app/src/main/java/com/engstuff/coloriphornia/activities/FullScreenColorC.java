@@ -103,7 +103,7 @@ public class FullScreenColorC extends Activity implements OnClickListener {
 
     @OnClick(R.id.send_info_full_c)
     public void sendInfo() {
-        
+
     }
 
 }
