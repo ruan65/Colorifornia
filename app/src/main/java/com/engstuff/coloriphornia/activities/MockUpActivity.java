@@ -111,7 +111,7 @@ public abstract class MockUpActivity extends ActionBarActivity {
      */
     @Override
     public boolean onKeyDown(int keyCode, KeyEvent event) {
-        Log.d("ml", "onKeyDown: *********************************   " + event.getAction() + " code: " + keyCode);
+        
         if (keyCode == KeyEvent.KEYCODE_MENU) {
 
             if (!mDrawerLayout.isDrawerOpen(mDrawerView)) {
