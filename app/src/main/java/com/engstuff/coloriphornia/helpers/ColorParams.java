@@ -76,12 +76,14 @@ public class ColorParams {
         float[] hsv = new float[3];
 
         Color.RGBToHSV(argb[1], argb[2], argb[3], hsv);
-        StringBuilder sb = new StringBuilder("Opacity: ").append(percent255(argb[0])).append((char) 0x0025)
+
+        StringBuilder sb = new StringBuilder("Opacity: ")
+                .append(percent255(argb[0])).append((char) 0x0025)
                 .append("\nRed: ").append(percent255(argb[1])).append((char) 0x0025)
                 .append("\nGreen: ").append(percent255(argb[2])).append((char) 0x0025)
                 .append("\nBlue: ").append(percent255(argb[3])).append((char) 0x0025)
-                .append("\n\nAHEX: ").append(hexColorString.substring(1))
-                .append(", HEX: ").append(hexColorString.substring(3))
+                .append("\n\nHEX: ").append(hexColorString.substring(3).toUpperCase())
+                .append(", AHEX: ").append(hexColorString.substring(1).toUpperCase())
                 .append("\nARGB: ").append(makeArgbInfo(hexColorString))
                 .append("\nHSV:")
                 .append(" hue=").append((int) hsv[0]).append((char) 0x00B0)

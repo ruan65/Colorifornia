@@ -11,7 +11,6 @@ import android.gesture.GestureOverlayView;
 import android.gesture.Prediction;
 import android.graphics.Color;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.GestureDetector;
 import android.view.LayoutInflater;
 import android.view.MotionEvent;
@@ -41,7 +40,7 @@ public class FragmentColorBox extends Fragment {
 
     private ColorBoxEventListener colorBoxEventListener;
 
-    Activity ctx;
+    Activity activity;
 
     GestureOverlayView gestureLayer;
     GestureDetector gestureDetector;
@@ -74,14 +73,16 @@ public class FragmentColorBox extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        ctx = getActivity();
 
         gestureLayer = (GestureOverlayView) inflater
                 .inflate(R.layout.fragment_color_box, container, false);
-        gestureLibrary = GestureLibraries.fromRawResource(ctx, R.raw.gestures);
+
+        ButterKnife.inject(this, gestureLayer);
+
+        gestureLibrary = GestureLibraries.fromRawResource(activity, R.raw.gestures);
         gestureLibrary.load();
 
-        likeAnim = AnimationUtils.loadAnimation(ctx, R.anim.like);
+        likeAnim = AnimationUtils.loadAnimation(activity, R.anim.like);
 
         gestureLayer.addOnGesturePerformedListener(new GestureOverlayView.OnGesturePerformedListener() {
 
@@ -101,7 +102,7 @@ public class FragmentColorBox extends Fragment {
             }
         });
 
-        gestureDetector = new GestureDetector(ctx, new GestureDetector.SimpleOnGestureListener() {
+        gestureDetector = new GestureDetector(activity, new GestureDetector.SimpleOnGestureListener() {
 
             @Override
             public boolean onDoubleTap(MotionEvent e) {
@@ -111,12 +112,10 @@ public class FragmentColorBox extends Fragment {
             }
         });
 
-        ButterKnife.inject(this, gestureLayer);
-
         like.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                ctx.startActivity(new Intent(ctx, FavoriteColorsActivity.class));
+                activity.startActivity(new Intent(activity, FavoriteColorsActivity.class));
             }
         });
         layout.removeView(like);
@@ -127,6 +126,8 @@ public class FragmentColorBox extends Fragment {
     @Override
     public void onAttach(Activity activity) {
         super.onAttach(activity);
+
+        this.activity = activity;
         try {
             colorBoxEventListener = (ColorBoxEventListener) activity;
         } catch (ClassCastException e) {
@@ -150,7 +151,7 @@ public class FragmentColorBox extends Fragment {
 
     void performColorSave() {
         colorClicked();
-        ((BaseColorActivity) ctx).saveColorToPrefs();
+        ((BaseColorActivity) activity).saveColorToPrefs();
         likeColor();
     }
 
