@@ -130,7 +130,7 @@ public class AppHelper {
             return account.name;
         }
     }
-    
+
     private static Account getAccount(AccountManager accountManager) {
         Account[] accounts = accountManager.getAccountsByType("com.google");
         Account account;

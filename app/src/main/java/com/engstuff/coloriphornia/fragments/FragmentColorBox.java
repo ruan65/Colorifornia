@@ -172,16 +172,25 @@ public class FragmentColorBox extends Fragment {
 
         colorHex = ColorParams.composeHex(alpha, r, g, b);
         hexColorParams = ColorParams.makeHexInfo(colorHex);
-        layout.setBackgroundColor(colorHex);
-        //noinspection deprecation
-        layout.setAlpha(alpha);
+
+        if (layout != null) {
+
+            layout.setBackgroundColor(colorHex);
+            //noinspection deprecation
+            layout.setAlpha(alpha);
+        }
+
 
         boolean whiteAgain = ColorParams.blackOrWhiteText(alpha, r, g, b);
 
-        if (whiteText != whiteAgain) {
+        if (whiteText != whiteAgain && colorBoxEventListener != null) {
+
             colorBoxEventListener.onTextColorChanged();
             whiteText = whiteAgain;
-        } else colorBoxEventListener.onTextColorChanged();
+        } else if (colorBoxEventListener != null) {
+
+            colorBoxEventListener.onTextColorChanged();
+        }
     }
 
     public FragmentColorBox setColorParams() {

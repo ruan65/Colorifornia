@@ -12,6 +12,7 @@ import com.engstuff.coloriphornia.data.Cv;
 import com.engstuff.coloriphornia.fragments.ColorControlAbstractFragment;
 import com.engstuff.coloriphornia.fragments.FragmentColorBox;
 import com.engstuff.coloriphornia.helpers.AppHelper;
+import com.engstuff.coloriphornia.helpers.ColorParams;
 import com.engstuff.coloriphornia.interfaces.ColorBoxEventListener;
 import com.engstuff.coloriphornia.interfaces.ColorControlChangeListener;
 
@@ -115,11 +116,12 @@ public abstract class BaseColorActivity extends MockUpActivity implements
             for (WeakReference<Fragment> ref : allAttachedFragments) {
                 Fragment f = ref.get();
                 if (f.getClass().equals(FragmentColorBox.class)) {
-                    result.append("<p>" + ((FragmentColorBox) f).getHexColorParams() + "</p>");
+
+                    result.append("<p>" + ColorParams.composeInfo(((FragmentColorBox) f).getHexColorParams()) + "</p>");
                 }
             }
         } else {
-            result.append("<p>" + currentColorBox.getHexColorParams() + "</p>");
+            result.append("<p>" + ColorParams.composeInfo(currentColorBox.getHexColorParams()) + "</p>");
         }
         return result.toString();
     }

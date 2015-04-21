@@ -5,6 +5,7 @@ import android.os.Bundle;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarActivity;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.KeyEvent;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -110,6 +111,7 @@ public abstract class MockUpActivity extends ActionBarActivity {
      */
     @Override
     public boolean onKeyDown(int keyCode, KeyEvent event) {
+        Log.d("ml", "onKeyDown: *********************************   " + event.getAction() + " code: " + keyCode);
         if (keyCode == KeyEvent.KEYCODE_MENU) {
 
             if (!mDrawerLayout.isDrawerOpen(mDrawerView)) {

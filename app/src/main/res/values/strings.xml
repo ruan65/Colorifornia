@@ -43,4 +43,8 @@
     <string name="prefs_user_saved_emails">user_saved_emails</string>
     <string name="email_body_header"><![CDATA[<h3>Colors chosen via \"Colorifornia\" mobile app: </h3>]]></string>
     <string name="swap_menu_button_fail_toast_text">History stack is empty. Use \"Navigation drawer\".</string>
+    <string name="ctx_to_prev_screen">To previous screen</string>
+    <string name="ctx_undo">undo</string>
+    <string name="ctx_discard">discard selected</string>
+    <string name="ctx_select">selection</string>
 </resources>
