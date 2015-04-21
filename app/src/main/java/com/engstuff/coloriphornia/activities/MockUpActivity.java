@@ -10,6 +10,7 @@ import android.view.KeyEvent;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.Toast;
 
 import com.engstuff.coloriphornia.R;
 import com.engstuff.coloriphornia.data.Cv;
@@ -91,8 +92,15 @@ public abstract class MockUpActivity extends ActionBarActivity {
 
             case R.id.send:
 
-                AppHelper.fireShareIntent(this, composeEmailBody(true));
-                break;
+                try {
+                    AppHelper.fireShareIntent(this, composeEmailBody(false));
+                } catch (Exception e) {
+                    Toast.makeText(this, getString(R.string.email_creating_error),
+                            Toast.LENGTH_SHORT).show();
+
+                    Log.e(getApplication().getPackageName(),
+                            "Error while creating email: " + e.getMessage());
+                } break;
 
             case R.id.back:
 
@@ -111,7 +119,7 @@ public abstract class MockUpActivity extends ActionBarActivity {
      */
     @Override
     public boolean onKeyDown(int keyCode, KeyEvent event) {
-        
+
         if (keyCode == KeyEvent.KEYCODE_MENU) {
 
             if (!mDrawerLayout.isDrawerOpen(mDrawerView)) {

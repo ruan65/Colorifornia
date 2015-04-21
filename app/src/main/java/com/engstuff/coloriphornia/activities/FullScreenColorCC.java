@@ -6,7 +6,7 @@ import android.os.Bundle;
 
 import com.engstuff.coloriphornia.R;
 import com.engstuff.coloriphornia.data.Cv;
-import com.engstuff.coloriphornia.fragments.FullScreenColorFragment;
+import com.engstuff.coloriphornia.fragments.FragmentFullScreenColor;
 
 public class FullScreenColorCC extends Activity {
 
@@ -17,8 +17,8 @@ public class FullScreenColorCC extends Activity {
 
         Intent intent = getIntent();
 
-        FullScreenColorFragment fragment1 = new FullScreenColorFragment();
-        FullScreenColorFragment fragment2 = new FullScreenColorFragment();
+        FragmentFullScreenColor fragment1 = new FragmentFullScreenColor();
+        FragmentFullScreenColor fragment2 = new FragmentFullScreenColor();
 
         fragment1.setHexString(intent.getStringExtra(Cv.EXTRA_MESSAGE_COLOR_1));
         fragment2.setHexString(intent.getStringExtra(Cv.EXTRA_MESSAGE_COLOR_2));

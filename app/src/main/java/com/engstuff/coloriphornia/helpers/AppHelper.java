@@ -3,8 +3,10 @@ package com.engstuff.coloriphornia.helpers;
 import android.accounts.Account;
 import android.accounts.AccountManager;
 import android.app.Activity;
+import android.content.ContentResolver;
 import android.content.Context;
 import android.content.Intent;
+import android.net.Uri;
 import android.text.Html;
 import android.widget.ImageView;
 import android.widget.Toast;
@@ -15,6 +17,8 @@ import com.engstuff.coloriphornia.activities.FullScreenColorC;
 import com.engstuff.coloriphornia.data.Cv;
 import com.engstuff.coloriphornia.fragments.ColorControlAbstractFragment;
 import com.engstuff.coloriphornia.fragments.FragmentColorBox;
+
+import java.io.File;
 
 import static com.engstuff.coloriphornia.helpers.PrefsHelper.readFromPrefsAllToArray;
 
@@ -155,5 +159,13 @@ public class AppHelper {
         emailIntent.putExtra(Intent.EXTRA_TEXT, Html.fromHtml(html));
 
         ctx.startActivity(Intent.createChooser(emailIntent, Cv.CHOOSER_TITLE));
+    }
+
+    public static Uri resourceToUri (Context context,int resID) {
+
+        return Uri.parse(ContentResolver.SCHEME_ANDROID_RESOURCE + "://" +
+                context.getResources().getResourcePackageName(resID) + '/' +
+                context.getResources().getResourceTypeName(resID) + '/' +
+                context.getResources().getResourceEntryName(resID) );
     }
 }

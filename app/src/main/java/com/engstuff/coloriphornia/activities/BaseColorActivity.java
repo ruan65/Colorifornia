@@ -114,14 +114,16 @@ public abstract class BaseColorActivity extends MockUpActivity implements
         if (!calledFromContextMenu) {
 
             for (WeakReference<Fragment> ref : allAttachedFragments) {
+
                 Fragment f = ref.get();
+
                 if (f.getClass().equals(FragmentColorBox.class)) {
 
-                    result.append("<p>" + ColorParams.composeInfo(((FragmentColorBox) f).getHexColorParams()) + "</p>");
+                    result.append("<p>" + ColorParams.composeInfoHTML(((FragmentColorBox) f).getHexColorParams()) + "</p>");
                 }
             }
         } else {
-            result.append("<p>" + ColorParams.composeInfo(currentColorBox.getHexColorParams()) + "</p>");
+            result.append("<p>" + ColorParams.composeInfoHTML(currentColorBox.getHexColorParams()) + "</p>");
         }
         return result.toString();
     }

@@ -1,15 +1,16 @@
 package com.engstuff.coloriphornia.helpers;
 
 import android.graphics.Color;
+import android.widget.Toast;
 
 public class ColorParams {
 
-	public static int composeHex(int alpha, int r, int g, int b) {
+    public static int composeHex(int alpha, int r, int g, int b) {
 
-		String hexString = toHex(alpha) + toHex(r) + toHex(g) + toHex(b);
+        String hexString = toHex(alpha) + toHex(r) + toHex(g) + toHex(b);
 
-		return (int) Long.parseLong(hexString, 16);
-	}
+        return (int) Long.parseLong(hexString, 16);
+    }
 
     private static String toHex(int n) {
 
@@ -86,6 +87,30 @@ public class ColorParams {
                 .append(", AHEX: ").append(hexColorString.substring(1).toUpperCase())
                 .append("\nARGB: ").append(makeArgbInfo(hexColorString))
                 .append("\nHSV:")
+                .append(" hue=").append((int) hsv[0]).append((char) 0x00B0)
+                .append(", sat=").append((int) (hsv[1] * 100)).append((char) 0x0025)
+                .append(", val=").append((int) (hsv[2] * 100)).append((char) 0x0025);
+
+        return sb.toString();
+    }
+
+    public static String composeInfoHTML(String hexColorString) {
+
+        int[] argb = ColorParams.hexStringToARGB(hexColorString);
+
+        float[] hsv = new float[3];
+
+        Color.RGBToHSV(argb[1], argb[2], argb[3], hsv);
+
+        StringBuilder sb = new StringBuilder("Opacity: ")
+                .append(percent255(argb[0])).append((char) 0x0025)
+                .append("<br/>Red: ").append(percent255(argb[1])).append((char) 0x0025)
+                .append(" Green: ").append(percent255(argb[2])).append((char) 0x0025)
+                .append(" Blue: ").append(percent255(argb[3])).append((char) 0x0025)
+                .append("<br/><b>HEX:</b> ").append(hexColorString.substring(3).toUpperCase())
+                .append("<br><b>AHEX:</b> ").append(hexColorString.substring(1).toUpperCase())
+                .append("<br/><b>ARGB:</b> ").append(makeArgbInfo(hexColorString))
+                .append("<br/><b>HSV:</b>")
                 .append(" hue=").append((int) hsv[0]).append((char) 0x00B0)
                 .append(", sat=").append((int) (hsv[1] * 100)).append((char) 0x0025)
                 .append(", val=").append((int) (hsv[2] * 100)).append((char) 0x0025);

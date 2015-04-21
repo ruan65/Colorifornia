@@ -6,7 +6,8 @@ import android.os.Bundle;
 
 import com.engstuff.coloriphornia.R;
 import com.engstuff.coloriphornia.data.Cv;
-import com.engstuff.coloriphornia.fragments.FullScreenColorFragment;
+import com.engstuff.coloriphornia.fragments.FragmentFullScreenColor;
+import com.engstuff.coloriphornia.helpers.PrefsHelper;
 
 
 public class FullScreenColorC extends Activity {
@@ -18,7 +19,7 @@ public class FullScreenColorC extends Activity {
 
         Intent intent = getIntent();
 
-        FullScreenColorFragment fragment = new FullScreenColorFragment();
+        FragmentFullScreenColor fragment = new FragmentFullScreenColor();
 
         fragment.setHexString(intent.getStringExtra(Cv.EXTRA_MESSAGE_COLOR_1));
 
@@ -33,5 +34,12 @@ public class FullScreenColorC extends Activity {
     protected void onResume() {
         super.onResume();
         overridePendingTransition(R.anim.slide_in_l, R.anim.slide_out_l);
+    }
+
+    @Override
+    public void onPause() {
+        super.onPause();
+            PrefsHelper.writeToPrefsDefault(
+                    getApplicationContext(), Cv.LAST_ACTIVITY, getClass().getName());
     }
 }

@@ -13,13 +13,14 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.engstuff.coloriphornia.R;
+import com.engstuff.coloriphornia.helpers.AppHelper;
 import com.engstuff.coloriphornia.helpers.ColorParams;
 
 import butterknife.ButterKnife;
 import butterknife.InjectView;
 import butterknife.OnClick;
 
-public class FullScreenColorFragment extends Fragment implements View.OnClickListener {
+public class FragmentFullScreenColor extends Fragment implements View.OnClickListener {
 
     Activity activity;
     String hexString;
@@ -38,7 +39,7 @@ public class FullScreenColorFragment extends Fragment implements View.OnClickLis
     @InjectView(R.id.layout_full_screen_color_fragment)
     RelativeLayout layout;
 
-    public FullScreenColorFragment() {
+    public FragmentFullScreenColor() {
     }
 
     @Override
@@ -50,7 +51,11 @@ public class FullScreenColorFragment extends Fragment implements View.OnClickLis
         ButterKnife.inject(this, root);
 
 
-        boolean whiteText = ColorParams.blackOrWhiteText(hexString);
+        boolean whiteText = false;
+        try {
+            whiteText = ColorParams.blackOrWhiteText(hexString);
+        } catch (Exception ignore) {
+        }
 
         showInfo.setImageResource(
                 whiteText
@@ -115,7 +120,7 @@ public class FullScreenColorFragment extends Fragment implements View.OnClickLis
 
     @OnClick(R.id.send_info_full_c)
     public void sendInfo() {
-
+        AppHelper.fireShareIntent(activity, ColorParams.composeInfoHTML(hexString));
     }
 
     public void setHexString(String hexString) {
