@@ -186,12 +186,14 @@ public class FragmentColorBox extends Fragment {
 
     public FragmentColorBox setColorParams() {
 
-        ColorControlAbstractFragment fragmentControl = ((BaseColorActivity) getActivity()).getFragmentControl();
-        alpha = fragmentControl.getAlpha();
-        r = fragmentControl.getR();
-        g = fragmentControl.getG();
-        b = fragmentControl.getB();
-
+        try {
+            ColorControlAbstractFragment fragmentControl = ((BaseColorActivity) getActivity()).getFragmentControl();
+            alpha = fragmentControl.getAlpha();
+            r = fragmentControl.getR();
+            g = fragmentControl.getG();
+            b = fragmentControl.getB();
+        } catch (Exception ignoreNpeIfSlowDevice) {
+        }
         return this;
     }
 

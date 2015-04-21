@@ -1,13 +1,10 @@
 package com.engstuff.coloriphornia.activities;
 
 import android.app.Activity;
-import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarActivity;
 import android.support.v7.widget.Toolbar;
-import android.text.Html;
-import android.util.Log;
 import android.view.KeyEvent;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -18,8 +15,6 @@ import com.engstuff.coloriphornia.data.Cv;
 import com.engstuff.coloriphornia.fragments.FragmentNavDrawer;
 import com.engstuff.coloriphornia.helpers.AppHelper;
 import com.engstuff.coloriphornia.helpers.PrefsHelper;
-
-import static com.engstuff.coloriphornia.helpers.PrefsHelper.readFromPrefsAllToArray;
 
 public abstract class MockUpActivity extends ActionBarActivity {
 
@@ -95,7 +90,7 @@ public abstract class MockUpActivity extends ActionBarActivity {
 
             case R.id.send:
 
-                fireShareIntent(false);
+                AppHelper.fireShareIntent(this, composeEmailBody(true));
                 break;
 
             case R.id.back:
@@ -103,22 +98,6 @@ public abstract class MockUpActivity extends ActionBarActivity {
                 AppHelper.startLastSavedActivity(this);
         }
         return super.onOptionsItemSelected(item);
-    }
-
-    public void fireShareIntent(boolean calledFromContextMenu) {
-
-        Intent emailIntent = new Intent(Intent.ACTION_SEND);
-
-        emailIntent.setType("message/rfc822");
-
-        emailIntent.putExtra(Intent.EXTRA_EMAIL,
-                readFromPrefsAllToArray(this, Cv.SAVED_EMAILS));
-
-        emailIntent.putExtra(Intent.EXTRA_SUBJECT, Cv.EMAIL_SUBJ);
-
-        emailIntent.putExtra(Intent.EXTRA_TEXT, Html.fromHtml(composeEmailBody(calledFromContextMenu)));
-
-        startActivity(Intent.createChooser(emailIntent, Cv.CHOOSER_TITLE));
     }
 
     protected abstract int getLayoutResource();

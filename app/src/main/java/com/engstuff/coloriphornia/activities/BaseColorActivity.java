@@ -99,7 +99,7 @@ public abstract class BaseColorActivity extends MockUpActivity implements
 
             case R.id.ctx_menu_share_color:
 
-                fireShareIntent(true);
+                AppHelper.fireShareIntent(this, composeEmailBody(true));
 
                 return true;
         }

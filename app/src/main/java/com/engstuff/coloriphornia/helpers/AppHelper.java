@@ -5,6 +5,7 @@ import android.accounts.AccountManager;
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
+import android.text.Html;
 import android.widget.ImageView;
 import android.widget.Toast;
 
@@ -14,6 +15,8 @@ import com.engstuff.coloriphornia.activities.FullScreenColorC;
 import com.engstuff.coloriphornia.data.Cv;
 import com.engstuff.coloriphornia.fragments.ColorControlAbstractFragment;
 import com.engstuff.coloriphornia.fragments.FragmentColorBox;
+
+import static com.engstuff.coloriphornia.helpers.PrefsHelper.readFromPrefsAllToArray;
 
 public class AppHelper {
 
@@ -127,6 +130,7 @@ public class AppHelper {
             return account.name;
         }
     }
+    
     private static Account getAccount(AccountManager accountManager) {
         Account[] accounts = accountManager.getAccountsByType("com.google");
         Account account;
@@ -135,5 +139,21 @@ public class AppHelper {
         } else {
             account = null;
         } return account;
+    }
+
+    public static void fireShareIntent(Context ctx, String html) {
+
+        Intent emailIntent = new Intent(Intent.ACTION_SEND);
+
+        emailIntent.setType("message/rfc822");
+
+        emailIntent.putExtra(Intent.EXTRA_EMAIL,
+                readFromPrefsAllToArray(ctx, Cv.SAVED_EMAILS));
+
+        emailIntent.putExtra(Intent.EXTRA_SUBJECT, Cv.EMAIL_SUBJ);
+
+        emailIntent.putExtra(Intent.EXTRA_TEXT, Html.fromHtml(html));
+
+        ctx.startActivity(Intent.createChooser(emailIntent, Cv.CHOOSER_TITLE));
     }
 }
