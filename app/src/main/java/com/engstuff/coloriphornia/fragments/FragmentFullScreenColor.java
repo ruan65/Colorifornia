@@ -8,6 +8,8 @@ import android.support.v7.widget.CardView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.animation.Animation;
+import android.view.animation.AnimationUtils;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
@@ -24,20 +26,21 @@ public class FragmentFullScreenColor extends Fragment implements View.OnClickLis
 
     Activity activity;
     String hexString;
+    Animation hideAnim;
+    Animation btnFadeInAnim;
     boolean whiteText;
 
-    @InjectView(R.id.card_view_full_c)
-    CardView cv;
-    @InjectView(R.id.tv_color_params)
-    TextView tv;
-    @InjectView(R.id.show_info_full_c)
-    ImageView showInfo;
-    @InjectView(R.id.close_info_full_c_card)
-    ImageView closeInfo;
-    @InjectView(R.id.send_info_full_c)
-    ImageView sendInfo;
-    @InjectView(R.id.layout_full_screen_color_fragment)
-    RelativeLayout layout;
+    @InjectView(R.id.card_view_full_c) CardView cv;
+
+    @InjectView(R.id.tv_color_params) TextView tv;
+
+    @InjectView(R.id.show_info_full_c) ImageView showInfo;
+
+    @InjectView(R.id.close_info_full_c_card)ImageView closeInfo;
+
+    @InjectView(R.id.send_info_full_c) ImageView sendInfo;
+
+    @InjectView(R.id.layout_full_screen_color_fragment) RelativeLayout layout;
 
     public FragmentFullScreenColor() {
     }
@@ -52,8 +55,11 @@ public class FragmentFullScreenColor extends Fragment implements View.OnClickLis
 
         ButterKnife.inject(this, root);
 
+        hideAnim = AnimationUtils.loadAnimation(activity, R.anim.info_close);
+        btnFadeInAnim = AnimationUtils.loadAnimation(activity, R.anim.btn_fadein);
 
         boolean whiteText = false;
+
         try {
             whiteText = ColorParams.blackOrWhiteText(hexString);
         } catch (Exception ignore) {
@@ -117,7 +123,11 @@ public class FragmentFullScreenColor extends Fragment implements View.OnClickLis
     @OnClick(R.id.close_info_full_c_card)
     public void closeInfo() {
         cv.setVisibility(View.INVISIBLE);
+        hideAnim.cancel();
+        cv.startAnimation(hideAnim);
         showInfo.setVisibility(View.VISIBLE);
+        btnFadeInAnim.cancel();
+        showInfo.startAnimation(btnFadeInAnim);
     }
 
     @OnClick(R.id.send_info_full_c)

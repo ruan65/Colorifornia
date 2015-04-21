@@ -131,7 +131,7 @@ public abstract class MockUpActivity extends ActionBarActivity {
         return super.onKeyDown(keyCode, event);
     }
 
-    void openCloseDrawer() {
+    private void openCloseDrawer() {
         if (!mDrawerLayout.isDrawerOpen(mDrawerView)) {
             mDrawerLayout.openDrawer(mDrawerView);
         } else if (mDrawerLayout.isDrawerOpen(mDrawerView)) {
