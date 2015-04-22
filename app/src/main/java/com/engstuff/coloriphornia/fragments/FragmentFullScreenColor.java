@@ -26,8 +26,7 @@ public class FragmentFullScreenColor extends Fragment implements View.OnClickLis
 
     Activity activity;
     String hexString;
-    Animation hideAnim;
-    Animation btnFadeInAnim;
+    Animation hideAnim, btnFadeInAnim, showAnim, btnFadeOutAnim;
     boolean whiteText;
 
     @InjectView(R.id.card_view_full_c) CardView cv;
@@ -56,6 +55,8 @@ public class FragmentFullScreenColor extends Fragment implements View.OnClickLis
         ButterKnife.inject(this, root);
 
         hideAnim = AnimationUtils.loadAnimation(activity, R.anim.info_close);
+        showAnim = AnimationUtils.loadAnimation(activity, R.anim.info_open);
+        btnFadeOutAnim = AnimationUtils.loadAnimation(activity, R.anim.btn_fadeout);
         btnFadeInAnim = AnimationUtils.loadAnimation(activity, R.anim.btn_fadein);
 
         boolean whiteText = false;
@@ -116,15 +117,23 @@ public class FragmentFullScreenColor extends Fragment implements View.OnClickLis
 
     @OnClick(R.id.show_info_full_c)
     public void showInfo() {
+
         cv.setVisibility(View.VISIBLE);
+        showAnim.cancel();
+        cv.startAnimation(showAnim);
+
         showInfo.setVisibility(View.INVISIBLE);
+        btnFadeOutAnim.cancel();
+        showInfo.startAnimation(btnFadeOutAnim);
     }
 
     @OnClick(R.id.close_info_full_c_card)
     public void closeInfo() {
+
         cv.setVisibility(View.INVISIBLE);
         hideAnim.cancel();
         cv.startAnimation(hideAnim);
+
         showInfo.setVisibility(View.VISIBLE);
         btnFadeInAnim.cancel();
         showInfo.startAnimation(btnFadeInAnim);

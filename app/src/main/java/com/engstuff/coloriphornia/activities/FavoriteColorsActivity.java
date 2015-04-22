@@ -262,7 +262,7 @@ public class FavoriteColorsActivity extends MockUpActivity {
 
             if (fc.isChecked()) {
 
-                result.append("<p>" + fc.hexString + "</p>");
+                result.append("<p>" + ColorParams.composeInfoHTML(fc.hexString) + "</p>");
             }
         }
         return result.toString();

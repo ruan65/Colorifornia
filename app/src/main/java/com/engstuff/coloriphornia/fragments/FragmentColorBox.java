@@ -18,6 +18,8 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
+import android.view.animation.DecelerateInterpolator;
+import android.view.animation.OvershootInterpolator;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
 
@@ -70,6 +72,23 @@ public class FragmentColorBox extends Fragment {
     public FragmentColorBox() {
     }
 
+    View.OnTouchListener touchListener = new View.OnTouchListener() {
+        @Override
+        public boolean onTouch(View v, MotionEvent event) {
+            switch (event.getAction()) {
+                case MotionEvent.ACTION_DOWN:
+                    v.animate().setInterpolator(new DecelerateInterpolator())
+                            .scaleX(.7f).scaleY(.7f);
+                    break;
+                case MotionEvent.ACTION_UP:
+                    v.animate().setInterpolator(new OvershootInterpolator(10f))
+                            .scaleX(1f).scaleY(1f);
+            }
+
+            return false;
+        }
+    };
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -81,6 +100,12 @@ public class FragmentColorBox extends Fragment {
 
         gestureLibrary = GestureLibraries.fromRawResource(activity, R.raw.gestures);
         gestureLibrary.load();
+
+        info.animate().setDuration(300);
+        info.setOnTouchListener(touchListener);
+
+        like.animate().setDuration(300);
+        like.setOnTouchListener(touchListener);
 
         likeAnim = AnimationUtils.loadAnimation(activity, R.anim.like);
 

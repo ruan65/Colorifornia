@@ -3,26 +3,27 @@
 
     <alpha
         android:duration="900"
-        android:fromAlpha="1.0"
+        android:fromAlpha="0"
         android:fromXDelta="20%p"
         android:fromYDelta="20%p"
-        android:toAlpha="0.0" />
+        android:toAlpha="1" />
 
     <scale
         android:duration="900"
-        android:fromXScale="1"
-        android:fromYScale="1"
+        android:fromXScale="0"
+        android:fromYScale="0"
         android:pivotX="50%"
         android:pivotY="50%"
-        android:toXScale="0"
-        android:toYScale="0" />
+        android:toXScale="1"
+        android:toYScale="1" />
 
     <translate
         android:duration="900"
-        android:fromXDelta="0"
-        android:fromYDelta="0"
+        android:fromXDelta="55%p"
+        android:fromYDelta="-65%p"
+        android:interpolator="@android:anim/anticipate_interpolator"
         android:pivotX="50%"
         android:pivotY="50%"
-        android:toYDelta="-60%p"
-        android:toXDelta="55%p" />
+        android:toXDelta="-2%p"
+        android:toYDelta="2%p" />
 </set>
