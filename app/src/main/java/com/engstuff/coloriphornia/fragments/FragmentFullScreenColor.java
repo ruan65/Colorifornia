@@ -5,7 +5,9 @@ import android.app.Fragment;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.support.v7.widget.CardView;
+import android.view.GestureDetector;
 import android.view.LayoutInflater;
+import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.animation.Animation;
@@ -17,10 +19,12 @@ import android.widget.TextView;
 import com.engstuff.coloriphornia.R;
 import com.engstuff.coloriphornia.helpers.AppHelper;
 import com.engstuff.coloriphornia.helpers.ColorParams;
+import com.engstuff.coloriphornia.interfaces.OnFlingListener;
 
 import butterknife.ButterKnife;
 import butterknife.InjectView;
 import butterknife.OnClick;
+import butterknife.OnTouch;
 
 public class FragmentFullScreenColor extends Fragment {
 
@@ -28,6 +32,8 @@ public class FragmentFullScreenColor extends Fragment {
     String hexString;
     Animation hideAnim, btnFadeInAnim, showAnim, btnFadeOutAnim;
     boolean whiteText;
+
+    GestureDetector mGestureDetector;
 
     @InjectView(R.id.card_view_full_c) CardView cv;
 
@@ -44,6 +50,17 @@ public class FragmentFullScreenColor extends Fragment {
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+
+        mGestureDetector = new GestureDetector(activity, new GestureDetector.SimpleOnGestureListener() {
+
+            @Override
+            public boolean onFling(MotionEvent e1, MotionEvent e2, float velocityX, float velocityY) {
+
+                ((OnFlingListener) activity).onSwipe();
+
+                return true;
+            }
+        });
 
         setRetainInstance(true);
 
@@ -138,6 +155,12 @@ public class FragmentFullScreenColor extends Fragment {
     @OnClick(R.id.layout_full_screen_color_fragment)
     public void close() {
         activity.finish();
+    }
+
+    @OnTouch(R.id.layout_full_screen_color_fragment)
+    public boolean nextFavoriteColor(MotionEvent ev) {
+
+        return mGestureDetector.onTouchEvent(ev);
     }
 
     public void setHexString(String hexString) {

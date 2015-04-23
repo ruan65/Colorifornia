@@ -3,19 +3,14 @@ package com.engstuff.coloriphornia.activities;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
-import android.view.MotionEvent;
-import android.view.View;
-import android.widget.FrameLayout;
 
 import com.engstuff.coloriphornia.R;
 import com.engstuff.coloriphornia.data.Cv;
 import com.engstuff.coloriphornia.fragments.FragmentFullScreenColor;
-import com.engstuff.coloriphornia.helpers.PrefsHelper;
-import com.engstuff.coloriphornia.interfaces.OnSwipeListener;
+import com.engstuff.coloriphornia.interfaces.OnFlingListener;
 
 
-public class FullScreenColorC extends Activity implements OnSwipeListener{
+public class FullScreenColorC extends Activity implements OnFlingListener {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -41,8 +36,9 @@ public class FullScreenColorC extends Activity implements OnSwipeListener{
         overridePendingTransition(R.anim.slide_in_l, R.anim.slide_out_l);
     }
 
-    @Override
-    public void onSwipe() {
 
+    @Override
+    public void onFling(boolean next) {
+        
     }
 }
