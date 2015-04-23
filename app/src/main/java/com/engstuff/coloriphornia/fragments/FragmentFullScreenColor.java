@@ -22,7 +22,7 @@ import butterknife.ButterKnife;
 import butterknife.InjectView;
 import butterknife.OnClick;
 
-public class FragmentFullScreenColor extends Fragment implements View.OnClickListener {
+public class FragmentFullScreenColor extends Fragment {
 
     Activity activity;
     String hexString;
@@ -38,8 +38,6 @@ public class FragmentFullScreenColor extends Fragment implements View.OnClickLis
     @InjectView(R.id.close_info_full_c_card)ImageView closeInfo;
 
     @InjectView(R.id.send_info_full_c) ImageView sendInfo;
-
-    @InjectView(R.id.layout_full_screen_color_fragment) RelativeLayout layout;
 
     public FragmentFullScreenColor() {
     }
@@ -93,8 +91,6 @@ public class FragmentFullScreenColor extends Fragment implements View.OnClickLis
         tv.setTextColor(textColor);
         tv.setText(ColorParams.composeInfo(hexString));
 
-        layout.setOnClickListener(this);
-
         return root;
     }
 
@@ -108,11 +104,6 @@ public class FragmentFullScreenColor extends Fragment implements View.OnClickLis
     public void onDestroyView() {
         super.onDestroyView();
         ButterKnife.reset(this);
-    }
-
-    @Override
-    public void onClick(View v) {
-        activity.finish();
     }
 
     @OnClick(R.id.show_info_full_c)
@@ -142,6 +133,11 @@ public class FragmentFullScreenColor extends Fragment implements View.OnClickLis
     @OnClick(R.id.send_info_full_c)
     public void sendInfo() {
         AppHelper.fireShareIntent(activity, ColorParams.composeInfoHTML(hexString));
+    }
+
+    @OnClick(R.id.layout_full_screen_color_fragment)
+    public void close() {
+        activity.finish();
     }
 
     public void setHexString(String hexString) {
