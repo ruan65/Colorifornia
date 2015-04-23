@@ -7,8 +7,9 @@ import android.os.Bundle;
 import com.engstuff.coloriphornia.R;
 import com.engstuff.coloriphornia.data.Cv;
 import com.engstuff.coloriphornia.fragments.FragmentFullScreenColor;
+import com.engstuff.coloriphornia.interfaces.OnFlingListener;
 
-public class FullScreenColorCC extends Activity {
+public class FullScreenColorCC extends Activity implements OnFlingListener {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -36,5 +37,10 @@ public class FullScreenColorCC extends Activity {
     protected void onResume() {
         super.onResume();
         overridePendingTransition(R.anim.slide_in_l, R.anim.slide_out_l);
+    }
+
+    @Override
+    public void onFling(boolean next) {
+        // ignore
     }
 }

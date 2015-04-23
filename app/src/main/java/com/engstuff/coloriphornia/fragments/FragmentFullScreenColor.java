@@ -56,7 +56,7 @@ public class FragmentFullScreenColor extends Fragment {
             @Override
             public boolean onFling(MotionEvent e1, MotionEvent e2, float velocityX, float velocityY) {
 
-                ((OnFlingListener) activity).onSwipe();
+                ((OnFlingListener) activity).onFling(true);
 
                 return true;
             }
@@ -95,6 +95,8 @@ public class FragmentFullScreenColor extends Fragment {
                 whiteText
                         ? R.drawable.ic_send_white_36dp
                         : R.drawable.ic_send_black_36dp);
+
+        hexString = ColorParams.replaceNotValidHexForZeroColor(hexString);
 
         int backColor = (int) Long.parseLong(hexString.substring(1), 16);
         int backCardColor = (int) Long.parseLong(hexString.substring(3), 16);

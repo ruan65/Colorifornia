@@ -5,8 +5,8 @@
     <Preference
         android:defaultValue=""
         android:key="@string/prefs_user_saved_emails"
-        android:summary="Adding/deleting emails for sending colors params"
-        android:title="Edit emails" />
+        android:summary="@string/prers_summary"
+        android:title="@string/prefs_title" />
 
     <Preference
         android:key="no_key"
