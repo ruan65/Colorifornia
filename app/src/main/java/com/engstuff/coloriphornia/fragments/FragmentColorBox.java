@@ -73,6 +73,7 @@ public class FragmentColorBox extends Fragment {
     }
 
     View.OnTouchListener touchListener = new View.OnTouchListener() {
+
         @Override
         public boolean onTouch(View v, MotionEvent event) {
             switch (event.getAction()) {
@@ -83,8 +84,8 @@ public class FragmentColorBox extends Fragment {
                 case MotionEvent.ACTION_UP:
                     v.animate().setInterpolator(new OvershootInterpolator(10f))
                             .scaleX(1f).scaleY(1f);
+                    break;
             }
-
             return false;
         }
     };

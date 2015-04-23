@@ -47,5 +47,6 @@
     <string name="ctx_undo">undo</string>
     <string name="ctx_discard">discard selected</string>
     <string name="ctx_select">selection</string>
-    <string name="email_creating_error">Something went wrong while creating email. Try again please.</string>
+    <string name="email_creating_error">Something went wrong while creating email. Try again please. </string>
+    <string name="email_error_no_selected">There is nothing to send. Select needed colors and repeat.</string>
 </resources>

@@ -37,10 +37,12 @@
         android:layout_height="wrap_content"
         android:layout_centerInParent="true"
         android:onClick="resetAlphaAndSatur"
-        fab:button_color="@color/primaryColor"
-        fab:button_colorPressed="@color/primaryColorDarkTransparent"
-        fab:image="@drawable/ic_sync_black_48dp"
+        fab:button_color="#00000000"
+        fab:button_colorPressed="#55555555"
+        fab:image="@drawable/ic_sync_white_48dp"
         fab:image_size="40dp"
+        fab:stroke_color="@android:color/white"
+        fab:stroke_width="1dp"
         fab:hide_animation="@anim/btn_roll_to_r"
         fab:show_animation="@anim/btn_roll_from_r"/>
 

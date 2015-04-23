@@ -5,6 +5,7 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.graphics.Point;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -13,6 +14,7 @@ import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.GridView;
 import android.widget.RelativeLayout;
+import android.widget.Toast;
 
 import com.engstuff.coloriphornia.R;
 import com.engstuff.coloriphornia.data.Cv;
@@ -29,6 +31,8 @@ public class FavoriteColorsActivity extends MockUpActivity {
     int gridSize;
 
     boolean modeColorsOperation;
+
+    private boolean allUnchecked = true;
 
     FavoritesAdapter fAdapter;
     GridView gridView;
@@ -109,16 +113,7 @@ public class FavoriteColorsActivity extends MockUpActivity {
 
                 checkColor(view, position, false);
 
-                boolean allUnchecked = true;
-
-                for (FavoriteColor fc : fColorsList) {
-
-                    if (fc.isChecked()) {
-
-                        allUnchecked = false;
-                        break;
-                    }
-                }
+                allUnchecked = areAllUnchecked();
 
                 if (allUnchecked) {
 
@@ -130,6 +125,18 @@ public class FavoriteColorsActivity extends MockUpActivity {
             }
         }
     };
+
+    private boolean areAllUnchecked() {
+
+        for (FavoriteColor fc : fColorsList) {
+
+            if (fc.isChecked()) {
+
+                return false;
+            }
+        }
+        return true;
+    }
 
     private void setColorOperationsMode() {
 
@@ -198,7 +205,7 @@ public class FavoriteColorsActivity extends MockUpActivity {
                 new AlertDialog.Builder(this, AlertDialog.THEME_HOLO_LIGHT)
                         .setTitle("Discard checked")
                         .setMessage(
-                                fColorsList.size() > 0
+                                fColorsList.size() > 0 && !areAllUnchecked()
                                         ? "All checked colors will be erased. Proceed?"
                                         : "An empty list. Nothing to delete."
                         )
@@ -226,6 +233,23 @@ public class FavoriteColorsActivity extends MockUpActivity {
                         .show();
                 break;
 
+            case R.id.send:
+
+                try {
+                    if (areAllUnchecked()) {
+                        Toast.makeText(this, getString(R.string.email_error_no_selected),
+                                Toast.LENGTH_SHORT).show();
+                        return true;
+                    }
+                    AppHelper.fireShareIntent(this, composeEmailBody(false));
+                } catch (Exception e) {
+                    Toast.makeText(this, getString(R.string.email_creating_error),
+                            Toast.LENGTH_SHORT).show();
+
+                    Log.e(getApplication().getPackageName(),
+                            getString(R.string.email_creating_error) + e.getMessage());
+                } break;
+
             case R.id.check_mode:
 
                 setColorOperationsMode();
@@ -242,6 +266,8 @@ public class FavoriteColorsActivity extends MockUpActivity {
     }
 
     void checkAllColors(boolean checkOrUncheckThatIsTheQuestion) {
+
+        allUnchecked = !checkOrUncheckThatIsTheQuestion;
 
         for (FavoriteColor fc : fColorsList) {
             fc.setChecked(checkOrUncheckThatIsTheQuestion);

@@ -3,8 +3,11 @@ package com.engstuff.coloriphornia.fragments;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.view.LayoutInflater;
+import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.animation.DecelerateInterpolator;
+import android.view.animation.OvershootInterpolator;
 import android.widget.TextView;
 
 import com.engstuff.coloriphornia.R;
@@ -39,6 +42,26 @@ public class RoundColorControlFragment extends ColorControlAbstractFragment
             @Override
             public void onClick(View v) {
                 control.resetAlphaAndSatur();
+            }
+        });
+
+        reset.setOnTouchListener(new View.OnTouchListener() {
+
+            @Override
+            public boolean onTouch(View v, MotionEvent event) {
+
+                switch (event.getAction()) {
+                    case MotionEvent.ACTION_DOWN:
+                        v.animate().setInterpolator(new DecelerateInterpolator())
+                                .scaleX(.7f).scaleY(.7f);
+                        break;
+                    case MotionEvent.ACTION_UP:
+                        v.animate().setInterpolator(new OvershootInterpolator(5f))
+                                .scaleX(1f).scaleY(1f);
+                        break;
+                }
+
+                return false;
             }
         });
 
