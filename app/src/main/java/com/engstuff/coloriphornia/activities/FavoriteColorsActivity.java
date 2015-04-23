@@ -60,6 +60,8 @@ public class FavoriteColorsActivity extends MockUpActivity {
     protected void onResume() {
         super.onResume();
 
+        modeColorsOperation = false;
+
         if (checkModeIcon != null) {
             checkCurrentMode();
         }
@@ -154,6 +156,8 @@ public class FavoriteColorsActivity extends MockUpActivity {
 
         modeColorsOperation = false;
 
+        checkAllColors(false);
+
         gridView.setOnItemClickListener(viewModeOnClickListener);
 
         checkModeIcon.setVisible(true);
@@ -235,20 +239,11 @@ public class FavoriteColorsActivity extends MockUpActivity {
 
             case R.id.send:
 
-                try {
-                    if (areAllUnchecked()) {
-                        Toast.makeText(this, getString(R.string.email_error_no_selected),
-                                Toast.LENGTH_SHORT).show();
-                        return true;
-                    }
-                    AppHelper.fireShareIntent(this, composeEmailBody(false));
-                } catch (Exception e) {
-                    Toast.makeText(this, getString(R.string.email_creating_error),
+                if (areAllUnchecked()) {
+                    Toast.makeText(this, getString(R.string.email_error_no_selected),
                             Toast.LENGTH_SHORT).show();
-
-                    Log.e(getApplication().getPackageName(),
-                            getString(R.string.email_creating_error) + e.getMessage());
-                } break;
+                    return true;
+                }
 
             case R.id.check_mode:
 
