@@ -27,10 +27,7 @@ public class ColorParams {
 
     public static int[] hexStringToARGB(String hexARGB) throws IllegalArgumentException {
 
-        if (!hexARGB.startsWith("#") || !(hexARGB.length() == 7 || hexARGB.length() == 9)) {
-
-            hexARGB = "#00000000";
-        }
+        hexARGB = replaceNotValidHexForZeroColor(hexARGB);
 
         int[] intARGB = new int[4];
 
@@ -44,6 +41,15 @@ public class ColorParams {
         } else hexStringToARGB("#FF" + hexARGB.substring(1));
 
         return intARGB;
+    }
+
+    public static String replaceNotValidHexForZeroColor(String hexARGB) {
+
+        if (!hexARGB.startsWith("#") || !(hexARGB.length() == 7 || hexARGB.length() == 9)) {
+
+            hexARGB = "#00000000";
+        }
+        return hexARGB;
     }
 
     public static boolean blackOrWhiteText(int alpha, int r, int g, int b) {
@@ -95,6 +101,8 @@ public class ColorParams {
     }
 
     public static String composeInfoHTML(String hexColorString) {
+
+        hexColorString = replaceNotValidHexForZeroColor(hexColorString);
 
         int[] argb = ColorParams.hexStringToARGB(hexColorString);
 

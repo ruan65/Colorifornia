@@ -244,6 +244,7 @@ public class FavoriteColorsActivity extends MockUpActivity {
                             Toast.LENGTH_SHORT).show();
                     return true;
                 }
+                break;
 
             case R.id.check_mode:
 
@@ -327,6 +328,7 @@ public class FavoriteColorsActivity extends MockUpActivity {
         boolean checked;
 
         private FavoriteColor(String h) {
+
             hexString = h;
             color = (int) Long.parseLong(hexString.substring(1), 16);
         }

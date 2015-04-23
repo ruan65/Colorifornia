@@ -101,6 +101,7 @@ public abstract class MockUpActivity extends ActionBarActivity {
 
                     Log.e(getApplication().getPackageName(),
                             "Error while creating email: " + e.getMessage());
+                    e.printStackTrace();
                 } break;
 
             case R.id.back:

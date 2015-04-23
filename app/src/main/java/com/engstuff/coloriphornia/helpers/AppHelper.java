@@ -26,6 +26,8 @@ public class AppHelper {
 
     public static void startFullColorC(Activity activity, String hex) {
 
+        hex = ColorParams.replaceNotValidHexForZeroColor(hex);
+
         Intent i = new Intent(activity, FullScreenColorC.class);
 
         i.putExtra(Cv.EXTRA_MESSAGE_COLOR_1, hex);
