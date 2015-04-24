@@ -24,7 +24,7 @@ import static com.engstuff.coloriphornia.helpers.PrefsHelper.readFromPrefsAllToA
 
 public class AppHelper {
 
-    public static void startFullColorC(Activity activity, String hex) {
+    public static void startFullColorC(Activity activity, String hex, boolean... favorites) {
 
         hex = ColorParams.replaceNotValidHexForZeroColor(hex);
 
@@ -32,6 +32,7 @@ public class AppHelper {
 
         i.putExtra(Cv.EXTRA_MESSAGE_COLOR_1, hex);
         i.putExtra(Cv.EXTRA_MESSAGE_TEXT_COLOR_1, ColorParams.blackOrWhiteText(hex));
+        i.putExtra(Cv.CALLED_FROM_FAVORITES, favorites.length > 0 && favorites[0]);
 
         activity.startActivity(i);
     }

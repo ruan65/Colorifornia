@@ -5,6 +5,7 @@ import android.app.Fragment;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.support.v7.widget.CardView;
+import android.util.Log;
 import android.view.GestureDetector;
 import android.view.LayoutInflater;
 import android.view.MotionEvent;
@@ -53,12 +54,25 @@ public class FragmentFullScreenColor extends Fragment {
 
         mGestureDetector = new GestureDetector(activity, new GestureDetector.SimpleOnGestureListener() {
 
+            private static final int DISTANCE_THRESHOLD = 100;
+            private static final int VELOCITY_THRESHOLD = 100;
+
             @Override
             public boolean onFling(MotionEvent e1, MotionEvent e2, float velocityX, float velocityY) {
 
-                ((OnFlingListener) activity).onFling(true);
+                float distanceX = e2.getX() - e1.getX();
+                float distanceY = e2.getY() - e1.getY();
 
-                return true;
+
+                if (Math.abs(distanceX) > Math.abs(distanceY)
+                        && Math.abs(distanceX) > DISTANCE_THRESHOLD
+                        && Math.abs(velocityX) > VELOCITY_THRESHOLD) {
+
+                    ((OnFlingListener) activity).onFling(distanceX < 0 ? true : false);
+
+                    return true;
+                }
+                return false;
             }
         });
 

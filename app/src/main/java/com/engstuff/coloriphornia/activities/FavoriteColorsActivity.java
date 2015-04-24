@@ -102,7 +102,7 @@ public class FavoriteColorsActivity extends MockUpActivity {
 
             FavoriteColor c = fColorsList.get(position);
 
-            AppHelper.startFullColorC(FavoriteColorsActivity.this, c.hexString);
+            AppHelper.startFullColorC(FavoriteColorsActivity.this, c.hexString, true);
         }
     };
 

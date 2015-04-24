@@ -1,7 +1,6 @@
 package com.engstuff.coloriphornia.helpers;
 
 import android.graphics.Color;
-import android.widget.Toast;
 
 public class ColorParams {
 
