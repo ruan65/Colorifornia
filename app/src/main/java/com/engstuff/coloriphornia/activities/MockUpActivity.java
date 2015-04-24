@@ -54,7 +54,8 @@ public abstract class MockUpActivity extends ActionBarActivity {
             PrefsHelper.writeToPrefsDefault(this, keyNotFirstTime, true);
 
             try {
-                PrefsHelper.writeToPrefs(activity, Cv.SAVED_EMAILS, AppHelper.getDeviceGoogleEmail(activity), null);
+                PrefsHelper.writeToPrefs(activity, Cv.SAVED_EMAILS,
+                        AppHelper.getDeviceGoogleEmail(activity), null);
             } catch (Exception ignoreCosDoesNotMatter) {
             }
 

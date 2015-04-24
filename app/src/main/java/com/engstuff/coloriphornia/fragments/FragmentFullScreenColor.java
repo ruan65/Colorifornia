@@ -68,7 +68,7 @@ public class FragmentFullScreenColor extends Fragment {
                         && Math.abs(distanceX) > DISTANCE_THRESHOLD
                         && Math.abs(velocityX) > VELOCITY_THRESHOLD) {
 
-                    ((OnFlingListener) activity).onFling(distanceX < 0 ? true : false);
+                    ((OnFlingListener) activity).onFling(distanceX < 0);
 
                     return true;
                 }
