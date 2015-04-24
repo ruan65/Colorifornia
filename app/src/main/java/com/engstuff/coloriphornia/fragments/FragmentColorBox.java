@@ -11,6 +11,7 @@ import android.gesture.GestureOverlayView;
 import android.gesture.Prediction;
 import android.graphics.Color;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.GestureDetector;
 import android.view.LayoutInflater;
 import android.view.MotionEvent;
@@ -50,14 +51,11 @@ public class FragmentColorBox extends Fragment {
 
     Animation likeAnim;
 
-    @InjectView(R.id.color_box_layout)
-    RelativeLayout layout;
+    @InjectView(R.id.color_box_layout) RelativeLayout layout;
 
-    @InjectView(R.id.btn_color_info)
-    ImageView info;
+    @InjectView(R.id.btn_color_info) ImageView info;
 
-    @InjectView(R.id.like)
-    ImageView like;
+    @InjectView(R.id.like) ImageView like;
 
     private String hexColorParams;
 
@@ -123,6 +121,9 @@ public class FragmentColorBox extends Fragment {
 
                     if (prediction.score > 1.5 && prediction.name.equals(Cv.G_YES)) {
                         performColorSave();
+                    } else if (prediction.score > 1.5
+                            && (prediction.name.equals(Cv.G_NEXT) || prediction.name.equals(Cv.G_PREV))) {
+                        infoClick();
                     }
                 }
             }
