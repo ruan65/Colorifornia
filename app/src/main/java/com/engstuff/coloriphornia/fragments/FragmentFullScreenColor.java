@@ -5,7 +5,6 @@ import android.app.Fragment;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.support.v7.widget.CardView;
-import android.util.Log;
 import android.view.GestureDetector;
 import android.view.LayoutInflater;
 import android.view.MotionEvent;
@@ -20,6 +19,7 @@ import android.widget.TextView;
 import com.engstuff.coloriphornia.R;
 import com.engstuff.coloriphornia.helpers.AppHelper;
 import com.engstuff.coloriphornia.helpers.ColorParams;
+import com.engstuff.coloriphornia.interfaces.HideInfoListener;
 import com.engstuff.coloriphornia.interfaces.OnFlingListener;
 
 import butterknife.ButterKnife;
@@ -32,6 +32,7 @@ public class FragmentFullScreenColor extends Fragment {
     Activity activity;
     String hexString;
     Animation hideAnim, btnFadeInAnim, showAnim, btnFadeOutAnim;
+
     boolean whiteText;
 
     GestureDetector mGestureDetector;
@@ -62,7 +63,6 @@ public class FragmentFullScreenColor extends Fragment {
 
                 float distanceX = e2.getX() - e1.getX();
                 float distanceY = e2.getY() - e1.getY();
-
 
                 if (Math.abs(distanceX) > Math.abs(distanceY)
                         && Math.abs(distanceX) > DISTANCE_THRESHOLD
@@ -149,6 +149,8 @@ public class FragmentFullScreenColor extends Fragment {
         showInfo.setVisibility(View.INVISIBLE);
         btnFadeOutAnim.cancel();
         showInfo.startAnimation(btnFadeOutAnim);
+
+        ((HideInfoListener) activity).onHideInfoInvoked(false);
     }
 
     @OnClick(R.id.close_info_full_c_card)
@@ -161,6 +163,8 @@ public class FragmentFullScreenColor extends Fragment {
         showInfo.setVisibility(View.VISIBLE);
         btnFadeInAnim.cancel();
         showInfo.startAnimation(btnFadeInAnim);
+
+        ((HideInfoListener) activity).onHideInfoInvoked(true);
     }
 
     @OnClick(R.id.send_info_full_c)

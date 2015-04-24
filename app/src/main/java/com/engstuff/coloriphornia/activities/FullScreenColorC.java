@@ -1,28 +1,29 @@
 package com.engstuff.coloriphornia.activities;
 
 import android.app.Activity;
+import android.app.Fragment;
+import android.app.FragmentManager;
 import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
 
 import com.engstuff.coloriphornia.R;
 import com.engstuff.coloriphornia.data.Cv;
 import com.engstuff.coloriphornia.fragments.FragmentFullScreenColor;
 import com.engstuff.coloriphornia.helpers.ColorParams;
 import com.engstuff.coloriphornia.helpers.PrefsHelper;
+import com.engstuff.coloriphornia.interfaces.HideInfoListener;
 import com.engstuff.coloriphornia.interfaces.OnFlingListener;
 
 import java.util.ArrayList;
-import java.util.LinkedHashSet;
 import java.util.List;
-import java.util.Set;
 
-public class FullScreenColorC extends Activity implements OnFlingListener {
+public class FullScreenColorC extends Activity implements OnFlingListener, HideInfoListener {
 
-    boolean calledFromFavorites;
+    private boolean calledFromFavorites;
     private List<String> savedColorsSet;
-    String startedColor;
-    int position;
+    private String startedColor;
+    private int position;
+    private boolean hideInfoFlag;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -41,20 +42,7 @@ public class FullScreenColorC extends Activity implements OnFlingListener {
             position = savedColorsSet.indexOf(startedColor);
         }
 
-        getFragmentManager().beginTransaction()
-                .add(R.id.frame_for_full_screen_color_fragment, prepareFragment(startedColor))
-                .commit();
-    }
-
-    private FragmentFullScreenColor prepareFragment(String hex) {
-
-        FragmentFullScreenColor fragment = new FragmentFullScreenColor();
-
-        fragment.setHexString(hex);
-
-        fragment.setWhiteText(ColorParams.blackOrWhiteText(hex));
-
-        return fragment;
+        performFragmentTransaction(prepareFragment(startedColor));
     }
 
     @Override
@@ -69,14 +57,43 @@ public class FullScreenColorC extends Activity implements OnFlingListener {
         if (calledFromFavorites && savedColorsSet.size() > 0 && position != -1) {
 
             String hex = next
-                    ? ( position < savedColorsSet.size() - 1 ? savedColorsSet.get(++position)
-                                                           : savedColorsSet.get(position = 0) )
+                    ? (position < savedColorsSet.size() - 1 ? savedColorsSet.get(++position)
+                    : savedColorsSet.get(position = 0))
                     : position > 0 ? savedColorsSet.get(--position)
-                                   : savedColorsSet.get(position = savedColorsSet.size() - 1);
+                    : savedColorsSet.get(position = savedColorsSet.size() - 1);
 
-            getFragmentManager().beginTransaction()
-                    .replace(R.id.frame_for_full_screen_color_fragment, prepareFragment(hex))
-                    .commit();
+            performFragmentTransaction(prepareFragment(hex));
         }
+    }
+
+    private FragmentFullScreenColor prepareFragment(String hex) {
+
+        FragmentFullScreenColor fragment = new FragmentFullScreenColor();
+
+        fragment.setHexString(hex);
+
+        fragment.setWhiteText(ColorParams.blackOrWhiteText(hex));
+
+        return fragment;
+    }
+
+    void performFragmentTransaction(FragmentFullScreenColor f) {
+
+        FragmentManager manager = getFragmentManager();
+
+        manager.beginTransaction()
+                .replace(R.id.frame_for_full_screen_color_fragment, f)
+                .commit();
+
+        manager.executePendingTransactions();
+
+        if (hideInfoFlag) {
+            f.closeInfo();
+        }
+    }
+
+    @Override
+    public void onHideInfoInvoked(boolean hideInfoIfTrue) {
+        hideInfoFlag = hideInfoIfTrue;
     }
 }
