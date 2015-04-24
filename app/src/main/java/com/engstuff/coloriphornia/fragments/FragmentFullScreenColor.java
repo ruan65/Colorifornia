@@ -150,7 +150,9 @@ public class FragmentFullScreenColor extends Fragment {
         btnFadeOutAnim.cancel();
         showInfo.startAnimation(btnFadeOutAnim);
 
-        ((HideInfoListener) activity).onHideInfoInvoked(false);
+        if (activity instanceof HideInfoListener) {
+            ((HideInfoListener) activity).onHideInfoInvoked(false);
+        }
     }
 
     @OnClick(R.id.close_info_full_c_card)
@@ -164,7 +166,9 @@ public class FragmentFullScreenColor extends Fragment {
         btnFadeInAnim.cancel();
         showInfo.startAnimation(btnFadeInAnim);
 
-        ((HideInfoListener) activity).onHideInfoInvoked(true);
+        if (activity instanceof HideInfoListener) {
+            ((HideInfoListener) activity).onHideInfoInvoked(true);
+        }
     }
 
     @OnClick(R.id.send_info_full_c)
