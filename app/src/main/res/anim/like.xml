@@ -19,7 +19,7 @@
 
     <translate
         android:duration="500"
-        android:fromXDelta="20%p"
+        android:fromXDelta="-20%p"
         android:fromYDelta="20%p"
         android:startOffset="500"
         android:toXDelta="0"

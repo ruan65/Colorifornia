@@ -17,7 +17,7 @@
             android:layout_height="wrap_content"
             android:layout_width="wrap_content"
             android:layout_alignParentTop="true"
-            android:layout_alignParentLeft="true"
+            android:layout_alignParentRight="true"
             android:src="@drawable/ic_info_white"
             android:padding="10dp"
             android:id="@+id/btn_color_info"/>
@@ -29,8 +29,8 @@
             android:src="@drawable/ic_loyalty_white_24dp"
             android:id="@+id/like"
             android:layout_alignParentTop="true"
-            android:layout_toRightOf="@+id/btn_color_info"
-            android:layout_toEndOf="@+id/btn_color_info" />
+            android:layout_toLeftOf="@+id/btn_color_info"
+            android:layout_toStartOf="@+id/btn_color_info" />
 
     </RelativeLayout>
 </android.gesture.GestureOverlayView>

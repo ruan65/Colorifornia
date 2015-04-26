@@ -116,10 +116,12 @@ public class ColorCC extends BaseColorActivity {
     }
 
     protected void changeFragment(FragmentColorBox box) {
+
         currentColorBox = box;
         fragmentControl.setControls(
                 box.getAlpha(), box.getR(), box.getG(), box.getB());
         AppHelper.setInfoIcon(box);
+        progress.setVisibility(View.INVISIBLE);
     }
 
     @Override
