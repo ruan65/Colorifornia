@@ -1,38 +1,30 @@
 <android.support.v4.widget.DrawerLayout xmlns:android="http://schemas.android.com/apk/res/android"
-xmlns:tools="http://schemas.android.com/tools"
-android:id="@+id/drawer_layout"
-android:layout_width="match_parent"
-android:layout_height="match_parent">
-
-<LinearLayout
+    android:id="@+id/drawer_layout"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:orientation="vertical">
+    android:layout_height="match_parent">
 
-    <include
-        android:id="@+id/app_bar"
-        layout="@layout/app_bar" />
-
-    <GridView
-        android:layout_margin="5dp"
-        android:id="@+id/favorite_colors"
+    <LinearLayout
         android:layout_width="match_parent"
-        android:columnWidth="100dp"
-        android:numColumns="auto_fit"
-        android:verticalSpacing="5dp"
-        android:stretchMode="spacingWidthUniform"
-        android:gravity="center"
-        android:layout_height="match_parent" />
+        android:layout_height="match_parent"
+        android:orientation="vertical">
 
-</LinearLayout>
+        <include
+            android:id="@+id/app_bar"
+            layout="@layout/app_bar" />
 
-<fragment
-    android:id="@+id/fragment_nav_drawer"
-    android:name="com.engstuff.coloriphornia.fragments.FragmentNavDrawer"
-    android:layout_width="@dimen/nav_drawer_width"
-    android:layout_height="match_parent"
-    android:layout_gravity="start"
-    android:layout="@layout/fragment_nav_drawer_layout"
-    tools:layout="@layout/fragment_nav_drawer_layout" />
+        <GridView
+            android:id="@+id/favorite_colors"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_margin="5dp"
+            android:columnWidth="100dp"
+            android:gravity="center"
+            android:numColumns="auto_fit"
+            android:stretchMode="spacingWidthUniform"
+            android:verticalSpacing="5dp" />
+
+    </LinearLayout>
+
+    <include layout="@layout/nav_drawer_fr" />
 
 </android.support.v4.widget.DrawerLayout>

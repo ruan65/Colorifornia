@@ -1,0 +1,10 @@
+<fragment
+    android:id="@+id/fragment_nav_drawer"
+    android:name="com.engstuff.coloriphornia.fragments.FragmentNavDrawer"
+    android:layout_width="@dimen/nav_drawer_width"
+    android:layout_height="match_parent"
+    android:layout_gravity="start"
+    android:layout="@layout/fragment_nav_drawer_layout"
+    tools:layout="@layout/fragment_nav_drawer_layout"
+    xmlns:tools="http://schemas.android.com/tools"
+    xmlns:android="http://schemas.android.com/apk/res/android" />

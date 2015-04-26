@@ -1,5 +1,6 @@
 package com.engstuff.coloriphornia.activities;
 
+import android.graphics.Color;
 import android.os.Bundle;
 import android.view.View;
 import android.view.animation.AlphaAnimation;
@@ -62,15 +63,19 @@ public class ColorC extends BaseColorActivity {
         switch (id) {
 
             case R.id.sbAlpha:
+                progress.setTextColor(Color.BLACK);
                 progress.setText(getString(R.string.alpha) + val);
                 break;
             case R.id.sbRed:
+                progress.setTextColor(Color.RED);
                 progress.setText(getString(R.string.red) + val);
                 break;
             case R.id.sbGreen:
+                progress.setTextColor(getResources().getColor(R.color.dk_green));
                 progress.setText(getString(R.string.green) + val);
                 break;
             case R.id.sbBlue:
+                progress.setTextColor(Color.BLUE);
                 progress.setText(getString(R.string.blue) + val);
                 break;
         }

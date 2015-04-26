@@ -6,4 +6,7 @@
     <color name="primaryColorDarkTransparent">#55689F38</color>
     <color name="accentColor">#795548</color>
 
+    <color name="seek_progress">#88FFFFFF</color>
+    <color name="dk_green">#FF008800</color>
+
 </resources>

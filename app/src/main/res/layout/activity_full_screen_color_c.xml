@@ -2,6 +2,3 @@
     android:id="@+id/frame_for_full_screen_color_fragment"
     android:layout_width="match_parent"
     android:layout_height="match_parent" />
-
-
-
