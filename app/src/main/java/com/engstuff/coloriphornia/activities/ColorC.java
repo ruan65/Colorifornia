@@ -2,6 +2,7 @@ package com.engstuff.coloriphornia.activities;
 
 import android.os.Bundle;
 import android.view.View;
+import android.view.animation.AlphaAnimation;
 import android.widget.TextView;
 
 import com.engstuff.coloriphornia.R;
@@ -59,7 +60,7 @@ public class ColorC extends BaseColorActivity {
         String val = String.valueOf(p);
 
         switch (id) {
-            
+
             case R.id.sbAlpha:
                 progress.setText(getString(R.string.alpha) + val);
                 break;
@@ -79,6 +80,9 @@ public class ColorC extends BaseColorActivity {
     public void onColorControlStopTracking() {
         super.onColorControlStopTracking();
 
+        AlphaAnimation anim = new AlphaAnimation(1.0f, 0.0f);
+        anim.setDuration(800);
+        progress.setAnimation(anim);
         progress.setVisibility(View.INVISIBLE);
     }
 }
