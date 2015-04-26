@@ -44,4 +44,14 @@
         android:visible="false"
         app:showAsAction="always" />
 
+    <item
+        android:id="@+id/open_image"
+        android:icon="@drawable/ic_photo_library_white_36dp"
+        android:orderInCategory="90"
+        android:title="@string/open_image"
+        android:visible="false"
+        app:showAsAction="always" />
+
+
+
 </menu>

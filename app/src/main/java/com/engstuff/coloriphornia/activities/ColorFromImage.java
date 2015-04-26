@@ -8,6 +8,8 @@ import android.graphics.BitmapFactory;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.FrameLayout;
 import android.widget.RelativeLayout;
@@ -23,19 +25,16 @@ import com.software.shell.fab.ActionButton;
 import static android.widget.RelativeLayout.LayoutParams.WRAP_CONTENT;
 
 public class ColorFromImage extends BaseColorActivity
-        implements ImageGetColorListener, View.OnClickListener {
+        implements ImageGetColorListener {
 
     private static final int GALLERY_INTENT_CALLED = 0xbaaa;
     private static final int GALLERY_KITKAT_INTENT_CALLED = 0xbeee;
 
     protected FragmentImg fragmentImg;
-    private FrameLayout colorContainer;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
-        colorContainer = (FrameLayout) findViewById(R.id.color_box_container_color_from_image);
 
         FragmentManager fragmentManager = getFragmentManager();
 
@@ -49,6 +48,42 @@ public class ColorFromImage extends BaseColorActivity
                 .add(R.id.img_container, fragmentImg, Cv.IMAGE_FRAGMENT_RETAINED)
                 .add(R.id.color_box_container_color_from_image, fragmentColorBox)
                 .commit();
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+
+        boolean rv = super.onCreateOptionsMenu(menu);
+
+        openPhotoIcon.setVisible(true);
+
+        return rv;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+
+        switch (item.getItemId()) {
+
+            case R.id.open_image:
+
+                Intent intent = new Intent();
+                intent.setType("image/jpeg");
+
+                if (Build.VERSION.SDK_INT < 19) {
+
+                    intent.setAction(Intent.ACTION_GET_CONTENT);
+                    startActivityForResult(Intent.createChooser(intent,
+                            getResources().getString(R.string.select_picture)), GALLERY_INTENT_CALLED);
+                } else {
+
+                    intent.setAction(Intent.ACTION_OPEN_DOCUMENT);
+                    intent.addCategory(Intent.CATEGORY_OPENABLE);
+                    startActivityForResult(intent, GALLERY_KITKAT_INTENT_CALLED);
+                }
+                break;
+        }
+        return super.onOptionsItemSelected(item);
     }
 
     @Override
@@ -150,24 +185,5 @@ public class ColorFromImage extends BaseColorActivity
                 fragmentColorBox.isWhiteText()
                         ? R.drawable.ic_target_w
                         : R.drawable.ic_target_b);
-    }
-
-    @Override
-    public void onClick(View v) {
-
-        Intent intent = new Intent();
-        intent.setType("image/jpeg");
-
-        if (Build.VERSION.SDK_INT < 19) {
-
-            intent.setAction(Intent.ACTION_GET_CONTENT);
-            startActivityForResult(Intent.createChooser(intent,
-                    getResources().getString(R.string.select_picture)), GALLERY_INTENT_CALLED);
-        } else {
-
-            intent.setAction(Intent.ACTION_OPEN_DOCUMENT);
-            intent.addCategory(Intent.CATEGORY_OPENABLE);
-            startActivityForResult(intent, GALLERY_KITKAT_INTENT_CALLED);
-        }
     }
 }
