@@ -1,12 +1,7 @@
 <android.support.v4.widget.DrawerLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:fab="http://schemas.android.com/apk/res-auto"
     android:id="@+id/drawer_layout"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
-
-    <RelativeLayout
-        android:layout_width="match_parent"
-        android:layout_height="match_parent">
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -30,24 +25,6 @@
                 android:layout_weight="2" />
 
         </LinearLayout>
-
-        <com.software.shell.fab.ActionButton
-            android:id="@+id/action_button"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-
-            fab:button_color="@color/fab_material_brown_500"
-            fab:button_colorPressed="@color/fab_material_brown_900"
-            fab:hide_animation="@anim/btn_roll_to_r"
-            fab:image="@drawable/fab_plus_icon"
-            fab:image_size="30dp"
-            fab:shadow_color="#75757575"
-            fab:shadow_radius="1.0dp"
-            fab:shadow_xOffset="2dp"
-            fab:shadow_yOffset="2dp"
-            fab:show_animation="@anim/btn_roll_from_r" />
-
-    </RelativeLayout>
 
     <include layout="@layout/nav_drawer_fr" />
 

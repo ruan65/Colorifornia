@@ -29,14 +29,13 @@ public class ColorFromImage extends BaseColorActivity
     private static final int GALLERY_KITKAT_INTENT_CALLED = 0xbeee;
 
     protected FragmentImg fragmentImg;
-    protected ActionButton aBtn;
-    private FrameLayout imgContainer;
+    private FrameLayout colorContainer;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        imgContainer = (FrameLayout) findViewById(R.id.img_container);
+        colorContainer = (FrameLayout) findViewById(R.id.color_box_container_color_from_image);
 
         FragmentManager fragmentManager = getFragmentManager();
 
@@ -50,10 +49,6 @@ public class ColorFromImage extends BaseColorActivity
                 .add(R.id.img_container, fragmentImg, Cv.IMAGE_FRAGMENT_RETAINED)
                 .add(R.id.color_box_container_color_from_image, fragmentColorBox)
                 .commit();
-
-        aBtn = (ActionButton) findViewById(R.id.action_button);
-        aBtn.setOnClickListener(this);
-        aBtn.hide();
     }
 
     @Override
@@ -92,25 +87,6 @@ public class ColorFromImage extends BaseColorActivity
         PrefsHelper.writeToPrefs(this, Cv.PREFS_RETAIN, Cv.CURRENT_COLOR_IMG, currentColorBox.getHexColorParams());
         PrefsHelper.writeToPrefs(this, Cv.PREFS_RETAIN, Cv.AIM_X, (int) fragmentImg.getAim().getX());
         PrefsHelper.writeToPrefs(this, Cv.PREFS_RETAIN, Cv.AIM_Y, (int) fragmentImg.getAim().getY());
-    }
-
-    @Override
-    public void onWindowFocusChanged(boolean hasFocus) {
-        super.onWindowFocusChanged(hasFocus);
-
-        if (hasFocus) {
-
-            RelativeLayout.LayoutParams lp =
-                    new RelativeLayout.LayoutParams(WRAP_CONTENT, WRAP_CONTENT);
-
-            lp.setMargins(imgContainer.getWidth() - aBtn.getWidth() - 10,
-                    imgContainer.getHeight() + aBtn.getHeight() / 3,
-                    0, 0);
-
-            aBtn.setLayoutParams(lp);
-            aBtn.show();
-
-        } else aBtn.hide();
     }
 
     @Override

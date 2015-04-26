@@ -1,7 +1,11 @@
 package com.engstuff.coloriphornia.activities;
 
 import android.content.Intent;
+import android.graphics.Color;
 import android.os.Bundle;
+import android.view.View;
+import android.view.animation.AlphaAnimation;
+import android.widget.TextView;
 
 import com.engstuff.coloriphornia.R;
 import com.engstuff.coloriphornia.data.Cv;
@@ -13,7 +17,8 @@ import com.engstuff.coloriphornia.helpers.PrefsHelper;
 
 public class ColorCC extends BaseColorActivity {
 
-    FragmentColorBox fragmentColorBox2;
+    private FragmentColorBox fragmentColorBox2;
+    private TextView progress;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -28,6 +33,8 @@ public class ColorCC extends BaseColorActivity {
                 .add(R.id.color_box_container, fragmentColorBox)
                 .add(R.id.color_box_container2, fragmentColorBox2)
                 .commit();
+
+        progress = (TextView) findViewById(R.id.sb_progress);
     }
 
     @Override
@@ -60,6 +67,8 @@ public class ColorCC extends BaseColorActivity {
             }
         }
         AppHelper.setLikesAndInfo(this, fragmentColorBox, fragmentColorBox2);
+
+        progress.setVisibility(View.INVISIBLE);
     }
 
     private boolean checkHexColorString(String hexColor2) {
@@ -111,6 +120,45 @@ public class ColorCC extends BaseColorActivity {
         fragmentControl.setControls(
                 box.getAlpha(), box.getR(), box.getG(), box.getB());
         AppHelper.setInfoIcon(box);
+    }
+
+    @Override
+    public void onColorControlChange(int p, int id) {
+        super.onColorControlChange(p, id);
+
+        progress.setVisibility(View.VISIBLE);
+
+        String val = String.valueOf(p);
+
+        switch (id) {
+
+            case R.id.sbAlpha:
+                progress.setTextColor(Color.BLACK);
+                progress.setText(getString(R.string.alpha) + val);
+                break;
+            case R.id.sbRed:
+                progress.setTextColor(Color.RED);
+                progress.setText(getString(R.string.red) + val);
+                break;
+            case R.id.sbGreen:
+                progress.setTextColor(getResources().getColor(R.color.dk_green));
+                progress.setText(getString(R.string.green) + val);
+                break;
+            case R.id.sbBlue:
+                progress.setTextColor(Color.BLUE);
+                progress.setText(getString(R.string.blue) + val);
+                break;
+        }
+    }
+
+    @Override
+    public void onColorControlStopTracking() {
+        super.onColorControlStopTracking();
+
+        AlphaAnimation anim = new AlphaAnimation(1.0f, 0.0f);
+        anim.setDuration(800);
+        progress.setAnimation(anim);
+        progress.setVisibility(View.INVISIBLE);
     }
 }
 
