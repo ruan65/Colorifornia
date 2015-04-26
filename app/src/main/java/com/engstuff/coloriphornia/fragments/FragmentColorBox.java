@@ -92,6 +92,8 @@ public class FragmentColorBox extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
 
+
+
         gestureLayer = (GestureOverlayView) inflater
                 .inflate(R.layout.fragment_color_box, container, false);
 

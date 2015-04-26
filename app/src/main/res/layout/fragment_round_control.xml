@@ -41,8 +41,6 @@
         fab:button_colorPressed="#55555555"
         fab:image="@drawable/ic_sync_white_48dp"
         fab:image_size="40dp"
-        fab:stroke_color="@android:color/white"
-        fab:stroke_width="1dp"
         fab:hide_animation="@anim/btn_roll_to_r"
         fab:show_animation="@anim/btn_roll_from_r"/>
 

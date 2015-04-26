@@ -71,6 +71,8 @@ public class ZoomableImageView extends ImageView implements View.OnTouchListener
         }
     }
 
+
+
     @Override
     public void onWindowFocusChanged(boolean hasWindowFocus) {
         super.onWindowFocusChanged(hasWindowFocus);

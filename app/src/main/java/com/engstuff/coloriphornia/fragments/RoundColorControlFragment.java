@@ -92,11 +92,11 @@ public class RoundColorControlFragment extends ColorControlAbstractFragment
     }
 
     @Override
-    public void onColorControlChange() {
+    public void onColorControlChange(int p) {
     }
 
     @Override
-    public void onColorControlChange(int val, int alpha, float[] hsv) {
+    public void onColorControlChange(int progress, int val, int alpha, float[] hsv) {
 
         this.alpha = alpha;
         r = Color.red(val);
@@ -113,7 +113,7 @@ public class RoundColorControlFragment extends ColorControlAbstractFragment
 
         colorInfoAlpha.setText("opacity: " + alpha * 100 / 255 + (char) 0x0025);
 
-        colorChangeListener.onColorControlChange();
+        colorChangeListener.onColorControlChange(val);
     }
 
     @Override

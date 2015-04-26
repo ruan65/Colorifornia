@@ -282,7 +282,7 @@ public class RoundColorMaker extends View implements View.OnTouchListener {
                         setAlphaScale(x, y);
                         break;
                 }
-                colorControlChangeListener.onColorControlChange(mColor, argb[0], hsv);
+                colorControlChangeListener.onColorControlChange(0, mColor, argb[0], hsv);
                 break;
         }
         invalidate();
@@ -308,14 +308,14 @@ public class RoundColorMaker extends View implements View.OnTouchListener {
         deg_sat = getSatDegree();
         deg_alp = getAlphaDegree();
 
-        colorControlChangeListener.onColorControlChange(mColor, p[0], hsv);
+        colorControlChangeListener.onColorControlChange(0, mColor, p[0], hsv);
     }
 
     public void resetAlphaAndSatur() {
 
         setAlphaScale(0, 0);
         setSatScale(1, Float.MAX_VALUE);
-        colorControlChangeListener.onColorControlChange(mColor, argb[0], hsv);
+        colorControlChangeListener.onColorControlChange(0, mColor, argb[0], hsv);
         colorControlChangeListener.onColorControlStopTracking();
         invalidate();
     }

@@ -53,7 +53,7 @@ public class SeekBarsColorControlFragment extends ColorControlAbstractFragment
             default:
                 break;
         }
-        colorChangeListener.onColorControlChange();
+        colorChangeListener.onColorControlChange(progress);
     }
 
     public void setControls(int a, int r, int g, int b) {

@@ -129,14 +129,14 @@ public abstract class BaseColorActivity extends MockUpActivity implements
     }
 
     @Override
-    public void onColorControlChange() {
+    public void onColorControlChange(int p) {
         currentColorBox
                 .setColorParams()
                 .changeColor();
     }
 
     @Override
-    public void onColorControlChange(int color, int alpha, float[] hsv) {
+    public void onColorControlChange(int progress, int color, int alpha, float[] hsv) {
 
         currentColorBox
                 .setColorParams(alpha, color)
