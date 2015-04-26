@@ -37,9 +37,9 @@ public class FragmentFullScreenColor extends Fragment {
 
     GestureDetector mGestureDetector;
 
-    @InjectView(R.id.card_view_full_c) CardView cv;
+    @InjectView(R.id.card_view_full_c) CardView cardWidgetForInfo;
 
-    @InjectView(R.id.tv_color_params) TextView tv;
+    @InjectView(R.id.tv_color_params) TextView infoText;
 
     @InjectView(R.id.show_info_full_c) ImageView showInfo;
 
@@ -117,12 +117,12 @@ public class FragmentFullScreenColor extends Fragment {
 
         container.setBackgroundColor(backColor);
 
-        cv.setCardBackgroundColor(backCardColor);
+        cardWidgetForInfo.setCardBackgroundColor(backCardColor);
 
         int textColor = whiteText ? Color.WHITE : Color.BLACK;
 
-        tv.setTextColor(textColor);
-        tv.setText(ColorParams.composeInfo(hexString));
+        infoText.setTextColor(textColor);
+        infoText.setText(ColorParams.composeInfo(hexString));
 
         return root;
     }
@@ -142,9 +142,9 @@ public class FragmentFullScreenColor extends Fragment {
     @OnClick(R.id.show_info_full_c)
     public void showInfo() {
 
-        cv.setVisibility(View.VISIBLE);
+        cardWidgetForInfo.setVisibility(View.VISIBLE);
         showAnim.cancel();
-        cv.startAnimation(showAnim);
+        cardWidgetForInfo.startAnimation(showAnim);
 
         showInfo.setVisibility(View.INVISIBLE);
         btnFadeOutAnim.cancel();
@@ -158,9 +158,9 @@ public class FragmentFullScreenColor extends Fragment {
     @OnClick(R.id.close_info_full_c_card)
     public void closeInfo() {
 
-        cv.setVisibility(View.INVISIBLE);
+        cardWidgetForInfo.setVisibility(View.INVISIBLE);
         hideAnim.cancel();
-        cv.startAnimation(hideAnim);
+        cardWidgetForInfo.startAnimation(hideAnim);
 
         showInfo.setVisibility(View.VISIBLE);
         btnFadeInAnim.cancel();

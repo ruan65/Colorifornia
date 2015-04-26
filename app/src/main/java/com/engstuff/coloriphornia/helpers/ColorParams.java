@@ -85,12 +85,18 @@ public class ColorParams {
 
         StringBuilder sb = new StringBuilder("Opacity: ")
                 .append(percent255(argb[0])).append((char) 0x0025)
-                .append("\nRed: ").append(percent255(argb[1])).append((char) 0x0025)
-                .append("\nGreen: ").append(percent255(argb[2])).append((char) 0x0025)
-                .append("\nBlue: ").append(percent255(argb[3])).append((char) 0x0025)
+//                .append("\nRed: ").append(percent255(argb[1])).append((char) 0x0025)
+//                .append("\nGreen: ").append(percent255(argb[2])).append((char) 0x0025)
+//                .append("\nBlue: ").append(percent255(argb[3])).append((char) 0x0025)
+                .append("\nRed: ").append(portion(argb[1]))
+                .append("\nGreen: ").append(portion(argb[2]))
+                .append("\nBlue: ").append(portion(argb[3]))
+
                 .append("\n\nHEX: ").append(hexColorString.substring(3).toUpperCase())
                 .append(", AHEX: ").append(hexColorString.substring(1).toUpperCase())
+
                 .append("\nARGB: ").append(makeArgbInfo(hexColorString))
+
                 .append("\nHSV:")
                 .append(" hue=").append((int) hsv[0]).append((char) 0x00B0)
                 .append(", sat=").append((int) (hsv[1] * 100)).append((char) 0x0025)
@@ -111,12 +117,16 @@ public class ColorParams {
 
         StringBuilder sb = new StringBuilder("Opacity: ")
                 .append(percent255(argb[0])).append((char) 0x0025)
-                .append("<br/>Red: ").append(percent255(argb[1])).append((char) 0x0025)
-                .append(" Green: ").append(percent255(argb[2])).append((char) 0x0025)
-                .append(" Blue: ").append(percent255(argb[3])).append((char) 0x0025)
+                
+                .append("<br/>Red: ").append(portion(argb[1]))
+                .append(" Green: ").append(portion(argb[2]))
+                .append(" Blue: ").append(portion(argb[3]))
+
                 .append("<br/><b>HEX:</b> ").append(hexColorString.substring(3).toUpperCase())
                 .append("<br><b>AHEX:</b> ").append(hexColorString.substring(1).toUpperCase())
+
                 .append("<br/><b>ARGB:</b> ").append(makeArgbInfo(hexColorString))
+
                 .append("<br/><b>HSV:</b>")
                 .append(" hue=").append((int) hsv[0]).append((char) 0x00B0)
                 .append(", sat=").append((int) (hsv[1] * 100)).append((char) 0x0025)
@@ -127,5 +137,9 @@ public class ColorParams {
 
     public static int percent255(int i) {
         return i * 100 / 255;
+    }
+
+    public static String portion(int i) {
+        return String.format("%.2f", i / 255.);
     }
 }
