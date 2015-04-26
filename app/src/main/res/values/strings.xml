@@ -51,4 +51,8 @@
     <string name="email_error_no_selected">There is nothing to send. Select needed colors and repeat.</string>
     <string name="prefs_title">Edit emails</string>
     <string name="prers_summary">Adding/deleting emails for sending colors params</string>
+    <string name="alpha">"alpha: "</string>
+    <string name="red">"red: "</string>
+    <string name="green">"green: "</string>
+    <string name="blue">"blue: "</string>
 </resources>

@@ -51,11 +51,28 @@ public class ColorC extends BaseColorActivity {
     }
 
     @Override
-    public void onColorControlChange(int p) {
-        super.onColorControlChange(p);
+    public void onColorControlChange(int p, int id) {
+        super.onColorControlChange(p, id);
 
         progress.setVisibility(View.VISIBLE);
-        progress.setText(String.valueOf(p));
+
+        String val = String.valueOf(p);
+
+        switch (id) {
+            
+            case R.id.sbAlpha:
+                progress.setText(getString(R.string.alpha) + val);
+                break;
+            case R.id.sbRed:
+                progress.setText(getString(R.string.red) + val);
+                break;
+            case R.id.sbGreen:
+                progress.setText(getString(R.string.green) + val);
+                break;
+            case R.id.sbBlue:
+                progress.setText(getString(R.string.blue) + val);
+                break;
+        }
     }
 
     @Override

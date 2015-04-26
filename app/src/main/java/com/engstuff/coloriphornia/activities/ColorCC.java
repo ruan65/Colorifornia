@@ -42,7 +42,7 @@ public class ColorCC extends BaseColorActivity {
         if (!checkHexColorString(hexColor1)) {
 
             fragmentControl.setControls(255, 0, 255, 0);
-            onColorControlChange(0);
+            onColorControlChange(0, 0);
 
             fragmentColorBox2.setColorParams(255, 0, 0, 255).changeColor();
         } else {
@@ -50,7 +50,7 @@ public class ColorCC extends BaseColorActivity {
             int[] argb = ColorParams.hexStringToARGB(hexColor1);
 
             fragmentControl.setControls(argb[0], argb[1], argb[2], argb[3]);
-            onColorControlChange(0);
+            onColorControlChange(0, 0);
 
             String hexColor2 = PrefsHelper.readFromPrefsString(
                     this, Cv.PREFS_RETAIN, Cv.LAST_COLOR_BOX_2);

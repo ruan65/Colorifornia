@@ -1,6 +1,5 @@
 package com.engstuff.coloriphornia.fragments;
 
-
 import android.app.Activity;
 import android.app.Fragment;
 import android.content.Intent;
@@ -91,8 +90,6 @@ public class FragmentColorBox extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-
-
 
         gestureLayer = (GestureOverlayView) inflater
                 .inflate(R.layout.fragment_color_box, container, false);
@@ -209,7 +206,6 @@ public class FragmentColorBox extends Fragment {
             layout.setAlpha(alpha);
         }
 
-
         boolean whiteAgain = ColorParams.blackOrWhiteText(alpha, r, g, b);
 
         if (whiteText != whiteAgain && colorBoxEventListener != null) {
@@ -266,8 +262,6 @@ public class FragmentColorBox extends Fragment {
 
         return this;
     }
-
-
 
     @OnClick(R.id.color_box_layout)
     public void colorClicked() {

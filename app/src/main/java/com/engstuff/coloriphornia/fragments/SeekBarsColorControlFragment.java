@@ -37,7 +37,9 @@ public class SeekBarsColorControlFragment extends ColorControlAbstractFragment
     @Override
     public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
 
-        switch (seekBar.getId()) {
+        int id = seekBar.getId();
+
+        switch (id) {
             case R.id.sbAlpha:
                 alpha = progress;
                 break;
@@ -50,10 +52,8 @@ public class SeekBarsColorControlFragment extends ColorControlAbstractFragment
             case R.id.sbBlue:
                 b = progress;
                 break;
-            default:
-                break;
         }
-        colorChangeListener.onColorControlChange(progress);
+        colorChangeListener.onColorControlChange(progress, id);
     }
 
     public void setControls(int a, int r, int g, int b) {
