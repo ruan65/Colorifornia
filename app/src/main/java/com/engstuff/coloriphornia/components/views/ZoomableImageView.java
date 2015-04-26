@@ -11,7 +11,6 @@ import android.view.View;
 import android.widget.ImageView;
 
 import com.engstuff.coloriphornia.R;
-import com.engstuff.coloriphornia.helpers.AppHelper;
 import com.engstuff.coloriphornia.interfaces.ImageGetColorListener;
 
 public class ZoomableImageView extends ImageView implements View.OnTouchListener {
@@ -189,49 +188,77 @@ public class ZoomableImageView extends ImageView implements View.OnTouchListener
 
         @Override
         public boolean onScale(ScaleGestureDetector detector) {
+
             float mScaleFactor = detector.getScaleFactor();
             float origScale = saveScale;
+
             saveScale *= mScaleFactor;
+
             if (saveScale > maxScale) {
+
                 saveScale = maxScale;
                 mScaleFactor = maxScale / origScale;
+
             } else if (saveScale < minScale) {
+
                 saveScale = minScale;
                 mScaleFactor = minScale / origScale;
             }
             right = width * saveScale - width - (2 * redundantXSpace * saveScale);
             bottom = height * saveScale - height - (2 * redundantYSpace * saveScale);
+
             if (origWidth * saveScale <= width || origHeight * saveScale <= height) {
+
                 matrix.postScale(mScaleFactor, mScaleFactor, width / 2, height / 2);
+
                 if (mScaleFactor < 1) {
+
                     matrix.getValues(m);
+
                     float x = m[Matrix.MTRANS_X];
                     float y = m[Matrix.MTRANS_Y];
+
                     if (mScaleFactor < 1) {
+
                         if (Math.round(origWidth * saveScale) < width) {
+
                             if (y < -bottom)
+
                                 matrix.postTranslate(0, -(y + bottom));
+
                             else if (y > 0)
+
                                 matrix.postTranslate(0, -y);
                         } else {
+
                             if (x < -right)
+
                                 matrix.postTranslate(-(x + right), 0);
+
                             else if (x > 0)
+
                                 matrix.postTranslate(-x, 0);
                         }
                     }
                 }
             } else {
+
                 matrix.postScale(mScaleFactor, mScaleFactor, detector.getFocusX(), detector.getFocusY());
                 matrix.getValues(m);
+
                 float x = m[Matrix.MTRANS_X];
                 float y = m[Matrix.MTRANS_Y];
+
                 if (mScaleFactor < 1) {
+
                     if (x < -right)
+
                         matrix.postTranslate(-(x + right), 0);
                     else if (x > 0)
+
                         matrix.postTranslate(-x, 0);
                     if (y < -bottom)
+
                         matrix.postTranslate(0, -(y + bottom));
                     else if (y > 0)
                         matrix.postTranslate(0, -y);
@@ -239,7 +266,6 @@ public class ZoomableImageView extends ImageView implements View.OnTouchListener
             }
             return true;
         }
-
     }
 
     @Override
@@ -312,7 +338,7 @@ public class ZoomableImageView extends ImageView implements View.OnTouchListener
         return b;
     }
 
-    public void setAimCoords (float x, float y) {
+    public void setAimCoords(float x, float y) {
         aimX = x;
         aimY = y;
     }

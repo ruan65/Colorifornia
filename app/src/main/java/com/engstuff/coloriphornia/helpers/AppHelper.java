@@ -9,7 +9,6 @@ import android.content.Intent;
 import android.net.Uri;
 import android.text.Html;
 import android.widget.ImageView;
-import android.widget.Toast;
 
 import com.engstuff.coloriphornia.R;
 import com.engstuff.coloriphornia.activities.ColorFromImage;
@@ -17,8 +16,6 @@ import com.engstuff.coloriphornia.activities.FullScreenColorC;
 import com.engstuff.coloriphornia.data.Cv;
 import com.engstuff.coloriphornia.fragments.ColorControlAbstractFragment;
 import com.engstuff.coloriphornia.fragments.FragmentColorBox;
-
-import java.io.File;
 
 import static com.engstuff.coloriphornia.helpers.PrefsHelper.readFromPrefsAllToArray;
 
@@ -121,10 +118,10 @@ public class AppHelper {
         }
         if (activityClass.equals(ctx.getClass())) {
 
-            Toast.makeText(ctx, ctx.getString(R.string.swap_menu_button_fail_toast_text),
-                    Toast.LENGTH_LONG).show();
             return false;
+
         } else {
+
             ctx.startActivity(new Intent(ctx, activityClass));
             return true;
         }
@@ -141,8 +138,10 @@ public class AppHelper {
     }
 
     private static Account getAccount(AccountManager accountManager) {
+
         Account[] accounts = accountManager.getAccountsByType("com.google");
         Account account;
+
         if (accounts.length > 0) {
             account = accounts[0];
         } else {

@@ -161,5 +161,3 @@ public class ColorCC extends BaseColorActivity {
         progress.setVisibility(View.INVISIBLE);
     }
 }
-
-

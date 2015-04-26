@@ -10,9 +10,6 @@ import android.os.Build;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.view.View;
-import android.widget.FrameLayout;
-import android.widget.RelativeLayout;
 
 import com.engstuff.coloriphornia.R;
 import com.engstuff.coloriphornia.data.Cv;
@@ -20,9 +17,6 @@ import com.engstuff.coloriphornia.fragments.FragmentImg;
 import com.engstuff.coloriphornia.helpers.AppHelper;
 import com.engstuff.coloriphornia.helpers.PrefsHelper;
 import com.engstuff.coloriphornia.interfaces.ImageGetColorListener;
-import com.software.shell.fab.ActionButton;
-
-import static android.widget.RelativeLayout.LayoutParams.WRAP_CONTENT;
 
 public class ColorFromImage extends BaseColorActivity
         implements ImageGetColorListener {
@@ -155,7 +149,6 @@ public class ColorFromImage extends BaseColorActivity
     protected int getLayoutResource() {
         return R.layout.activity_color_from_image;
     }
-
 
     @Override
     public void onPickColor() {

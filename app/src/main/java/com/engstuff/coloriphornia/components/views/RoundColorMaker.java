@@ -315,8 +315,10 @@ public class RoundColorMaker extends View implements View.OnTouchListener {
 
         setAlphaScale(0, 0);
         setSatScale(1, Float.MAX_VALUE);
+
         colorControlChangeListener.onColorControlChange(0, mColor, argb[0], hsv);
         colorControlChangeListener.onColorControlStopTracking();
+
         invalidate();
     }
 

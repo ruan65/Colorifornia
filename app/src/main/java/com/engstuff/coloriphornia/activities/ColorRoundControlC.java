@@ -7,7 +7,6 @@ import com.engstuff.coloriphornia.data.Cv;
 import com.engstuff.coloriphornia.fragments.RoundColorControlFragment;
 import com.engstuff.coloriphornia.helpers.AppHelper;
 import com.engstuff.coloriphornia.helpers.PrefsHelper;
-import com.software.shell.fab.ActionButton;
 
 public class ColorRoundControlC extends BaseColorActivity {
 

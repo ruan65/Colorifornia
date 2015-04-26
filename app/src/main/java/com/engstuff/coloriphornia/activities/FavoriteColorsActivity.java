@@ -5,7 +5,6 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.graphics.Point;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -289,7 +288,6 @@ public class FavoriteColorsActivity extends MockUpActivity {
         }
         return result.toString();
     }
-
 
     /**
      * Custom adapter

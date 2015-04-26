@@ -103,8 +103,6 @@ public class RoundColorControlFragment extends ColorControlAbstractFragment
         g = Color.green(val);
         b = Color.blue(val);
 
-
-
         StringBuilder sb = new StringBuilder("hue: " + (int) hsv[0] + (char) 0x00B0);
         sb.append("\nsat: " + (int) (hsv[1] * 100) + (char) 0x0025);
         sb.append("\nval: " + (int) (hsv[2] * 100) + (char) 0x0025);
