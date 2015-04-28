@@ -2,42 +2,96 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical"
     android:background="@color/primaryColorDarkTransparent"
+    android:orientation="vertical"
     tools:context="com.engstuff.coloriphornia.fragments.SeekBarsColorControlFragment">
 
-    <SeekBar
-        android:id="@+id/sbAlpha"
-        style="@style/seek_bar_style"
-        android:layout_weight="1"
-        android:progress="@integer/sbMax"
-        android:thumb="@drawable/scrubber_black"
-        android:progressDrawable="@drawable/progress" />
+    <RelativeLayout
+        style="@style/seek_bar_frame_style"
+        android:layout_marginTop="6dp">
 
-    <SeekBar
-        android:id="@+id/sbRed"
-        style="@style/seek_bar_style"
-        android:layout_weight="2"
-        android:thumb="@drawable/scrubber_red"
-        android:progress="@integer/sbProgressR"
-        android:progressDrawable="@drawable/progress_red" />
+        <ImageButton
+            style="@style/seek_bar_btn_style_L"
+            android:id="@+id/minus_red" />
 
+        <SeekBar
+            android:id="@+id/sbRed"
+            style="@style/seek_bar_style"
+            android:layout_toLeftOf="@+id/plus_red"
+            android:layout_toRightOf="@+id/minus_red"
+            android:thumb="@drawable/thumb_r"
+            android:progress="@integer/sbProgressR"
+            android:progressDrawable="@drawable/progress_red" />
 
-    <SeekBar
-        android:id="@+id/sbGreen"
-        android:thumb="@drawable/scrubber_green"
-        style="@style/seek_bar_style"
-        android:layout_weight="2"
-        android:progress="@integer/sbProgressG"
-        android:progressDrawable="@drawable/progress_green" />
+        <ImageButton
+            android:id="@+id/plus_red"
+            style="@style/seek_bar_btn_style_R" />
 
-    <SeekBar
-        android:id="@+id/sbBlue"
-        android:thumb="@drawable/scrubber_blue"
-        style="@style/seek_bar_style"
-        android:layout_weight="2"
-        android:progress="@integer/sbProgressB"
-        android:progressDrawable="@drawable/progress_blue" />
+    </RelativeLayout>
 
+    <RelativeLayout
+        style="@style/seek_bar_frame_style">
+
+        <ImageButton
+            android:id="@+id/minus_green"
+            style="@style/seek_bar_btn_style_L" />
+        <SeekBar
+            android:id="@+id/sbGreen"
+            style="@style/seek_bar_style"
+            android:thumb="@drawable/thumb_g"
+            android:layout_toLeftOf="@+id/plus_green"
+            android:layout_toRightOf="@+id/minus_green"
+            android:progress="@integer/sbProgressG"
+            android:progressDrawable="@drawable/progress_green" />
+
+        <ImageButton
+            android:id="@+id/plus_green"
+            style="@style/seek_bar_btn_style_R" />
+    </RelativeLayout>
+
+    <RelativeLayout
+        style="@style/seek_bar_frame_style">
+
+        <ImageButton
+            android:id="@+id/minus_blue"
+            style="@style/seek_bar_btn_style_L" />
+
+        <SeekBar
+            android:id="@+id/sbBlue"
+            style="@style/seek_bar_style"
+            android:thumb="@drawable/thumb_b"
+            android:layout_toLeftOf="@+id/plus_blue"
+            android:layout_toRightOf="@+id/minus_blue"
+            android:progress="@integer/sbProgressB"
+            android:progressDrawable="@drawable/progress_blue" />
+
+        <ImageButton
+            android:id="@+id/plus_blue"
+            style="@style/seek_bar_btn_style_R" />
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:id="@+id/seek_frame_alpha"
+        style="@style/seek_bar_frame_style"
+        android:visibility="visible"
+        android:layout_marginBottom="6dp">
+
+        <ImageButton
+            android:id="@+id/minus_alpha"
+            style="@style/seek_bar_btn_style_L" />
+
+        <SeekBar
+            android:id="@+id/sbAlpha"
+            style="@style/seek_bar_style"
+            android:thumb="@drawable/thumb"
+            android:layout_toLeftOf="@+id/plus_alpha"
+            android:layout_toRightOf="@+id/minus_alpha"
+            android:max="@integer/sbMax"
+            android:progressDrawable="@drawable/progress" />
+
+        <ImageButton
+            android:id="@+id/plus_alpha"
+            style="@style/seek_bar_btn_style_R" />
+    </RelativeLayout>
 
 </LinearLayout>

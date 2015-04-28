@@ -7,10 +7,10 @@
         android:width="@dimen/thumb_w" />
 
     <gradient
-        android:startColor="#55000000"
-        android:endColor="#55000000" />
+        android:startColor="#550000ff"
+        android:endColor="#550000ff" />
 
     <stroke
         android:width="4dp"
-        android:color="#ff111111" />
+        android:color="#ff000088" />
 </shape>

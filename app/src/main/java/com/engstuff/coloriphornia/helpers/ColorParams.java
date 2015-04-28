@@ -85,9 +85,7 @@ public class ColorParams {
 
         StringBuilder sb = new StringBuilder("Opacity: ")
                 .append(percent255(argb[0])).append((char) 0x0025)
-//                .append("\nRed: ").append(percent255(argb[1])).append((char) 0x0025)
-//                .append("\nGreen: ").append(percent255(argb[2])).append((char) 0x0025)
-//                .append("\nBlue: ").append(percent255(argb[3])).append((char) 0x0025)
+
                 .append("\nRed: ").append(portion(argb[1]))
                 .append("\nGreen: ").append(portion(argb[2]))
                 .append("\nBlue: ").append(portion(argb[3]))
@@ -117,7 +115,7 @@ public class ColorParams {
 
         StringBuilder sb = new StringBuilder("Opacity: ")
                 .append(percent255(argb[0])).append((char) 0x0025)
-                
+
                 .append("<br/>Red: ").append(portion(argb[1]))
                 .append(" Green: ").append(portion(argb[2]))
                 .append(" Blue: ").append(portion(argb[3]))
