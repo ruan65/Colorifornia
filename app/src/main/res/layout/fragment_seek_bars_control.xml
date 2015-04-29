@@ -23,7 +23,7 @@
             android:progress="@integer/sbProgressR"
             android:progressDrawable="@drawable/progress_red" />
 
-        <ImageButton
+        <com.engstuff.coloriphornia.components.views.SeekBarButton
             android:id="@+id/plus_red"
             style="@style/seek_bar_btn_style_R" />
 
@@ -32,7 +32,7 @@
     <RelativeLayout
         style="@style/seek_bar_frame_style">
 
-        <ImageButton
+        <com.engstuff.coloriphornia.components.views.SeekBarButton
             android:id="@+id/minus_green"
             style="@style/seek_bar_btn_style_L" />
         <SeekBar
@@ -44,7 +44,7 @@
             android:progress="@integer/sbProgressG"
             android:progressDrawable="@drawable/progress_green" />
 
-        <ImageButton
+        <com.engstuff.coloriphornia.components.views.SeekBarButton
             android:id="@+id/plus_green"
             style="@style/seek_bar_btn_style_R" />
     </RelativeLayout>
@@ -52,7 +52,7 @@
     <RelativeLayout
         style="@style/seek_bar_frame_style">
 
-        <ImageButton
+        <com.engstuff.coloriphornia.components.views.SeekBarButton
             android:id="@+id/minus_blue"
             style="@style/seek_bar_btn_style_L" />
 
@@ -65,7 +65,7 @@
             android:progress="@integer/sbProgressB"
             android:progressDrawable="@drawable/progress_blue" />
 
-        <ImageButton
+        <com.engstuff.coloriphornia.components.views.SeekBarButton
             android:id="@+id/plus_blue"
             style="@style/seek_bar_btn_style_R" />
     </RelativeLayout>
@@ -76,7 +76,7 @@
         android:visibility="visible"
         android:layout_marginBottom="6dp">
 
-        <ImageButton
+        <com.engstuff.coloriphornia.components.views.SeekBarButton
             android:id="@+id/minus_alpha"
             style="@style/seek_bar_btn_style_L" />
 
@@ -89,7 +89,7 @@
             android:max="@integer/sbMax"
             android:progressDrawable="@drawable/progress" />
 
-        <ImageButton
+        <com.engstuff.coloriphornia.components.views.SeekBarButton
             android:id="@+id/plus_alpha"
             style="@style/seek_bar_btn_style_R" />
     </RelativeLayout>
