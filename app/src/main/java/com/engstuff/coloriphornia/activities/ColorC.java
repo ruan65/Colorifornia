@@ -4,6 +4,7 @@ import android.graphics.Color;
 import android.os.Bundle;
 import android.view.View;
 import android.view.animation.AlphaAnimation;
+import android.widget.FrameLayout;
 import android.widget.TextView;
 
 import com.engstuff.coloriphornia.R;
@@ -15,6 +16,7 @@ import com.engstuff.coloriphornia.helpers.PrefsHelper;
 public class ColorC extends BaseColorActivity {
 
     private TextView progress;
+
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -90,4 +92,6 @@ public class ColorC extends BaseColorActivity {
         progress.setAnimation(anim);
         progress.setVisibility(View.INVISIBLE);
     }
+
+
 }

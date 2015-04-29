@@ -3,12 +3,19 @@ package com.engstuff.coloriphornia.fragments;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.FrameLayout;
+import android.widget.LinearLayout;
+import android.widget.RelativeLayout;
 import android.widget.SeekBar;
 
 import com.engstuff.coloriphornia.R;
+import com.engstuff.coloriphornia.activities.BaseColorActivity;
 import com.engstuff.coloriphornia.components.views.SeekBarButton;
 
 import butterknife.ButterKnife;
@@ -20,6 +27,8 @@ public class SeekBarsColorControlFragment extends ColorControlAbstractFragment
         implements SeekBar.OnSeekBarChangeListener {
 
     private SeekBar sbAlpha, sbRed, sbGreen, sbBlue;
+    private MenuItem openAlpha;
+    private RelativeLayout alphaFrame;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -60,7 +69,41 @@ public class SeekBarsColorControlFragment extends ColorControlAbstractFragment
         alpha = sbAlpha.getProgress();
         r = sbRed.getProgress(); g = sbGreen.getProgress(); b = sbBlue.getProgress();
 
+        setHasOptionsMenu(true);
+
+        alphaFrame = (RelativeLayout) rootView.findViewById(R.id.seek_frame_alpha);
+
         return rootView;
+    }
+
+    @Override
+    public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
+        super.onCreateOptionsMenu(menu, inflater);
+
+        openAlpha = menu.findItem(R.id.open_alpha);
+        openAlpha.setVisible(true);
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+
+        FrameLayout fl = ((BaseColorActivity) getActivity()).getColorControlContainer();
+        LinearLayout.LayoutParams layoutParams = (LinearLayout.LayoutParams) fl.getLayoutParams();
+
+        if (item.getItemId() == R.id.open_alpha) {
+            if (alphaFrame.getVisibility() == View.GONE) {
+
+                layoutParams.weight = 100;
+                fl.setLayoutParams(layoutParams);
+                alphaFrame.setVisibility(View.VISIBLE);
+            }
+            else {
+                alphaFrame.setVisibility(View.GONE);
+                layoutParams.weight = 75;
+                fl.setLayoutParams(layoutParams);
+            }
+        }
+        return super.onOptionsItemSelected(item);
     }
 
     @Override

@@ -76,7 +76,7 @@
     <RelativeLayout
         android:id="@+id/seek_frame_alpha"
         style="@style/seek_bar_frame_style"
-        android:visibility="visible" >
+        android:visibility="gone" >
 
         <com.engstuff.coloriphornia.components.views.SeekBarButton
             android:id="@+id/minus_alpha"

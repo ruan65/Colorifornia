@@ -6,6 +6,7 @@ import android.view.ContextMenu;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.FrameLayout;
 
 import com.engstuff.coloriphornia.R;
 import com.engstuff.coloriphornia.data.Cv;
@@ -32,11 +33,15 @@ public abstract class BaseColorActivity extends MockUpActivity implements
 
     List<WeakReference<Fragment>> allAttachedFragments = new ArrayList<>();
 
+    private FrameLayout colorControlContainer;
+
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
         fragmentColorBox = currentColorBox = new FragmentColorBox();
+
+        colorControlContainer = (FrameLayout) findViewById(R.id.color_control_container);
     }
 
     @Override
@@ -189,5 +194,9 @@ public abstract class BaseColorActivity extends MockUpActivity implements
         int colorHex = currentColorBox.getColorHex();
 
         writeToPrefs(activity, Cv.SAVED_COLORS, hexColorParams, colorHex);
+    }
+
+    public FrameLayout getColorControlContainer() {
+        return colorControlContainer;
     }
 }

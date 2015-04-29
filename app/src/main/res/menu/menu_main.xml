@@ -52,6 +52,14 @@
         android:visible="false"
         app:showAsAction="always" />
 
+    <item
+        android:id="@+id/open_alpha"
+        android:icon="@drawable/ic_flip_white_36dp"
+        android:orderInCategory="30"
+        android:title="@string/open_image"
+        android:visible="false"
+        app:showAsAction="always" />
+
 
 
 </menu>
