@@ -4,11 +4,12 @@
     android:layout_height="match_parent"
     android:background="@color/primaryColorDarkTransparent"
     android:orientation="vertical"
+    android:paddingTop="5dp"
+    android:paddingBottom="5dp"
     tools:context="com.engstuff.coloriphornia.fragments.SeekBarsColorControlFragment">
 
     <RelativeLayout
-        style="@style/seek_bar_frame_style"
-        android:layout_marginTop="6dp">
+        style="@style/seek_bar_frame_style">
 
         <com.engstuff.coloriphornia.components.views.SeekBarButton
             style="@style/seek_bar_btn_style_L"
@@ -35,6 +36,7 @@
         <com.engstuff.coloriphornia.components.views.SeekBarButton
             android:id="@+id/minus_green"
             style="@style/seek_bar_btn_style_L" />
+
         <SeekBar
             android:id="@+id/sbGreen"
             style="@style/seek_bar_style"
@@ -47,6 +49,7 @@
         <com.engstuff.coloriphornia.components.views.SeekBarButton
             android:id="@+id/plus_green"
             style="@style/seek_bar_btn_style_R" />
+
     </RelativeLayout>
 
     <RelativeLayout
@@ -73,8 +76,7 @@
     <RelativeLayout
         android:id="@+id/seek_frame_alpha"
         style="@style/seek_bar_frame_style"
-        android:visibility="visible"
-        android:layout_marginBottom="6dp">
+        android:visibility="visible" >
 
         <com.engstuff.coloriphornia.components.views.SeekBarButton
             android:id="@+id/minus_alpha"

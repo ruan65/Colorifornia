@@ -4,8 +4,9 @@
     <dimen name="activity_vertical_margin">16dp</dimen>
     <dimen name="nav_drawer_width">280dp</dimen>
     <dimen name="bitmap_size">500dp</dimen>
-    <dimen name="thumb_h">28dp</dimen>
-    <dimen name="thumb_w">16dp</dimen>
-    <dimen name="thumb_offset">8dp</dimen>
+    <dimen name="thumb_h">25dp</dimen>
+    <dimen name="thumb_w">12dp</dimen>
+    <dimen name="thumb_offset">6dp</dimen>
+    <dimen name="stroke">4dp</dimen>
 
 </resources>

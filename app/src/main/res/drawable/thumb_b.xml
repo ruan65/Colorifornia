@@ -11,6 +11,6 @@
         android:endColor="#550000ff" />
 
     <stroke
-        android:width="4dp"
+        android:width="@dimen/stroke"
         android:color="#ff000088" />
 </shape>

@@ -13,7 +13,7 @@ import com.engstuff.coloriphornia.interfaces.ColorControlChangeListener;
 public class SeekBarButton extends ImageButton implements
         View.OnClickListener, View.OnLongClickListener, View.OnTouchListener {
 
-    public static final int INTERVAL = 250;
+    public static final int INTERVAL = 150;
 
     private SeekBar seekBar;
     private ColorControlChangeListener colorChangeListener;

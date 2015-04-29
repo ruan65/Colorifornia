@@ -28,9 +28,8 @@
     <style name="seek_bar_frame_style">
         <item name="android:layout_width">match_parent</item>
         <item name="android:layout_height">0dp</item>
-        <item name="android:layout_weight">10</item>
-        <item name="android:paddingTop">3dp</item>
-        <item name="android:paddingBottom">3dp</item>
+        <item name="android:layout_weight">1</item>
+
     </style>
 
     <style name="seek_bar_style">
@@ -38,27 +37,28 @@
         <item name="android:maxHeight">1000dp</item>
         <item name="android:paddingLeft">8dp</item>
         <item name="android:paddingRight">8dp</item>
-        <item name="android:layout_height">match_parent</item>
-        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">33dp</item>
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_centerVertical">true</item>
         <item name="android:thumbOffset">@dimen/thumb_offset</item>
     </style>
 
     <style name="seek_bar_btn_style_abstract" parent="@android:style/Widget.Button.Small">
-        <item name="android:layout_centerVertical">true</item>
         <item name="android:layout_width">wrap_content</item>
         <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_centerVertical">true</item>
     </style>
 
     <style name="seek_bar_btn_style_L" parent="seek_bar_btn_style_abstract">
         <item name="android:layout_alignParentLeft">true</item>
         <item name="android:layout_marginLeft">8dp</item>
-        <item name="android:src">@drawable/ic_arrow_simple_thin_left</item>
+        <item name="android:src">@drawable/ic_chevron_left_black_24dp</item>
     </style>
 
     <style name="seek_bar_btn_style_R" parent="seek_bar_btn_style_abstract">
         <item name="android:layout_alignParentRight">true</item>
         <item name="android:layout_marginRight">8dp</item>
-        <item name="android:src">@drawable/ic_arrow_simple_thin_right</item>
+        <item name="android:src">@drawable/ic_chevron_right_black_24dp</item>
     </style>
 
 </resources>
