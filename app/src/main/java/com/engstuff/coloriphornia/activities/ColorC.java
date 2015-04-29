@@ -15,9 +15,6 @@ import com.engstuff.coloriphornia.helpers.PrefsHelper;
 
 public class ColorC extends BaseColorActivity {
 
-    private TextView progress;
-
-
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -29,8 +26,6 @@ public class ColorC extends BaseColorActivity {
                 .add(R.id.color_control_container, fragmentControl)
                 .add(R.id.color_box_container, fragmentColorBox)
                 .commit();
-
-        progress = (TextView) findViewById(R.id.sb_progress);
     }
 
     @Override

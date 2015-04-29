@@ -325,4 +325,8 @@ public class FragmentColorBox extends Fragment {
     public int getB() {
         return b;
     }
+
+    public void setAlpha(int alpha) {
+        this.alpha = alpha;
+    }
 }

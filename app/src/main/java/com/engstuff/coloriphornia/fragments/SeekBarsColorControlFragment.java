@@ -1,5 +1,6 @@
 package com.engstuff.coloriphornia.fragments;
 
+import android.app.Fragment;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -18,6 +19,9 @@ import com.engstuff.coloriphornia.R;
 import com.engstuff.coloriphornia.activities.BaseColorActivity;
 import com.engstuff.coloriphornia.components.views.SeekBarButton;
 
+import java.lang.ref.WeakReference;
+import java.util.List;
+
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 import butterknife.OnLongClick;
@@ -29,11 +33,14 @@ public class SeekBarsColorControlFragment extends ColorControlAbstractFragment
     private SeekBar sbAlpha, sbRed, sbGreen, sbBlue;
     private MenuItem openAlpha;
     private RelativeLayout alphaFrame;
+    private BaseColorActivity activity;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         View rootView = inflater.inflate(R.layout.fragment_seek_bars_control, container, false);
+
+        activity = (BaseColorActivity) getActivity();
 
         sbAlpha = (SeekBar) rootView.findViewById(R.id.sbAlpha);
         sbRed = (SeekBar) rootView.findViewById(R.id.sbRed);
@@ -87,19 +94,35 @@ public class SeekBarsColorControlFragment extends ColorControlAbstractFragment
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
 
-        FrameLayout fl = ((BaseColorActivity) getActivity()).getColorControlContainer();
+
+        FrameLayout fl = activity.getColorControlContainer();
         LinearLayout.LayoutParams layoutParams = (LinearLayout.LayoutParams) fl.getLayoutParams();
 
         if (item.getItemId() == R.id.open_alpha) {
             if (alphaFrame.getVisibility() == View.GONE) {
 
-                layoutParams.weight = 100;
+                layoutParams.weight = getResources().getInteger(R.integer.control_weight);
                 fl.setLayoutParams(layoutParams);
+
                 alphaFrame.setVisibility(View.VISIBLE);
             }
             else {
                 alphaFrame.setVisibility(View.GONE);
-                layoutParams.weight = 75;
+
+                List<WeakReference<Fragment>> fragments = activity.getAllAttachedFragments();
+
+                for (WeakReference<Fragment> f : fragments) {
+
+                    Fragment fragment = f.get();
+
+                    if (fragment.getClass().equals(FragmentColorBox.class)) {
+                        ((FragmentColorBox) fragment).setAlpha(255);
+                        ((FragmentColorBox) fragment).changeColor();
+                    }
+                }
+                sbAlpha.setProgress(255);
+                activity.getProgress().setVisibility(View.INVISIBLE);
+                layoutParams.weight = getResources().getInteger(R.integer.control_weight_low);
                 fl.setLayoutParams(layoutParams);
             }
         }

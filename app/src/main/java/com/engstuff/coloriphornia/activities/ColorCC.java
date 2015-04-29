@@ -18,7 +18,6 @@ import com.engstuff.coloriphornia.helpers.PrefsHelper;
 public class ColorCC extends BaseColorActivity {
 
     private FragmentColorBox fragmentColorBox2;
-    private TextView progress;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -33,8 +32,6 @@ public class ColorCC extends BaseColorActivity {
                 .add(R.id.color_box_container, fragmentColorBox)
                 .add(R.id.color_box_container2, fragmentColorBox2)
                 .commit();
-
-        progress = (TextView) findViewById(R.id.sb_progress);
     }
 
     @Override

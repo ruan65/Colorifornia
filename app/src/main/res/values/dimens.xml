@@ -9,4 +9,15 @@
     <dimen name="thumb_offset">6dp</dimen>
     <dimen name="stroke">4dp</dimen>
 
+    <integer name="color_box_weight">100</integer>
+    <integer name="control_weight">90</integer>
+    <integer name="control_weight_low">70</integer>
+
+    <integer name="sbMax">0xff</integer>
+    <integer name="sbProgressR">0x68</integer>
+    <integer name="sbProgressG">0x9f</integer>
+    <integer name="sbProgressB">0x38</integer>
+
+    <integer name="matrix_max_scale">100</integer>
+
 </resources>

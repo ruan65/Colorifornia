@@ -7,6 +7,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.FrameLayout;
+import android.widget.TextView;
 
 import com.engstuff.coloriphornia.R;
 import com.engstuff.coloriphornia.data.Cv;
@@ -31,7 +32,9 @@ public abstract class BaseColorActivity extends MockUpActivity implements
     protected FragmentColorBox fragmentColorBox;
     protected FragmentColorBox currentColorBox;
 
-    List<WeakReference<Fragment>> allAttachedFragments = new ArrayList<>();
+    protected TextView progress;
+
+    protected List<WeakReference<Fragment>> allAttachedFragments = new ArrayList<>();
 
     private FrameLayout colorControlContainer;
 
@@ -42,6 +45,8 @@ public abstract class BaseColorActivity extends MockUpActivity implements
         fragmentColorBox = currentColorBox = new FragmentColorBox();
 
         colorControlContainer = (FrameLayout) findViewById(R.id.color_control_container);
+
+        progress = (TextView) findViewById(R.id.sb_progress);
     }
 
     @Override
@@ -198,5 +203,13 @@ public abstract class BaseColorActivity extends MockUpActivity implements
 
     public FrameLayout getColorControlContainer() {
         return colorControlContainer;
+    }
+
+    public List<WeakReference<Fragment>> getAllAttachedFragments() {
+        return allAttachedFragments;
+    }
+
+    public TextView getProgress() {
+        return progress;
     }
 }

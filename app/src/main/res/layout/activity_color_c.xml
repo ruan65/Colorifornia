@@ -15,7 +15,7 @@
         <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="0dp"
-            android:layout_weight="100">
+            android:layout_weight="@integer/color_box_weight">
 
             <FrameLayout
                 android:id="@+id/color_box_container"
@@ -30,7 +30,7 @@
             android:id="@+id/color_control_container"
             android:layout_width="match_parent"
             android:layout_height="0dp"
-            android:layout_weight="100" />
+            android:layout_weight="@integer/control_weight_low" />
 
     </LinearLayout>
 
