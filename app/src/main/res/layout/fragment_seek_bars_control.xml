@@ -10,7 +10,7 @@
         style="@style/seek_bar_frame_style"
         android:layout_marginTop="6dp">
 
-        <ImageButton
+        <com.engstuff.coloriphornia.components.views.SeekBarButton
             style="@style/seek_bar_btn_style_L"
             android:id="@+id/minus_red" />
 

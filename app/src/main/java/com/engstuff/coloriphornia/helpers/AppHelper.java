@@ -79,7 +79,7 @@ public class AppHelper {
 
         ImageView like = box.getLike();
 
-        if (like.getParent() != null) {
+        if (like != null && like.getParent() != null) {
             box.getLayout().removeView(like);
         }
     }
