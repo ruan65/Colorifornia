@@ -11,7 +11,7 @@
 
     <integer name="color_box_weight">100</integer>
     <integer name="control_weight">90</integer>
-    <integer name="control_weight_low">70</integer>
+    <integer name="control_weight_low">60</integer>
 
     <integer name="sbMax">0xff</integer>
     <integer name="sbProgressR">0x68</integer>

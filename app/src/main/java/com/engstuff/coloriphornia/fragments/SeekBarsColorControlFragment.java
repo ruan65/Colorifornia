@@ -105,6 +105,8 @@ public class SeekBarsColorControlFragment extends ColorControlAbstractFragment
                 fl.setLayoutParams(layoutParams);
 
                 alphaFrame.setVisibility(View.VISIBLE);
+
+                openAlpha.setIcon(R.drawable.ic_blur_off_white_36dp);
             }
             else {
                 alphaFrame.setVisibility(View.GONE);
@@ -124,6 +126,8 @@ public class SeekBarsColorControlFragment extends ColorControlAbstractFragment
                 activity.getProgress().setVisibility(View.INVISIBLE);
                 layoutParams.weight = getResources().getInteger(R.integer.control_weight_low);
                 fl.setLayoutParams(layoutParams);
+
+                openAlpha.setIcon(R.drawable.ic_blur_on_white_36dp);
             }
         }
         return super.onOptionsItemSelected(item);
