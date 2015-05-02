@@ -2,21 +2,26 @@
 <merge xmlns:android="http://schemas.android.com/apk/res/android" >
 
     <com.engstuff.coloriphornia.components.views.SeekBarButton
-        style="@style/seek_bar_btn_style_L"
+        android:layout_centerVertical="true"
+        android:layout_height="wrap_content"
+        android:layout_width="wrap_content"
         android:id="@+id/minus_red" />
 
     <SeekBar
         android:id="@+id/sbRed"
-        style="@style/seek_bar_style"
-        android:layout_toLeftOf="@+id/plus_red"
-        android:layout_toRightOf="@+id/minus_red"
+        android:layout_height="wrap_content"
+        android:layout_width="0dp"
+        android:layout_weight="1"
         android:thumb="@drawable/thumb_r"
         android:progress="@integer/sbProgressR"
         android:progressDrawable="@drawable/progress_red" />
 
     <com.engstuff.coloriphornia.components.views.SeekBarButton
         android:id="@+id/plus_red"
-        style="@style/seek_bar_btn_style_R" />
+        android:layout_centerVertical="true"
+        android:layout_height="wrap_content"
+        android:layout_width="wrap_content" />
+
 
 
 

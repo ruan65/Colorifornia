@@ -96,4 +96,7 @@
             style="@style/seek_bar_btn_style_R" />
     </RelativeLayout>
 
+    <com.engstuff.coloriphornia.components.views.SeekBarMinusPlus
+        style="@style/seek_bar_frame_style"/>
+
 </LinearLayout>
