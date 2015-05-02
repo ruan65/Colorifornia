@@ -3,8 +3,6 @@
     xmlns:tools="http://schemas.android.com/tools"
     tools:context=".Main">
 
-
-
     <item
         android:id="@+id/back"
         android:orderInCategory="40"
@@ -59,7 +57,4 @@
         android:title="@string/open_image"
         android:visible="false"
         app:showAsAction="always" />
-
-
-
 </menu>
