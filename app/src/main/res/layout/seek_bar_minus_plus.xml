@@ -16,10 +16,7 @@
         android:maxHeight="1000dp"
         android:paddingLeft="8dp"
         android:paddingRight="8dp"
-        android:progress="@integer/sbProgressR"
-        android:progressDrawable="@drawable/progress_red"
-        android:thumbOffset="@dimen/thumb_offset"
-        android:thumb="@drawable/thumb_r" />
+        android:thumbOffset="@dimen/thumb_offset" />
 
     <com.engstuff.coloriphornia.components.views.SeekBarButton
         android:id="@+id/plus_red"

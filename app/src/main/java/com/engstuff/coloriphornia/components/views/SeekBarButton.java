@@ -16,7 +16,7 @@ public class SeekBarButton extends ImageButton implements
     public static final int INTERVAL = 150;
 
     private SeekBar seekBar;
-    private ColorControlChangeListener colorChangeListener;
+//    private ColorControlChangeListener colorChangeListener;
     private boolean incrementer;
 
     private Handler mHandler = new Handler();
@@ -45,20 +45,20 @@ public class SeekBarButton extends ImageButton implements
 
     public void stepSeekBar() {
 
-        colorChangeListener.onColorControlStartTracking();
+//        colorChangeListener.onColorControlStartTracking();
 
         int prs = seekBar.getProgress();
 
         seekBar.setProgress(incrementer ? (prs < 255 ? ++prs : prs) : (prs > 0 ? --prs : prs));
 
-        colorChangeListener.onColorControlChange(prs, seekBar.getId());
-        colorChangeListener.onColorControlStopTracking();
+//        colorChangeListener.onColorControlChange(prs, seekBar.getId());
+//        colorChangeListener.onColorControlStopTracking();
     }
 
-    public void init(SeekBar sb, ColorControlChangeListener listener, boolean inc) {
+    public void init(SeekBar sb, boolean inc) {
 
         seekBar = sb;
-        colorChangeListener = listener;
+//        colorChangeListener = listener;
         incrementer = inc;
         setOnClickListener(this);
         setOnLongClickListener(this);

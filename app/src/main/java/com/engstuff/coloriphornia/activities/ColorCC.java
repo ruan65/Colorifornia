@@ -123,12 +123,6 @@ public class ColorCC extends BaseColorActivity {
         super.onColorControlChange(p, id);
 
         switchInfo(p, id);
-    }
-
-    @Override
-    public void onColorControlStopTracking() {
-        super.onColorControlStopTracking();
-
         animInfoAndGone();
     }
 }

@@ -2,7 +2,6 @@ package com.engstuff.coloriphornia.activities;
 
 import android.os.Bundle;
 import android.view.View;
-import android.view.animation.AlphaAnimation;
 
 import com.engstuff.coloriphornia.R;
 import com.engstuff.coloriphornia.data.Cv;
@@ -51,12 +50,6 @@ public class ColorC extends BaseColorActivity {
         super.onColorControlChange(p, id);
 
         switchInfo(p, id);
-    }
-
-    @Override
-    public void onColorControlStopTracking() {
-        super.onColorControlStopTracking();
-
         animInfoAndGone();
     }
 }

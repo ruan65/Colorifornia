@@ -13,16 +13,15 @@
         style="@style/seek_bar_frame_style" />
 
     <com.engstuff.coloriphornia.components.views.SeekBarMinusPlus
-        android:id="@+id/sb_c_blue"
+        android:id="@+id/sb_c_green"
         style="@style/seek_bar_frame_style" />
 
     <com.engstuff.coloriphornia.components.views.SeekBarMinusPlus
-        android:id="@+id/sb_c_green"
+        android:id="@+id/sb_c_blue"
         style="@style/seek_bar_frame_style" />
 
     <com.engstuff.coloriphornia.components.views.SeekBarMinusPlus
         android:id="@+id/sb_c_alpha"
         style="@style/seek_bar_frame_style" />
-
 
 </LinearLayout>

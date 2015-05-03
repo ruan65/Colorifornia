@@ -36,16 +36,16 @@ public class SeekBarsColorControlFragment extends ColorControlAbstractFragment
         activity = (BaseColorActivity) getActivity();
 
         sbRed = (SeekBarMinusPlus) rootView.findViewById(R.id.sb_c_red);
-        sbRed.init(this, colorChangeListener, Cv.RED);
+        sbRed.init(this, Cv.RED);
 
         sbGreen = (SeekBarMinusPlus) rootView.findViewById(R.id.sb_c_green);
-        sbGreen.init(this, colorChangeListener, Cv.GREEN);
+        sbGreen.init(this, Cv.GREEN);
 
         sbBlue = (SeekBarMinusPlus) rootView.findViewById(R.id.sb_c_blue);
-        sbBlue.init(this, colorChangeListener, Cv.BLUE);
+        sbBlue.init(this, Cv.BLUE);
 
         sbAlpha = (SeekBarMinusPlus) rootView.findViewById(R.id.sb_c_alpha);
-        sbAlpha.init(this, colorChangeListener, Cv.ALPHA);
+        sbAlpha.init(this, Cv.ALPHA);
 
         setHasOptionsMenu(true);
 

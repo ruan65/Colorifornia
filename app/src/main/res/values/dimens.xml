@@ -14,9 +14,6 @@
     <integer name="control_weight_low">60</integer>
 
     <integer name="sbMax">0xff</integer>
-    <integer name="sbProgressR">0x68</integer>
-    <integer name="sbProgressG">0x9f</integer>
-    <integer name="sbProgressB">0x38</integer>
 
     <integer name="matrix_max_scale">100</integer>
 

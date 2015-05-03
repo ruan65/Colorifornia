@@ -40,4 +40,9 @@ public interface Cv {
     int GREEN = 0x0f0;
     int BLUE = 0x00f;
     int ALPHA = 0x000;
+
+    int INIT_RED = 0x68;
+    int INIT_GREEN = 0x9f;
+    int INIT_BLUE = 0x38;
+    int INIT_ALPHA = 0xff;
 }
