@@ -8,95 +8,21 @@
     android:paddingBottom="5dp"
     tools:context="com.engstuff.coloriphornia.fragments.SeekBarsColorControlFragment">
 
-    <RelativeLayout
-        style="@style/seek_bar_frame_style">
-
-        <com.engstuff.coloriphornia.components.views.SeekBarButton
-            style="@style/seek_bar_btn_style_L"
-            android:id="@+id/minus_red" />
-
-        <SeekBar
-            android:id="@+id/sbRed"
-            style="@style/seek_bar_style"
-            android:layout_toLeftOf="@+id/plus_red"
-            android:layout_toRightOf="@+id/minus_red"
-            android:thumb="@drawable/thumb_r"
-            android:progress="@integer/sbProgressR"
-            android:progressDrawable="@drawable/progress_red" />
-
-        <com.engstuff.coloriphornia.components.views.SeekBarButton
-            android:id="@+id/plus_red"
-            style="@style/seek_bar_btn_style_R" />
-
-    </RelativeLayout>
-
-    <RelativeLayout
-        style="@style/seek_bar_frame_style">
-
-        <com.engstuff.coloriphornia.components.views.SeekBarButton
-            android:id="@+id/minus_green"
-            style="@style/seek_bar_btn_style_L" />
-
-        <SeekBar
-            android:id="@+id/sbGreen"
-            style="@style/seek_bar_style"
-            android:thumb="@drawable/thumb_g"
-            android:layout_toLeftOf="@+id/plus_green"
-            android:layout_toRightOf="@+id/minus_green"
-            android:progress="@integer/sbProgressG"
-            android:progressDrawable="@drawable/progress_green" />
-
-        <com.engstuff.coloriphornia.components.views.SeekBarButton
-            android:id="@+id/plus_green"
-            style="@style/seek_bar_btn_style_R" />
-
-    </RelativeLayout>
-
-    <RelativeLayout
-        style="@style/seek_bar_frame_style">
-
-        <com.engstuff.coloriphornia.components.views.SeekBarButton
-            android:id="@+id/minus_blue"
-            style="@style/seek_bar_btn_style_L" />
-
-        <SeekBar
-            android:id="@+id/sbBlue"
-            style="@style/seek_bar_style"
-            android:thumb="@drawable/thumb_b"
-            android:layout_toLeftOf="@+id/plus_blue"
-            android:layout_toRightOf="@+id/minus_blue"
-            android:progress="@integer/sbProgressB"
-            android:progressDrawable="@drawable/progress_blue" />
-
-        <com.engstuff.coloriphornia.components.views.SeekBarButton
-            android:id="@+id/plus_blue"
-            style="@style/seek_bar_btn_style_R" />
-    </RelativeLayout>
-
-    <RelativeLayout
-        android:id="@+id/seek_frame_alpha"
-        style="@style/seek_bar_frame_style"
-        android:visibility="gone" >
-
-        <com.engstuff.coloriphornia.components.views.SeekBarButton
-            android:id="@+id/minus_alpha"
-            style="@style/seek_bar_btn_style_L" />
-
-        <SeekBar
-            android:id="@+id/sbAlpha"
-            style="@style/seek_bar_style"
-            android:thumb="@drawable/thumb"
-            android:layout_toLeftOf="@+id/plus_alpha"
-            android:layout_toRightOf="@+id/minus_alpha"
-            android:max="@integer/sbMax"
-            android:progressDrawable="@drawable/progress" />
-
-        <com.engstuff.coloriphornia.components.views.SeekBarButton
-            android:id="@+id/plus_alpha"
-            style="@style/seek_bar_btn_style_R" />
-    </RelativeLayout>
+    <com.engstuff.coloriphornia.components.views.SeekBarMinusPlus
+        android:id="@+id/sb_c_red"
+        style="@style/seek_bar_frame_style" />
 
     <com.engstuff.coloriphornia.components.views.SeekBarMinusPlus
-        style="@style/seek_bar_frame_style"/>
+        android:id="@+id/sb_c_blue"
+        style="@style/seek_bar_frame_style" />
+
+    <com.engstuff.coloriphornia.components.views.SeekBarMinusPlus
+        android:id="@+id/sb_c_green"
+        style="@style/seek_bar_frame_style" />
+
+    <com.engstuff.coloriphornia.components.views.SeekBarMinusPlus
+        android:id="@+id/sb_c_alpha"
+        style="@style/seek_bar_frame_style" />
+
 
 </LinearLayout>

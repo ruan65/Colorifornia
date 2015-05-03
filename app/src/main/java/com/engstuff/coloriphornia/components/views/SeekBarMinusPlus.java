@@ -8,6 +8,7 @@ import android.widget.LinearLayout;
 import android.widget.SeekBar;
 
 import com.engstuff.coloriphornia.R;
+import com.engstuff.coloriphornia.interfaces.ColorControlChangeListener;
 
 public class SeekBarMinusPlus extends LinearLayout {
 
@@ -16,8 +17,6 @@ public class SeekBarMinusPlus extends LinearLayout {
 
     public SeekBarMinusPlus(Context context) {
         super(context);
-
-
     }
 
     public SeekBarMinusPlus(Context context, AttributeSet attrs) {
@@ -28,6 +27,22 @@ public class SeekBarMinusPlus extends LinearLayout {
 
         ((LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE))
                 .inflate(R.layout.seek_bar_minus_plus, this, true);
+
+        seekBar = (SeekBar) getChildAt(1);
+        minus = (SeekBarButton) getChildAt(0);
+        plus = (SeekBarButton) getChildAt(2);
+
     }
 
+    public void init(SeekBar.OnSeekBarChangeListener sbl, ColorControlChangeListener ccl, int tag) {
+
+        seekBar.setOnSeekBarChangeListener(sbl);
+        seekBar.setTag(tag);
+        minus.init(seekBar, ccl, false);
+        plus.init(seekBar, ccl, true);
+    }
+
+    public SeekBar getSeekBar() {
+        return seekBar;
+    }
 }

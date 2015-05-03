@@ -2,38 +2,31 @@ package com.engstuff.coloriphornia.fragments;
 
 import android.app.Fragment;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
-import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.FrameLayout;
 import android.widget.LinearLayout;
-import android.widget.RelativeLayout;
 import android.widget.SeekBar;
 
 import com.engstuff.coloriphornia.R;
 import com.engstuff.coloriphornia.activities.BaseColorActivity;
-import com.engstuff.coloriphornia.components.views.SeekBarButton;
+import com.engstuff.coloriphornia.components.views.SeekBarMinusPlus;
+import com.engstuff.coloriphornia.data.Cv;
 
 import java.lang.ref.WeakReference;
 import java.util.List;
 
-import butterknife.ButterKnife;
-import butterknife.OnClick;
-import butterknife.OnLongClick;
-import butterknife.OnTouch;
-
 public class SeekBarsColorControlFragment extends ColorControlAbstractFragment
         implements SeekBar.OnSeekBarChangeListener {
 
-    private SeekBar sbAlpha, sbRed, sbGreen, sbBlue;
     private MenuItem openAlpha;
-    private RelativeLayout alphaFrame;
     private BaseColorActivity activity;
+
+    private SeekBarMinusPlus sbRed, sbGreen, sbBlue, sbAlpha;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -42,43 +35,19 @@ public class SeekBarsColorControlFragment extends ColorControlAbstractFragment
 
         activity = (BaseColorActivity) getActivity();
 
-        sbAlpha = (SeekBar) rootView.findViewById(R.id.sbAlpha);
-        sbRed = (SeekBar) rootView.findViewById(R.id.sbRed);
-        sbRed = (SeekBar) rootView.findViewById(R.id.sbRed);
-        sbGreen = (SeekBar) rootView.findViewById(R.id.sbGreen);
-        sbBlue = (SeekBar) rootView.findViewById(R.id.sbBlue);
+        sbRed = (SeekBarMinusPlus) rootView.findViewById(R.id.sb_c_red);
+        sbRed.init(this, colorChangeListener, Cv.RED);
 
-        sbAlpha.setOnSeekBarChangeListener(this);
-        sbRed.setOnSeekBarChangeListener(this);
-        sbGreen.setOnSeekBarChangeListener(this);
-        sbBlue.setOnSeekBarChangeListener(this);
+        sbGreen = (SeekBarMinusPlus) rootView.findViewById(R.id.sb_c_green);
+        sbGreen.init(this, colorChangeListener, Cv.GREEN);
 
-        SeekBarButton mAlpha = (SeekBarButton) rootView.findViewById(R.id.minus_alpha);
-        SeekBarButton mRed = (SeekBarButton) rootView.findViewById(R.id.minus_red);
-        SeekBarButton mGreen = (SeekBarButton) rootView.findViewById(R.id.minus_green);
-        SeekBarButton mBlue = (SeekBarButton) rootView.findViewById(R.id.minus_blue);
+        sbBlue = (SeekBarMinusPlus) rootView.findViewById(R.id.sb_c_blue);
+        sbBlue.init(this, colorChangeListener, Cv.BLUE);
 
-        SeekBarButton pAlpha = (SeekBarButton) rootView.findViewById(R.id.plus_alpha);
-        SeekBarButton pRed = (SeekBarButton) rootView.findViewById(R.id.plus_red);
-        SeekBarButton pGreen = (SeekBarButton) rootView.findViewById(R.id.plus_green);
-        SeekBarButton pBlue = (SeekBarButton) rootView.findViewById(R.id.plus_blue);
-
-        mAlpha.init(sbAlpha, colorChangeListener, false);
-        mRed.init(sbRed, colorChangeListener, false);
-        mGreen.init(sbGreen, colorChangeListener, false);
-        mBlue.init(sbBlue, colorChangeListener, false);
-
-        pAlpha.init(sbAlpha, colorChangeListener, true);
-        pRed.init(sbRed, colorChangeListener, true);
-        pGreen.init(sbGreen, colorChangeListener, true);
-        pBlue.init(sbBlue, colorChangeListener, true);
-
-        alpha = sbAlpha.getProgress();
-        r = sbRed.getProgress(); g = sbGreen.getProgress(); b = sbBlue.getProgress();
+        sbAlpha = (SeekBarMinusPlus) rootView.findViewById(R.id.sb_c_alpha);
+        sbAlpha.init(this, colorChangeListener, Cv.ALPHA);
 
         setHasOptionsMenu(true);
-
-        alphaFrame = (RelativeLayout) rootView.findViewById(R.id.seek_frame_alpha);
 
         return rootView;
     }
@@ -99,17 +68,18 @@ public class SeekBarsColorControlFragment extends ColorControlAbstractFragment
         LinearLayout.LayoutParams layoutParams = (LinearLayout.LayoutParams) fl.getLayoutParams();
 
         if (item.getItemId() == R.id.open_alpha) {
-            if (alphaFrame.getVisibility() == View.GONE) {
+
+            if (sbAlpha.getVisibility() == View.GONE) {
 
                 layoutParams.weight = getResources().getInteger(R.integer.control_weight);
                 fl.setLayoutParams(layoutParams);
 
-                alphaFrame.setVisibility(View.VISIBLE);
+                sbAlpha.setVisibility(View.VISIBLE);
 
                 openAlpha.setIcon(R.drawable.ic_blur_off_white_36dp);
             }
             else {
-                alphaFrame.setVisibility(View.GONE);
+                sbAlpha.setVisibility(View.GONE);
 
                 List<WeakReference<Fragment>> fragments = activity.getAllAttachedFragments();
 
@@ -122,7 +92,7 @@ public class SeekBarsColorControlFragment extends ColorControlAbstractFragment
                         ((FragmentColorBox) fragment).changeColor();
                     }
                 }
-                sbAlpha.setProgress(255);
+                sbAlpha.getSeekBar().setProgress(255);
                 activity.getProgress().setVisibility(View.INVISIBLE);
                 layoutParams.weight = getResources().getInteger(R.integer.control_weight_low);
                 fl.setLayoutParams(layoutParams);
@@ -136,19 +106,19 @@ public class SeekBarsColorControlFragment extends ColorControlAbstractFragment
     @Override
     public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
 
-        int id = seekBar.getId();
+        int id = (int) seekBar.getTag();
 
         switch (id) {
-            case R.id.sbAlpha:
+            case Cv.ALPHA:
                 alpha = progress;
                 break;
-            case R.id.sbRed:
+            case Cv.RED:
                 r = progress;
                 break;
-            case R.id.sbGreen:
+            case Cv.GREEN:
                 g = progress;
                 break;
-            case R.id.sbBlue:
+            case Cv.BLUE:
                 b = progress;
                 break;
         }
@@ -156,10 +126,11 @@ public class SeekBarsColorControlFragment extends ColorControlAbstractFragment
     }
 
     public void setControls(int a, int r, int g, int b) {
-        sbAlpha.setProgress(a);
-        sbRed.setProgress(r);
-        sbGreen.setProgress(g);
-        sbBlue.setProgress(b);
+
+        sbAlpha.getSeekBar().setProgress(a);
+        sbRed.getSeekBar().setProgress(r);
+        sbGreen.getSeekBar().setProgress(g);
+        sbBlue.getSeekBar().setProgress(b);
     }
 
     @Override

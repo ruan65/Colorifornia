@@ -1,11 +1,13 @@
 package com.engstuff.coloriphornia.activities;
 
 import android.app.Fragment;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.view.ContextMenu;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.animation.AlphaAnimation;
 import android.widget.FrameLayout;
 import android.widget.TextView;
 
@@ -135,6 +137,40 @@ public abstract class BaseColorActivity extends MockUpActivity implements
             result.append("<p>" + ColorParams.composeInfoHTML(currentColorBox.getHexColorParams()) + "</p>");
         }
         return result.toString();
+    }
+
+    protected void switchInfo(int p, int id) {
+
+        progress.setVisibility(View.VISIBLE);
+
+        String val = String.valueOf(p);
+
+        switch (id) {
+
+            case Cv.ALPHA:
+                progress.setTextColor(Color.BLACK);
+                progress.setText(getString(R.string.alpha) + val);
+                break;
+            case Cv.RED:
+                progress.setTextColor(Color.RED);
+                progress.setText(getString(R.string.red) + val);
+                break;
+            case Cv.GREEN:
+                progress.setTextColor(getResources().getColor(R.color.dk_green));
+                progress.setText(getString(R.string.green) + val);
+                break;
+            case Cv.BLUE:
+                progress.setTextColor(Color.BLUE);
+                progress.setText(getString(R.string.blue) + val);
+                break;
+        }
+    }
+
+    protected void animInfoAndGone() {
+        AlphaAnimation anim = new AlphaAnimation(1.0f, 0.0f);
+        anim.setDuration(800);
+        progress.setAnimation(anim);
+        progress.setVisibility(View.INVISIBLE);
     }
 
     @Override

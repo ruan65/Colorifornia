@@ -1,28 +1,31 @@
 <?xml version="1.0" encoding="utf-8"?>
-<merge xmlns:android="http://schemas.android.com/apk/res/android" >
+<merge xmlns:android="http://schemas.android.com/apk/res/android">
 
     <com.engstuff.coloriphornia.components.views.SeekBarButton
-        android:layout_centerVertical="true"
-        android:layout_height="wrap_content"
-        android:layout_width="wrap_content"
-        android:id="@+id/minus_red" />
+        android:id="@+id/minus_red"
+        style="@style/seek_bar_btn_style_abstract"
+        android:layout_marginLeft="8dp"
+        android:src="@drawable/ic_chevron_left_black_24dp" />
 
     <SeekBar
-        android:id="@+id/sbRed"
-        android:layout_height="wrap_content"
         android:layout_width="0dp"
+        android:layout_height="33dp"
+        android:layout_centerVertical="true"
         android:layout_weight="1"
-        android:thumb="@drawable/thumb_r"
+        android:max="@integer/sbMax"
+        android:maxHeight="1000dp"
+        android:paddingLeft="8dp"
+        android:paddingRight="8dp"
         android:progress="@integer/sbProgressR"
-        android:progressDrawable="@drawable/progress_red" />
+        android:progressDrawable="@drawable/progress_red"
+        android:thumbOffset="@dimen/thumb_offset"
+        android:thumb="@drawable/thumb_r" />
 
     <com.engstuff.coloriphornia.components.views.SeekBarButton
         android:id="@+id/plus_red"
-        android:layout_centerVertical="true"
-        android:layout_height="wrap_content"
-        android:layout_width="wrap_content" />
-
-
+        style="@style/seek_bar_btn_style_abstract"
+        android:layout_marginRight="8dp"
+        android:src="@drawable/ic_chevron_right_black_24dp" />
 
 
 </merge>

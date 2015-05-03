@@ -35,4 +35,9 @@ public interface Cv {
     String EMAIL_SUBJ = "Color parameters from \"Colorifornia\"";
 
     String CHOOSER_TITLE = "Send color(s) parameters...";
+
+    int RED = 0xf00;
+    int GREEN = 0x0f0;
+    int BLUE = 0x00f;
+    int ALPHA = 0x000;
 }
