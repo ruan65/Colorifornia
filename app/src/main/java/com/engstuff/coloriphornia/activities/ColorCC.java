@@ -16,6 +16,8 @@ public class ColorCC extends BaseColorActivity {
 
     private FragmentColorBox fragmentColorBox2;
 
+    private boolean unlockInfo;
+
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -62,7 +64,7 @@ public class ColorCC extends BaseColorActivity {
         }
         AppHelper.setLikesAndInfo(this, fragmentColorBox, fragmentColorBox2);
 
-        progress.setVisibility(View.INVISIBLE);
+        unlockInfo = true;
     }
 
     private boolean checkHexColorString(String hexColor2) {
@@ -78,6 +80,8 @@ public class ColorCC extends BaseColorActivity {
 
         PrefsHelper.writeToPrefs(this, Cv.PREFS_RETAIN, Cv.LAST_COLOR_BOX_2,
                 fragmentColorBox2.getHexColorParams());
+
+        unlockInfo = false;
     }
 
     @Override
@@ -122,7 +126,9 @@ public class ColorCC extends BaseColorActivity {
     public void onColorControlChange(int p, int id) {
         super.onColorControlChange(p, id);
 
-        switchInfo(p, id);
-        animInfoAndGone();
+        if (unlockInfo) {
+            switchInfo(p, id);
+            animInfoAndGone();
+        }
     }
 }

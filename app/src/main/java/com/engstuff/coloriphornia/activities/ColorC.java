@@ -1,7 +1,6 @@
 package com.engstuff.coloriphornia.activities;
 
 import android.os.Bundle;
-import android.view.View;
 
 import com.engstuff.coloriphornia.R;
 import com.engstuff.coloriphornia.data.Cv;
@@ -10,6 +9,8 @@ import com.engstuff.coloriphornia.helpers.AppHelper;
 import com.engstuff.coloriphornia.helpers.PrefsHelper;
 
 public class ColorC extends BaseColorActivity {
+
+    private boolean unlockInfo;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -30,7 +31,7 @@ public class ColorC extends BaseColorActivity {
 
         AppHelper.setColorToColorBox(this, Cv.LAST_COLOR, fragmentControl, currentColorBox);
         AppHelper.setLikesAndInfo(this, currentColorBox);
-        progress.setVisibility(View.INVISIBLE);
+        unlockInfo = true;
     }
 
     @Override
@@ -38,6 +39,7 @@ public class ColorC extends BaseColorActivity {
         super.onPause();
         PrefsHelper.writeToPrefs(this, Cv.PREFS_RETAIN, Cv.LAST_COLOR,
                 currentColorBox.getHexColorParams());
+        unlockInfo = false;
     }
 
     @Override
@@ -49,7 +51,9 @@ public class ColorC extends BaseColorActivity {
     public void onColorControlChange(int p, int id) {
         super.onColorControlChange(p, id);
 
-        switchInfo(p, id);
-        animInfoAndGone();
+        if (unlockInfo) {
+            switchInfo(p, id);
+            animInfoAndGone();
+        }
     }
 }

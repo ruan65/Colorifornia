@@ -158,7 +158,7 @@ public class FragmentFullScreenColor extends Fragment {
     @OnClick(R.id.close_info_full_c_card)
     public void closeInfo() {
 
-        cardWidgetForInfo.setVisibility(View.INVISIBLE);
+        cardWidgetForInfo.setVisibility(View.GONE);
         hideAnim.cancel();
         cardWidgetForInfo.startAnimation(hideAnim);
 

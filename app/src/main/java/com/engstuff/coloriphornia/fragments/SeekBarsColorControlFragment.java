@@ -16,6 +16,7 @@ import com.engstuff.coloriphornia.R;
 import com.engstuff.coloriphornia.activities.BaseColorActivity;
 import com.engstuff.coloriphornia.components.views.SeekBarMinusPlus;
 import com.engstuff.coloriphornia.data.Cv;
+import com.engstuff.coloriphornia.helpers.PrefsHelper;
 
 import java.lang.ref.WeakReference;
 import java.util.List;
@@ -24,7 +25,9 @@ public class SeekBarsColorControlFragment extends ColorControlAbstractFragment
         implements SeekBar.OnSeekBarChangeListener {
 
     private MenuItem openAlpha;
-    private BaseColorActivity activity;
+    private BaseColorActivity act;
+
+    boolean alphaMode;
 
     private SeekBarMinusPlus sbRed, sbGreen, sbBlue, sbAlpha;
 
@@ -33,7 +36,7 @@ public class SeekBarsColorControlFragment extends ColorControlAbstractFragment
                              Bundle savedInstanceState) {
         View rootView = inflater.inflate(R.layout.fragment_seek_bars_control, container, false);
 
-        activity = (BaseColorActivity) getActivity();
+        act = (BaseColorActivity) getActivity();
 
         sbRed = (SeekBarMinusPlus) rootView.findViewById(R.id.sb_c_red);
         sbRed.init(this, Cv.RED);
@@ -53,54 +56,71 @@ public class SeekBarsColorControlFragment extends ColorControlAbstractFragment
     }
 
     @Override
+    public void onResume() {
+        super.onResume();
+
+        alphaMode = PrefsHelper.readFromPrefsBoolean(act, act.getString(R.string.prefs_alpha_mode));
+
+        if (openAlpha != null) showAlpha(alphaMode);
+
+    }
+
+    @Override
     public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
         super.onCreateOptionsMenu(menu, inflater);
 
         openAlpha = menu.findItem(R.id.open_alpha);
         openAlpha.setVisible(true);
+        openAlpha.setIcon(alphaMode ? R.drawable.ic_blur_off_white_36dp
+                : R.drawable.ic_blur_on_white_36dp);
+        showAlpha(alphaMode);
     }
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
 
-
-        FrameLayout fl = activity.getColorControlContainer();
-        LinearLayout.LayoutParams layoutParams = (LinearLayout.LayoutParams) fl.getLayoutParams();
-
         if (item.getItemId() == R.id.open_alpha) {
 
-            if (sbAlpha.getVisibility() == View.GONE) {
-
-                layoutParams.weight = getResources().getInteger(R.integer.control_weight);
-                fl.setLayoutParams(layoutParams);
-
-                sbAlpha.setVisibility(View.VISIBLE);
-
-                openAlpha.setIcon(R.drawable.ic_blur_off_white_36dp);
-            }
-            else {
-                sbAlpha.setVisibility(View.GONE);
-
-                List<WeakReference<Fragment>> fragments = activity.getAllAttachedFragments();
-
-                for (WeakReference<Fragment> f : fragments) {
-
-                    Fragment fragment = f.get();
-
-                    if (fragment.getClass().equals(FragmentColorBox.class)) {
-                        ((FragmentColorBox) fragment).setAlpha(255);
-                        ((FragmentColorBox) fragment).changeColor();
-                    }
-                }
-                sbAlpha.getSeekBar().setProgress(255);
-                activity.getProgress().setVisibility(View.INVISIBLE);
-                layoutParams.weight = getResources().getInteger(R.integer.control_weight_low);
-                fl.setLayoutParams(layoutParams);
-
-                openAlpha.setIcon(R.drawable.ic_blur_on_white_36dp);
-            }
+            showAlpha(sbAlpha.getVisibility() == View.GONE);
         }
         return super.onOptionsItemSelected(item);
+    }
+
+    protected void makeCurrentColorsOpaque() {
+
+        List<WeakReference<Fragment>> fragments = act.getAllAttachedFragments();
+
+        for (WeakReference<Fragment> f : fragments) {
+
+            Fragment fragment = f.get();
+
+            if (fragment.getClass().equals(FragmentColorBox.class)) {
+                ((FragmentColorBox) fragment).setAlpha(255);
+                ((FragmentColorBox) fragment).changeColor();
+            }
+        }
+        sbAlpha.getSeekBar().setProgress(255);
+        act.getProgress().setVisibility(View.INVISIBLE);
+    }
+
+    protected void showAlpha(boolean show) {
+
+        FrameLayout fl = act.getColorControlContainer();
+        LinearLayout.LayoutParams layoutParams = (LinearLayout.LayoutParams) fl.getLayoutParams();
+
+        layoutParams.weight = getResources().getInteger(show ? R.integer.control_weight
+                : R.integer.control_weight_low);
+
+        fl.setLayoutParams(layoutParams);
+
+        sbAlpha.setVisibility(show ? View.VISIBLE : View.GONE);
+
+        openAlpha.setIcon(show ? R.drawable.ic_blur_off_white_36dp
+                : R.drawable.ic_blur_on_white_36dp);
+
+        PrefsHelper.writeToPrefsDefault(act, act.getString(R.string.prefs_alpha_mode), alphaMode = show);
+
+        if (!show) makeCurrentColorsOpaque();
     }
 
     @Override

@@ -56,4 +56,5 @@
     <string name="green">"green: "</string>
     <string name="blue">"blue: "</string>
     <string name="open_image">Open Image</string>
+    <string name="prefs_alpha_mode">alpha_mode</string>
 </resources>
