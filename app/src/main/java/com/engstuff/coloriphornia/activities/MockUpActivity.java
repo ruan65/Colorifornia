@@ -27,6 +27,8 @@ public abstract class MockUpActivity extends ActionBarActivity {
 
     protected final Activity activity = this;
 
+    protected boolean fullColorStarted;
+
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -46,9 +48,12 @@ public abstract class MockUpActivity extends ActionBarActivity {
     @Override
     protected void onResume() {
         super.onResume();
+
         String keyNotFirstTime = getString(R.string.not_first_time);
+        fullColorStarted = false;
 
         if (!PrefsHelper.readFromPrefsBoolean(this, keyNotFirstTime)) {
+
             mDrawerLayout.openDrawer(mDrawerView);
             PrefsHelper.writeToPrefsDefault(this, keyNotFirstTime, true);
 
@@ -67,7 +72,9 @@ public abstract class MockUpActivity extends ActionBarActivity {
     @Override
     public void onPause() {
         super.onPause();
-        if (getClass() != AppSettingsActivity.class) {
+
+        if (getClass() != AppSettingsActivity.class && !fullColorStarted) {
+
             PrefsHelper.writeToPrefsDefault(
                     getApplicationContext(), Cv.LAST_ACTIVITY, getClass().getName());
         }
@@ -118,6 +125,10 @@ public abstract class MockUpActivity extends ActionBarActivity {
     protected abstract int getLayoutResource();
 
     protected abstract String composeEmailBody(boolean calledFromContextMenu);
+
+    public void setFullColorStarted(boolean fullColorStarted) {
+        this.fullColorStarted = fullColorStarted;
+    }
 
     /**
      * This is for preventing app crash after pressing hardware Menu button

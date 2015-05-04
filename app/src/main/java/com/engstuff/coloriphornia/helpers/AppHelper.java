@@ -13,6 +13,7 @@ import android.widget.ImageView;
 import com.engstuff.coloriphornia.R;
 import com.engstuff.coloriphornia.activities.ColorFromImage;
 import com.engstuff.coloriphornia.activities.FullScreenColorC;
+import com.engstuff.coloriphornia.activities.MockUpActivity;
 import com.engstuff.coloriphornia.data.Cv;
 import com.engstuff.coloriphornia.fragments.ColorControlAbstractFragment;
 import com.engstuff.coloriphornia.fragments.FragmentColorBox;
@@ -31,6 +32,7 @@ public class AppHelper {
         i.putExtra(Cv.EXTRA_MESSAGE_TEXT_COLOR_1, ColorParams.blackOrWhiteText(hex));
         i.putExtra(Cv.CALLED_FROM_FAVORITES, favorites.length > 0 && favorites[0]);
 
+        ((MockUpActivity) activity).setFullColorStarted(true);
         activity.startActivity(i);
     }
 

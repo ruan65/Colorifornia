@@ -75,17 +75,20 @@ public class ColorCC extends BaseColorActivity {
     public void onPause() {
         super.onPause();
 
-        PrefsHelper.writeToPrefs(this, Cv.PREFS_RETAIN, Cv.LAST_COLOR_BOX_1,
-                fragmentColorBox.getHexColorParams());
+        if (!fullColorStarted) {
+            PrefsHelper.writeToPrefs(this, Cv.PREFS_RETAIN, Cv.LAST_COLOR_BOX_1,
+                    fragmentColorBox.getHexColorParams());
 
-        PrefsHelper.writeToPrefs(this, Cv.PREFS_RETAIN, Cv.LAST_COLOR_BOX_2,
-                fragmentColorBox2.getHexColorParams());
-
+            PrefsHelper.writeToPrefs(this, Cv.PREFS_RETAIN, Cv.LAST_COLOR_BOX_2,
+                    fragmentColorBox2.getHexColorParams());
+        }
         unlockInfo = false;
     }
 
     @Override
     public void onInfoClicked(FragmentColorBox box) {
+
+        fullColorStarted = true;
 
         changeFragment(box);
 

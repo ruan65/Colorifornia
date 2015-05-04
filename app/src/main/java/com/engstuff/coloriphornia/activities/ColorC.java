@@ -1,6 +1,7 @@
 package com.engstuff.coloriphornia.activities;
 
 import android.os.Bundle;
+import android.util.Log;
 
 import com.engstuff.coloriphornia.R;
 import com.engstuff.coloriphornia.data.Cv;
@@ -37,8 +38,12 @@ public class ColorC extends BaseColorActivity {
     @Override
     public void onPause() {
         super.onPause();
-        PrefsHelper.writeToPrefs(this, Cv.PREFS_RETAIN, Cv.LAST_COLOR,
-                currentColorBox.getHexColorParams());
+
+        if (!fullColorStarted) {
+
+            PrefsHelper.writeToPrefs(this, Cv.PREFS_RETAIN, Cv.LAST_COLOR,
+                    currentColorBox.getHexColorParams());
+        }
         unlockInfo = false;
     }
 
