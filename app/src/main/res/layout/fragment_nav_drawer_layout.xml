@@ -24,7 +24,7 @@
     <at.markushi.ui.CircleButton
         android:layout_width="72dp"
         android:layout_height="72dp"
-        android:src="@drawable/ic_looks_one_white_48dp"
+        android:src="@drawable/ic_tune_white_48dp"
         app:cb_color="@color/primaryColor"
         app:cb_pressedRingWidth="8dip"
         android:id="@+id/btn_one_color"

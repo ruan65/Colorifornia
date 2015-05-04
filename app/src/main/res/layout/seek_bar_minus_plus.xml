@@ -9,10 +9,11 @@
 
     <SeekBar
         android:layout_width="0dp"
-        android:layout_height="33dp"
-        android:layout_centerVertical="true"
+        android:id="@+id/seek_bar_group"
+        android:layout_height="34dp"
         android:layout_weight="1"
         android:max="@integer/sbMax"
+        android:layout_centerInParent="true"
         android:maxHeight="1000dp"
         android:paddingLeft="8dp"
         android:paddingRight="8dp"
@@ -23,6 +24,5 @@
         style="@style/seek_bar_btn_style_abstract"
         android:layout_marginRight="8dp"
         android:src="@drawable/ic_chevron_right_black_24dp" />
-
 
 </merge>
