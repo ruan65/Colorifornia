@@ -62,7 +62,6 @@ public class SeekBarsColorControlFragment extends ColorControlAbstractFragment
         alphaMode = PrefsHelper.readFromPrefsBoolean(act, act.getString(R.string.prefs_alpha_mode));
 
         if (openAlpha != null) showAlpha(alphaMode);
-
     }
 
     @Override

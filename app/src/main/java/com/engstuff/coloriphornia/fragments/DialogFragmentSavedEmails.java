@@ -78,6 +78,8 @@ public class DialogFragmentSavedEmails extends DialogFragment {
 
                                         Toast.makeText(activity, text(R.string.toast_email) + newEmail +
                                                 text(R.string.toast_hb_saved), Toast.LENGTH_SHORT).show();
+
+                                        activity.recreate();
                                     }
                                 })
                                 .setNegativeButton(R.string.btn_cancel, null).show();
@@ -99,7 +101,6 @@ public class DialogFragmentSavedEmails extends DialogFragment {
                                 sb.append(text(R.string.new_line) + e);
                             }
                         }
-
                         sb.append(text(R.string.sb_wb_deleted));
 
                         new AlertDialog.Builder(activity, AlertDialog.THEME_HOLO_LIGHT)
@@ -113,6 +114,7 @@ public class DialogFragmentSavedEmails extends DialogFragment {
                                         for (String key : emailsToDelete) {
                                             erasePrefs(activity, Cv.SAVED_EMAILS, key);
                                         }
+                                        activity.recreate();
                                     }
                                 })
                                 .setNegativeButton(R.string.no, null)
