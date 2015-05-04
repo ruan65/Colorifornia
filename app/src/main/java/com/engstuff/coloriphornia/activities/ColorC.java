@@ -39,11 +39,9 @@ public class ColorC extends BaseColorActivity {
     public void onPause() {
         super.onPause();
 
-        if (!fullColorStarted) {
-
             PrefsHelper.writeToPrefs(this, Cv.PREFS_RETAIN, Cv.LAST_COLOR,
                     currentColorBox.getHexColorParams());
-        }
+
         unlockInfo = false;
     }
 
