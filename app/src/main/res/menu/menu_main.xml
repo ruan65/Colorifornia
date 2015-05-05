@@ -57,4 +57,12 @@
         android:title="@string/open_image"
         android:visible="false"
         app:showAsAction="always" />
+
+    <item
+        android:id="@+id/tune_text"
+        android:icon="@drawable/ic_text_format_white_36dp"
+        android:orderInCategory="30"
+        android:title="@string/open_image"
+        android:visible="false"
+        app:showAsAction="always" />
 </menu>

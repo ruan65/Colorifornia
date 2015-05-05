@@ -1,17 +1,20 @@
 package com.engstuff.coloriphornia.activities;
 
 import android.os.Bundle;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.widget.TextView;
 
 import com.engstuff.coloriphornia.R;
 import com.engstuff.coloriphornia.data.Cv;
 import com.engstuff.coloriphornia.fragments.SeekBarsColorControlFragment;
+import com.engstuff.coloriphornia.helpers.AppHelper;
 import com.engstuff.coloriphornia.helpers.PrefsHelper;
 
 public class FontAndBackgroundActivity extends BaseColorActivity {
 
     private TextView text;
-    private boolean tuneColor = true;
+    private boolean tuneColor;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -32,6 +35,9 @@ public class FontAndBackgroundActivity extends BaseColorActivity {
     public void onResume() {
         super.onResume();
 
+        AppHelper.setColorToColorBox(this, Cv.LAST_BACkGROUND, fragmentControl, currentColorBox);
+        AppHelper.setLikesAndInfo(this, currentColorBox);
+
         text.setTextColor(PrefsHelper.readFromPrefsInt(
                 this, Cv.IMAGE_FRAGMENT_RETAINED, Cv.LAST_COLOR_FONT));
 
@@ -49,6 +55,33 @@ public class FontAndBackgroundActivity extends BaseColorActivity {
                 text.getCurrentTextColor());
 
         unlockInfo = false;
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        boolean rv = super.onCreateOptionsMenu(menu);
+        tuneTextIcon.setVisible(true);
+        return rv;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+
+        if (item.getItemId() == R.id.tune_text) {
+
+            tuneColor = !tuneColor;
+
+            tuneTextIcon.setIcon(tuneColor
+                    ? R.drawable.ic_format_color_fill_white_36dp
+                    : R.drawable.ic_text_format_white_36dp);
+
+            if (tuneColor) {
+
+            } else {
+//                fragmentControl.setControls(currentColorBox.getColor());
+            }
+        }
+        return super.onOptionsItemSelected(item);
     }
 
     @Override

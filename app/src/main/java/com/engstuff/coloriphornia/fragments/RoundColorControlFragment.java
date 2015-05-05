@@ -18,11 +18,9 @@ import com.software.shell.fab.ActionButton;
 public class RoundColorControlFragment extends ColorControlAbstractFragment
         implements ColorControlChangeListener {
 
+    private ActionButton reset;
     private RoundColorMaker roundControl;
-
-    ActionButton reset;
-    RoundColorMaker control;
-    TextView colorInfo, colorInfoAlpha;
+    private TextView colorInfo, colorInfoAlpha;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -30,7 +28,7 @@ public class RoundColorControlFragment extends ColorControlAbstractFragment
 
         View rootView = inflater.inflate(R.layout.fragment_round_control, container, false);
 
-        control = (RoundColorMaker) rootView.findViewById(R.id.view_round_color_maker);
+        roundControl = (RoundColorMaker) rootView.findViewById(R.id.view_round_color_maker);
 
         colorInfo = (TextView) rootView.findViewById(R.id.round_info);
 
@@ -41,7 +39,7 @@ public class RoundColorControlFragment extends ColorControlAbstractFragment
         reset.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                control.resetAlphaAndSatur();
+                roundControl.resetAlphaAndSatur();
             }
         });
 

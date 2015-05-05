@@ -23,7 +23,7 @@ public abstract class MockUpActivity extends ActionBarActivity {
     Toolbar mToolbar;
     DrawerLayout mDrawerLayout; // parent activity layout
     View mDrawerView; // child drawer view
-    MenuItem binIcon, checkModeIcon, undoIcon, sendIcon, openPhotoIcon;
+    MenuItem binIcon, checkModeIcon, undoIcon, sendIcon, openPhotoIcon, tuneTextIcon;
 
     protected final Activity activity = this;
 
@@ -90,6 +90,7 @@ public abstract class MockUpActivity extends ActionBarActivity {
         undoIcon = menu.findItem(R.id.undo);
         sendIcon = menu.findItem(R.id.send);
         openPhotoIcon = menu.findItem(R.id.open_image);
+        tuneTextIcon = menu.findItem(R.id.tune_text);
 
         return super.onCreateOptionsMenu(menu);
     }

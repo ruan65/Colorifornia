@@ -329,4 +329,8 @@ public class FragmentColorBox extends Fragment {
     public void setAlpha(int alpha) {
         this.alpha = alpha;
     }
+
+    public int getColor() {
+        return ColorParams.composeHex(alpha, r, g, b);
+    }
 }

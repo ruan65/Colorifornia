@@ -153,6 +153,15 @@ public class SeekBarsColorControlFragment extends ColorControlAbstractFragment
         sbBlue.getSeekBar().setProgress(b);
     }
 
+    public void setControls(int color) {
+
+        setControls(
+                color & 0xff000000,
+                color & 0x00ff0000,
+                color & 0x0000ff00,
+                color & 0x000000ff );
+    }
+
     @Override
     public void onStartTrackingTouch(SeekBar seekBar) {
         colorChangeListener.onColorControlStartTracking();
