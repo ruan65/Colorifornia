@@ -31,11 +31,11 @@ public class RoundColorMaker extends View implements View.OnTouchListener {
     private Paint p_satur = new Paint(Paint.ANTI_ALIAS_FLAG);
     private Paint p_alpha = new Paint(Paint.ANTI_ALIAS_FLAG);
     private Paint p_white = new Paint(Paint.ANTI_ALIAS_FLAG);
-    private Paint p_handl = new Paint(Paint.ANTI_ALIAS_FLAG);
+    private Paint p_handle = new Paint(Paint.ANTI_ALIAS_FLAG);
 
     private float deg_sat, deg_alp;
 
-    private float halfHaldle;
+    private float halfHandle;
 
     private int[] argb = {255, 0, 0, 0};
     private float[] hsv = {0, 1, 1};
@@ -67,9 +67,9 @@ public class RoundColorMaker extends View implements View.OnTouchListener {
         p_white.setStrokeWidth(3);
         p_white.setPathEffect(new DashPathEffect(new float[]{3, 5}, 0));
 
-        p_handl.setStrokeWidth(5);
-        p_handl.setStrokeCap(Paint.Cap.SQUARE);
-        p_handl.setColor(Color.WHITE);
+        p_handle.setStrokeWidth(5);
+        p_handle.setStrokeCap(Paint.Cap.SQUARE);
+        p_handle.setColor(Color.WHITE);
 
         setFocusable(true);
         setOnTouchListener(this);
@@ -103,7 +103,7 @@ public class RoundColorMaker extends View implements View.OnTouchListener {
 
         stroke = size * 0.11f;
 
-        halfHaldle = stroke / 1.85f;
+        halfHandle = stroke / 1.85f;
 
         r1 = size * 0.43f;
 
@@ -132,6 +132,7 @@ public class RoundColorMaker extends View implements View.OnTouchListener {
         float angle = hsv[0];
 
         int[] sar = {
+                
                 Color.HSVToColor(new float[]{angle, 1, 0}),
                 Color.HSVToColor(new float[]{angle, 1, 1}),
                 Color.HSVToColor(new float[]{angle, 0, 1}),
@@ -168,7 +169,7 @@ public class RoundColorMaker extends View implements View.OnTouchListener {
     private void drawHandle(Canvas c, float d, float rad) {
 
         c.rotate(d, cx, cy);
-        c.drawLine(cx + rad + halfHaldle, cy, cx + rad - halfHaldle, cy, p_handl);
+        c.drawLine(cx + rad + halfHandle, cy, cx + rad - halfHandle, cy, p_handle);
         c.rotate(-d, cx, cy);
     }
 

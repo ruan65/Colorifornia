@@ -57,4 +57,5 @@
     <string name="blue">"blue: "</string>
     <string name="open_image">Open Image</string>
     <string name="prefs_alpha_mode">alpha_mode</string>
+    <string name="title_activity_font_and_background">Colorifornia</string>
 </resources>
