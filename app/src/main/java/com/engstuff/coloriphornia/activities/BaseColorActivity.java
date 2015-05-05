@@ -34,6 +34,7 @@ public abstract class BaseColorActivity extends MockUpActivity implements
     protected FragmentColorBox fragmentColorBox;
     protected FragmentColorBox currentColorBox;
 
+    protected boolean unlockInfo;
     protected TextView progress;
 
     protected List<WeakReference<Fragment>> allAttachedFragments = new ArrayList<>();

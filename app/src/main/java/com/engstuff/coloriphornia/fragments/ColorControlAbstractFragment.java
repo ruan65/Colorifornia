@@ -3,6 +3,7 @@ package com.engstuff.coloriphornia.fragments;
 import android.app.Activity;
 import android.app.Fragment;
 
+import com.engstuff.coloriphornia.helpers.ColorParams;
 import com.engstuff.coloriphornia.interfaces.ColorControlChangeListener;
 
 public abstract class ColorControlAbstractFragment extends Fragment {
@@ -46,5 +47,9 @@ public abstract class ColorControlAbstractFragment extends Fragment {
 
     public int getAlpha() {
         return alpha;
+    }
+
+    public int getColor() {
+        return ColorParams.composeHex(alpha, r, g, b);
     }
 }

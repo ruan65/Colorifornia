@@ -16,8 +16,6 @@ public class ColorCC extends BaseColorActivity {
 
     private FragmentColorBox fragmentColorBox2;
 
-    private boolean unlockInfo;
-
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);

@@ -29,6 +29,8 @@ public interface Cv {
 
     String LAST_COLOR_BOX_1 = "last_color_box1";
     String LAST_COLOR_BOX_2 = "last_color_box2";
+    String LAST_COLOR_FONT = "last_color_font";
+    String LAST_BACkGROUND = "font_back";
 
     String IMAGE_FRAGMENT_RETAINED = "retained_img_fragment";
     String LAST_COLOR = "last_color";

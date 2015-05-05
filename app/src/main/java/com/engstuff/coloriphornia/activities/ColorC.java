@@ -11,8 +11,6 @@ import com.engstuff.coloriphornia.helpers.PrefsHelper;
 
 public class ColorC extends BaseColorActivity {
 
-    private boolean unlockInfo;
-
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);

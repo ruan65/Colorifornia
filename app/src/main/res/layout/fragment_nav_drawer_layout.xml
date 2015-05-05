@@ -60,6 +60,14 @@
             app:cb_color="@color/primaryColor"
             app:cb_pressedRingWidth="8dip" />
 
+        <at.markushi.ui.CircleButton
+            android:id="@+id/btn_font"
+            style="@style/nav_btn"
+            android:layout_below="@+id/btn_round_control_c"
+            android:src="@drawable/ic_format_color_text_white_36dp"
+            app:cb_color="@color/primaryColor"
+            app:cb_pressedRingWidth="8dip" />
+
     </RelativeLayout>
 
 

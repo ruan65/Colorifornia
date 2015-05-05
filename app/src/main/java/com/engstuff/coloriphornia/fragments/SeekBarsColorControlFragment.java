@@ -16,6 +16,7 @@ import com.engstuff.coloriphornia.R;
 import com.engstuff.coloriphornia.activities.BaseColorActivity;
 import com.engstuff.coloriphornia.components.views.SeekBarMinusPlus;
 import com.engstuff.coloriphornia.data.Cv;
+import com.engstuff.coloriphornia.helpers.ColorParams;
 import com.engstuff.coloriphornia.helpers.PrefsHelper;
 
 import java.lang.ref.WeakReference;
