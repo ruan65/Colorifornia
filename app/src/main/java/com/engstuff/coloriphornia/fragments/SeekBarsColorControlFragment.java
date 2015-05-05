@@ -2,6 +2,7 @@ package com.engstuff.coloriphornia.fragments;
 
 import android.app.Fragment;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -14,6 +15,7 @@ import android.widget.SeekBar;
 
 import com.engstuff.coloriphornia.R;
 import com.engstuff.coloriphornia.activities.BaseColorActivity;
+import com.engstuff.coloriphornia.activities.FontAndBackgroundActivity;
 import com.engstuff.coloriphornia.components.views.SeekBarMinusPlus;
 import com.engstuff.coloriphornia.data.Cv;
 import com.engstuff.coloriphornia.helpers.ColorParams;
@@ -101,6 +103,11 @@ public class SeekBarsColorControlFragment extends ColorControlAbstractFragment
         }
         sbAlpha.getSeekBar().setProgress(255);
         act.getProgress().setVisibility(View.INVISIBLE);
+
+        if (act.getClass().equals(FontAndBackgroundActivity.class)) {
+
+            ((FontAndBackgroundActivity) act).setTextColorOpaque();
+        }
     }
 
     protected void showAlpha(boolean show) {
@@ -151,15 +158,6 @@ public class SeekBarsColorControlFragment extends ColorControlAbstractFragment
         sbRed.getSeekBar().setProgress(r);
         sbGreen.getSeekBar().setProgress(g);
         sbBlue.getSeekBar().setProgress(b);
-    }
-
-    public void setControls(int color) {
-
-        setControls(
-                color & 0xff000000,
-                color & 0x00ff0000,
-                color & 0x0000ff00,
-                color & 0x000000ff );
     }
 
     @Override

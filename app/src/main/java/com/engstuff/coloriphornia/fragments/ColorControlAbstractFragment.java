@@ -2,6 +2,8 @@ package com.engstuff.coloriphornia.fragments;
 
 import android.app.Activity;
 import android.app.Fragment;
+import android.graphics.Color;
+import android.util.Log;
 
 import com.engstuff.coloriphornia.helpers.ColorParams;
 import com.engstuff.coloriphornia.interfaces.ColorControlChangeListener;
@@ -17,6 +19,7 @@ public abstract class ColorControlAbstractFragment extends Fragment {
     @Override
     public void onAttach(Activity activity) {
         super.onAttach(activity);
+
         try {
             colorChangeListener = (ColorControlChangeListener) activity;
         } catch (ClassCastException e) {
@@ -32,6 +35,11 @@ public abstract class ColorControlAbstractFragment extends Fragment {
     }
 
     public abstract void setControls(int alpha, int r, int g, int b);
+
+    public void setControls(int color) {
+
+        setControls(Color.alpha(color), Color.red(color), Color.green(color), color & 0xff);
+    }
 
     public int getR() {
         return r;

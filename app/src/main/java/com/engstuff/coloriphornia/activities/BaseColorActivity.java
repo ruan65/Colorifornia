@@ -180,6 +180,11 @@ public abstract class BaseColorActivity extends MockUpActivity implements
         currentColorBox
                 .setColorParams()
                 .changeColor();
+
+        if (unlockInfo) {
+            switchInfo(p, id);
+            animInfoAndGone();
+        }
     }
 
     @Override

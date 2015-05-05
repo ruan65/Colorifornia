@@ -18,8 +18,8 @@ import com.software.shell.fab.ActionButton;
 public class RoundColorControlFragment extends ColorControlAbstractFragment
         implements ColorControlChangeListener {
 
-    private ActionButton reset;
     private RoundColorMaker roundControl;
+    private ActionButton reset;
     private TextView colorInfo, colorInfoAlpha;
 
     @Override

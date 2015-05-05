@@ -1,7 +1,6 @@
 package com.engstuff.coloriphornia.activities;
 
 import android.os.Bundle;
-import android.util.Log;
 
 import com.engstuff.coloriphornia.R;
 import com.engstuff.coloriphornia.data.Cv;
@@ -46,15 +45,5 @@ public class ColorC extends BaseColorActivity {
     @Override
     protected int getLayoutResource() {
         return R.layout.activity_color_c;
-    }
-
-    @Override
-    public void onColorControlChange(int p, int id) {
-        super.onColorControlChange(p, id);
-
-        if (unlockInfo) {
-            switchInfo(p, id);
-            animInfoAndGone();
-        }
     }
 }

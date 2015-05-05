@@ -124,14 +124,4 @@ public class ColorCC extends BaseColorActivity {
 
         unlockInfo = true;
     }
-
-    @Override
-    public void onColorControlChange(int p, int id) {
-        super.onColorControlChange(p, id);
-
-        if (unlockInfo) {
-            switchInfo(p, id);
-            animInfoAndGone();
-        }
-    }
 }

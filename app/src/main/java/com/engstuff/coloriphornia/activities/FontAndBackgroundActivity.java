@@ -35,11 +35,11 @@ public class FontAndBackgroundActivity extends BaseColorActivity {
     public void onResume() {
         super.onResume();
 
-        AppHelper.setColorToColorBox(this, Cv.LAST_BACkGROUND, fragmentControl, currentColorBox);
-        AppHelper.setLikesAndInfo(this, currentColorBox);
+        AppHelper.setColorToColorBox(this, Cv.LAST_BACKGROUND, fragmentControl, fragmentColorBox);
+        AppHelper.setLikesAndInfo(this, fragmentColorBox);
 
         text.setTextColor(PrefsHelper.readFromPrefsInt(
-                this, Cv.IMAGE_FRAGMENT_RETAINED, Cv.LAST_COLOR_FONT));
+                this, Cv.PREFS_RETAIN, Cv.LAST_COLOR_FONT));
 
         unlockInfo = true;
     }
@@ -48,7 +48,7 @@ public class FontAndBackgroundActivity extends BaseColorActivity {
     public void onPause() {
         super.onPause();
 
-        PrefsHelper.writeToPrefs(this, Cv.PREFS_RETAIN, Cv.LAST_BACkGROUND,
+        PrefsHelper.writeToPrefs(this, Cv.PREFS_RETAIN, Cv.LAST_BACKGROUND,
                 fragmentColorBox.getHexColorParams());
 
         PrefsHelper.writeToPrefs(this, Cv.PREFS_RETAIN, Cv.LAST_COLOR_FONT,
@@ -59,8 +59,11 @@ public class FontAndBackgroundActivity extends BaseColorActivity {
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
+
         boolean rv = super.onCreateOptionsMenu(menu);
+
         tuneTextIcon.setVisible(true);
+
         return rv;
     }
 
@@ -75,11 +78,11 @@ public class FontAndBackgroundActivity extends BaseColorActivity {
                     ? R.drawable.ic_format_color_fill_white_36dp
                     : R.drawable.ic_text_format_white_36dp);
 
-            if (tuneColor) {
+            int currentTextColor = text.getCurrentTextColor();
+            int color = currentColorBox.getColor();
 
-            } else {
-//                fragmentControl.setControls(currentColorBox.getColor());
-            }
+            fragmentControl.setControls(tuneColor
+                    ? currentTextColor : color);
         }
         return super.onOptionsItemSelected(item);
     }
@@ -88,7 +91,13 @@ public class FontAndBackgroundActivity extends BaseColorActivity {
     public void onColorControlChange(int p, int id) {
 
         if (tuneColor) {
+
             text.setTextColor(fragmentControl.getColor());
+
+            if (unlockInfo) {
+                switchInfo(p, id);
+                animInfoAndGone();
+            }
         } else {
             super.onColorControlChange(p, id);
         }
@@ -97,5 +106,10 @@ public class FontAndBackgroundActivity extends BaseColorActivity {
     @Override
     protected int getLayoutResource() {
         return R.layout.activity_font_and_background;
+    }
+
+    public void setTextColorOpaque() {
+
+        text.setTextColor(text.getCurrentTextColor() | 0xff000000);
     }
 }
