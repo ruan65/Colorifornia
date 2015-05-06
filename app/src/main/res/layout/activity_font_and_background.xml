@@ -22,21 +22,37 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent" />
 
-            <ScrollView
-                android:id="@+id/scroller_id"
+            <SeekBar
+                android:id="@+id/seek_bar_text_zoom"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="39dp"
+                android:layout_alignParentTop="true"
+                android:layout_marginLeft="20dp"
+                android:layout_marginRight="100dp"
+                android:paddingBottom="15dp"
+                android:paddingTop="15dp"
+                android:progressDrawable="@drawable/empty_seek_bar"
+                android:thumb="@drawable/thumb_text_black"
+                android:thumbOffset="-3dp" />
+
+            <ScrollView
+                android:id="@+id/scroller_id"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/seek_bar_text_zoom"
+                android:layout_marginBottom="5dp"
                 android:fillViewport="true">
 
                 <TextView
-                    android:padding="10dp"
                     android:id="@+id/font_color"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
+                    android:ellipsize="end"
                     android:gravity="center_vertical"
+                    android:padding="10dp"
                     android:text="@string/dummy_text"
                     android:textSize="20sp" />
+
             </ScrollView>
 
             <include layout="@layout/seek_progress" />
