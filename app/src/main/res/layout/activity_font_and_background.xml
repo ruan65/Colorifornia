@@ -22,13 +22,22 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent" />
 
-            <TextView
-                android:id="@+id/font_color"
-                android:layout_width="wrap_content"
-                android:text="Hello"
-                android:layout_centerInParent="true"
-                android:textSize="60sp"
-                android:layout_height="wrap_content" />
+            <ScrollView
+                android:id="@+id/scroller_id"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="39dp"
+                android:fillViewport="true">
+
+                <TextView
+                    android:padding="10dp"
+                    android:id="@+id/font_color"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:gravity="center_vertical"
+                    android:text="@string/dummy_text"
+                    android:textSize="20sp" />
+            </ScrollView>
 
             <include layout="@layout/seek_progress" />
 

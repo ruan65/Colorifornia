@@ -1,6 +1,7 @@
 package com.engstuff.coloriphornia.activities;
 
 import android.os.Bundle;
+import android.text.method.ScrollingMovementMethod;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.TextView;
