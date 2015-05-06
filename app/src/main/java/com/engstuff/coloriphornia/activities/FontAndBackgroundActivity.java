@@ -1,9 +1,10 @@
 package com.engstuff.coloriphornia.activities;
 
 import android.os.Bundle;
-import android.text.method.ScrollingMovementMethod;
+import android.util.TypedValue;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.SeekBar;
 import android.widget.TextView;
 
 import com.engstuff.coloriphornia.R;
@@ -14,14 +15,37 @@ import com.engstuff.coloriphornia.helpers.PrefsHelper;
 
 public class FontAndBackgroundActivity extends BaseColorActivity {
 
-    private TextView text;
+    private TextView mText;
+    private SeekBar mSeekBar;
+
     private boolean tuneColor;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        text = (TextView) findViewById(R.id.font_color);
+        mText = (TextView) findViewById(R.id.font_color);
+
+        mSeekBar = (SeekBar) findViewById(R.id.seek_bar_text_zoom);
+
+        mSeekBar.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
+
+            @Override
+            public void onProgressChanged(SeekBar seekBar, int p, boolean fromUser) {
+
+                mText.setTextSize(TypedValue.COMPLEX_UNIT_SP, p / 10 + 12);
+            }
+
+            @Override
+            public void onStartTrackingTouch(SeekBar seekBar) {
+
+            }
+
+            @Override
+            public void onStopTrackingTouch(SeekBar seekBar) {
+
+            }
+        });
 
         fragmentControl = new SeekBarsColorControlFragment();
 
@@ -39,8 +63,10 @@ public class FontAndBackgroundActivity extends BaseColorActivity {
         AppHelper.setColorToColorBox(this, Cv.LAST_BACKGROUND, fragmentControl, fragmentColorBox);
         AppHelper.setLikesAndInfo(this, fragmentColorBox);
 
-        text.setTextColor(PrefsHelper.readFromPrefsInt(
+        mText.setTextColor(PrefsHelper.readFromPrefsInt(
                 this, Cv.PREFS_RETAIN, Cv.LAST_COLOR_FONT));
+
+        mText.setTextSize(TypedValue.COMPLEX_UNIT_SP, mSeekBar.getProgress() / 10 + 15);
 
         unlockInfo = true;
     }
@@ -53,7 +79,7 @@ public class FontAndBackgroundActivity extends BaseColorActivity {
                 fragmentColorBox.getHexColorParams());
 
         PrefsHelper.writeToPrefs(this, Cv.PREFS_RETAIN, Cv.LAST_COLOR_FONT,
-                text.getCurrentTextColor());
+                mText.getCurrentTextColor());
 
         unlockInfo = false;
     }
@@ -79,7 +105,7 @@ public class FontAndBackgroundActivity extends BaseColorActivity {
                     ? R.drawable.ic_format_color_fill_white_36dp
                     : R.drawable.ic_text_format_white_36dp);
 
-            int currentTextColor = text.getCurrentTextColor();
+            int currentTextColor = mText.getCurrentTextColor();
             int color = currentColorBox.getColor();
 
             fragmentControl.setControls(tuneColor
@@ -93,7 +119,7 @@ public class FontAndBackgroundActivity extends BaseColorActivity {
 
         if (tuneColor) {
 
-            text.setTextColor(fragmentControl.getColor());
+            mText.setTextColor(fragmentControl.getColor());
 
             if (unlockInfo) {
                 switchInfo(p, id);
@@ -111,6 +137,6 @@ public class FontAndBackgroundActivity extends BaseColorActivity {
 
     public void setTextColorOpaque() {
 
-        text.setTextColor(text.getCurrentTextColor() | 0xff000000);
+        mText.setTextColor(mText.getCurrentTextColor() | 0xff000000);
     }
 }

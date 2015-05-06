@@ -27,10 +27,12 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_alignParentTop="true"
+                android:max="700"
                 android:layout_marginLeft="20dp"
                 android:layout_marginRight="100dp"
                 android:paddingBottom="15dp"
                 android:paddingTop="15dp"
+                android:progress="200"
                 android:progressDrawable="@drawable/empty_seek_bar"
                 android:thumb="@drawable/thumb_text_black"
                 android:thumbOffset="-3dp" />
@@ -50,12 +52,11 @@
                     android:ellipsize="end"
                     android:gravity="center_vertical"
                     android:padding="10dp"
-                    android:text="@string/dummy_text"
-                    android:textSize="20sp" />
+                    android:text="@string/dummy_text" />
 
             </ScrollView>
 
-            <include layout="@layout/seek_progress" />
+            <include layout="@layout/seek_progress_info" />
 
         </RelativeLayout>
 
