@@ -24,16 +24,26 @@ public class AppHelper {
 
     public static void startFullColorC(Activity activity, String hex, boolean... favorites) {
 
-        hex = ColorParams.replaceNotValidHexForZeroColor(hex);
+        startFullColorC(activity, hex, null, favorites);
+    }
+
+    public static void startFullColorC(Activity activity, String background, String font, boolean... favorites) {
+
+        background = ColorParams.replaceNotValidHexForZeroColor(background);
 
         Intent i = new Intent(activity, FullScreenColorC.class);
 
-        i.putExtra(Cv.EXTRA_MESSAGE_COLOR_1, hex);
-        i.putExtra(Cv.EXTRA_MESSAGE_TEXT_COLOR_1, ColorParams.blackOrWhiteText(hex));
+        i.putExtra(Cv.EXTRA_MESSAGE_COLOR_1, background);
+        i.putExtra(Cv.EXTRA_MESSAGE_TEXT_COLOR_1, ColorParams.blackOrWhiteText(background));
         i.putExtra(Cv.CALLED_FROM_FAVORITES, favorites.length > 0 && favorites[0]);
+
+        if (null != font) {
+            i.putExtra(Cv.EXTRA_MESSAGE_FONT_COLOR, font);
+        }
 
         ((MockUpActivity) activity).setFullColorStarted(true);
         activity.startActivity(i);
+
     }
 
     public static void setLike(Context ctx, FragmentColorBox colorBox) {

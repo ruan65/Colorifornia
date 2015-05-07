@@ -12,6 +12,7 @@ public interface Cv {
     String EXTRA_MESSAGE_TEXT_COLOR_1 = "text_color_parameters_1";
     String EXTRA_MESSAGE_COLOR_2 = "color_parameters_2";
     String EXTRA_MESSAGE_TEXT_COLOR_2 = "text_color_parameters_2";
+    String EXTRA_MESSAGE_FONT_COLOR = "font_color";
     String CALLED_FROM_FAVORITES = "called_from_favorites";
 
     String CURRENT_COLOR_IMG = "current_color_img";

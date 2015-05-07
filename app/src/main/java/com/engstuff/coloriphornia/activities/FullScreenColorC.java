@@ -20,7 +20,6 @@ public class FullScreenColorC extends Activity implements OnFlingListener, HideI
 
     private boolean calledFromFavorites;
     private List<String> savedColorsSet;
-    private String startedColor;
     private int position;
     private boolean hideInfoFlag;
 
@@ -31,7 +30,7 @@ public class FullScreenColorC extends Activity implements OnFlingListener, HideI
 
         Intent intent = getIntent();
 
-        startedColor = intent.getStringExtra(Cv.EXTRA_MESSAGE_COLOR_1);
+        String startedColor = intent.getStringExtra(Cv.EXTRA_MESSAGE_COLOR_1);
 
         calledFromFavorites = intent.getBooleanExtra(Cv.CALLED_FROM_FAVORITES, false);
 
