@@ -29,13 +29,13 @@ import butterknife.OnTouch;
 
 public class FragmentFullScreenColor extends Fragment {
 
-    Activity activity;
-    String hexString;
-    Animation hideAnim, btnFadeInAnim, showAnim, btnFadeOutAnim;
+    private Activity activity;
+    private String hexString;
+    private String textHexString;
 
-    boolean whiteText;
+    private Animation hideAnim, btnFadeInAnim, showAnim, btnFadeOutAnim;
 
-    GestureDetector mGestureDetector;
+    private GestureDetector mGestureDetector;
 
     @InjectView(R.id.card_view_full_c) CardView cardWidgetForInfo;
 
@@ -189,9 +189,5 @@ public class FragmentFullScreenColor extends Fragment {
 
     public void setHexString(String hexString) {
         this.hexString = hexString;
-    }
-
-    public void setWhiteText(boolean whiteText) {
-        this.whiteText = whiteText;
     }
 }

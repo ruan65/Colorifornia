@@ -78,7 +78,7 @@ public class FontAndBackgroundActivity extends BaseColorActivity {
         mText.setTextColor(PrefsHelper.readFromPrefsInt(
                 this, Cv.PREFS_RETAIN, Cv.LAST_COLOR_FONT));
 
-        mText.setTextSize(TypedValue.COMPLEX_UNIT_DIP, mSeekBar.getProgress() / 10 + 15);
+        mText.setTextSize(TypedValue.COMPLEX_UNIT_DIP, interpolate(mSeekBar.getProgress()));
 
         unlockInfo = true;
     }

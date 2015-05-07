@@ -71,8 +71,6 @@ public class FullScreenColorC extends Activity implements OnFlingListener, HideI
 
         fragment.setHexString(hex);
 
-        fragment.setWhiteText(ColorParams.blackOrWhiteText(hex));
-
         return fragment;
     }
 

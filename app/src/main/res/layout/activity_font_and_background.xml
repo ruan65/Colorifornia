@@ -31,7 +31,7 @@
                 android:layout_marginRight="100dp"
                 android:paddingBottom="15dp"
                 android:paddingTop="15dp"
-                android:progress="200"
+                android:progress="40"
                 android:progressDrawable="@drawable/empty_seek_bar"
                 android:thumb="@drawable/thumb_text_black"
                 android:thumbOffset="-3dp" />
