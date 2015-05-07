@@ -27,7 +27,8 @@ public class AppHelper {
         startFullColorC(activity, hex, -1, favorites);
     }
 
-    public static void startFullColorC(Activity activity, String background, int font, boolean... favorites) {
+    public static void startFullColorC(Activity activity,
+                                       String background, int font, boolean... favorites) {
 
         background = ColorParams.replaceNotValidHexForZeroColor(background);
 

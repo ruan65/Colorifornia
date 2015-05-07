@@ -123,8 +123,7 @@ public class FragmentFullScreenColor extends Fragment {
         }
 
         infoText.setTextColor(textColor);
-        String text = ColorParams.composeInfo(hexString);
-        infoText.setText(text);
+        infoText.setText(ColorParams.composeInfo(hexString, textColor));
 
         return root;
     }

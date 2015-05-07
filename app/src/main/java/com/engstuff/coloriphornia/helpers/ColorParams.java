@@ -103,6 +103,20 @@ public class ColorParams {
         return sb.toString();
     }
 
+    public static String composeInfo(String hexColorString, int textColor) {
+
+        if (textColor == -1) {
+            return composeInfo(hexColorString);
+        }
+
+        StringBuffer result = new StringBuffer("Background color:\n\n");
+        result.append(composeInfo(hexColorString));
+        result.append("\n\nFont color:\n\n");
+        result.append(composeInfo(makeHexInfo(textColor)));
+
+        return result.toString();
+    }
+
     public static String composeInfoHTML(String hexColorString) {
 
         hexColorString = replaceNotValidHexForZeroColor(hexColorString);
