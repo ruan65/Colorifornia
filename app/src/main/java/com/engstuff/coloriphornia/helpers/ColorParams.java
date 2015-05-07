@@ -82,9 +82,9 @@ public class ColorParams {
             return composeInfoHTML(hexColorString);
         }
 
-        StringBuffer result = new StringBuffer("<b>Background color:</b><br/><br/>");
+        StringBuffer result = new StringBuffer("<b><u>Background color:</u></b><br/>");
         result.append(composeInfoHTML(hexColorString));
-        result.append("<br/><br/><b>Font color:</b><br/><br/>");
+        result.append("<br/><br/><b><u>Font color:</u></b><br/>");
         result.append(composeInfoHTML(makeHexInfo(textColor)));
 
         return result.toString();
