@@ -1,6 +1,7 @@
 package com.engstuff.coloriphornia.activities;
 
 import android.os.Bundle;
+import android.util.Log;
 import android.util.TypedValue;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -33,7 +34,7 @@ public class FontAndBackgroundActivity extends BaseColorActivity {
             @Override
             public void onProgressChanged(SeekBar seekBar, int p, boolean fromUser) {
 
-                mText.setTextSize(TypedValue.COMPLEX_UNIT_SP, p / 10 + 12);
+                mText.setTextSize(TypedValue.COMPLEX_UNIT_SP, interpolate(p));
             }
 
             @Override
@@ -56,6 +57,17 @@ public class FontAndBackgroundActivity extends BaseColorActivity {
                 .commit();
     }
 
+    /**
+     * Since I want non linear text sizing
+     * @param n taken from SeekBar progress
+     * @return float value accepted by TextView.setTextSize()
+     */
+    private float interpolate(int n) {
+
+        float k = n / 10f;
+        return k * k + 10f;
+    }
+
     @Override
     public void onResume() {
         super.onResume();
@@ -66,7 +78,7 @@ public class FontAndBackgroundActivity extends BaseColorActivity {
         mText.setTextColor(PrefsHelper.readFromPrefsInt(
                 this, Cv.PREFS_RETAIN, Cv.LAST_COLOR_FONT));
 
-        mText.setTextSize(TypedValue.COMPLEX_UNIT_SP, mSeekBar.getProgress() / 10 + 15);
+        mText.setTextSize(TypedValue.COMPLEX_UNIT_DIP, mSeekBar.getProgress() / 10 + 15);
 
         unlockInfo = true;
     }
