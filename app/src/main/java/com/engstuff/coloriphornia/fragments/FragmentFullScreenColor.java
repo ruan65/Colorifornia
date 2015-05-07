@@ -5,6 +5,7 @@ import android.app.Fragment;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.support.v7.widget.CardView;
+import android.text.Html;
 import android.view.GestureDetector;
 import android.view.LayoutInflater;
 import android.view.MotionEvent;
@@ -123,7 +124,7 @@ public class FragmentFullScreenColor extends Fragment {
         }
 
         infoText.setTextColor(textColor);
-        infoText.setText(ColorParams.composeInfo(hexString, textColor));
+        infoText.setText(Html.fromHtml(ColorParams.composeInfoHTML(hexString, textColor)));
 
         return root;
     }

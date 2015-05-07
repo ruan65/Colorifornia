@@ -75,44 +75,16 @@ public class ColorParams {
         return "#" + Integer.toHexString(color);
     }
 
-    public static String composeInfo(String hexColorString) {
-
-        int[] argb = ColorParams.hexStringToARGB(hexColorString);
-
-        float[] hsv = new float[3];
-
-        Color.RGBToHSV(argb[1], argb[2], argb[3], hsv);
-
-        StringBuilder sb = new StringBuilder("Opacity: ")
-                .append(percent255(argb[0])).append((char) 0x0025)
-
-                .append("\nRed: ").append(portion(argb[1]))
-                .append("\nGreen: ").append(portion(argb[2]))
-                .append("\nBlue: ").append(portion(argb[3]))
-
-                .append("\n\nHEX: ").append(hexColorString.substring(3).toUpperCase())
-                .append(", AHEX: ").append(hexColorString.substring(1).toUpperCase())
-
-                .append("\nARGB: ").append(makeArgbInfo(hexColorString))
-
-                .append("\nHSV:")
-                .append(" hue=").append((int) hsv[0]).append((char) 0x00B0)
-                .append(", sat=").append((int) (hsv[1] * 100)).append((char) 0x0025)
-                .append(", val=").append((int) (hsv[2] * 100)).append((char) 0x0025);
-
-        return sb.toString();
-    }
-
-    public static String composeInfo(String hexColorString, int textColor) {
+    public static String composeInfoHTML(String hexColorString, int textColor) {
 
         if (textColor == -1) {
-            return composeInfo(hexColorString);
+            return composeInfoHTML(hexColorString);
         }
 
-        StringBuffer result = new StringBuffer("Background color:\n\n");
-        result.append(composeInfo(hexColorString));
-        result.append("\n\nFont color:\n\n");
-        result.append(composeInfo(makeHexInfo(textColor)));
+        StringBuffer result = new StringBuffer("<b>Background color:</b><br/><br/>");
+        result.append(composeInfoHTML(hexColorString));
+        result.append("<br/><br/><b>Font color:</b><br/><br/>");
+        result.append(composeInfoHTML(makeHexInfo(textColor)));
 
         return result.toString();
     }
@@ -131,8 +103,8 @@ public class ColorParams {
                 .append(percent255(argb[0])).append((char) 0x0025)
 
                 .append("<br/>Red: ").append(portion(argb[1]))
-                .append(" Green: ").append(portion(argb[2]))
-                .append(" Blue: ").append(portion(argb[3]))
+                .append("<br/>Green: ").append(portion(argb[2]))
+                .append("<br/>Blue: ").append(portion(argb[3]))
 
                 .append("<br/><b>HEX:</b> ").append(hexColorString.substring(3).toUpperCase())
                 .append("<br><b>AHEX:</b> ").append(hexColorString.substring(1).toUpperCase())
