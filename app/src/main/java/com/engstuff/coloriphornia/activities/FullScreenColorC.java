@@ -8,7 +8,6 @@ import android.os.Bundle;
 import com.engstuff.coloriphornia.R;
 import com.engstuff.coloriphornia.data.Cv;
 import com.engstuff.coloriphornia.fragments.FragmentFullScreenColor;
-import com.engstuff.coloriphornia.helpers.ColorParams;
 import com.engstuff.coloriphornia.helpers.PrefsHelper;
 import com.engstuff.coloriphornia.interfaces.HideInfoListener;
 import com.engstuff.coloriphornia.interfaces.OnFlingListener;
@@ -31,6 +30,7 @@ public class FullScreenColorC extends Activity implements OnFlingListener, HideI
         Intent intent = getIntent();
 
         String startedColor = intent.getStringExtra(Cv.EXTRA_MESSAGE_COLOR_1);
+        int fontColor = intent.getIntExtra(Cv.EXTRA_MESSAGE_FONT_COLOR, -1);
 
         calledFromFavorites = intent.getBooleanExtra(Cv.CALLED_FROM_FAVORITES, false);
 
@@ -40,7 +40,7 @@ public class FullScreenColorC extends Activity implements OnFlingListener, HideI
             position = savedColorsSet.indexOf(startedColor);
         }
 
-        performFragmentTransaction(prepareFragment(startedColor));
+        performFragmentTransaction(prepareFragment(startedColor, fontColor));
     }
 
     @Override
@@ -60,15 +60,17 @@ public class FullScreenColorC extends Activity implements OnFlingListener, HideI
                     : position > 0 ? savedColorsSet.get(--position)
                     : savedColorsSet.get(position = savedColorsSet.size() - 1);
 
-            performFragmentTransaction(prepareFragment(hex));
+            performFragmentTransaction(prepareFragment(hex, -1));
         }
     }
 
-    private FragmentFullScreenColor prepareFragment(String hex) {
+    private FragmentFullScreenColor prepareFragment(String background, int font) {
 
         FragmentFullScreenColor fragment = new FragmentFullScreenColor();
 
-        fragment.setHexString(hex);
+        fragment.setHexString(background);
+
+        fragment.setTextColor(font);
 
         return fragment;
     }

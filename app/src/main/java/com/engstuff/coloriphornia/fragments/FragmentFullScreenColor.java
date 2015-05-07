@@ -31,11 +31,33 @@ public class FragmentFullScreenColor extends Fragment {
 
     private Activity activity;
     private String hexString;
-    private String textHexString;
+    private int textColor = -1;
 
     private Animation hideAnim, btnFadeInAnim, showAnim, btnFadeOutAnim;
 
-    private GestureDetector mGestureDetector;
+    private final GestureDetector mGestureDetector = new GestureDetector(activity,
+            new GestureDetector.SimpleOnGestureListener() {
+
+        private static final int DISTANCE_THRESHOLD = 100;
+        private static final int VELOCITY_THRESHOLD = 100;
+
+        @Override
+        public boolean onFling(MotionEvent e1, MotionEvent e2, float velocityX, float velocityY) {
+
+            float distanceX = e2.getX() - e1.getX();
+            float distanceY = e2.getY() - e1.getY();
+
+            if (Math.abs(distanceX) > Math.abs(distanceY)
+                    && Math.abs(distanceX) > DISTANCE_THRESHOLD
+                    && Math.abs(velocityX) > VELOCITY_THRESHOLD) {
+
+                ((OnFlingListener) activity).onFling(distanceX < 0);
+
+                return true;
+            }
+            return false;
+        }
+    });
 
     @InjectView(R.id.card_view_full_c) CardView cardWidgetForInfo;
 
@@ -52,29 +74,6 @@ public class FragmentFullScreenColor extends Fragment {
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-
-        mGestureDetector = new GestureDetector(activity, new GestureDetector.SimpleOnGestureListener() {
-
-            private static final int DISTANCE_THRESHOLD = 100;
-            private static final int VELOCITY_THRESHOLD = 100;
-
-            @Override
-            public boolean onFling(MotionEvent e1, MotionEvent e2, float velocityX, float velocityY) {
-
-                float distanceX = e2.getX() - e1.getX();
-                float distanceY = e2.getY() - e1.getY();
-
-                if (Math.abs(distanceX) > Math.abs(distanceY)
-                        && Math.abs(distanceX) > DISTANCE_THRESHOLD
-                        && Math.abs(velocityX) > VELOCITY_THRESHOLD) {
-
-                    ((OnFlingListener) activity).onFling(distanceX < 0);
-
-                    return true;
-                }
-                return false;
-            }
-        });
 
         setRetainInstance(true);
 
@@ -119,10 +118,13 @@ public class FragmentFullScreenColor extends Fragment {
 
         cardWidgetForInfo.setCardBackgroundColor(backCardColor);
 
-        int textColor = whiteText ? Color.WHITE : Color.BLACK;
+        if (textColor == -1) {
+            textColor = whiteText ? Color.WHITE : Color.BLACK;
+        }
 
         infoText.setTextColor(textColor);
-        infoText.setText(ColorParams.composeInfo(hexString));
+        String text = ColorParams.composeInfo(hexString);
+        infoText.setText(text);
 
         return root;
     }
@@ -189,5 +191,9 @@ public class FragmentFullScreenColor extends Fragment {
 
     public void setHexString(String hexString) {
         this.hexString = hexString;
+    }
+
+    public void setTextColor(int color) {
+        textColor = color;
     }
 }

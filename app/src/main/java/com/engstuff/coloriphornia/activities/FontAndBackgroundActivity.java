@@ -10,8 +10,10 @@ import android.widget.TextView;
 
 import com.engstuff.coloriphornia.R;
 import com.engstuff.coloriphornia.data.Cv;
+import com.engstuff.coloriphornia.fragments.FragmentColorBox;
 import com.engstuff.coloriphornia.fragments.SeekBarsColorControlFragment;
 import com.engstuff.coloriphornia.helpers.AppHelper;
+import com.engstuff.coloriphornia.helpers.ColorParams;
 import com.engstuff.coloriphornia.helpers.PrefsHelper;
 
 public class FontAndBackgroundActivity extends BaseColorActivity {
@@ -140,6 +142,14 @@ public class FontAndBackgroundActivity extends BaseColorActivity {
         } else {
             super.onColorControlChange(p, id);
         }
+    }
+
+    @Override
+    public void onInfoClicked(FragmentColorBox box) {
+
+        fullColorStarted = true;
+
+        AppHelper.startFullColorC(this, box.getHexColorParams(), mText.getCurrentTextColor());
     }
 
     @Override
