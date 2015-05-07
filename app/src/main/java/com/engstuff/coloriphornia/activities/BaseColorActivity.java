@@ -112,14 +112,14 @@ public abstract class BaseColorActivity extends MockUpActivity implements
 
             case R.id.ctx_menu_share_color:
 
-                AppHelper.fireShareIntent(this, composeEmailBody(true));
+                AppHelper.fireShareIntent(this, composeEmailBody(true, textColor));
 
                 return true;
         }
         return super.onContextItemSelected(item);
     }
 
-    protected String composeEmailBody(boolean calledFromContextMenu) {
+    protected String composeEmailBody(boolean calledFromContextMenu, int fontColor) {
 
         StringBuilder result = new StringBuilder(getString(R.string.email_body_header));
 
@@ -131,11 +131,13 @@ public abstract class BaseColorActivity extends MockUpActivity implements
 
                 if (f.getClass().equals(FragmentColorBox.class)) {
 
-                    result.append("<p>" + ColorParams.composeInfoHTML(((FragmentColorBox) f).getHexColorParams()) + "</p>");
+                    result.append("<p>" + ColorParams.composeInfoHTML(
+                            ((FragmentColorBox) f).getHexColorParams(), fontColor) + "</p>");
                 }
             }
         } else {
-            result.append("<p>" + ColorParams.composeInfoHTML(currentColorBox.getHexColorParams()) + "</p>");
+            result.append("<p>" + ColorParams.composeInfoHTML(
+                    currentColorBox.getHexColorParams(), fontColor) + "</p>");
         }
         return result.toString();
     }

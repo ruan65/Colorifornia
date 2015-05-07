@@ -44,7 +44,8 @@ public class ColorParams {
 
     public static String replaceNotValidHexForZeroColor(String hexARGB) {
 
-        if (!hexARGB.startsWith("#") || !(hexARGB.length() == 7 || hexARGB.length() == 9)) {
+        if (hexARGB == null || !hexARGB.startsWith("#")
+                || !(hexARGB.length() == 7 || hexARGB.length() == 9) ) {
 
             hexARGB = "#00000000";
         }

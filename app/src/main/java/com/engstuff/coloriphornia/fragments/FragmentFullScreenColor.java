@@ -175,7 +175,7 @@ public class FragmentFullScreenColor extends Fragment {
 
     @OnClick(R.id.send_info_full_c)
     public void sendInfo() {
-        AppHelper.fireShareIntent(activity, ColorParams.composeInfoHTML(hexString));
+        AppHelper.fireShareIntent(activity, ColorParams.composeInfoHTML(hexString, textColor));
     }
 
     @OnClick(R.id.layout_full_screen_color_fragment)

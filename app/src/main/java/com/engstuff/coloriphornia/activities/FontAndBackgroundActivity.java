@@ -1,7 +1,6 @@
 package com.engstuff.coloriphornia.activities;
 
 import android.os.Bundle;
-import android.util.Log;
 import android.util.TypedValue;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -13,7 +12,6 @@ import com.engstuff.coloriphornia.data.Cv;
 import com.engstuff.coloriphornia.fragments.FragmentColorBox;
 import com.engstuff.coloriphornia.fragments.SeekBarsColorControlFragment;
 import com.engstuff.coloriphornia.helpers.AppHelper;
-import com.engstuff.coloriphornia.helpers.ColorParams;
 import com.engstuff.coloriphornia.helpers.PrefsHelper;
 
 public class FontAndBackgroundActivity extends BaseColorActivity {
@@ -133,7 +131,7 @@ public class FontAndBackgroundActivity extends BaseColorActivity {
 
         if (tuneColor) {
 
-            mText.setTextColor(fragmentControl.getColor());
+            mText.setTextColor(textColor = fragmentControl.getColor());
 
             if (unlockInfo) {
                 switchInfo(p, id);
@@ -159,6 +157,6 @@ public class FontAndBackgroundActivity extends BaseColorActivity {
 
     public void setTextColorOpaque() {
 
-        mText.setTextColor(mText.getCurrentTextColor() | 0xff000000);
+        mText.setTextColor(textColor = (mText.getCurrentTextColor() | 0xff000000));
     }
 }

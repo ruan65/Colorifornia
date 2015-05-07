@@ -24,6 +24,7 @@ public abstract class MockUpActivity extends ActionBarActivity {
     DrawerLayout mDrawerLayout; // parent activity layout
     View mDrawerView; // child drawer view
     MenuItem binIcon, checkModeIcon, undoIcon, sendIcon, openPhotoIcon, tuneTextIcon;
+    int textColor = -1;
 
     protected final Activity activity = this;
 
@@ -103,7 +104,7 @@ public abstract class MockUpActivity extends ActionBarActivity {
             case R.id.send:
 
                 try {
-                    AppHelper.fireShareIntent(this, composeEmailBody(false));
+                    AppHelper.fireShareIntent(this, composeEmailBody(false, textColor));
                 } catch (Exception e) {
                     Toast.makeText(this, getString(R.string.email_creating_error),
                             Toast.LENGTH_SHORT).show();
@@ -125,7 +126,7 @@ public abstract class MockUpActivity extends ActionBarActivity {
 
     protected abstract int getLayoutResource();
 
-    protected abstract String composeEmailBody(boolean calledFromContextMenu);
+    protected abstract String composeEmailBody(boolean calledFromContextMenu, int textColor);
 
     public void setFullColorStarted(boolean fullColorStarted) {
         this.fullColorStarted = fullColorStarted;
