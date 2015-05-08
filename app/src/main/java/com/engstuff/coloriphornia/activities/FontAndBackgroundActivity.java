@@ -1,5 +1,6 @@
 package com.engstuff.coloriphornia.activities;
 
+import android.graphics.Typeface;
 import android.os.Bundle;
 import android.util.TypedValue;
 import android.view.Menu;
@@ -20,6 +21,7 @@ public class FontAndBackgroundActivity extends BaseColorActivity {
     private SeekBar mSeekBar;
 
     private boolean tuneColor;
+    private boolean bold, italic;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -111,19 +113,42 @@ public class FontAndBackgroundActivity extends BaseColorActivity {
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
 
-        if (item.getItemId() == R.id.tune_text) {
+        switch (item.getItemId()) {
 
-            tuneColor = !tuneColor;
+            case R.id.tune_text:
 
-            tuneTextIcon.setIcon(tuneColor
-                    ? R.drawable.ic_flip_to_front_white_36dp
-                    : R.drawable.ic_flip_to_back_white_36dp);
+                tuneColor = !tuneColor;
 
-            int currentTextColor = mText.getCurrentTextColor();
-            int color = currentColorBox.getColor();
+                tuneTextIcon.setIcon(tuneColor
+                        ? R.drawable.ic_flip_to_front_white_36dp
+                        : R.drawable.ic_flip_to_back_white_36dp);
 
-            fragmentControl.setControls(tuneColor
-                    ? currentTextColor : color);
+                int currentTextColor = mText.getCurrentTextColor();
+                int color = currentColorBox.getColor();
+
+                fragmentControl.setControls(tuneColor
+                        ? currentTextColor : color);
+                break;
+
+            case R.id.text_bold:
+
+                bold = !bold;
+                if (italic) {
+                    mText.setTypeface(null, bold ? Typeface.BOLD_ITALIC : Typeface.ITALIC);
+                } else {
+                    mText.setTypeface(null, bold ? Typeface.BOLD : Typeface.NORMAL);
+                }
+                break;
+
+            case R.id.text_italic:
+
+                italic = !italic;
+                if (bold) {
+                    mText.setTypeface(null, italic ? Typeface.BOLD_ITALIC : Typeface.BOLD);
+                } else {
+                    mText.setTypeface(null, italic ? Typeface.ITALIC : Typeface.NORMAL);
+                }
+                break;
         }
         return super.onOptionsItemSelected(item);
     }
