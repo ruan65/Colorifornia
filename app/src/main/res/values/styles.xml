@@ -49,18 +49,10 @@
         <item name="android:layout_alignTop">@+id/seek_bar_group</item>
     </style>
 
-    <style name="nav_btn_row">
-        <item name="android:orientation">vertical</item>
-        <item name="android:layout_width">0dp</item>
-        <item name="android:layout_height">match_parent</item>
-        <item name="android:layout_weight">1</item>
-    </style>
-
     <style name="nav_btn">
         <item name="android:layout_width">72dp</item>
         <item name="android:layout_height">72dp</item>
-        <item name="android:layout_centerHorizontal">true</item>
-        <item name="android:layout_margin">5dp</item>
+        <item name="android:layout_margin">10dp</item>
     </style>
 
 </resources>
