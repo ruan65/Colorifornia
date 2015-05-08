@@ -102,6 +102,8 @@ public class FontAndBackgroundActivity extends BaseColorActivity {
         boolean rv = super.onCreateOptionsMenu(menu);
 
         tuneTextIcon.setVisible(true);
+        boldIcon.setVisible(true);
+        italicIcon.setVisible(true);
 
         return rv;
     }
@@ -114,8 +116,8 @@ public class FontAndBackgroundActivity extends BaseColorActivity {
             tuneColor = !tuneColor;
 
             tuneTextIcon.setIcon(tuneColor
-                    ? R.drawable.ic_format_color_fill_white_36dp
-                    : R.drawable.ic_text_format_white_36dp);
+                    ? R.drawable.ic_flip_to_front_white_36dp
+                    : R.drawable.ic_flip_to_back_white_36dp);
 
             int currentTextColor = mText.getCurrentTextColor();
             int color = currentColorBox.getColor();

@@ -60,8 +60,24 @@
 
     <item
         android:id="@+id/tune_text"
-        android:icon="@drawable/ic_text_format_white_36dp"
-        android:orderInCategory="30"
+        android:icon="@drawable/ic_flip_to_back_white_36dp"
+        android:orderInCategory="17"
+        android:title="@string/open_image"
+        android:visible="false"
+        app:showAsAction="always" />
+
+    <item
+        android:id="@+id/text_italic"
+        android:icon="@drawable/ic_format_italic_white_36dp"
+        android:orderInCategory="19"
+        android:title="@string/open_image"
+        android:visible="false"
+        app:showAsAction="always" />
+
+    <item
+        android:id="@+id/text_bold"
+        android:icon="@drawable/ic_format_bold_white_36dp"
+        android:orderInCategory="18"
         android:title="@string/open_image"
         android:visible="false"
         app:showAsAction="always" />

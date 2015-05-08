@@ -23,7 +23,9 @@ public abstract class MockUpActivity extends ActionBarActivity {
     Toolbar mToolbar;
     DrawerLayout mDrawerLayout; // parent activity layout
     View mDrawerView; // child drawer view
-    MenuItem binIcon, checkModeIcon, undoIcon, sendIcon, openPhotoIcon, tuneTextIcon;
+    MenuItem binIcon, checkModeIcon, undoIcon, sendIcon,
+            openPhotoIcon, tuneTextIcon, boldIcon, italicIcon;
+
     int textColor = -1;
 
     protected final Activity activity = this;
@@ -92,6 +94,8 @@ public abstract class MockUpActivity extends ActionBarActivity {
         sendIcon = menu.findItem(R.id.send);
         openPhotoIcon = menu.findItem(R.id.open_image);
         tuneTextIcon = menu.findItem(R.id.tune_text);
+        boldIcon = menu.findItem(R.id.text_bold);
+        italicIcon = menu.findItem(R.id.text_italic);
 
         return super.onCreateOptionsMenu(menu);
     }

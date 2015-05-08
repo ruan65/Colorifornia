@@ -1,5 +1,5 @@
 <resources>
-    <!-- Default screen margins, per the Android Design guidelines. -->
+
     <dimen name="activity_horizontal_margin">16dp</dimen>
     <dimen name="activity_vertical_margin">16dp</dimen>
     <dimen name="nav_drawer_width">280dp</dimen>
@@ -10,8 +10,8 @@
     <dimen name="stroke">4dp</dimen>
 
     <integer name="color_box_weight">100</integer>
-    <integer name="control_weight">90</integer>
-    <integer name="control_weight_low">60</integer>
+    <integer name="control_weight">64</integer>
+    <integer name="control_weight_low">48</integer>
 
     <integer name="sbMax">0xff</integer>
 
