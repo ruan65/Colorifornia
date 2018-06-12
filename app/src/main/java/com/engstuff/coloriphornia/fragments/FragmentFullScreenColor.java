@@ -68,7 +68,7 @@ public class FragmentFullScreenColor extends Fragment {
 
     @InjectView(R.id.close_info_full_c_card)ImageView closeInfo;
 
-    @InjectView(R.id.send_info_full_c) ImageView sendInfo;
+//    @InjectView(R.id.send_info_full_c) ImageView sendInfo;
 
     public FragmentFullScreenColor() {
     }
@@ -105,10 +105,10 @@ public class FragmentFullScreenColor extends Fragment {
                         ? R.drawable.ic_remove_circle_outline_white_36dp
                         : R.drawable.ic_remove_circle_outline_black_36dp);
 
-        sendInfo.setImageResource(
-                whiteText
-                        ? R.drawable.ic_send_white_36dp
-                        : R.drawable.ic_send_black_36dp);
+//        sendInfo.setImageResource(
+//                whiteText
+//                        ? R.drawable.ic_send_white_36dp
+//                        : R.drawable.ic_send_black_36dp);
 
         hexString = ColorParams.replaceNotValidHexForZeroColor(hexString);
 
@@ -173,10 +173,10 @@ public class FragmentFullScreenColor extends Fragment {
         }
     }
 
-    @OnClick(R.id.send_info_full_c)
-    public void sendInfo() {
-        AppHelper.fireShareIntent(activity, ColorParams.composeInfoHTML(hexString, textColor));
-    }
+//    @OnClick(R.id.send_info_full_c)
+//    public void sendInfo() {
+//        AppHelper.fireShareIntent(activity, ColorParams.composeInfoHTML(hexString, textColor));
+//    }
 
     @OnClick(R.id.layout_full_screen_color_fragment)
     public void close() {

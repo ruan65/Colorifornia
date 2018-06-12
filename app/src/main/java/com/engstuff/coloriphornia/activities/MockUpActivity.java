@@ -23,7 +23,8 @@ public abstract class MockUpActivity extends AppCompatActivity {
     Toolbar mToolbar;
     DrawerLayout mDrawerLayout; // parent activity layout
     View mDrawerView; // child drawer view
-    MenuItem binIcon, checkModeIcon, undoIcon, sendIcon,
+    MenuItem binIcon, checkModeIcon, undoIcon,
+//            sendIcon,
             openPhotoIcon, tuneTextIcon, boldIcon, italicIcon;
 
     int textColor = -1;
@@ -91,7 +92,7 @@ public abstract class MockUpActivity extends AppCompatActivity {
         binIcon = menu.findItem(R.id.bin);
         checkModeIcon = menu.findItem(R.id.check_mode);
         undoIcon = menu.findItem(R.id.undo);
-        sendIcon = menu.findItem(R.id.send);
+//        sendIcon = menu.findItem(R.id.send);
         openPhotoIcon = menu.findItem(R.id.open_image);
         tuneTextIcon = menu.findItem(R.id.tune_text);
         boldIcon = menu.findItem(R.id.text_bold);
@@ -105,18 +106,18 @@ public abstract class MockUpActivity extends AppCompatActivity {
 
         switch (item.getItemId()) {
 
-            case R.id.send:
-
-                try {
-                    AppHelper.fireShareIntent(this, composeEmailBody(false, textColor));
-                } catch (Exception e) {
-                    Toast.makeText(this, getString(R.string.email_creating_error),
-                            Toast.LENGTH_SHORT).show();
-
-                    Log.e(getApplication().getPackageName(),
-                            "Error while creating email: " + e.getMessage());
-                    e.printStackTrace();
-                } break;
+//            case R.id.send:
+//
+//                try {
+//                    AppHelper.fireShareIntent(this, composeEmailBody(false, textColor));
+//                } catch (Exception e) {
+//                    Toast.makeText(this, getString(R.string.email_creating_error),
+//                            Toast.LENGTH_SHORT).show();
+//
+//                    Log.e(getApplication().getPackageName(),
+//                            "Error while creating email: " + e.getMessage());
+//                    e.printStackTrace();
+//                } break;
 
             case R.id.back:
 

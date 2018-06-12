@@ -88,7 +88,7 @@ public abstract class BaseColorActivity extends MockUpActivity implements
     public boolean onCreateOptionsMenu(Menu menu) {
 
         boolean rv = super.onCreateOptionsMenu(menu);
-        sendIcon.setVisible(true);
+//        sendIcon.setVisible(true);
         return rv;
     }
 

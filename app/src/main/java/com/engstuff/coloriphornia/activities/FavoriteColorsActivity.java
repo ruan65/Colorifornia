@@ -148,7 +148,7 @@ public class FavoriteColorsActivity extends MockUpActivity {
         checkModeIcon.setVisible(false);
         binIcon.setVisible(true);
         undoIcon.setVisible(true);
-        sendIcon.setVisible(true);
+//        sendIcon.setVisible(true);
     }
 
     private void setViewMode() {
@@ -162,7 +162,7 @@ public class FavoriteColorsActivity extends MockUpActivity {
         checkModeIcon.setVisible(true);
         binIcon.setVisible(false);
         undoIcon.setVisible(false);
-        sendIcon.setVisible(false);
+//        sendIcon.setVisible(false);
     }
 
     private void checkColor(View view, int position, boolean check) {
@@ -236,14 +236,14 @@ public class FavoriteColorsActivity extends MockUpActivity {
                         .show();
                 break;
 
-            case R.id.send:
-
-                if (areAllUnchecked()) {
-                    Toast.makeText(this, getString(R.string.email_error_no_selected),
-                            Toast.LENGTH_SHORT).show();
-                    return true;
-                }
-                break;
+//            case R.id.send:
+//
+//                if (areAllUnchecked()) {
+//                    Toast.makeText(this, getString(R.string.email_error_no_selected),
+//                            Toast.LENGTH_SHORT).show();
+//                    return true;
+//                }
+//                break;
 
             case R.id.check_mode:
 

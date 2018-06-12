@@ -34,13 +34,13 @@
         android:visible="false"
         app:showAsAction="always" />
 
-    <item
-        android:id="@+id/send"
-        android:icon="@drawable/ic_send_white_36dp"
-        android:orderInCategory="200"
-        android:title="@string/share"
-        android:visible="false"
-        app:showAsAction="always" />
+    <!--<item-->
+        <!--android:id="@+id/send"-->
+        <!--android:icon="@drawable/ic_send_white_36dp"-->
+        <!--android:orderInCategory="200"-->
+        <!--android:title="@string/share"-->
+        <!--android:visible="false"-->
+        <!--app:showAsAction="always" />-->
 
     <item
         android:id="@+id/open_image"
